@@ -246,3 +246,13 @@ Hide unwanted code output, such as inherent examples for functions
 # ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
 ```
+
+
+### Web scraping
+http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html[http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html]
+```{r, web1, results='hide',eval=F}
+library(XML)
+readHTMLTable()
+```  
+
+
