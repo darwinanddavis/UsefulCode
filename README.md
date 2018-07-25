@@ -6,8 +6,6 @@ Files:
 .html  
 
 
-## Overview
-
 This document outlines some useful R code for plotting, cool functions, and other random tidbits.   
 
 ### Install dependencies
@@ -247,7 +245,7 @@ a1Ina2_l  <- sqldf('SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodl')
 #####  
 
 ### R Markdown
-Hide unwanted code output, such as inherent examples for functions  
+**Hide unwanted code output, such as inherent examples for functions** 
 ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
 # ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
@@ -260,4 +258,3 @@ http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLT
 library(XML)
 readHTMLTable()
 ```
-
