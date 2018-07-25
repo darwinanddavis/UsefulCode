@@ -5,10 +5,6 @@ Files:
 .Rmd  
 .html  
 
-Date: `r params$date`  
-R version: `r params$version`  
-*Corresponding author: `r params$email`
-
 ## Overview
 
 This document outlines some useful R code for plotting, cool functions, and other random tidbits.   
