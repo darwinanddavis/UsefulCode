@@ -4,7 +4,7 @@ author:
 - |-
   _^1^ Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322_
   _^2^ _
-  ^['This Supplementary Material can be found at https://github.com/useful_code']
+  ^['This Supplementary Material can be found at https://github.com/darwinanddavis/UsefulCode']
 #bibliography:/Users/malishev/Documents/Melbourne Uni/Thesis_2016/library.bib
 output:
   html_document:
@@ -301,4 +301,11 @@ Hide unwanted code output, such as inherent examples for functions
 
 # ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
+```
+
+### Web scraping
+http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html[http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html]
+```{r, web1, results='hide',eval=F}
+library(XML)
+readHTMLTable()
 ```
