@@ -21,7 +21,7 @@ lapply(packages,library,character.only=T)
 ### Classes
 Convert character to factor to numeric without conversion error
 ```{r, classes1, results='hide',eval=F}
-read.csv(f,header=F,sep=",",row.names=NULL,stringsAsFactors=FALSE, strip.white=TRUE)
+read.table(f,header=T,sep=",",row.names=NULL,stringsAsFactors=FALSE, strip.white=TRUE)
 f$V2<-as.numeric(f$V2)
 ```
 
