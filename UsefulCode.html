@@ -405,6 +405,43 @@ boxplot(Eggs~Size,data=meso2,
 <a href="http://ramnathv.github.io/rCharts/" class="uri">http://ramnathv.github.io/rCharts/</a></p>
 <pre class="r"><code>require(devtools)
 install_github('rCharts', 'ramnathv')</code></pre>
+<p>CLuster plot<br />
+<a href="https://rpubs.com/dgrtwo/technology-clusters" class="uri">https://rpubs.com/dgrtwo/technology-clusters</a></p>
+<pre class="r"><code>library(readr)
+library(dplyr)
+library(igraph)
+library(ggraph)
+library(ggforce)
+
+# This shared file contains the number of question that have each pair of tags
+# This counts only questions that are not deleted and have a positive score
+tag_pair_data &lt;- read_csv(&quot;http://varianceexplained.org/files/tag_pairs.csv.gz&quot;)
+
+relationships &lt;- tag_pair_data %&gt;%
+  mutate(Fraction = Cooccur / Tag1Total) %&gt;%
+  filter(Fraction &gt;= .35) %&gt;%
+  distinct(Tag1)
+
+v &lt;- tag_pair_data %&gt;%
+  select(Tag1, Tag1Total) %&gt;%
+  distinct(Tag1) %&gt;%
+  filter(Tag1 %in% relationships$Tag1 |
+         Tag1 %in% relationships$Tag2) %&gt;%
+  arrange(desc(Tag1Total))
+
+a &lt;- grid::arrow(length = grid::unit(.08, &quot;inches&quot;), ends = &quot;first&quot;, type = &quot;closed&quot;)
+
+set.seed(2016)
+
+relationships %&gt;%
+  graph_from_data_frame(vertices = v) %&gt;%
+  ggraph(layout = &quot;fr&quot;) +
+  geom_edge_link(aes(alpha = Fraction), arrow = a) +
+  geom_node_point(aes(size = Tag1Total), color = &quot;lightblue&quot;) +
+  geom_node_text(aes(size = Tag1Total, label = name), check_overlap = TRUE) +
+  scale_size_continuous(range = c(2, 9)) +
+  ggforce::theme_no_axes() +
+  theme(legend.position = &quot;none&quot;)</code></pre>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
@@ -444,7 +481,7 @@ a1Ina2_l  &lt;- sqldf('SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodl')<
 </div>
 <div id="r-markdown" class="section level3">
 <h3>R Markdown</h3>
-<p><strong>Hide unwanted code output, such as inherent examples for functions</strong></p>
+<p>Hide unwanted code output, such as inherent examples for functions</p>
 <pre class="r"><code># ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}</code></pre>
 </div>
 <div id="web-scraping" class="section level3">

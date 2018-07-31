@@ -78,7 +78,7 @@ lapply(packages,library,character.only=T)
 ### Classes
 Convert character to factor to numeric without conversion error
 ```{r, classes1, results='hide',eval=F}
-read.csv(f,header=F,sep=",",row.names=NULL,stringsAsFactors=FALSE, strip.white=TRUE)
+read.table(f,header=T,sep=",",row.names=NULL,stringsAsFactors=FALSE, strip.white=TRUE)
 f$V2<-as.numeric(f$V2)
 ```
 
@@ -108,9 +108,9 @@ df <- data.frame(Date=as.Date(character()),
                  stringsAsFactors=FALSE) 
 ```
 
-#####
+#####  
 ########################################
-
+ 
 ### `ggplot` functions  
 Remove annoying stock gridlines from plot window  
 ```{r, ggplot1, results='hide',eval=F}
@@ -259,6 +259,46 @@ require(devtools)
 install_github('rCharts', 'ramnathv')
 ```  
 
+CLuster plot  
+https://rpubs.com/dgrtwo/technology-clusters  
+```{r, plot6, results='hide',eval=F}
+library(readr)
+library(dplyr)
+library(igraph)
+library(ggraph)
+library(ggforce)
+
+# This shared file contains the number of question that have each pair of tags
+# This counts only questions that are not deleted and have a positive score
+tag_pair_data <- read_csv("http://varianceexplained.org/files/tag_pairs.csv.gz")
+
+relationships <- tag_pair_data %>%
+  mutate(Fraction = Cooccur / Tag1Total) %>%
+  filter(Fraction >= .35) %>%
+  distinct(Tag1)
+
+v <- tag_pair_data %>%
+  select(Tag1, Tag1Total) %>%
+  distinct(Tag1) %>%
+  filter(Tag1 %in% relationships$Tag1 |
+         Tag1 %in% relationships$Tag2) %>%
+  arrange(desc(Tag1Total))
+
+a <- grid::arrow(length = grid::unit(.08, "inches"), ends = "first", type = "closed")
+
+set.seed(2016)
+
+relationships %>%
+  graph_from_data_frame(vertices = v) %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = Fraction), arrow = a) +
+  geom_node_point(aes(size = Tag1Total), color = "lightblue") +
+  geom_node_text(aes(size = Tag1Total, label = name), check_overlap = TRUE) +
+  scale_size_continuous(range = c(2, 9)) +
+  ggforce::theme_no_axes() +
+  theme(legend.position = "none")
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
@@ -309,9 +349,20 @@ Hide unwanted code output, such as inherent examples for functions
 
 ```
 
-### Web scraping
+### Web scraping  
+Scraping web tables  
 http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html[http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html]
 ```{r, web1, results='hide',eval=F}
 library(XML)
 readHTMLTable()
+```
+
+Scraping Twitter timelines    
+See complete example at http://varianceexplained.org/r/trump-tweets/  
+```{r, web1, results='hide',eval=F}
+# https://cran.r-project.org/web/packages/twitteR/
+library(dplyr)
+library(purrr)
+library(twitteR)
+
 ```
