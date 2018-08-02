@@ -51,9 +51,9 @@ df <- data.frame(Date=as.Date(character()),
                  stringsAsFactors=FALSE) 
 ```
 
-#####
+#####  
 ########################################
-
+ 
 ### `ggplot` functions  
 Remove annoying stock gridlines from plot window  
 ```{r, ggplot1, results='hide',eval=F}
@@ -88,6 +88,7 @@ plot_it_gg <- function(bg,family){ # bg = colour to plot bg, family = font famil
 } 
 ```
 
+\n  
 Put plot in function to take dynamic data inputs  
 Ref: http://jcborras.net/carpet/visualizing-political-divergences-2012-local-elections-in-helsinki.html
 ```{r, ggplot3, results='hide',eval=F}
@@ -107,6 +108,33 @@ hr.mass.plot <- function(d) {
 }
 hr.mass.plot(d)
 ```
+
+\n    
+Using `ggplot` when looping through `for` loop and saving to dir   
+```{r, ggplot4, results='hide',eval=F}
+pdf("mypdf.pdf",onefile = T)
+for(i in 1:3){ 
+par(bty="n", las = 1)
+  grid.arrange( 
+  ggplot(data, aes(x = X, y = Y, fill=..x..)) + # geom_density_ridges()
+    # scale = overlap
+    geom_density_ridges_gradient(scale = 5, size=0.2,color="black", rel_min_height = 0.01,panel_scaling=T,alpha=0.2) +
+    geom_density_ridges(scale = 5, size=0.2,color="black", rel_min_height = 0.01,fill="white",alpha=0.2) +
+    # geom_density_ridges(scale = 5, size=0.2,color="white", rel_min_height = 0.01,fill=col,alpha=0.5) +
+    scale_fill_viridis(name = "Diameter", alpha=0.1, option = "magma",direction=-1) + # "magma", "inferno","plasma", "viridis", "cividis"
+    xlim(c(0,25)) +
+    labs(title = paste0("Title_",i)) +
+    xlab("X") +
+    ylab("Y") +
+    # plot_it_gg("white")
+  )
+} # end loop 
+dev.off()
+
+```
+
+---  
+\  
 #####
 ########################################
 
@@ -202,6 +230,46 @@ require(devtools)
 install_github('rCharts', 'ramnathv')
 ```  
 
+CLuster plot  
+https://rpubs.com/dgrtwo/technology-clusters  
+```{r, plot6, results='hide',eval=F}
+library(readr)
+library(dplyr)
+library(igraph)
+library(ggraph)
+library(ggforce)
+
+# This shared file contains the number of question that have each pair of tags
+# This counts only questions that are not deleted and have a positive score
+tag_pair_data <- read_csv("http://varianceexplained.org/files/tag_pairs.csv.gz")
+
+relationships <- tag_pair_data %>%
+  mutate(Fraction = Cooccur / Tag1Total) %>%
+  filter(Fraction >= .35) %>%
+  distinct(Tag1)
+
+v <- tag_pair_data %>%
+  select(Tag1, Tag1Total) %>%
+  distinct(Tag1) %>%
+  filter(Tag1 %in% relationships$Tag1 |
+         Tag1 %in% relationships$Tag2) %>%
+  arrange(desc(Tag1Total))
+
+a <- grid::arrow(length = grid::unit(.08, "inches"), ends = "first", type = "closed")
+
+set.seed(2016)
+
+relationships %>%
+  graph_from_data_frame(vertices = v) %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = Fraction), arrow = a) +
+  geom_node_point(aes(size = Tag1Total), color = "lightblue") +
+  geom_node_text(aes(size = Tag1Total, label = name), check_overlap = TRUE) +
+  scale_size_continuous(range = c(2, 9)) +
+  ggforce::theme_no_axes() +
+  theme(legend.position = "none")
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
@@ -245,16 +313,27 @@ a1Ina2_l  <- sqldf('SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodl')
 #####  
 
 ### R Markdown
-**Hide unwanted code output, such as inherent examples for functions** 
+Hide unwanted code output, such as inherent examples for functions  
 ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
 # ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
 ```
 
-### Web scraping
+### Web scraping  
+Scraping web tables  
 http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html[http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html]
 ```{r, web1, results='hide',eval=F}
 library(XML)
 readHTMLTable()
+```
+
+Scraping Twitter timelines    
+See complete example at http://varianceexplained.org/r/trump-tweets/  
+```{r, web2, results='hide',eval=F}
+# https://cran.r-project.org/web/packages/twitteR/
+library(dplyr)
+library(purrr)
+library(twitteR)
+
 ```
