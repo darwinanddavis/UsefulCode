@@ -1,21 +1,38 @@
 ---
 title: Useful R code
-author: 
-- |-
-  _^1^ Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322_
-  _^2^ _
-  ^['This Supplementary Material can be found at https://github.com/darwinanddavis/UsefulCode']
+author: |
+ | Matthew Malishev^1^*
+ | _^1^ Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322_
 #bibliography:/Users/malishev/Documents/Melbourne Uni/Thesis_2016/library.bib
+fontsize: 10
+geometry: margin=1in
+documentclass: article
+linkcolor: pink
+urlcolor: blue
+citecolor: red
 output:
   html_document:
-    code_folding: show
-    depth: 3
-    number_sections: no
+    highlight: tango
+    code_folding: hide
     toc: yes
+    toc_depth: 3
+    number_sections: no
     toc_float: yes
   pdf_document:
+    includes:
+      in_header: # add .tex file with header content
+    highlight: tango
     template: null
     toc: yes
+    toc_depth: 3
+    number_sections: false
+    fig_width: 4
+    fig_height: 5
+    fig_caption: true
+    df_print: tibble 
+    citation_package: biblatex # natbib
+    latex_engine: xelatex #pdflatex # lualatex
+    keep_tex: true # keep .tex file in dir 
   word_document:
     highlight: tango
     keep_md: yes
@@ -24,7 +41,7 @@ output:
     toc: yes
 inludes:
   before_body: before_body.tex
-subtitle: Matthew Malishev^1^*
+subtitle: 
 tags:
 - nothing
 - nothingness
@@ -32,17 +49,18 @@ params:
   date: !r Sys.Date()
   version: !r getRversion()
   email: "matthew.malishev@gmail.com"
+  doi: https://github.com/darwinanddavis/UsefulCode
 classoption: portrait
+# ^['https://github.com/darwinanddavis/UsefulCode'] # footnote
 vignette: >
-  %\VignetteIndexEntry{Useful R code}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Mesocosm data for schisto shedding in snail hosts}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
-
 
 ```{r echo = FALSE}
 # library(rmarkdown)
@@ -51,22 +69,35 @@ vignette: >
 # render(f, output_format='pdf_document')
 ```
 
-```{r, echo = FALSE}
+```{r, set-options, echo = FALSE, cache = FALSE}
+options(width=100)
 knitr::opts_chunk$set(
- eval = TRUE, tidy.opts=list(width.cutoff=60), tidy=TRUE, echo=T  
+ eval = TRUE, # run all code
+ # echo = FALSE, # show code chunks in output 
+ comment = "",
+ tidy.opts=list(width.cutoff=100), # set width of code chunks in output
+ tidy=TRUE, # make output as tidy
+ message = FALSE,  # mask all messages
+ warning = FALSE, # mask all warnings 
+ size="small"
 )
 ```
 
+\  
+
 Date: `r params$date`  
 R version: `r params$version`  
-*Corresponding author: `r params$email`
+*Corresponding author: `r params$email`  
+This document can be found at `r params$doi`
+
+\newpage  
 
 ## Overview
 
 This document outlines some useful R code for plotting, cool functions, and other random tidbits.   
 
 ### Install dependencies
-```{r, load packages, include=F, cache=F, message=F}
+```{r, load packages, include=T, cache=T, message=F, warning=F, results='hide'}
 packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp")   
 if (require(packages)) {
     install.packages(packages,dependencies = T)
@@ -108,9 +139,6 @@ df <- data.frame(Date=as.Date(character()),
                  stringsAsFactors=FALSE) 
 ```
 
-#####  
-########################################
- 
 ### `ggplot` functions  
 Remove annoying stock gridlines from plot window  
 ```{r, ggplot1, results='hide',eval=F}
@@ -188,11 +216,6 @@ dev.off()
 
 ```
 
----  
-\  
-#####
-########################################
-
 ### NAs 
 Replace NAs with 0's
 ```{r, NAs1}
@@ -238,7 +261,7 @@ minTb <- data.frame("Days"=1:days,"Time"=minTb)
 # then fill in missing values
 approx(minTb$Time,method = "linear")
 ```
-
+  
 ### Plotting
 Plot one plot window above and two below
 ```{r, plot1}
@@ -285,7 +308,7 @@ require(devtools)
 install_github('rCharts', 'ramnathv')
 ```  
 
-CLuster plot  
+Cluster plot  
 https://rpubs.com/dgrtwo/technology-clusters  
 ```{r, plot6, results='hide',eval=F}
 library(readr)
@@ -374,7 +397,7 @@ Hide unwanted code output, such as inherent examples for functions
 # ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
 ```
-
+  
 ### Web scraping  
 Scraping web tables  
 http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html[http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html]
