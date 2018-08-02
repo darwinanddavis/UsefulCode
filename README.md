@@ -230,7 +230,7 @@ require(devtools)
 install_github('rCharts', 'ramnathv')
 ```  
 
-CLuster plot  
+Cluster plot  
 https://rpubs.com/dgrtwo/technology-clusters  
 ```{r, plot6, results='hide',eval=F}
 library(readr)
