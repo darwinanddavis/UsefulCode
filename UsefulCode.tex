@@ -116,7 +116,7 @@ Clifton Road NE, Atlanta, GA, USA, 30322}}
 }
 ~
 
-Date: 2018-08-02\\
+Date: 2018-08-04\\
 R version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -187,6 +187,19 @@ Optimal empty data frame
                  \DataTypeTok{X=}\KeywordTok{numeric}\NormalTok{(), }
                  \DataTypeTok{Y=}\KeywordTok{integer}\NormalTok{(), }
                  \DataTypeTok{stringsAsFactors=}\OtherTok{FALSE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+Add df cols with \texttt{mutate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"a"}\NormalTok{=}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10}\NormalTok{),}\StringTok{"b"}\NormalTok{=(}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{))}
+\NormalTok{df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+  \StringTok{"c"}\NormalTok{=}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{),}
+  \DataTypeTok{b =}\NormalTok{ b }\OperatorTok{*}\DecValTok{67}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -307,11 +320,6 @@ Check for NAs
 \KeywordTok{sapply}\NormalTok{(df, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(x)))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-Date    X    Y 
-   0    0    0 
-\end{verbatim}
 
 Replace NaN and Inf values with NA
 

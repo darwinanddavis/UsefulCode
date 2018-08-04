@@ -132,11 +132,21 @@ shadedens("Clumped") # set clumped resources
 
 ### Dataframes  
 Optimal empty data frame  
-```{r, dataframes1}
+```{r, df1, results='hide',eval=F}
 df <- data.frame(Date=as.Date(character()),
                  X=numeric(), 
                  Y=integer(), 
                  stringsAsFactors=FALSE) 
+```
+
+Add df cols with `mutate`
+```{r, df2, results='hide',eval=F}
+df <- data.frame("a"=rnorm(10),"b"=(1:20))
+df %>% 
+  mutate(
+  "c"=rnorm(20),
+  b = b *67
+  )
 ```
 
 ### `ggplot` functions  
@@ -218,7 +228,7 @@ dev.off()
 
 ### NAs 
 Replace NAs with 0's
-```{r, NAs1}
+```{r, NAs1, results='hide',eval=F}
 df[is.na(df)] <- 0
 ```
 
@@ -228,12 +238,12 @@ df$X[df$X<V] <- 0
 ```
 
 Check for NAs
-```{r, NAs3}
+```{r, NAs3, results='hide',eval=F}
 sapply(df, function(x) sum(is.na(x)))
 ```
 
 Replace NaN and Inf values with NA 
-```{r, NAs4}
+```{r, NAs4, results='hide',eval=F}
 df$col1[which(!is.finite(df$col1))] <-  NA
 ```
 

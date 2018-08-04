@@ -275,7 +275,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-08-02<br />
+<p>Date: 2018-08-04<br />
 R version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -316,6 +316,13 @@ f<span class="op">$</span>V2&lt;-<span class="kw">as.numeric</span>(f<span class
                  <span class="dt">X=</span><span class="kw">numeric</span>(), 
                  <span class="dt">Y=</span><span class="kw">integer</span>(), 
                  <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) </code></pre></div>
+<p>Add df cols with <code>mutate</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;a&quot;</span>=<span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="st">&quot;b&quot;</span>=(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>))
+df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(
+  <span class="st">&quot;c&quot;</span>=<span class="kw">rnorm</span>(<span class="dv">20</span>),
+  <span class="dt">b =</span> b <span class="op">*</span><span class="dv">67</span>
+  )</code></pre></div>
 </div>
 <div id="ggplot-functions" class="section level3">
 <h3><code>ggplot</code> functions</h3>
@@ -391,8 +398,6 @@ Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>X[df<span class="op">$</span>X<span class="op">&lt;</span>V] &lt;-<span class="st"> </span><span class="dv">0</span> </code></pre></div>
 <p>Check for NAs</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(df, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))</code></pre></div>
-<pre><code>Date    X    Y 
-   0    0    0 </code></pre>
 <p>Replace NaN and Inf values with NA</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>col1[<span class="kw">which</span>(<span class="op">!</span><span class="kw">is.finite</span>(df<span class="op">$</span>col1))] &lt;-<span class="st">  </span><span class="ot">NA</span></code></pre></div>
 <p>Fill in missing data values in sequence with NA</p>
