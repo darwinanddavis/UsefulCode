@@ -13,13 +13,13 @@ Files:
 .R  
 .Rmd  
 .html    
-  
-## Overview   
+
+## Overview
 
 This document outlines some useful R code for plotting, cool functions, and other random tidbits.   
 
 ### Install dependencies
-```{r, load packages, include=F, cache=F, message=F}
+```{r, load packages, include=T, cache=T, message=F, warning=F, results='hide'}
 packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp")   
 if (require(packages)) {
     install.packages(packages,dependencies = T)
@@ -54,16 +54,23 @@ shadedens("Clumped") # set clumped resources
 
 ### Dataframes  
 Optimal empty data frame  
-```{r, dataframes1}
+```{r, df1, results='hide',eval=F}
 df <- data.frame(Date=as.Date(character()),
                  X=numeric(), 
                  Y=integer(), 
                  stringsAsFactors=FALSE) 
 ```
 
-#####  
-########################################
- 
+Add df cols with `mutate`
+```{r, df2, results='hide',eval=F}
+df <- data.frame("a"=rnorm(10),"b"=(1:20))
+df %>% 
+  mutate(
+  "c"=rnorm(20),
+  b = b *67
+  )
+```
+
 ### `ggplot` functions  
 Remove annoying stock gridlines from plot window  
 ```{r, ggplot1, results='hide',eval=F}
@@ -98,7 +105,6 @@ plot_it_gg <- function(bg,family){ # bg = colour to plot bg, family = font famil
 } 
 ```
 
-\n  
 Put plot in function to take dynamic data inputs  
 Ref: http://jcborras.net/carpet/visualizing-political-divergences-2012-local-elections-in-helsinki.html
 ```{r, ggplot3, results='hide',eval=F}
@@ -119,7 +125,6 @@ hr.mass.plot <- function(d) {
 hr.mass.plot(d)
 ```
 
-\n    
 Using `ggplot` when looping through `for` loop and saving to dir   
 ```{r, ggplot4, results='hide',eval=F}
 pdf("mypdf.pdf",onefile = T)
@@ -143,14 +148,9 @@ dev.off()
 
 ```
 
----  
-\  
-#####
-########################################
-
 ### NAs 
 Replace NAs with 0's
-```{r, NAs1}
+```{r, NAs1, results='hide',eval=F}
 df[is.na(df)] <- 0
 ```
 
@@ -160,12 +160,12 @@ df$X[df$X<V] <- 0
 ```
 
 Check for NAs
-```{r, NAs3}
+```{r, NAs3, results='hide',eval=F}
 sapply(df, function(x) sum(is.na(x)))
 ```
 
 Replace NaN and Inf values with NA 
-```{r, NAs4}
+```{r, NAs4, results='hide',eval=F}
 df$col1[which(!is.finite(df$col1))] <-  NA
 ```
 
@@ -193,7 +193,7 @@ minTb <- data.frame("Days"=1:days,"Time"=minTb)
 # then fill in missing values
 approx(minTb$Time,method = "linear")
 ```
-
+  
 ### Plotting
 Plot one plot window above and two below
 ```{r, plot1}
@@ -329,7 +329,7 @@ Hide unwanted code output, such as inherent examples for functions
 # ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
 ```
-
+  
 ### Web scraping  
 Scraping web tables  
 http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html[http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html]
