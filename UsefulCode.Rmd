@@ -11,13 +11,6 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 3
-    number_sections: no
-    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -33,6 +26,13 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 3
+    number_sections: no
+    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -46,6 +46,7 @@ tags:
 - nothing
 - nothingness
 params: 
+  dir: "/Users/malishev/Documents/Melbourne Uni/Programs/R code/UsefulCode"
   date: !r Sys.Date()
   version: !r getRversion()
   email: "matthew.malishev@gmail.com"
@@ -53,7 +54,7 @@ params:
 classoption: portrait
 # ^['https://github.com/darwinanddavis/UsefulCode'] # footnote
 vignette: >
-  %\VignetteIndexEntry{Mesocosm data for schisto shedding in snail hosts}
+  %\VignetteIndexEntry{Useful R code}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
@@ -64,7 +65,7 @@ vignette: >
 
 ```{r echo = FALSE}
 # library(rmarkdown)
-# setwd("/Users/malishev/Documents/Emory/research/models/deb/host_parasite/")
+# setwd("")
 # f <- list.files()[1]
 # render(f, output_format='pdf_document')
 ```
@@ -79,8 +80,13 @@ knitr::opts_chunk$set(
  tidy=TRUE, # make output as tidy
  message = FALSE,  # mask all messages
  warning = FALSE, # mask all warnings 
- size="small"
+ size="small" # set code chunk size
 )
+
+# https://github.com/ucb-stat133/stat133-fall-2016/blob/master/hws/hw02-tables-ggplot.Rmd
+knitr::opts_knit$set(root.dir=paste0(params$dir,"/")) # set working dir
+
+setwd(paste0(params$dir,"/")) # for running just in R not knitr
 ```
 
 \  
