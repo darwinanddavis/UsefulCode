@@ -4,7 +4,7 @@
 
 ##### *Corresponding author: matthew.malishev@gmail.com    
 
-doi: [![DOI](<>)  
+doi: [DOI](<>)  
 :link: [<>](<>)    
 
 ****** 
