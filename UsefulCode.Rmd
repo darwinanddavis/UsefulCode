@@ -11,6 +11,13 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 3
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -26,13 +33,6 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 3
-    number_sections: no
-    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -232,8 +232,8 @@ dev.off()
 
 ```
 
-### NAs 
-Replace NAs with 0's
+### `NAs` 
+Replace `NAs` with 0's
 ```{r, NAs1, results='hide',eval=F}
 df[is.na(df)] <- 0
 ```
@@ -243,17 +243,17 @@ Replace X values less than given value (V) with 0
 df$X[df$X<V] <- 0 
 ```
 
-Check for NAs
+Check for `NAs`
 ```{r, NAs3, results='hide',eval=F}
 sapply(df, function(x) sum(is.na(x)))
 ```
 
-Replace NaN and Inf values with NA 
+Replace `NaN` and `Inf` values with `NA` 
 ```{r, NAs4, results='hide',eval=F}
 df$col1[which(!is.finite(df$col1))] <-  NA
 ```
 
-Fill in missing data values in sequence with NA
+Fill in missing data values in sequence with `NA`
 ```{r, NAs5, results='hide',eval=F}
 # /Users/malishev/Documents/Manuscripts/Chapter4/Sims/Chapter4_figs.R
 library(zoo)
@@ -364,13 +364,53 @@ relationships %>%
   theme(legend.position = "none")
 ```
 
+Define global plotting graphics function  
+```{r, plot7, eval=F, cache = TRUE, tidy = TRUE, lazy = TRUE, results="hide"}
+plot_it <- function(manuscript,bg,cp,alpha,family){ # plotting function (plot for MS or not, set bg color, set color palette from RColorBrewer, set alpha value for transperancy) 
+  graphics.off()
+  if(manuscript==0){
+    if(bg=="black"){
+      colvec<-magma(200,1)
+      par(bg = colvec[1],col.axis="white",col.lab="white",col.main="white",fg="white",bty="n",las=1,mar=c(5,6,4,2),family=family) #mono
+      border=adjustcolor("purple",alpha=0.5)
+    }else{
+      colvec<-bpy.colors(200)
+      par(bg = colvec[1],col.axis="white",col.lab="white",col.main="white",fg="white",bty="n",las=1,mar=c(5,6,4,2),family=family) 
+      border=adjustcolor("blue",alpha=0.5)
+    }
+  }else{
+#    graphics.off()
+    par(bty="n",las=1,family=family) 
+  }
+  # color palettes
+  # ifelse(manuscript==1,colvec<-adjustcolor(brewer.pal(9,cp)[9], alpha = alpha),colvec <- adjustcolor(brewer.pal(9,cp)[5], alpha = alpha)) # fine tune plotting colors for plotting bg
+   # colfunc <<- colorRampPalette(brewer.pal(9,cp),alpha=alpha)
+  colfunc <<- adjustcolor(brewer.pal(9,cp),alpha=alpha) # USES <<- OPERATOR
+}
+
+# Setting ggplot theme graphics
+plot_it_gg <- function(bg){ # bg = colour to plot bg, family = font family
+  if(bg=="white"){
+    bg <- "white"
+    fg <- "black"
+  theme_tufte(base_family = "HersheySans") +
+    theme(panel.border = element_blank(),panel.grid.major = element_blank(),panel.grid.minor = element_blank(),panel.background = element_rect(fill = bg,colour = bg),plot.background = element_rect(fill=bg)) +
+    theme(axis.line = element_line(color = fg)) +theme(axis.ticks = element_line(color = fg)) + theme(plot.title = element_text(colour = fg)) +theme(axis.title.x = element_text(colour = fg), axis.title.y = element_text(colour = fg)) + theme(axis.text.x = element_text(color = fg),axis.text.y = element_text(color = fg)) + theme(legend.key = element_rect(fill = bg)) + theme(legend.title = element_text(colour=fg)) + theme(legend.text = element_text(colour=fg))
+}
+  }# end gg
+
+# Set global plotting parameters
+print("1/0, set colour, set colour palette 'display.brewer.all()',set alpha for col,set font")
+plot_it(0,"blue","YlOrRd",1,"HersheySans") # set col function params
+plot_it_gg("white") # same as above
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
 get.file.vol <- read.table(file.choose())#read file manually
 v.file <- get.file.vol[1:100,1]#get the volume
 ```
-
 
 Loop through files from dir and append to list  
 ``` {r, read2, results='hide',eval=F}
@@ -392,6 +432,30 @@ for (i in hrs75[1:10]) {
 };ghr
 ```
 
+### Regular expressions (`regex`)
+Get just numbers or characters      
+```{r regex1}
+vec <- "16-Feb-2018 20:08:04 PM"
+vecN <- gsub("[^[:digit:]]", "", vec); vec; print(paste0("Just numbers: ",vecN)) 
+vecC <- gsub("[[:digit:]]", "", vec); vec; print(paste0("Just characters: ", vecC))
+
+# with tidyr. requires data frame 
+require(tidyr)
+df <- data.frame(N1=c("APPLE348744", "BANANA77845", "OATS2647892", "EGG98586456"))
+print("tidyr doesn't work with strings separated by spaces")  
+df %>%
+  separate(N1, into = c("text", "num"), sep = "(?<=[A-Za-z])(?=[0-9])")
+
+```
+
+Insert or replace a character in a string at a specific location 
+```{r regex2}
+require(stringi)
+vec <- "ABCEF"
+stri_sub(vec, 4, 2) <- "d" 
+print(paste0("Original: ABCEF")); print(paste0("New: ",vec))
+```
+
 ### Subsetting
 Select specific rows 
 E.g. select rows of sfeed_move not in foodh
@@ -404,7 +468,17 @@ a1Ina2_h  <- sqldf('SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodh')
 a1Ina2_l  <- sqldf('SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodl')
 ```
 
-#####  
+Count occurrences of values in data frame  
+```{r, subset2, results='hide',eval=F}
+table(unlist(df$X))
+```
+
+Remove a specific column from a data frame  
+```{r, subset3, results='hide',eval=F}
+within(df, rm("Col1"))
+```
+
+######    
 
 ### R Markdown
 Hide unwanted code output, such as inherent examples for functions  
@@ -414,6 +488,8 @@ Hide unwanted code output, such as inherent examples for functions
 
 ```
   
+######  
+
 ### Web scraping  
 Scraping web tables  
 http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html[http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html]

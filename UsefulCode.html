@@ -275,7 +275,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-08-16<br />
+<p>Date: 2018-08-21<br />
 R version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -391,16 +391,16 @@ Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-
 <span class="kw">dev.off</span>()</code></pre></div>
 </div>
 <div id="nas" class="section level3">
-<h3>NAs</h3>
-<p>Replace NAs with 0’s</p>
+<h3><code>NAs</code></h3>
+<p>Replace <code>NAs</code> with 0’s</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="kw">is.na</span>(df)] &lt;-<span class="st"> </span><span class="dv">0</span></code></pre></div>
 <p>Replace X values less than given value (V) with 0</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>X[df<span class="op">$</span>X<span class="op">&lt;</span>V] &lt;-<span class="st"> </span><span class="dv">0</span> </code></pre></div>
-<p>Check for NAs</p>
+<p>Check for <code>NAs</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(df, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))</code></pre></div>
-<p>Replace NaN and Inf values with NA</p>
+<p>Replace <code>NaN</code> and <code>Inf</code> values with <code>NA</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>col1[<span class="kw">which</span>(<span class="op">!</span><span class="kw">is.finite</span>(df<span class="op">$</span>col1))] &lt;-<span class="st">  </span><span class="ot">NA</span></code></pre></div>
-<p>Fill in missing data values in sequence with NA</p>
+<p>Fill in missing data values in sequence with <code>NA</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># /Users/malishev/Documents/Manuscripts/Chapter4/Sims/Chapter4_figs.R</span>
 <span class="kw">library</span>(zoo)
 data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">index =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>),
@@ -491,6 +491,44 @@ relationships <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">scale_size_continuous</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>)) <span class="op">+</span>
 <span class="st">  </span>ggforce<span class="op">::</span><span class="kw">theme_no_axes</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</code></pre></div>
+<p>Define global plotting graphics function</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_it &lt;-<span class="st"> </span><span class="cf">function</span>(manuscript,bg,cp,alpha,family){ <span class="co"># plotting function (plot for MS or not, set bg color, set color palette from RColorBrewer, set alpha value for transperancy) </span>
+  <span class="kw">graphics.off</span>()
+  <span class="cf">if</span>(manuscript<span class="op">==</span><span class="dv">0</span>){
+    <span class="cf">if</span>(bg<span class="op">==</span><span class="st">&quot;black&quot;</span>){
+      colvec&lt;-<span class="kw">magma</span>(<span class="dv">200</span>,<span class="dv">1</span>)
+      <span class="kw">par</span>(<span class="dt">bg =</span> colvec[<span class="dv">1</span>],<span class="dt">col.axis=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.lab=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.main=</span><span class="st">&quot;white&quot;</span>,<span class="dt">fg=</span><span class="st">&quot;white&quot;</span>,<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">2</span>),<span class="dt">family=</span>family) <span class="co">#mono</span>
+      border=<span class="kw">adjustcolor</span>(<span class="st">&quot;purple&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.5</span>)
+    }<span class="cf">else</span>{
+      colvec&lt;-<span class="kw">bpy.colors</span>(<span class="dv">200</span>)
+      <span class="kw">par</span>(<span class="dt">bg =</span> colvec[<span class="dv">1</span>],<span class="dt">col.axis=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.lab=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.main=</span><span class="st">&quot;white&quot;</span>,<span class="dt">fg=</span><span class="st">&quot;white&quot;</span>,<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">2</span>),<span class="dt">family=</span>family) 
+      border=<span class="kw">adjustcolor</span>(<span class="st">&quot;blue&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.5</span>)
+    }
+  }<span class="cf">else</span>{
+<span class="co">#    graphics.off()</span>
+    <span class="kw">par</span>(<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">family=</span>family) 
+  }
+  <span class="co"># color palettes</span>
+  <span class="co"># ifelse(manuscript==1,colvec&lt;-adjustcolor(brewer.pal(9,cp)[9], alpha = alpha),colvec &lt;- adjustcolor(brewer.pal(9,cp)[5], alpha = alpha)) # fine tune plotting colors for plotting bg</span>
+   <span class="co"># colfunc &lt;&lt;- colorRampPalette(brewer.pal(9,cp),alpha=alpha)</span>
+  colfunc &lt;&lt;-<span class="st"> </span><span class="kw">adjustcolor</span>(<span class="kw">brewer.pal</span>(<span class="dv">9</span>,cp),<span class="dt">alpha=</span>alpha) <span class="co"># USES &lt;&lt;- OPERATOR</span>
+}
+
+<span class="co"># Setting ggplot theme graphics</span>
+plot_it_gg &lt;-<span class="st"> </span><span class="cf">function</span>(bg){ <span class="co"># bg = colour to plot bg, family = font family</span>
+  <span class="cf">if</span>(bg<span class="op">==</span><span class="st">&quot;white&quot;</span>){
+    bg &lt;-<span class="st"> &quot;white&quot;</span>
+    fg &lt;-<span class="st"> &quot;black&quot;</span>
+  <span class="kw">theme_tufte</span>(<span class="dt">base_family =</span> <span class="st">&quot;HersheySans&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg,<span class="dt">colour =</span> bg),<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill=</span>bg)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.line =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg), <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg),<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span>fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span>fg))
+}
+  }<span class="co"># end gg</span>
+
+<span class="co"># Set global plotting parameters</span>
+<span class="kw">print</span>(<span class="st">&quot;1/0, set colour, set colour palette 'display.brewer.all()',set alpha for col,set font&quot;</span>)
+<span class="kw">plot_it</span>(<span class="dv">0</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;YlOrRd&quot;</span>,<span class="dv">1</span>,<span class="st">&quot;HersheySans&quot;</span>) <span class="co"># set col function params</span>
+<span class="kw">plot_it_gg</span>(<span class="st">&quot;white&quot;</span>) <span class="co"># same as above</span></code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
@@ -515,6 +553,36 @@ ghr&lt;-<span class="kw">list</span>()
   ghr&lt;-<span class="kw">c</span>(ghr,m)
 };ghr</code></pre></div>
 </div>
+<div id="regular-expressions-regex" class="section level3">
+<h3>Regular expressions (<code>regex</code>)</h3>
+<p>Get just numbers or characters</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> &quot;16-Feb-2018 20:08:04 PM&quot;</span>
+vecN &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[^[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec); vec; <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just numbers: &quot;</span>,vecN)) </code></pre></div>
+<pre><code>[1] &quot;16-Feb-2018 20:08:04 PM&quot;</code></pre>
+<pre><code>[1] &quot;Just numbers: 162018200804&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecC &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec); vec; <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just characters: &quot;</span>, vecC))</code></pre></div>
+<pre><code>[1] &quot;16-Feb-2018 20:08:04 PM&quot;</code></pre>
+<pre><code>[1] &quot;Just characters: -Feb- :: PM&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># with tidyr. requires data frame </span>
+<span class="kw">require</span>(tidyr)
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N1=</span><span class="kw">c</span>(<span class="st">&quot;APPLE348744&quot;</span>, <span class="st">&quot;BANANA77845&quot;</span>, <span class="st">&quot;OATS2647892&quot;</span>, <span class="st">&quot;EGG98586456&quot;</span>))
+<span class="kw">print</span>(<span class="st">&quot;tidyr doesn't work with strings separated by spaces&quot;</span>)  </code></pre></div>
+<pre><code>[1] &quot;tidyr doesn't work with strings separated by spaces&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">separate</span>(N1, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;text&quot;</span>, <span class="st">&quot;num&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;(?&lt;=[A-Za-z])(?=[0-9])&quot;</span>)</code></pre></div>
+<pre><code>    text      num
+1  APPLE   348744
+2 BANANA    77845
+3   OATS  2647892
+4    EGG 98586456</code></pre>
+<p>Insert or replace a character in a string at a specific location</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(stringi)
+vec &lt;-<span class="st"> &quot;ABCEF&quot;</span>
+<span class="kw">stri_sub</span>(vec, <span class="dv">4</span>, <span class="dv">2</span>) &lt;-<span class="st"> &quot;d&quot;</span> 
+<span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Original: ABCEF&quot;</span>)); <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;New: &quot;</span>,vec))</code></pre></div>
+<pre><code>[1] &quot;Original: ABCEF&quot;</code></pre>
+<pre><code>[1] &quot;New: ABCdEF&quot;</code></pre>
+</div>
 <div id="subsetting" class="section level3">
 <h3>Subsetting</h3>
 <p>Select specific rows E.g. select rows of sfeed_move not in foodh</p>
@@ -524,14 +592,21 @@ a1NotIna2_l  &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span c
 <span class="co"># select rows from sfeed_move that also appear in foodh</span>
 a1Ina2_h  &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">'SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodh'</span>)
 a1Ina2_l  &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">'SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodl'</span>)</code></pre></div>
-<div id="section" class="section level5">
-<h5></h5>
+<p>Count occurrences of values in data frame</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">unlist</span>(df<span class="op">$</span>X))</code></pre></div>
+<p>Remove a specific column from a data frame</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">within</span>(df, <span class="kw">rm</span>(<span class="st">&quot;Col1&quot;</span>))</code></pre></div>
+<div id="section" class="section level6">
+<h6></h6>
 </div>
 </div>
 <div id="r-markdown" class="section level3">
 <h3>R Markdown</h3>
 <p>Hide unwanted code output, such as inherent examples for functions</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}</span></code></pre></div>
+<div id="section-1" class="section level6">
+<h6></h6>
+</div>
 </div>
 <div id="web-scraping" class="section level3">
 <h3>Web scraping</h3>

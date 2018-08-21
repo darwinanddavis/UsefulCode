@@ -20,3 +20,5 @@ svDialogs
 data.table
 tibble
 extrafont
+tidyr
+stringi
