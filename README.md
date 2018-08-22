@@ -4,8 +4,8 @@
 
 ##### *Corresponding author: matthew.malishev@gmail.com    
 
-doi: [DOI](<>)  
-:link: [<>](<>)    
+doi: [DOI](https://github.com/darwinanddavis/UsefulCode)  
+:link: [Github](https://github.com/darwinanddavis/UsefulCode)    
 
 ****** 
 
