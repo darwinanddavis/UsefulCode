@@ -11,13 +11,6 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 3
-    number_sections: no
-    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -33,6 +26,13 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -92,7 +92,7 @@ setwd(paste0(params$dir,"/")) # for running just in R not knitr
 \  
 
 Date: `r params$date`  
-R version: `r params$version`  
+`R` version: `r params$version`  
 *Corresponding author: `r params$email`  
 This document can be found at `r params$doi`
 
@@ -100,7 +100,7 @@ This document can be found at `r params$doi`
 
 ## Overview
 
-This document outlines some useful R code for plotting, cool functions, and other random tidbits.   
+This document outlines some useful `R` code for plotting, cool functions, and other random tidbits.   
 
 ### Install dependencies
 ```{r, load packages, include=T, cache=T, message=F, warning=F, results='hide'}
