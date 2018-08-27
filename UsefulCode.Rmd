@@ -11,13 +11,20 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
     highlight: tango
     template: null
     toc: yes
-    toc_depth: 3
+    toc_depth: 4
     number_sections: false
     fig_width: 4
     fig_height: 5
@@ -26,19 +33,13 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
     pandoc_args: --smart
     #reference: mystyles.docx
     toc: yes
+    toc_depth: 4
 inludes:
   before_body: before_body.tex
 subtitle: 
