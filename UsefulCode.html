@@ -266,6 +266,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Useful R code</h1>
 <h4 class="author"><em><div style="white-space: pre-line;">Matthew Malishev<sup>1</sup>*
+
 <em><sup>1</sup> Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322</em></div></em></h4>
 
 </div>
@@ -275,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-08-27<br />
+<p>Date: 2018-08-31<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -285,12 +286,26 @@ This document can be found at <a href="https://github.com/darwinanddavis/UsefulC
 <p>This document outlines some useful <code>R</code> code for plotting, cool functions, and other random tidbits.</p>
 <div id="install-dependencies" class="section level3">
 <h3>Install dependencies</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rgdal&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;zoo&quot;</span>,<span class="st">&quot;RColorBrewer&quot;</span>,<span class="st">&quot;viridis&quot;</span>,<span class="st">&quot;plyr&quot;</span>,<span class="st">&quot;digitize&quot;</span>,<span class="st">&quot;jpeg&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;imager&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;ggridges&quot;</span>,<span class="st">&quot;ggjoy&quot;</span>,<span class="st">&quot;ggthemes&quot;</span>,<span class="st">&quot;svDialogs&quot;</span>,<span class="st">&quot;data.table&quot;</span>,<span class="st">&quot;tibble&quot;</span>,<span class="st">&quot;extrafont&quot;</span>,<span class="st">&quot;sp&quot;</span>)   
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rgdal&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;zoo&quot;</span>,<span class="st">&quot;RColorBrewer&quot;</span>,<span class="st">&quot;viridis&quot;</span>,<span class="st">&quot;plyr&quot;</span>,<span class="st">&quot;digitize&quot;</span>,<span class="st">&quot;jpeg&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;imager&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;ggridges&quot;</span>,<span class="st">&quot;ggjoy&quot;</span>,<span class="st">&quot;ggthemes&quot;</span>,<span class="st">&quot;svDialogs&quot;</span>,<span class="st">&quot;data.table&quot;</span>,<span class="st">&quot;tibble&quot;</span>,<span class="st">&quot;extrafont&quot;</span>,<span class="st">&quot;sp&quot;</span>,<span class="st">&quot;ggmap&quot;</span>)   
 <span class="cf">if</span> (<span class="kw">require</span>(packages)) {
     <span class="kw">install.packages</span>(packages,<span class="dt">dependencies =</span> T)
     <span class="kw">require</span>(packages)
 }
 <span class="kw">lapply</span>(packages,library,<span class="dt">character.only=</span>T)</code></pre></div>
+</div>
+<div id="attributes" class="section level3">
+<h3>Attributes</h3>
+<p>Access structural attributes of unique classes, such as raster and ggmap.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Normal example</span>
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;X&quot;</span>=<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>),<span class="st">&quot;Y&quot;</span>=<span class="kw">c</span>(<span class="dv">6</span><span class="op">:</span><span class="dv">10</span>))
+<span class="kw">str</span>(df)
+df<span class="op">$</span>X
+
+<span class="co"># `attr` method</span>
+<span class="kw">require</span>(ggmap)
+map &lt;-<span class="st"> </span><span class="kw">get_map</span>(<span class="st">&quot;Atlanta&quot;</span>,<span class="dt">zoom=</span><span class="dv">12</span>,<span class="dt">source=</span><span class="st">&quot;stamen&quot;</span>,<span class="dt">maptype=</span><span class="st">&quot;toner-lines&quot;</span>)
+<span class="kw">str</span>(map)
+<span class="kw">attr</span>(map,<span class="st">&quot;bb&quot;</span>)<span class="op">$</span>ll.lat</code></pre></div>
 </div>
 <div id="classes" class="section level3">
 <h3>Classes</h3>
@@ -582,6 +597,17 @@ vec &lt;-<span class="st"> &quot;ABCEF&quot;</span>
 <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Original: ABCEF&quot;</span>)); <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;New: &quot;</span>,vec))</code></pre></div>
 <pre><code>[1] &quot;Original: ABCEF&quot;</code></pre>
 <pre><code>[1] &quot;New: ABCdEF&quot;</code></pre>
+<div id="section" class="section level6">
+<h6></h6>
+</div>
+</div>
+<div id="r-markdown" class="section level3">
+<h3>R Markdown</h3>
+<p>Hide unwanted code output, such as inherent examples for functions</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}</span></code></pre></div>
+<div id="section-1" class="section level6">
+<h6></h6>
+</div>
 </div>
 <div id="subsetting" class="section level3">
 <h3>Subsetting</h3>
@@ -596,17 +622,6 @@ a1Ina2_l  &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">unlist</span>(df<span class="op">$</span>X))</code></pre></div>
 <p>Remove a specific column from a data frame</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">within</span>(df, <span class="kw">rm</span>(<span class="st">&quot;Col1&quot;</span>))</code></pre></div>
-<div id="section" class="section level6">
-<h6></h6>
-</div>
-</div>
-<div id="r-markdown" class="section level3">
-<h3>R Markdown</h3>
-<p>Hide unwanted code output, such as inherent examples for functions</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}</span></code></pre></div>
-<div id="section-1" class="section level6">
-<h6></h6>
-</div>
 </div>
 <div id="web-scraping" class="section level3">
 <h3>Web scraping</h3>

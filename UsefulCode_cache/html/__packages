@@ -20,3 +20,4 @@ svDialogs
 data.table
 tibble
 extrafont
+ggmap

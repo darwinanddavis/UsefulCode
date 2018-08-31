@@ -2,6 +2,7 @@
 title: Useful R code
 author: |
  | Matthew Malishev^1^*
+ |  
  | _^1^ Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322_
 #bibliography:/Users/malishev/Documents/Melbourne Uni/Thesis_2016/library.bib
 fontsize: 10
@@ -105,12 +106,28 @@ This document outlines some useful `R` code for plotting, cool functions, and ot
 
 ### Install dependencies
 ```{r, load packages, include=T, cache=T, message=F, warning=F, results='hide'}
-packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp")   
+packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp","ggmap")   
 if (require(packages)) {
     install.packages(packages,dependencies = T)
     require(packages)
 }
 lapply(packages,library,character.only=T)
+```
+
+### Attributes  
+Access structural attributes of unique classes, such as raster and ggmap.  
+``` {r, attr1, results='hide',eval=F}
+# Normal example
+df <- data.frame("X"=c(1:5),"Y"=c(6:10))
+str(df)
+df$X
+
+# `attr` method
+require(ggmap)
+map <- get_map("Atlanta",zoom=12,source="stamen",maptype="toner-lines")
+str(map)
+attr(map,"bb")$ll.lat
+
 ```
 
 ### Classes
@@ -456,7 +473,19 @@ vec <- "ABCEF"
 stri_sub(vec, 4, 2) <- "d" 
 print(paste0("Original: ABCEF")); print(paste0("New: ",vec))
 ```
+  
+######      
+  
+### R Markdown
+Hide unwanted code output, such as inherent examples for functions  
+```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
+# ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
+
+```
+    
+######    
+  
 ### Subsetting
 Select specific rows 
 E.g. select rows of sfeed_move not in foodh
@@ -478,18 +507,6 @@ Remove a specific column from a data frame
 ```{r, subset3, results='hide',eval=F}
 within(df, rm("Col1"))
 ```
-
-######    
-
-### R Markdown
-Hide unwanted code output, such as inherent examples for functions  
-```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
-
-# ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
-
-```
-  
-######  
 
 ### Web scraping  
 Scraping web tables  

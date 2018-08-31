@@ -101,9 +101,10 @@
 
 
 \title{Useful R code}
-\author{Matthew Malishev\textsuperscript{1}*\\
-\emph{\textsuperscript{1} Department of Biology, Emory University, 1510
-Clifton Road NE, Atlanta, GA, USA, 30322}}
+\author{Matthew
+Malishev\textsuperscript{1}*\\[2\baselineskip]\emph{\textsuperscript{1}
+Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta,
+GA, USA, 30322}}
 \date{}
 
 \begin{document}
@@ -116,7 +117,7 @@ Clifton Road NE, Atlanta, GA, USA, 30322}}
 }
 ~
 
-Date: 2018-08-27\\
+Date: 2018-08-31\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -134,12 +135,32 @@ functions, and other random tidbits.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"rgdal"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"zoo"}\NormalTok{,}\StringTok{"RColorBrewer"}\NormalTok{,}\StringTok{"viridis"}\NormalTok{,}\StringTok{"plyr"}\NormalTok{,}\StringTok{"digitize"}\NormalTok{,}\StringTok{"jpeg"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{,}\StringTok{"imager"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"ggplot2"}\NormalTok{,}\StringTok{"ggridges"}\NormalTok{,}\StringTok{"ggjoy"}\NormalTok{,}\StringTok{"ggthemes"}\NormalTok{,}\StringTok{"svDialogs"}\NormalTok{,}\StringTok{"data.table"}\NormalTok{,}\StringTok{"tibble"}\NormalTok{,}\StringTok{"extrafont"}\NormalTok{,}\StringTok{"sp"}\NormalTok{)   }
+\NormalTok{packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"rgdal"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"zoo"}\NormalTok{,}\StringTok{"RColorBrewer"}\NormalTok{,}\StringTok{"viridis"}\NormalTok{,}\StringTok{"plyr"}\NormalTok{,}\StringTok{"digitize"}\NormalTok{,}\StringTok{"jpeg"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{,}\StringTok{"imager"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"ggplot2"}\NormalTok{,}\StringTok{"ggridges"}\NormalTok{,}\StringTok{"ggjoy"}\NormalTok{,}\StringTok{"ggthemes"}\NormalTok{,}\StringTok{"svDialogs"}\NormalTok{,}\StringTok{"data.table"}\NormalTok{,}\StringTok{"tibble"}\NormalTok{,}\StringTok{"extrafont"}\NormalTok{,}\StringTok{"sp"}\NormalTok{,}\StringTok{"ggmap"}\NormalTok{)   }
 \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{require}\NormalTok{(packages)) \{}
     \KeywordTok{install.packages}\NormalTok{(packages,}\DataTypeTok{dependencies =}\NormalTok{ T)}
     \KeywordTok{require}\NormalTok{(packages)}
 \NormalTok{\}}
 \KeywordTok{lapply}\NormalTok{(packages,library,}\DataTypeTok{character.only=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Attributes}\label{attributes}
+
+Access structural attributes of unique classes, such as raster and
+ggmap.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Normal example}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"X"}\NormalTok{=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{),}\StringTok{"Y"}\NormalTok{=}\KeywordTok{c}\NormalTok{(}\DecValTok{6}\OperatorTok{:}\DecValTok{10}\NormalTok{))}
+\KeywordTok{str}\NormalTok{(df)}
+\NormalTok{df}\OperatorTok{$}\NormalTok{X}
+
+\CommentTok{# `attr` method}
+\KeywordTok{require}\NormalTok{(ggmap)}
+\NormalTok{map <-}\StringTok{ }\KeywordTok{get_map}\NormalTok{(}\StringTok{"Atlanta"}\NormalTok{,}\DataTypeTok{zoom=}\DecValTok{12}\NormalTok{,}\DataTypeTok{source=}\StringTok{"stamen"}\NormalTok{,}\DataTypeTok{maptype=}\StringTok{"toner-lines"}\NormalTok{)}
+\KeywordTok{str}\NormalTok{(map)}
+\KeywordTok{attr}\NormalTok{(map,}\StringTok{"bb"}\NormalTok{)}\OperatorTok{$}\NormalTok{ll.lat}
 \end{Highlighting}
 \end{Shaded}
 
@@ -623,6 +644,16 @@ Insert or replace a character in a string at a specific location
 [1] "New: ABCdEF"
 \end{verbatim}
 
+\subsubsection{R Markdown}\label{r-markdown}
+
+Hide unwanted code output, such as inherent examples for functions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# ```\{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'\}}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Subsetting}\label{subsetting}
 
 Select specific rows E.g. select rows of sfeed\_move not in foodh
@@ -651,16 +682,6 @@ Remove a specific column from a data frame
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{within}\NormalTok{(df, }\KeywordTok{rm}\NormalTok{(}\StringTok{"Col1"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\subsubsection{R Markdown}\label{r-markdown}
-
-Hide unwanted code output, such as inherent examples for functions
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# ```\{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'\}}
 \end{Highlighting}
 \end{Shaded}
 
