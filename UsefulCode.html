@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-08-31<br />
+<p>Date: 2018-09-12<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -507,26 +507,33 @@ relationships <span class="op">%&gt;%</span>
 <span class="st">  </span>ggforce<span class="op">::</span><span class="kw">theme_no_axes</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</code></pre></div>
 <p>Define global plotting graphics function</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_it &lt;-<span class="st"> </span><span class="cf">function</span>(manuscript,bg,cp,alpha,family){ <span class="co"># plotting function (plot for MS or not, set bg color, set color palette from RColorBrewer, set alpha value for transperancy) </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(ggplot2)
+<span class="kw">require</span>(ggthemes)
+### set plotting params   
+plot_it &lt;-<span class="st"> </span><span class="cf">function</span>(manuscript,bg,cp1,cp2,alpha,family){ <span class="co"># plotting function (plot for MS or not, set bg color, set color palette from RColorBrewer, set alpha value for transperancy) </span>
   <span class="kw">graphics.off</span>()
   <span class="cf">if</span>(manuscript<span class="op">==</span><span class="dv">0</span>){
     <span class="cf">if</span>(bg<span class="op">==</span><span class="st">&quot;black&quot;</span>){
-      colvec&lt;-<span class="kw">magma</span>(<span class="dv">200</span>,<span class="dv">1</span>)
+      colvec &lt;&lt;-<span class="st"> </span><span class="kw">magma</span>(<span class="dv">200</span>,<span class="dv">1</span>) <span class="co"># plot window bg # USES &lt;&lt;- OPERATOR</span>
       <span class="kw">par</span>(<span class="dt">bg =</span> colvec[<span class="dv">1</span>],<span class="dt">col.axis=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.lab=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.main=</span><span class="st">&quot;white&quot;</span>,<span class="dt">fg=</span><span class="st">&quot;white&quot;</span>,<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">2</span>),<span class="dt">family=</span>family) <span class="co">#mono</span>
       border=<span class="kw">adjustcolor</span>(<span class="st">&quot;purple&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.5</span>)
     }<span class="cf">else</span>{
-      colvec&lt;-<span class="kw">bpy.colors</span>(<span class="dv">200</span>)
+      colvec &lt;&lt;-<span class="st"> </span><span class="kw">bpy.colors</span>(<span class="dv">200</span>) <span class="co"># plot window bg # USES &lt;&lt;- OPERATOR</span>
       <span class="kw">par</span>(<span class="dt">bg =</span> colvec[<span class="dv">1</span>],<span class="dt">col.axis=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.lab=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.main=</span><span class="st">&quot;white&quot;</span>,<span class="dt">fg=</span><span class="st">&quot;white&quot;</span>,<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">2</span>),<span class="dt">family=</span>family) 
       border=<span class="kw">adjustcolor</span>(<span class="st">&quot;blue&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.5</span>)
     }
   }<span class="cf">else</span>{
-<span class="co">#    graphics.off()</span>
+    <span class="co">#    graphics.off()</span>
     <span class="kw">par</span>(<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">family=</span>family) 
+    colv&lt;-<span class="st">&quot;white&quot;</span>
   }
   <span class="co"># color palettes</span>
-  <span class="co"># ifelse(manuscript==1,colvec&lt;-adjustcolor(brewer.pal(9,cp)[9], alpha = alpha),colvec &lt;- adjustcolor(brewer.pal(9,cp)[5], alpha = alpha)) # fine tune plotting colors for plotting bg</span>
-   <span class="co"># colfunc &lt;&lt;- colorRampPalette(brewer.pal(9,cp),alpha=alpha)</span>
-  colfunc &lt;&lt;-<span class="st"> </span><span class="kw">adjustcolor</span>(<span class="kw">brewer.pal</span>(<span class="dv">9</span>,cp),<span class="dt">alpha=</span>alpha) <span class="co"># USES &lt;&lt;- OPERATOR</span>
+  <span class="co"># ifelse(manuscript==1,colvec&lt;-adjustcolor(brewer.pal(9,cp1)[9], alpha = alpha),colvec &lt;- adjustcolor(brewer.pal(9,cp1)[5], alpha = alpha)) # fine tune plotting colors for plotting bg</span>
+  <span class="co"># colfunc &lt;&lt;- colorRampPalette(brewer.pal(9,cp1),alpha=alpha)</span>
+  cp1_info &lt;-<span class="st"> </span>brewer.pal.info[cp1,]<span class="op">$</span>maxcolors
+  cp2_info &lt;-<span class="st"> </span>brewer.pal.info[cp2,]<span class="op">$</span>maxcolors
+  colv &lt;&lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(cp1_info,cp1) <span class="co"># USES &lt;&lt;- OPERATOR</span>
+  colv2 &lt;&lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(cp2_info,cp2) <span class="co"># USES &lt;&lt;- OPERATOR</span>
 }
 
 <span class="co"># Setting ggplot theme graphics</span>
@@ -534,16 +541,20 @@ plot_it_gg &lt;-<span class="st"> </span><span class="cf">function</span>(bg){ <
   <span class="cf">if</span>(bg<span class="op">==</span><span class="st">&quot;white&quot;</span>){
     bg &lt;-<span class="st"> &quot;white&quot;</span>
     fg &lt;-<span class="st"> &quot;black&quot;</span>
-  <span class="kw">theme_tufte</span>(<span class="dt">base_family =</span> <span class="st">&quot;HersheySans&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg,<span class="dt">colour =</span> bg),<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill=</span>bg)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.line =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg), <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg),<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span>fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span>fg))
-}
-  }<span class="co"># end gg</span>
+    <span class="kw">theme_tufte</span>(<span class="dt">base_family =</span> <span class="st">&quot;HersheySans&quot;</span>) <span class="op">+</span>
+<span class="st">      </span><span class="kw">theme</span>(<span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg,<span class="dt">colour =</span> bg),<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill=</span>bg)) <span class="op">+</span>
+<span class="st">      </span><span class="kw">theme</span>(<span class="dt">axis.line =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg), <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg),<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span>fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span>fg))
+  }
+}<span class="co"># end gg</span>
 
 <span class="co"># Set global plotting parameters</span>
-<span class="kw">print</span>(<span class="st">&quot;1/0, set colour, set colour palette 'display.brewer.all()',set alpha for col,set font&quot;</span>)
-<span class="kw">plot_it</span>(<span class="dv">0</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;YlOrRd&quot;</span>,<span class="dv">1</span>,<span class="st">&quot;HersheySans&quot;</span>) <span class="co"># set col function params</span>
+<span class="kw">require</span>(RColorBrewer)
+<span class="kw">display.brewer.all</span>()
+<span class="kw">cat</span>(<span class="st">&quot;plot_it( </span><span class="ch">\n</span><span class="st">0 for presentation, 1 for manuscript, </span><span class="ch">\n</span><span class="st">set colour for background, </span><span class="ch">\n</span><span class="st">set colour palette 1. use 'display.brewer.all()', </span><span class="ch">\n</span><span class="st">set colour palette 2. use 'display.brewer.all()', </span><span class="ch">\n</span><span class="st">set alpha for colour transperancy, </span><span class="ch">\n</span><span class="st">set font style </span><span class="ch">\n</span><span class="st">)&quot;</span>)
+<span class="kw">plot_it</span>(<span class="dv">0</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;Spectral&quot;</span>,<span class="st">&quot;Greens&quot;</span>,<span class="dv">1</span>,<span class="st">&quot;mono&quot;</span>) <span class="co"># set col function params</span>
 <span class="kw">plot_it_gg</span>(<span class="st">&quot;white&quot;</span>) <span class="co"># same as above</span></code></pre></div>
+<p>Make plot cycle on one page</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(m_abundance<span class="op">$</span>gam,<span class="dt">pages=</span><span class="dv">1</span>)</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>

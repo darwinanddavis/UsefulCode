@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-08-31\\
+Date: 2018-09-12\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -487,26 +487,33 @@ Define global plotting graphics function
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{plot_it <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(manuscript,bg,cp,alpha,family)\{ }\CommentTok{# plotting function (plot for MS or not, set bg color, set color palette from RColorBrewer, set alpha value for transperancy) }
+\KeywordTok{require}\NormalTok{(ggplot2)}
+\KeywordTok{require}\NormalTok{(ggthemes)}
+\NormalTok{### set plotting params   }
+\NormalTok{plot_it <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(manuscript,bg,cp1,cp2,alpha,family)\{ }\CommentTok{# plotting function (plot for MS or not, set bg color, set color palette from RColorBrewer, set alpha value for transperancy) }
   \KeywordTok{graphics.off}\NormalTok{()}
   \ControlFlowTok{if}\NormalTok{(manuscript}\OperatorTok{==}\DecValTok{0}\NormalTok{)\{}
     \ControlFlowTok{if}\NormalTok{(bg}\OperatorTok{==}\StringTok{"black"}\NormalTok{)\{}
-\NormalTok{      colvec<-}\KeywordTok{magma}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{      colvec <<-}\StringTok{ }\KeywordTok{magma}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{1}\NormalTok{) }\CommentTok{# plot window bg # USES <<- OPERATOR}
       \KeywordTok{par}\NormalTok{(}\DataTypeTok{bg =}\NormalTok{ colvec[}\DecValTok{1}\NormalTok{],}\DataTypeTok{col.axis=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{col.lab=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{col.main=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{fg=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{family=}\NormalTok{family) }\CommentTok{#mono}
 \NormalTok{      border=}\KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"purple"}\NormalTok{,}\DataTypeTok{alpha=}\FloatTok{0.5}\NormalTok{)}
 \NormalTok{    \}}\ControlFlowTok{else}\NormalTok{\{}
-\NormalTok{      colvec<-}\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{200}\NormalTok{)}
+\NormalTok{      colvec <<-}\StringTok{ }\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{200}\NormalTok{) }\CommentTok{# plot window bg # USES <<- OPERATOR}
       \KeywordTok{par}\NormalTok{(}\DataTypeTok{bg =}\NormalTok{ colvec[}\DecValTok{1}\NormalTok{],}\DataTypeTok{col.axis=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{col.lab=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{col.main=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{fg=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{family=}\NormalTok{family) }
 \NormalTok{      border=}\KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"blue"}\NormalTok{,}\DataTypeTok{alpha=}\FloatTok{0.5}\NormalTok{)}
 \NormalTok{    \}}
 \NormalTok{  \}}\ControlFlowTok{else}\NormalTok{\{}
-\CommentTok{#    graphics.off()}
+    \CommentTok{#    graphics.off()}
     \KeywordTok{par}\NormalTok{(}\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}\DataTypeTok{family=}\NormalTok{family) }
+\NormalTok{    colv<-}\StringTok{"white"}
 \NormalTok{  \}}
   \CommentTok{# color palettes}
-  \CommentTok{# ifelse(manuscript==1,colvec<-adjustcolor(brewer.pal(9,cp)[9], alpha = alpha),colvec <- adjustcolor(brewer.pal(9,cp)[5], alpha = alpha)) # fine tune plotting colors for plotting bg}
-   \CommentTok{# colfunc <<- colorRampPalette(brewer.pal(9,cp),alpha=alpha)}
-\NormalTok{  colfunc <<-}\StringTok{ }\KeywordTok{adjustcolor}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(}\DecValTok{9}\NormalTok{,cp),}\DataTypeTok{alpha=}\NormalTok{alpha) }\CommentTok{# USES <<- OPERATOR}
+  \CommentTok{# ifelse(manuscript==1,colvec<-adjustcolor(brewer.pal(9,cp1)[9], alpha = alpha),colvec <- adjustcolor(brewer.pal(9,cp1)[5], alpha = alpha)) # fine tune plotting colors for plotting bg}
+  \CommentTok{# colfunc <<- colorRampPalette(brewer.pal(9,cp1),alpha=alpha)}
+\NormalTok{  cp1_info <-}\StringTok{ }\NormalTok{brewer.pal.info[cp1,]}\OperatorTok{$}\NormalTok{maxcolors}
+\NormalTok{  cp2_info <-}\StringTok{ }\NormalTok{brewer.pal.info[cp2,]}\OperatorTok{$}\NormalTok{maxcolors}
+\NormalTok{  colv <<-}\StringTok{ }\KeywordTok{brewer.pal}\NormalTok{(cp1_info,cp1) }\CommentTok{# USES <<- OPERATOR}
+\NormalTok{  colv2 <<-}\StringTok{ }\KeywordTok{brewer.pal}\NormalTok{(cp2_info,cp2) }\CommentTok{# USES <<- OPERATOR}
 \NormalTok{\}}
 
 \CommentTok{# Setting ggplot theme graphics}
@@ -514,16 +521,26 @@ Define global plotting graphics function
   \ControlFlowTok{if}\NormalTok{(bg}\OperatorTok{==}\StringTok{"white"}\NormalTok{)\{}
 \NormalTok{    bg <-}\StringTok{ "white"}
 \NormalTok{    fg <-}\StringTok{ "black"}
-  \KeywordTok{theme_tufte}\NormalTok{(}\DataTypeTok{base_family =} \StringTok{"HersheySans"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{panel.border =} \KeywordTok{element_blank}\NormalTok{(),}\DataTypeTok{panel.grid.major =} \KeywordTok{element_blank}\NormalTok{(),}\DataTypeTok{panel.grid.minor =} \KeywordTok{element_blank}\NormalTok{(),}\DataTypeTok{panel.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg,}\DataTypeTok{colour =}\NormalTok{ bg),}\DataTypeTok{plot.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{bg)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.line =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.ticks =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg)) }\OperatorTok{+}\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg), }\DataTypeTok{axis.title.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg),}\DataTypeTok{axis.text.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.key =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour=}\NormalTok{fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour=}\NormalTok{fg))}
-\NormalTok{\}}
-\NormalTok{  \}}\CommentTok{# end gg}
+    \KeywordTok{theme_tufte}\NormalTok{(}\DataTypeTok{base_family =} \StringTok{"HersheySans"}\NormalTok{) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{panel.border =} \KeywordTok{element_blank}\NormalTok{(),}\DataTypeTok{panel.grid.major =} \KeywordTok{element_blank}\NormalTok{(),}\DataTypeTok{panel.grid.minor =} \KeywordTok{element_blank}\NormalTok{(),}\DataTypeTok{panel.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg,}\DataTypeTok{colour =}\NormalTok{ bg),}\DataTypeTok{plot.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{bg)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.line =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.ticks =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg)) }\OperatorTok{+}\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg), }\DataTypeTok{axis.title.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg),}\DataTypeTok{axis.text.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.key =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour=}\NormalTok{fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour=}\NormalTok{fg))}
+\NormalTok{  \}}
+\NormalTok{\}}\CommentTok{# end gg}
 
 \CommentTok{# Set global plotting parameters}
-\KeywordTok{print}\NormalTok{(}\StringTok{"1/0, set colour, set colour palette 'display.brewer.all()',set alpha for col,set font"}\NormalTok{)}
-\KeywordTok{plot_it}\NormalTok{(}\DecValTok{0}\NormalTok{,}\StringTok{"blue"}\NormalTok{,}\StringTok{"YlOrRd"}\NormalTok{,}\DecValTok{1}\NormalTok{,}\StringTok{"HersheySans"}\NormalTok{) }\CommentTok{# set col function params}
+\KeywordTok{require}\NormalTok{(RColorBrewer)}
+\KeywordTok{display.brewer.all}\NormalTok{()}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"plot_it( }\CharTok{\textbackslash{}n}\StringTok{0 for presentation, 1 for manuscript, }\CharTok{\textbackslash{}n}\StringTok{set colour for background, }\CharTok{\textbackslash{}n}\StringTok{set colour palette 1. use 'display.brewer.all()', }\CharTok{\textbackslash{}n}\StringTok{set colour palette 2. use 'display.brewer.all()', }\CharTok{\textbackslash{}n}\StringTok{set alpha for colour transperancy, }\CharTok{\textbackslash{}n}\StringTok{set font style }\CharTok{\textbackslash{}n}\StringTok{)"}\NormalTok{)}
+\KeywordTok{plot_it}\NormalTok{(}\DecValTok{0}\NormalTok{,}\StringTok{"blue"}\NormalTok{,}\StringTok{"Spectral"}\NormalTok{,}\StringTok{"Greens"}\NormalTok{,}\DecValTok{1}\NormalTok{,}\StringTok{"mono"}\NormalTok{) }\CommentTok{# set col function params}
 \KeywordTok{plot_it_gg}\NormalTok{(}\StringTok{"white"}\NormalTok{) }\CommentTok{# same as above}
+\end{Highlighting}
+\end{Shaded}
+
+Make plot cycle on one page
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam,}\DataTypeTok{pages=}\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
