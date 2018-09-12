@@ -352,6 +352,14 @@ Make plot cycle on one page
 plot(m_abundance$gam,pages=1)
 ```
 
+Get plot summaries and values from plot  
+```{r plot9, results="hide",eval=F}
+plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1] # everything
+plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1][[1]]$x #subset x
+plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1][[1]]$fit #get values to produce fit curve 
+
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
