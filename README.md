@@ -19,6 +19,7 @@ Files:
 
 This document outlines some useful R code for plotting, cool functions, and other random tidbits.   
 
+
 ### Install dependencies
 ```{r, load packages, include=T, cache=T, message=F, warning=F, results='hide'}
 packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp","ggmap")   
