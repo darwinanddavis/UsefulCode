@@ -555,6 +555,10 @@ plot_it_gg &lt;-<span class="st"> </span><span class="cf">function</span>(bg){ <
 <span class="kw">plot_it_gg</span>(<span class="st">&quot;white&quot;</span>) <span class="co"># same as above</span></code></pre></div>
 <p>Make plot cycle on one page</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(m_abundance<span class="op">$</span>gam,<span class="dt">pages=</span><span class="dv">1</span>)</code></pre></div>
+<p>Get plot summaries and values from plot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>] <span class="co"># everything</span>
+<span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>x <span class="co">#subset x</span>
+<span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>fit <span class="co">#get values to produce fit curve </span></code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
@@ -583,24 +587,15 @@ ghr&lt;-<span class="kw">list</span>()
 <h3>Regular expressions (<code>regex</code>)</h3>
 <p>Get just numbers or characters</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> &quot;16-Feb-2018 20:08:04 PM&quot;</span>
-vecN &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[^[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec); vec; <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just numbers: &quot;</span>,vecN)) </code></pre></div>
-<pre><code>[1] &quot;16-Feb-2018 20:08:04 PM&quot;</code></pre>
-<pre><code>[1] &quot;Just numbers: 162018200804&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecC &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec); vec; <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just characters: &quot;</span>, vecC))</code></pre></div>
-<pre><code>[1] &quot;16-Feb-2018 20:08:04 PM&quot;</code></pre>
-<pre><code>[1] &quot;Just characters: -Feb- :: PM&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># with tidyr. requires data frame </span>
+vecN &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[^[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec); vec; <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just numbers: &quot;</span>,vecN)) 
+vecC &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec); vec; <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just characters: &quot;</span>, vecC))
+
+<span class="co"># with tidyr. requires data frame </span>
 <span class="kw">require</span>(tidyr)
 df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N1=</span><span class="kw">c</span>(<span class="st">&quot;APPLE348744&quot;</span>, <span class="st">&quot;BANANA77845&quot;</span>, <span class="st">&quot;OATS2647892&quot;</span>, <span class="st">&quot;EGG98586456&quot;</span>))
-<span class="kw">print</span>(<span class="st">&quot;tidyr doesn't work with strings separated by spaces&quot;</span>)  </code></pre></div>
-<pre><code>[1] &quot;tidyr doesn't work with strings separated by spaces&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df <span class="op">%&gt;%</span>
+<span class="kw">print</span>(<span class="st">&quot;tidyr doesn't work with strings separated by spaces&quot;</span>)  
+df <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">separate</span>(N1, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;text&quot;</span>, <span class="st">&quot;num&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;(?&lt;=[A-Za-z])(?=[0-9])&quot;</span>)</code></pre></div>
-<pre><code>    text      num
-1  APPLE   348744
-2 BANANA    77845
-3   OATS  2647892
-4    EGG 98586456</code></pre>
 <p>Insert or replace a character in a string at a specific location</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(stringi)
 vec &lt;-<span class="st"> &quot;ABCEF&quot;</span>

@@ -12,6 +12,13 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -27,13 +34,6 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -437,6 +437,14 @@ Make plot cycle on one page
 plot(m_abundance$gam,pages=1)
 ```
 
+Get plot summaries and values from plot  
+```{r plot9, results="hide",eval=F}
+plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1] # everything
+plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1][[1]]$x #subset x
+plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1][[1]]$fit #get values to produce fit curve 
+
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
@@ -466,7 +474,7 @@ for (i in hrs75[1:10]) {
 
 ### Regular expressions (`regex`)
 Get just numbers or characters      
-```{r regex1}
+```{r regex1, results="hide", eval=F}
 vec <- "16-Feb-2018 20:08:04 PM"
 vecN <- gsub("[^[:digit:]]", "", vec); vec; print(paste0("Just numbers: ",vecN)) 
 vecC <- gsub("[[:digit:]]", "", vec); vec; print(paste0("Just characters: ", vecC))

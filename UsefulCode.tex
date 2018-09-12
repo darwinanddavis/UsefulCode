@@ -544,6 +544,16 @@ Make plot cycle on one page
 \end{Highlighting}
 \end{Shaded}
 
+Get plot summaries and values from plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot.gam}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam,}\DataTypeTok{shade=}\NormalTok{T,}\DataTypeTok{pages=}\DecValTok{1}\NormalTok{,}\DataTypeTok{seWithMean =}\NormalTok{ T)[}\DecValTok{1}\NormalTok{] }\CommentTok{# everything}
+\KeywordTok{plot.gam}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam,}\DataTypeTok{shade=}\NormalTok{T,}\DataTypeTok{pages=}\DecValTok{1}\NormalTok{,}\DataTypeTok{seWithMean =}\NormalTok{ T)[}\DecValTok{1}\NormalTok{][[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{x }\CommentTok{#subset x}
+\KeywordTok{plot.gam}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam,}\DataTypeTok{shade=}\NormalTok{T,}\DataTypeTok{pages=}\DecValTok{1}\NormalTok{,}\DataTypeTok{seWithMean =}\NormalTok{ T)[}\DecValTok{1}\NormalTok{][[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{fit }\CommentTok{#get values to produce fit curve }
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Reading in files/data}\label{reading-in-filesdata}
 
 Read in file manually
@@ -587,60 +597,16 @@ Get just numbers or characters
 \begin{Highlighting}[]
 \NormalTok{vec <-}\StringTok{ "16-Feb-2018 20:08:04 PM"}
 \NormalTok{vecN <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"[^[:digit:]]"}\NormalTok{, }\StringTok{""}\NormalTok{, vec); vec; }\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Just numbers: "}\NormalTok{,vecN)) }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[1] "16-Feb-2018 20:08:04 PM"
-\end{verbatim}
-
-\begin{verbatim}
-[1] "Just numbers: 162018200804"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{vecC <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"[[:digit:]]"}\NormalTok{, }\StringTok{""}\NormalTok{, vec); vec; }\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Just characters: "}\NormalTok{, vecC))}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-[1] "16-Feb-2018 20:08:04 PM"
-\end{verbatim}
-
-\begin{verbatim}
-[1] "Just characters: -Feb- :: PM"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{# with tidyr. requires data frame }
 \KeywordTok{require}\NormalTok{(tidyr)}
 \NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{N1=}\KeywordTok{c}\NormalTok{(}\StringTok{"APPLE348744"}\NormalTok{, }\StringTok{"BANANA77845"}\NormalTok{, }\StringTok{"OATS2647892"}\NormalTok{, }\StringTok{"EGG98586456"}\NormalTok{))}
 \KeywordTok{print}\NormalTok{(}\StringTok{"tidyr doesn't work with strings separated by spaces"}\NormalTok{)  }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[1] "tidyr doesn't work with strings separated by spaces"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{df }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{separate}\NormalTok{(N1, }\DataTypeTok{into =} \KeywordTok{c}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\StringTok{"num"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"(?<=[A-Za-z])(?=[0-9])"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-# A tibble: 4 x 2
-  text   num     
-  <chr>  <chr>   
-1 APPLE  348744  
-2 BANANA 77845   
-3 OATS   2647892 
-4 EGG    98586456
-\end{verbatim}
 
 Insert or replace a character in a string at a specific location
 
