@@ -165,6 +165,7 @@ df <- data.frame(Date=as.Date(character()),
 
 Add df cols with `mutate`
 ```{r, df2, results='hide',eval=F}
+require(dplyr)  
 df <- data.frame("a"=rnorm(10),"b"=(1:20))
 df %>% 
   mutate(
