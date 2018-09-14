@@ -12,13 +12,6 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -34,6 +27,13 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -102,7 +102,7 @@ This document can be found at `r params$doi`
 
 ## Overview
 
-This document outlines some useful `R` code for plotting, cool functions, and other random tidbits.   
+This document outlines some useful `R` code for plotting, cool functions, and other random tidbits.     
 
 ### Install dependencies
 ```{r, load packages, include=T, cache=T, message=F, warning=F, results='hide'}
@@ -172,6 +172,11 @@ df %>%
   "c"=rnorm(20),
   b = b *67
   )
+```
+
+Change `df` column names    
+```{r, df3, results='hide',eval=F}
+colnames(data)[c(1,2,3)] <- c("TimeStamp","Lat","Long")
 ```
 
 ### `ggplot` functions  
@@ -253,27 +258,27 @@ dev.off()
 
 ### `NAs` 
 Replace `NAs` with 0's
-```{r, NAs1, results='hide',eval=F}
+```{r, NA1, results='hide',eval=F}
 df[is.na(df)] <- 0
 ```
 
 Replace X values less than given value (V) with 0  
-```{r, NAs2, results='hide',eval=F}
+```{r, NA2, results='hide',eval=F}
 df$X[df$X<V] <- 0 
 ```
 
 Check for `NAs`
-```{r, NAs3, results='hide',eval=F}
+```{r, NA3, results='hide',eval=F}
 sapply(df, function(x) sum(is.na(x)))
 ```
 
 Replace `NaN` and `Inf` values with `NA` 
-```{r, NAs4, results='hide',eval=F}
+```{r, NA4, results='hide',eval=F}
 df$col1[which(!is.finite(df$col1))] <-  NA
 ```
 
 Fill in missing data values in sequence with `NA`
-```{r, NAs5, results='hide',eval=F}
+```{r, NA5, results='hide',eval=F}
 # /Users/malishev/Documents/Manuscripts/Chapter4/Sims/Chapter4_figs.R
 library(zoo)
 data <- data.frame(index = c(1:4, 6:10),
@@ -295,6 +300,11 @@ minTb <- data.frame("Days"=1:days,"Time"=minTb)
 
 # then fill in missing values
 approx(minTb$Time,method = "linear")
+```
+  
+Remove rows with NA  
+```{r, NA6, results='hide',eval=F}
+data <- data[!is.na(data$X),]
 ```
   
 ### Plotting

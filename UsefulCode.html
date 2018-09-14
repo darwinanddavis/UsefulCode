@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-09-12<br />
+<p>Date: 2018-09-14<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -332,12 +332,15 @@ f<span class="op">$</span>V2&lt;-<span class="kw">as.numeric</span>(f<span class
                  <span class="dt">Y=</span><span class="kw">integer</span>(), 
                  <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) </code></pre></div>
 <p>Add df cols with <code>mutate</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;a&quot;</span>=<span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="st">&quot;b&quot;</span>=(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(dplyr)  
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;a&quot;</span>=<span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="st">&quot;b&quot;</span>=(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>))
 df <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(
   <span class="st">&quot;c&quot;</span>=<span class="kw">rnorm</span>(<span class="dv">20</span>),
   <span class="dt">b =</span> b <span class="op">*</span><span class="dv">67</span>
   )</code></pre></div>
+<p>Change <code>df</code> column names</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(data)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;TimeStamp&quot;</span>,<span class="st">&quot;Lat&quot;</span>,<span class="st">&quot;Long&quot;</span>)</code></pre></div>
 </div>
 <div id="ggplot-functions" class="section level3">
 <h3><code>ggplot</code> functions</h3>
@@ -437,6 +440,8 @@ minTb &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cla
 
 <span class="co"># then fill in missing values</span>
 <span class="kw">approx</span>(minTb<span class="op">$</span>Time,<span class="dt">method =</span> <span class="st">&quot;linear&quot;</span>)</code></pre></div>
+<p>Remove rows with NA</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>data[<span class="op">!</span><span class="kw">is.na</span>(data<span class="op">$</span>X),]</code></pre></div>
 </div>
 <div id="plotting" class="section level3">
 <h3>Plotting</h3>
