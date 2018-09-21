@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-09-14<br />
+<p>Date: 2018-09-21<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -511,7 +511,8 @@ relationships <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">scale_size_continuous</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>)) <span class="op">+</span>
 <span class="st">  </span>ggforce<span class="op">::</span><span class="kw">theme_no_axes</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</code></pre></div>
-<p>Define global plotting graphics function</p>
+<p>Define global plotting graphics function.</p>
+<p>The <code>plot_it.R</code> function is updated on the <a href="https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R">plot_it Github page</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(ggplot2)
 <span class="kw">require</span>(ggthemes)
 ### set plotting params   
@@ -552,12 +553,14 @@ plot_it_gg &lt;-<span class="st"> </span><span class="cf">function</span>(bg){ <
   }
 }<span class="co"># end gg</span>
 
-<span class="co"># Set global plotting parameters</span>
-<span class="kw">require</span>(RColorBrewer)
-<span class="kw">display.brewer.all</span>()
-<span class="kw">cat</span>(<span class="st">&quot;plot_it( </span><span class="ch">\n</span><span class="st">0 for presentation, 1 for manuscript, </span><span class="ch">\n</span><span class="st">set colour for background, </span><span class="ch">\n</span><span class="st">set colour palette 1. use 'display.brewer.all()', </span><span class="ch">\n</span><span class="st">set colour palette 2. use 'display.brewer.all()', </span><span class="ch">\n</span><span class="st">set alpha for colour transperancy, </span><span class="ch">\n</span><span class="st">set font style </span><span class="ch">\n</span><span class="st">)&quot;</span>)
+### Set plotting function  </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(<span class="st">&quot;RCurl&quot;</span>)
+script &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class="st">&quot;https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R&quot;</span>, <span class="dt">ssl.verifypeer =</span> <span class="ot">FALSE</span>)
+<span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> script))
+
+<span class="kw">cat</span>(<span class="st">&quot;plot_it( </span><span class="ch">\n</span><span class="st">0 for presentation, 1 for manuscript, </span><span class="ch">\n</span><span class="st">set colour for background, </span><span class="ch">\n</span><span class="st">set colour palette. use 'display.brewer.all()', </span><span class="ch">\n</span><span class="st">set alpha for colour transperancy, </span><span class="ch">\n</span><span class="st">set font style </span><span class="ch">\n</span><span class="st">)&quot;</span>)
 <span class="kw">plot_it</span>(<span class="dv">0</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;Spectral&quot;</span>,<span class="st">&quot;Greens&quot;</span>,<span class="dv">1</span>,<span class="st">&quot;mono&quot;</span>) <span class="co"># set col function params</span>
-<span class="kw">plot_it_gg</span>(<span class="st">&quot;white&quot;</span>) <span class="co"># same as above</span></code></pre></div>
+<span class="kw">plot_it_gg</span>(<span class="st">&quot;white&quot;</span>) <span class="co"># same as above </span></code></pre></div>
 <p>Make plot cycle on one page</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(m_abundance<span class="op">$</span>gam,<span class="dt">pages=</span><span class="dv">1</span>)</code></pre></div>
 <p>Get plot summaries and values from plot</p>

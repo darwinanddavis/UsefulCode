@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-09-12\\
+Date: 2018-09-21\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -215,12 +215,21 @@ Add df cols with \texttt{mutate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(dplyr)  }
 \NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"a"}\NormalTok{=}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10}\NormalTok{),}\StringTok{"b"}\NormalTok{=(}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{))}
 \NormalTok{df }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}
   \StringTok{"c"}\NormalTok{=}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{),}
   \DataTypeTok{b =}\NormalTok{ b }\OperatorTok{*}\DecValTok{67}
 \NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+Change \texttt{df} column names
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{colnames}\NormalTok{(data)[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)] <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"TimeStamp"}\NormalTok{,}\StringTok{"Lat"}\NormalTok{,}\StringTok{"Long"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -378,6 +387,14 @@ Fill in missing data values in sequence with \texttt{NA}
 \end{Highlighting}
 \end{Shaded}
 
+Remove rows with NA
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data <-}\StringTok{ }\NormalTok{data[}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(data}\OperatorTok{$}\NormalTok{X),]}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Plotting}\label{plotting}
 
 Plot one plot window above and two below
@@ -483,7 +500,11 @@ Cluster plot\\
 \end{Highlighting}
 \end{Shaded}
 
-Define global plotting graphics function
+Define global plotting graphics function.
+
+The \texttt{plot\_it.R} function is updated on the
+\href{https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R}{plot\_it
+Github page}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -527,12 +548,19 @@ Define global plotting graphics function
 \NormalTok{  \}}
 \NormalTok{\}}\CommentTok{# end gg}
 
-\CommentTok{# Set global plotting parameters}
-\KeywordTok{require}\NormalTok{(RColorBrewer)}
-\KeywordTok{display.brewer.all}\NormalTok{()}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"plot_it( }\CharTok{\textbackslash{}n}\StringTok{0 for presentation, 1 for manuscript, }\CharTok{\textbackslash{}n}\StringTok{set colour for background, }\CharTok{\textbackslash{}n}\StringTok{set colour palette 1. use 'display.brewer.all()', }\CharTok{\textbackslash{}n}\StringTok{set colour palette 2. use 'display.brewer.all()', }\CharTok{\textbackslash{}n}\StringTok{set alpha for colour transperancy, }\CharTok{\textbackslash{}n}\StringTok{set font style }\CharTok{\textbackslash{}n}\StringTok{)"}\NormalTok{)}
+\NormalTok{### Set plotting function  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(}\StringTok{"RCurl"}\NormalTok{)}
+\NormalTok{script <-}\StringTok{ }\KeywordTok{getURL}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R"}\NormalTok{, }\DataTypeTok{ssl.verifypeer =} \OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{eval}\NormalTok{(}\KeywordTok{parse}\NormalTok{(}\DataTypeTok{text =}\NormalTok{ script))}
+
+\KeywordTok{cat}\NormalTok{(}\StringTok{"plot_it( }\CharTok{\textbackslash{}n}\StringTok{0 for presentation, 1 for manuscript, }\CharTok{\textbackslash{}n}\StringTok{set colour for background, }\CharTok{\textbackslash{}n}\StringTok{set colour palette. use 'display.brewer.all()', }\CharTok{\textbackslash{}n}\StringTok{set alpha for colour transperancy, }\CharTok{\textbackslash{}n}\StringTok{set font style }\CharTok{\textbackslash{}n}\StringTok{)"}\NormalTok{)}
 \KeywordTok{plot_it}\NormalTok{(}\DecValTok{0}\NormalTok{,}\StringTok{"blue"}\NormalTok{,}\StringTok{"Spectral"}\NormalTok{,}\StringTok{"Greens"}\NormalTok{,}\DecValTok{1}\NormalTok{,}\StringTok{"mono"}\NormalTok{) }\CommentTok{# set col function params}
-\KeywordTok{plot_it_gg}\NormalTok{(}\StringTok{"white"}\NormalTok{) }\CommentTok{# same as above}
+\KeywordTok{plot_it_gg}\NormalTok{(}\StringTok{"white"}\NormalTok{) }\CommentTok{# same as above }
 \end{Highlighting}
 \end{Shaded}
 

@@ -12,6 +12,13 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -27,13 +34,6 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -393,7 +393,9 @@ relationships %>%
   theme(legend.position = "none")
 ```
 
-Define global plotting graphics function  
+Define global plotting graphics function.  
+
+The `plot_it.R` function is updated on the [plot_it Github page](https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R).  
 ```{r, plot7, eval=F, cache = TRUE, tidy = TRUE, lazy = TRUE, results="hide"}
 require(ggplot2)
 require(ggthemes)
@@ -435,12 +437,15 @@ plot_it_gg <- function(bg){ # bg = colour to plot bg, family = font family
   }
 }# end gg
 
-# Set global plotting parameters
-require(RColorBrewer)
-display.brewer.all()
-cat("plot_it( \n0 for presentation, 1 for manuscript, \nset colour for background, \nset colour palette 1. use 'display.brewer.all()', \nset colour palette 2. use 'display.brewer.all()', \nset alpha for colour transperancy, \nset font style \n)")
+### Set plotting function  
+```{r eval=F, results="hide"}
+require("RCurl")
+script <- getURL("https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R", ssl.verifypeer = FALSE)
+eval(parse(text = script))
+
+cat("plot_it( \n0 for presentation, 1 for manuscript, \nset colour for background, \nset colour palette. use 'display.brewer.all()', \nset alpha for colour transperancy, \nset font style \n)")
 plot_it(0,"blue","Spectral","Greens",1,"mono") # set col function params
-plot_it_gg("white") # same as above
+plot_it_gg("white") # same as above 
 ```
 
 Make plot cycle on one page
