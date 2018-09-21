@@ -89,6 +89,11 @@ df %>%
   )
 ```
 
+Change `df` column names    
+```{r, df3, results='hide',eval=F}
+colnames(data)[c(1,2,3)] <- c("TimeStamp","Lat","Long")
+```
+
 ### `ggplot` functions  
 Remove annoying stock gridlines from plot window  
 ```{r, ggplot1, results='hide',eval=F}
@@ -168,27 +173,27 @@ dev.off()
 
 ### `NAs` 
 Replace `NAs` with 0's
-```{r, NAs1, results='hide',eval=F}
+```{r, NA1, results='hide',eval=F}
 df[is.na(df)] <- 0
 ```
 
 Replace X values less than given value (V) with 0  
-```{r, NAs2, results='hide',eval=F}
+```{r, NA2, results='hide',eval=F}
 df$X[df$X<V] <- 0 
 ```
 
 Check for `NAs`
-```{r, NAs3, results='hide',eval=F}
+```{r, NA3, results='hide',eval=F}
 sapply(df, function(x) sum(is.na(x)))
 ```
 
 Replace `NaN` and `Inf` values with `NA` 
-```{r, NAs4, results='hide',eval=F}
+```{r, NA4, results='hide',eval=F}
 df$col1[which(!is.finite(df$col1))] <-  NA
 ```
 
 Fill in missing data values in sequence with `NA`
-```{r, NAs5, results='hide',eval=F}
+```{r, NA5, results='hide',eval=F}
 # /Users/malishev/Documents/Manuscripts/Chapter4/Sims/Chapter4_figs.R
 library(zoo)
 data <- data.frame(index = c(1:4, 6:10),
@@ -210,6 +215,11 @@ minTb <- data.frame("Days"=1:days,"Time"=minTb)
 
 # then fill in missing values
 approx(minTb$Time,method = "linear")
+```
+  
+Remove rows with NA  
+```{r, NA6, results='hide',eval=F}
+data <- data[!is.na(data$X),]
 ```
   
 ### Plotting
@@ -298,7 +308,9 @@ relationships %>%
   theme(legend.position = "none")
 ```
 
-Define global plotting graphics function  
+Define global plotting graphics function.  
+
+The `plot_it.R` function is updated on the [plot_it Github page](https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R).  
 ```{r, plot7, eval=F, cache = TRUE, tidy = TRUE, lazy = TRUE, results="hide"}
 require(ggplot2)
 require(ggthemes)
@@ -340,12 +352,15 @@ plot_it_gg <- function(bg){ # bg = colour to plot bg, family = font family
   }
 }# end gg
 
-# Set global plotting parameters
-require(RColorBrewer)
-display.brewer.all()
-cat("plot_it( \n0 for presentation, 1 for manuscript, \nset colour for background, \nset colour palette 1. use 'display.brewer.all()', \nset colour palette 2. use 'display.brewer.all()', \nset alpha for colour transperancy, \nset font style \n)")
+### Set plotting function  
+```{r eval=F, results="hide"}
+require("RCurl")
+script <- getURL("https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R", ssl.verifypeer = FALSE)
+eval(parse(text = script))
+
+cat("plot_it( \n0 for presentation, 1 for manuscript, \nset colour for background, \nset colour palette. use 'display.brewer.all()', \nset alpha for colour transperancy, \nset font style \n)")
 plot_it(0,"blue","Spectral","Greens",1,"mono") # set col function params
-plot_it_gg("white") # same as above
+plot_it_gg("white") # same as above 
 ```
 
 Make plot cycle on one page
@@ -463,4 +478,3 @@ library(purrr)
 library(twitteR)
 
 ```
-
