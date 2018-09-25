@@ -12,13 +12,6 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -34,6 +27,13 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -255,6 +255,37 @@ par(bty="n", las = 1)
 dev.off()
 
 ```
+
+### Messages  
+Display status message of progress  
+```{r, message1, results='hide',eval=F}
+for(i in 1:10) {
+  Sys.sleep(0.2)
+  # Dirk says using cat() like this is naughty ;-)
+  #cat(i,"\r")
+  # So you can use message() like this, thanks to Sharpie's
+  # comment to use appendLF=FALSE.
+  message(i,"\r",appendLF=FALSE) # appendLF = new line 
+  flush.console()
+}
+```
+
+Display popup progress bar  
+```{r, message2, results='hide',eval=F}
+require(tcltk)
+pb <- tkProgressBar("test progress bar", "Some information in %",
+        0, 100, 50)
+Sys.sleep(0.5)
+u <- c(0, sort(runif(20, 0 ,100)), 100)
+for(i in u) {
+    Sys.sleep(0.1)
+    info <- sprintf("%d%% done", round(i))
+    setTkProgressBar(pb, i, sprintf("test (%s)", info), info)
+}
+Sys.sleep(5)
+close(pb)
+```
+
 
 ### `NAs` 
 Replace `NAs` with 0's

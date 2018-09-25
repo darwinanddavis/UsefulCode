@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-09-21<br />
+<p>Date: 2018-09-25<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -407,6 +407,32 @@ Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-
 <span class="st">  </span>)
 } <span class="co"># end loop </span>
 <span class="kw">dev.off</span>()</code></pre></div>
+</div>
+<div id="messages" class="section level3">
+<h3>Messages</h3>
+<p>Display status message of progress</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+  <span class="kw">Sys.sleep</span>(<span class="fl">0.2</span>)
+  <span class="co"># Dirk says using cat() like this is naughty ;-)</span>
+  <span class="co">#cat(i,&quot;\r&quot;)</span>
+  <span class="co"># So you can use message() like this, thanks to Sharpie's</span>
+  <span class="co"># comment to use appendLF=FALSE.</span>
+  <span class="kw">message</span>(i,<span class="st">&quot;</span><span class="ch">\r</span><span class="st">&quot;</span>,<span class="dt">appendLF=</span><span class="ot">FALSE</span>) <span class="co"># appendLF = new line </span>
+  <span class="kw">flush.console</span>()
+}</code></pre></div>
+<p>Display popup progress bar</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(tcltk)
+pb &lt;-<span class="st"> </span><span class="kw">tkProgressBar</span>(<span class="st">&quot;test progress bar&quot;</span>, <span class="st">&quot;Some information in %&quot;</span>,
+        <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">50</span>)
+<span class="kw">Sys.sleep</span>(<span class="fl">0.5</span>)
+u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">sort</span>(<span class="kw">runif</span>(<span class="dv">20</span>, <span class="dv">0</span> ,<span class="dv">100</span>)), <span class="dv">100</span>)
+<span class="cf">for</span>(i <span class="cf">in</span> u) {
+    <span class="kw">Sys.sleep</span>(<span class="fl">0.1</span>)
+    info &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">&quot;%d%% done&quot;</span>, <span class="kw">round</span>(i))
+    <span class="kw">setTkProgressBar</span>(pb, i, <span class="kw">sprintf</span>(<span class="st">&quot;test (%s)&quot;</span>, info), info)
+}
+<span class="kw">Sys.sleep</span>(<span class="dv">5</span>)
+<span class="kw">close</span>(pb)</code></pre></div>
 </div>
 <div id="nas" class="section level3">
 <h3><code>NAs</code></h3>

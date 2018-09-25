@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-09-21\\
+Date: 2018-09-25\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -322,6 +322,43 @@ to dir
 \StringTok{  }\NormalTok{)}
 \NormalTok{\} }\CommentTok{# end loop }
 \KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Messages}\label{messages}
+
+Display status message of progress
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
+  \KeywordTok{Sys.sleep}\NormalTok{(}\FloatTok{0.2}\NormalTok{)}
+  \CommentTok{# Dirk says using cat() like this is naughty ;-)}
+  \CommentTok{#cat(i,"\textbackslash{}r")}
+  \CommentTok{# So you can use message() like this, thanks to Sharpie's}
+  \CommentTok{# comment to use appendLF=FALSE.}
+  \KeywordTok{message}\NormalTok{(i,}\StringTok{"}\CharTok{\textbackslash{}r}\StringTok{"}\NormalTok{,}\DataTypeTok{appendLF=}\OtherTok{FALSE}\NormalTok{) }\CommentTok{# appendLF = new line }
+  \KeywordTok{flush.console}\NormalTok{()}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Display popup progress bar
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(tcltk)}
+\NormalTok{pb <-}\StringTok{ }\KeywordTok{tkProgressBar}\NormalTok{(}\StringTok{"test progress bar"}\NormalTok{, }\StringTok{"Some information in %"}\NormalTok{,}
+        \DecValTok{0}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\KeywordTok{Sys.sleep}\NormalTok{(}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{u <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\KeywordTok{sort}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{0}\NormalTok{ ,}\DecValTok{100}\NormalTok{)), }\DecValTok{100}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in}\NormalTok{ u) \{}
+    \KeywordTok{Sys.sleep}\NormalTok{(}\FloatTok{0.1}\NormalTok{)}
+\NormalTok{    info <-}\StringTok{ }\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%d%% done"}\NormalTok{, }\KeywordTok{round}\NormalTok{(i))}
+    \KeywordTok{setTkProgressBar}\NormalTok{(pb, i, }\KeywordTok{sprintf}\NormalTok{(}\StringTok{"test (%s)"}\NormalTok{, info), info)}
+\NormalTok{\}}
+\KeywordTok{Sys.sleep}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\KeywordTok{close}\NormalTok{(pb)}
 \end{Highlighting}
 \end{Shaded}
 
