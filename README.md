@@ -27,6 +27,7 @@ if (require(packages)) {
     require(packages)
 }
 lapply(packages,library,character.only=T)
+sessionInfo()
 ```
 
 ### Attributes  
