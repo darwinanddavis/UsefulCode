@@ -94,7 +94,15 @@ Change `df` column names
 ```{r, df3, results='hide',eval=F}
 colnames(data)[c(1,2,3)] <- c("TimeStamp","Lat","Long")
 ```
-
+  
+### Generic functions  
+Generic useful functions that I can't place under any other headings here  
+```{r, function1, results='hide',eval=F}
+# dput() for converting outputs such as copied text or data tables into vectors
+xx <- "Some copied text or table from the internet"
+dput(xx)
+```
+  
 ### `ggplot` functions  
 Remove annoying stock gridlines from plot window  
 ```{r, ggplot1, results='hide',eval=F}
