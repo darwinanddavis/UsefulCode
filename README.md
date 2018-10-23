@@ -21,7 +21,7 @@ This document outlines some useful R code for plotting, cool functions, and othe
 
 ### Install dependencies
 ```{r, load packages, include=T, cache=T, message=F, warning=F, results='hide'}
-packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp","ggmap")   
+packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp","ggmap", "deSolve","pdftools","jsonlite")   
 if (require(packages)) {
     install.packages(packages,dependencies = T)
     require(packages)
@@ -94,15 +94,15 @@ Change `df` column names
 ```{r, df3, results='hide',eval=F}
 colnames(data)[c(1,2,3)] <- c("TimeStamp","Lat","Long")
 ```
-  
-### Generic functions     
+
+### Generic functions  
 Generic useful functions that I can't place under any other headings here  
 ```{r, function1, results='hide',eval=F}
 # dput() for converting outputs such as copied text or data tables into vectors
 xx <- "Some copied text or table from the internet"
-dput(xx)  
+dput(xx)
 ```
-  
+
 ### `ggplot` functions  
 Remove annoying stock gridlines from plot window  
 ```{r, ggplot1, results='hide',eval=F}
@@ -179,7 +179,7 @@ par(bty="n", las = 1)
 dev.off()
 
 ```
-
+  
 ### Messages  
 Display status message of progress  
 ```{r, message1, results='hide',eval=F}
@@ -441,6 +441,28 @@ for (i in hrs75[1:10]) {
   m<-mcp(i,100,unout='m2')
   ghr<-c(ghr,m)
 };ghr
+```
+
+Read in PDF files from online source in R and save to drive.  
+``` {r, read3, results='hide',eval=F}
+require(pdftools)
+dir <- "YOUR FOLDER ON YOUR COMPUTER WHERE YOU WANT THE FILE SAVED"
+f <- "NAME OF THE FILE" 
+
+# run all this
+download.file("https://raw.githubusercontent.com/darwinanddavis/499R/master/exp_pop_growth.pdf", paste0(dir,"/",f,".pdf"), mode = "wb")
+txt <- pdf_text(paste0(dir,"/",f,".pdf"))
+
+# first page text
+page <- 1 # enter the page number
+cat(txt[page])
+
+toc <- pdf_toc(paste0(dir,"/",f,".pdf"))
+
+require(jsonlite)
+# Show as JSON
+jsonlite::toJSON(toc, auto_unbox = TRUE, pretty = TRUE)
+
 ```
 
 ### Regular expressions (`regex`)
