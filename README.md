@@ -445,23 +445,38 @@ for (i in hrs75[1:10]) {
 
 Read in PDF files from online source in R and save to drive.  
 ``` {r, read3, results='hide',eval=F}
+# from https://github.com/ropensci/pdftools
+
 require(pdftools)
-dir <- "YOUR FOLDER ON YOUR COMPUTER WHERE YOU WANT THE FILE SAVED"
+url <- "https://raw.githubusercontent.com/darwinanddavis/499R/master/exp_pop_growth.pdf"
+dir <- "FOLDER ON YOUR COMPUTER WHERE YOU WANT THE FILE SAVED"
 f <- "NAME OF THE FILE" 
+f <- paste0(f,".pdf") 
 
 # run all this
-download.file("https://raw.githubusercontent.com/darwinanddavis/499R/master/exp_pop_growth.pdf", paste0(dir,"/",f,".pdf"), mode = "wb")
-txt <- pdf_text(paste0(dir,"/",f,".pdf"))
+download.file(url, paste0(dir,"/",f), mode = "wb")
+txt <- pdf_text(paste0(dir,"/",f))
 
 # first page text
 page <- 1 # enter the page number
 cat(txt[page])
 
-toc <- pdf_toc(paste0(dir,"/",f,".pdf"))
+toc <- pdf_toc(paste0(dir,"/",f))
 
 require(jsonlite)
 # Show as JSON
 jsonlite::toJSON(toc, auto_unbox = TRUE, pretty = TRUE)
+
+# show author, version, etc
+info <- pdf_info(f)
+
+# renders pdf to bitmap array
+bitmap <- pdf_render_page(f, page = 1)
+
+# save bitmap image
+png::writePNG(bitmap, "page.png")
+jpeg::writeJPEG(bitmap, "page.jpeg")
+webp::write_webp(bitmap, "page.webp")
 
 ```
 
