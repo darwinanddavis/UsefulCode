@@ -179,7 +179,7 @@ par(bty="n", las = 1)
 dev.off()
 
 ```
-  
+
 ### Messages  
 Display status message of progress  
 ```{r, message1, results='hide',eval=F}
@@ -413,6 +413,12 @@ Get plot summaries and values from plot
 plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1] # everything
 plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1][[1]]$x #subset x
 plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1][[1]]$fit #get values to produce fit curve 
+
+```
+
+Package for stock world maps  
+```{r plot10, results="hide",eval=F}
+library(choroplethrMaps)
 
 ```
 
