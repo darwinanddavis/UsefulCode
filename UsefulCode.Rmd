@@ -106,7 +106,7 @@ This document outlines some useful `R` code for plotting, cool functions, and ot
 
 ### Install dependencies
 ```{r, load packages, include=T, cache=T, message=F, warning=F, results='hide'}
-packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp","ggmap")   
+packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp","ggmap", "deSolve","pdftools","jsonlite")   
 if (require(packages)) {
     install.packages(packages,dependencies = T)
     require(packages)
@@ -501,6 +501,12 @@ plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1][[1]]$fit #get values
 
 ```
 
+Package for stock world maps  
+```{r plot10, results="hide",eval=F}
+library(choroplethrMaps)
+
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
@@ -526,6 +532,43 @@ for (i in hrs75[1:10]) {
   m<-mcp(i,100,unout='m2')
   ghr<-c(ghr,m)
 };ghr
+```
+
+Read in PDF files from online source in R and save to drive.  
+``` {r, read3, results='hide',eval=F}
+# from https://github.com/ropensci/pdftools
+
+require(pdftools)
+url <- "https://raw.githubusercontent.com/darwinanddavis/499R/master/exp_pop_growth.pdf"
+dir <- "FOLDER ON YOUR COMPUTER WHERE YOU WANT THE FILE SAVED"
+f <- "NAME OF THE FILE" 
+f <- paste0(f,".pdf") 
+
+# run all this
+download.file(url, paste0(dir,"/",f), mode = "wb")
+txt <- pdf_text(paste0(dir,"/",f))
+
+# first page text
+page <- 1 # enter the page number
+cat(txt[page])
+
+toc <- pdf_toc(paste0(dir,"/",f))
+
+require(jsonlite)
+# Show as JSON
+jsonlite::toJSON(toc, auto_unbox = TRUE, pretty = TRUE)
+
+# show author, version, etc
+info <- pdf_info(f)
+
+# renders pdf to bitmap array
+bitmap <- pdf_render_page(f, page = 1)
+
+# save bitmap image
+png::writePNG(bitmap, "page.png")
+jpeg::writeJPEG(bitmap, "page.jpeg")
+webp::write_webp(bitmap, "page.webp")
+
 ```
 
 ### Regular expressions (`regex`)

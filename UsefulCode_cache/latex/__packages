@@ -23,3 +23,9 @@ extrafont
 tidyr
 stringi
 ggmap
+<<<<<<< HEAD
+deSolve
+pdftools
+jsonlite
+=======
+>>>>>>> d5c13caf712733ba6cb6301d8d5021fd60946024

@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-10-17\\
+Date: 2018-10-30\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -135,7 +135,7 @@ functions, and other random tidbits.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"rgdal"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"zoo"}\NormalTok{,}\StringTok{"RColorBrewer"}\NormalTok{,}\StringTok{"viridis"}\NormalTok{,}\StringTok{"plyr"}\NormalTok{,}\StringTok{"digitize"}\NormalTok{,}\StringTok{"jpeg"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{,}\StringTok{"imager"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"ggplot2"}\NormalTok{,}\StringTok{"ggridges"}\NormalTok{,}\StringTok{"ggjoy"}\NormalTok{,}\StringTok{"ggthemes"}\NormalTok{,}\StringTok{"svDialogs"}\NormalTok{,}\StringTok{"data.table"}\NormalTok{,}\StringTok{"tibble"}\NormalTok{,}\StringTok{"extrafont"}\NormalTok{,}\StringTok{"sp"}\NormalTok{,}\StringTok{"ggmap"}\NormalTok{)   }
+\NormalTok{packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"rgdal"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"zoo"}\NormalTok{,}\StringTok{"RColorBrewer"}\NormalTok{,}\StringTok{"viridis"}\NormalTok{,}\StringTok{"plyr"}\NormalTok{,}\StringTok{"digitize"}\NormalTok{,}\StringTok{"jpeg"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{,}\StringTok{"imager"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"ggplot2"}\NormalTok{,}\StringTok{"ggridges"}\NormalTok{,}\StringTok{"ggjoy"}\NormalTok{,}\StringTok{"ggthemes"}\NormalTok{,}\StringTok{"svDialogs"}\NormalTok{,}\StringTok{"data.table"}\NormalTok{,}\StringTok{"tibble"}\NormalTok{,}\StringTok{"extrafont"}\NormalTok{,}\StringTok{"sp"}\NormalTok{,}\StringTok{"ggmap"}\NormalTok{, }\StringTok{"deSolve"}\NormalTok{,}\StringTok{"pdftools"}\NormalTok{,}\StringTok{"jsonlite"}\NormalTok{)   }
 \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{require}\NormalTok{(packages)) \{}
     \KeywordTok{install.packages}\NormalTok{(packages,}\DataTypeTok{dependencies =}\NormalTok{ T)}
     \KeywordTok{require}\NormalTok{(packages)}
@@ -633,6 +633,14 @@ Get plot summaries and values from plot
 \end{Highlighting}
 \end{Shaded}
 
+Package for stock world maps
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(choroplethrMaps)}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Reading in files/data}\label{reading-in-filesdata}
 
 Read in file manually
@@ -664,6 +672,45 @@ Loop through files from dir and append to list
 \NormalTok{  m<-}\KeywordTok{mcp}\NormalTok{(i,}\DecValTok{100}\NormalTok{,}\DataTypeTok{unout=}\StringTok{'m2'}\NormalTok{)}
 \NormalTok{  ghr<-}\KeywordTok{c}\NormalTok{(ghr,m)}
 \NormalTok{\};ghr}
+\end{Highlighting}
+\end{Shaded}
+
+Read in PDF files from online source in R and save to drive.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# from https://github.com/ropensci/pdftools}
+
+\KeywordTok{require}\NormalTok{(pdftools)}
+\NormalTok{url <-}\StringTok{ "https://raw.githubusercontent.com/darwinanddavis/499R/master/exp_pop_growth.pdf"}
+\NormalTok{dir <-}\StringTok{ "FOLDER ON YOUR COMPUTER WHERE YOU WANT THE FILE SAVED"}
+\NormalTok{f <-}\StringTok{ "NAME OF THE FILE"} 
+\NormalTok{f <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(f,}\StringTok{".pdf"}\NormalTok{) }
+
+\CommentTok{# run all this}
+\KeywordTok{download.file}\NormalTok{(url, }\KeywordTok{paste0}\NormalTok{(dir,}\StringTok{"/"}\NormalTok{,f), }\DataTypeTok{mode =} \StringTok{"wb"}\NormalTok{)}
+\NormalTok{txt <-}\StringTok{ }\KeywordTok{pdf_text}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(dir,}\StringTok{"/"}\NormalTok{,f))}
+
+\CommentTok{# first page text}
+\NormalTok{page <-}\StringTok{ }\DecValTok{1} \CommentTok{# enter the page number}
+\KeywordTok{cat}\NormalTok{(txt[page])}
+
+\NormalTok{toc <-}\StringTok{ }\KeywordTok{pdf_toc}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(dir,}\StringTok{"/"}\NormalTok{,f))}
+
+\KeywordTok{require}\NormalTok{(jsonlite)}
+\CommentTok{# Show as JSON}
+\NormalTok{jsonlite}\OperatorTok{::}\KeywordTok{toJSON}\NormalTok{(toc, }\DataTypeTok{auto_unbox =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{pretty =} \OtherTok{TRUE}\NormalTok{)}
+
+\CommentTok{# show author, version, etc}
+\NormalTok{info <-}\StringTok{ }\KeywordTok{pdf_info}\NormalTok{(f)}
+
+\CommentTok{# renders pdf to bitmap array}
+\NormalTok{bitmap <-}\StringTok{ }\KeywordTok{pdf_render_page}\NormalTok{(f, }\DataTypeTok{page =} \DecValTok{1}\NormalTok{)}
+
+\CommentTok{# save bitmap image}
+\NormalTok{png}\OperatorTok{::}\KeywordTok{writePNG}\NormalTok{(bitmap, }\StringTok{"page.png"}\NormalTok{)}
+\NormalTok{jpeg}\OperatorTok{::}\KeywordTok{writeJPEG}\NormalTok{(bitmap, }\StringTok{"page.jpeg"}\NormalTok{)}
+\NormalTok{webp}\OperatorTok{::}\KeywordTok{write_webp}\NormalTok{(bitmap, }\StringTok{"page.webp"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 

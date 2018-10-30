@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-10-17<br />
+<p>Date: 2018-10-30<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -286,7 +286,7 @@ This document can be found at <a href="https://github.com/darwinanddavis/UsefulC
 <p>This document outlines some useful <code>R</code> code for plotting, cool functions, and other random tidbits.</p>
 <div id="install-dependencies" class="section level3">
 <h3>Install dependencies</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rgdal&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;zoo&quot;</span>,<span class="st">&quot;RColorBrewer&quot;</span>,<span class="st">&quot;viridis&quot;</span>,<span class="st">&quot;plyr&quot;</span>,<span class="st">&quot;digitize&quot;</span>,<span class="st">&quot;jpeg&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;imager&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;ggridges&quot;</span>,<span class="st">&quot;ggjoy&quot;</span>,<span class="st">&quot;ggthemes&quot;</span>,<span class="st">&quot;svDialogs&quot;</span>,<span class="st">&quot;data.table&quot;</span>,<span class="st">&quot;tibble&quot;</span>,<span class="st">&quot;extrafont&quot;</span>,<span class="st">&quot;sp&quot;</span>,<span class="st">&quot;ggmap&quot;</span>)   
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rgdal&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;zoo&quot;</span>,<span class="st">&quot;RColorBrewer&quot;</span>,<span class="st">&quot;viridis&quot;</span>,<span class="st">&quot;plyr&quot;</span>,<span class="st">&quot;digitize&quot;</span>,<span class="st">&quot;jpeg&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;imager&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;ggridges&quot;</span>,<span class="st">&quot;ggjoy&quot;</span>,<span class="st">&quot;ggthemes&quot;</span>,<span class="st">&quot;svDialogs&quot;</span>,<span class="st">&quot;data.table&quot;</span>,<span class="st">&quot;tibble&quot;</span>,<span class="st">&quot;extrafont&quot;</span>,<span class="st">&quot;sp&quot;</span>,<span class="st">&quot;ggmap&quot;</span>, <span class="st">&quot;deSolve&quot;</span>,<span class="st">&quot;pdftools&quot;</span>,<span class="st">&quot;jsonlite&quot;</span>)   
 <span class="cf">if</span> (<span class="kw">require</span>(packages)) {
     <span class="kw">install.packages</span>(packages,<span class="dt">dependencies =</span> T)
     <span class="kw">require</span>(packages)
@@ -601,6 +601,8 @@ script &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>] <span class="co"># everything</span>
 <span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>x <span class="co">#subset x</span>
 <span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>fit <span class="co">#get values to produce fit curve </span></code></pre></div>
+<p>Package for stock world maps</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(choroplethrMaps)</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
@@ -624,6 +626,39 @@ ghr&lt;-<span class="kw">list</span>()
   m&lt;-<span class="kw">mcp</span>(i,<span class="dv">100</span>,<span class="dt">unout=</span><span class="st">'m2'</span>)
   ghr&lt;-<span class="kw">c</span>(ghr,m)
 };ghr</code></pre></div>
+<p>Read in PDF files from online source in R and save to drive.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># from https://github.com/ropensci/pdftools</span>
+
+<span class="kw">require</span>(pdftools)
+url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/darwinanddavis/499R/master/exp_pop_growth.pdf&quot;</span>
+dir &lt;-<span class="st"> &quot;FOLDER ON YOUR COMPUTER WHERE YOU WANT THE FILE SAVED&quot;</span>
+f &lt;-<span class="st"> &quot;NAME OF THE FILE&quot;</span> 
+f &lt;-<span class="st"> </span><span class="kw">paste0</span>(f,<span class="st">&quot;.pdf&quot;</span>) 
+
+<span class="co"># run all this</span>
+<span class="kw">download.file</span>(url, <span class="kw">paste0</span>(dir,<span class="st">&quot;/&quot;</span>,f), <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)
+txt &lt;-<span class="st"> </span><span class="kw">pdf_text</span>(<span class="kw">paste0</span>(dir,<span class="st">&quot;/&quot;</span>,f))
+
+<span class="co"># first page text</span>
+page &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># enter the page number</span>
+<span class="kw">cat</span>(txt[page])
+
+toc &lt;-<span class="st"> </span><span class="kw">pdf_toc</span>(<span class="kw">paste0</span>(dir,<span class="st">&quot;/&quot;</span>,f))
+
+<span class="kw">require</span>(jsonlite)
+<span class="co"># Show as JSON</span>
+jsonlite<span class="op">::</span><span class="kw">toJSON</span>(toc, <span class="dt">auto_unbox =</span> <span class="ot">TRUE</span>, <span class="dt">pretty =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># show author, version, etc</span>
+info &lt;-<span class="st"> </span><span class="kw">pdf_info</span>(f)
+
+<span class="co"># renders pdf to bitmap array</span>
+bitmap &lt;-<span class="st"> </span><span class="kw">pdf_render_page</span>(f, <span class="dt">page =</span> <span class="dv">1</span>)
+
+<span class="co"># save bitmap image</span>
+png<span class="op">::</span><span class="kw">writePNG</span>(bitmap, <span class="st">&quot;page.png&quot;</span>)
+jpeg<span class="op">::</span><span class="kw">writeJPEG</span>(bitmap, <span class="st">&quot;page.jpeg&quot;</span>)
+webp<span class="op">::</span><span class="kw">write_webp</span>(bitmap, <span class="st">&quot;page.webp&quot;</span>)</code></pre></div>
 </div>
 <div id="regular-expressions-regex" class="section level3">
 <h3>Regular expressions (<code>regex</code>)</h3>
