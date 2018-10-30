@@ -7,6 +7,10 @@
 doi: [DOI](https://github.com/darwinanddavis/UsefulCode)  
 :link: [Github](https://github.com/darwinanddavis/UsefulCode)    
 
+TO ADD:  
+- plotting a blank plot window  https://stackoverflow.com/questions/4785657/how-to-draw-an-empty-plot  
+-
+
 ****** 
 
 Files:  
