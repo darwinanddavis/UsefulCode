@@ -9,7 +9,7 @@ doi: [DOI](https://github.com/darwinanddavis/UsefulCode)
 
 TO ADD:  
 - plotting a blank plot window  https://stackoverflow.com/questions/4785657/how-to-draw-an-empty-plot  
--
+- plotting multiple plots per page using PDF  http://rstudio-pubs-static.s3.amazonaws.com/2852_379274d7c5734f979e106dcf019ec46c.html  
 
 ****** 
 
