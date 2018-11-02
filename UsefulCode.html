@@ -325,6 +325,28 @@ f<span class="op">$</span>V2&lt;-<span class="kw">as.numeric</span>(f<span class
   }
 <span class="kw">shadedens</span>(<span class="st">&quot;Clumped&quot;</span>) <span class="co"># set clumped resources</span></code></pre></div>
 </div>
+<div id="d3-apps" class="section level3">
+<h3>D3 apps</h3>
+<p>Interactive network plots using d3</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load package</span>
+<span class="kw">install.packages</span>(<span class="st">&quot;networkD3&quot;</span>)
+<span class="kw">library</span>(networkD3)
+
+<span class="co"># Load energy projection data</span>
+URL &lt;-<span class="st"> &quot;https://cdn.rawgit.com/christophergandrud/networkD3/master/JSONdata/energy.json&quot;</span>
+Energy &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">fromJSON</span>(URL)
+
+<span class="co"># Now we have 2 data frames: a 'links' data frame with 3 columns (from, to, value), and a 'nodes' data frame that gives the name of each node.</span>
+<span class="kw">head</span>(Energy<span class="op">$</span>links)
+<span class="kw">head</span>(Energy<span class="op">$</span>nodes)
+
+<span class="co"># Thus we can plot it</span>
+<span class="kw">sankeyNetwork</span>(<span class="dt">Links =</span> Energy<span class="op">$</span>links, <span class="dt">Nodes =</span> Energy<span class="op">$</span>nodes, <span class="dt">Source =</span> <span class="st">&quot;source&quot;</span>,
+              <span class="dt">Target =</span> <span class="st">&quot;target&quot;</span>, <span class="dt">Value =</span> <span class="st">&quot;value&quot;</span>, <span class="dt">NodeID =</span> <span class="st">&quot;name&quot;</span>,
+              <span class="dt">units =</span> <span class="st">&quot;TWh&quot;</span>, <span class="dt">fontSize =</span> <span class="dv">12</span>, <span class="dt">nodeWidth =</span> <span class="dv">30</span>)
+
+?sankeyNetwork</code></pre></div>
+</div>
 <div id="dataframes" class="section level3">
 <h3>Dataframes</h3>
 <p>Optimal empty data frame</p>

@@ -199,6 +199,33 @@ Set dynamic input for variable / assign variable to char vector
 \end{Highlighting}
 \end{Shaded}
 
+\subsubsection{D3 apps}\label{d3-apps}
+
+Interactive network plots using d3
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Load package}
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"networkD3"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(networkD3)}
+
+\CommentTok{# Load energy projection data}
+\NormalTok{URL <-}\StringTok{ "https://cdn.rawgit.com/christophergandrud/networkD3/master/JSONdata/energy.json"}
+\NormalTok{Energy <-}\StringTok{ }\NormalTok{jsonlite}\OperatorTok{::}\KeywordTok{fromJSON}\NormalTok{(URL)}
+
+\CommentTok{# Now we have 2 data frames: a 'links' data frame with 3 columns (from, to, value), and a 'nodes' data frame that gives the name of each node.}
+\KeywordTok{head}\NormalTok{(Energy}\OperatorTok{$}\NormalTok{links)}
+\KeywordTok{head}\NormalTok{(Energy}\OperatorTok{$}\NormalTok{nodes)}
+
+\CommentTok{# Thus we can plot it}
+\KeywordTok{sankeyNetwork}\NormalTok{(}\DataTypeTok{Links =}\NormalTok{ Energy}\OperatorTok{$}\NormalTok{links, }\DataTypeTok{Nodes =}\NormalTok{ Energy}\OperatorTok{$}\NormalTok{nodes, }\DataTypeTok{Source =} \StringTok{"source"}\NormalTok{,}
+              \DataTypeTok{Target =} \StringTok{"target"}\NormalTok{, }\DataTypeTok{Value =} \StringTok{"value"}\NormalTok{, }\DataTypeTok{NodeID =} \StringTok{"name"}\NormalTok{,}
+              \DataTypeTok{units =} \StringTok{"TWh"}\NormalTok{, }\DataTypeTok{fontSize =} \DecValTok{12}\NormalTok{, }\DataTypeTok{nodeWidth =} \DecValTok{30}\NormalTok{)}
+
+\NormalTok{?sankeyNetwork}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Dataframes}\label{dataframes}
 
 Optimal empty data frame
