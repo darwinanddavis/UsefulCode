@@ -503,7 +503,63 @@ plot.gam(m_abundance$gam,shade=T,pages=1,seWithMean = T)[1][[1]]$fit #get values
 
 Package for stock world maps  
 ```{r plot10, results="hide",eval=F}
+#worldmap
 library(choroplethrMaps)
+
+```
+
+Circle packing, tree, dendogram, network plots 
+```{r plot11, results="hide",eval=F}
+# dendogram tree nested bubble circle packing network 
+# https://www.r-graph-gallery.com/313-basic-circle-packing-with-several-levels/
+# circle packing plot  
+# Libraries
+p <- c("ggraph","igraph","tidyverse","DeducerSpatial","Rcpp","car")
+install.packages(p,dependencies = T)
+lapply(p,library,character.only=T)
+
+# We need a data frame giving a hierarchical structure. Let's consider the flare dataset:
+edges=flare$edges
+# edges cols = character
+
+# Usually we associate another dataset that give information about each node of the dataset:
+vertices = flare$vertices
+# vertices cols = character, numeric, character
+
+# Then we have to make a 'graph' object using the igraph library:
+??graph_from_data_frame
+mygraph <- graph_from_data_frame( edges, vertices=vertices )
+
+# circle packing
+ggraph(mygraph, layout = 'circlepack') + 
+  geom_node_circle() +
+  theme_void()
+
+#circular dendo
+str(mygraph)
+ggraph(mygraph, layout='dendrogram', circular=T) + 
+  geom_edge_diagonal() +
+  theme_void() +
+  theme(legend.position="none")
+
+# tree map
+ggraph(mygraph, 'treemap', weight = 'size') + 
+  geom_node_tile(aes(fill = depth), size = 0.25) +
+  theme_void() +
+  theme(legend.position="none")
+
+# circular partition
+ggraph(mygraph, 'partition', circular = TRUE) + 
+  geom_node_arc_bar(aes(fill = depth), size = 0.25) +
+  theme_void() +
+  theme(legend.position="none")
+
+# node 
+ggraph(mygraph) + 
+  geom_edge_link() + 
+  geom_node_point() +
+  theme_void() +
+  theme(legend.position="none")
 
 ```
 

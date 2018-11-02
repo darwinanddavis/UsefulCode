@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-10-30<br />
+<p>Date: 2018-11-02<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -602,7 +602,59 @@ script &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class=
 <span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>x <span class="co">#subset x</span>
 <span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>fit <span class="co">#get values to produce fit curve </span></code></pre></div>
 <p>Package for stock world maps</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(choroplethrMaps)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#worldmap</span>
+<span class="kw">library</span>(choroplethrMaps)</code></pre></div>
+<p>Circle packing, tree, dendogram, network plots</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dendogram tree nested bubble circle packing network </span>
+<span class="co"># https://www.r-graph-gallery.com/313-basic-circle-packing-with-several-levels/</span>
+<span class="co"># circle packing plot  </span>
+<span class="co"># Libraries</span>
+p &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ggraph&quot;</span>,<span class="st">&quot;igraph&quot;</span>,<span class="st">&quot;tidyverse&quot;</span>,<span class="st">&quot;DeducerSpatial&quot;</span>,<span class="st">&quot;Rcpp&quot;</span>,<span class="st">&quot;car&quot;</span>)
+<span class="kw">install.packages</span>(p,<span class="dt">dependencies =</span> T)
+<span class="kw">lapply</span>(p,library,<span class="dt">character.only=</span>T)
+
+<span class="co"># We need a data frame giving a hierarchical structure. Let's consider the flare dataset:</span>
+edges=flare<span class="op">$</span>edges
+<span class="co"># edges cols = character</span>
+
+<span class="co"># Usually we associate another dataset that give information about each node of the dataset:</span>
+vertices =<span class="st"> </span>flare<span class="op">$</span>vertices
+<span class="co"># vertices cols = character, numeric, character</span>
+
+<span class="co"># Then we have to make a 'graph' object using the igraph library:</span>
+??graph_from_data_frame
+mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( edges, <span class="dt">vertices=</span>vertices )
+
+<span class="co"># circle packing</span>
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">'circlepack'</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_node_circle</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>()
+
+<span class="co">#circular dendo</span>
+<span class="kw">str</span>(mygraph)
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout=</span><span class="st">'dendrogram'</span>, <span class="dt">circular=</span>T) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_edge_diagonal</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
+
+<span class="co"># tree map</span>
+<span class="kw">ggraph</span>(mygraph, <span class="st">'treemap'</span>, <span class="dt">weight =</span> <span class="st">'size'</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_node_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> depth), <span class="dt">size =</span> <span class="fl">0.25</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
+
+<span class="co"># circular partition</span>
+<span class="kw">ggraph</span>(mygraph, <span class="st">'partition'</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_node_arc_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> depth), <span class="dt">size =</span> <span class="fl">0.25</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
+
+<span class="co"># node </span>
+<span class="kw">ggraph</span>(mygraph) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_edge_link</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_node_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>

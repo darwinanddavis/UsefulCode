@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-10-30\\
+Date: 2018-11-02\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -637,7 +637,65 @@ Package for stock world maps
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{#worldmap}
 \KeywordTok{library}\NormalTok{(choroplethrMaps)}
+\end{Highlighting}
+\end{Shaded}
+
+Circle packing, tree, dendogram, network plots
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# dendogram tree nested bubble circle packing network }
+\CommentTok{# https://www.r-graph-gallery.com/313-basic-circle-packing-with-several-levels/}
+\CommentTok{# circle packing plot  }
+\CommentTok{# Libraries}
+\NormalTok{p <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"ggraph"}\NormalTok{,}\StringTok{"igraph"}\NormalTok{,}\StringTok{"tidyverse"}\NormalTok{,}\StringTok{"DeducerSpatial"}\NormalTok{,}\StringTok{"Rcpp"}\NormalTok{,}\StringTok{"car"}\NormalTok{)}
+\KeywordTok{install.packages}\NormalTok{(p,}\DataTypeTok{dependencies =}\NormalTok{ T)}
+\KeywordTok{lapply}\NormalTok{(p,library,}\DataTypeTok{character.only=}\NormalTok{T)}
+
+\CommentTok{# We need a data frame giving a hierarchical structure. Let's consider the flare dataset:}
+\NormalTok{edges=flare}\OperatorTok{$}\NormalTok{edges}
+\CommentTok{# edges cols = character}
+
+\CommentTok{# Usually we associate another dataset that give information about each node of the dataset:}
+\NormalTok{vertices =}\StringTok{ }\NormalTok{flare}\OperatorTok{$}\NormalTok{vertices}
+\CommentTok{# vertices cols = character, numeric, character}
+
+\CommentTok{# Then we have to make a 'graph' object using the igraph library:}
+\NormalTok{??graph_from_data_frame}
+\NormalTok{mygraph <-}\StringTok{ }\KeywordTok{graph_from_data_frame}\NormalTok{( edges, }\DataTypeTok{vertices=}\NormalTok{vertices )}
+
+\CommentTok{# circle packing}
+\KeywordTok{ggraph}\NormalTok{(mygraph, }\DataTypeTok{layout =} \StringTok{'circlepack'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_node_circle}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_void}\NormalTok{()}
+
+\CommentTok{#circular dendo}
+\KeywordTok{str}\NormalTok{(mygraph)}
+\KeywordTok{ggraph}\NormalTok{(mygraph, }\DataTypeTok{layout=}\StringTok{'dendrogram'}\NormalTok{, }\DataTypeTok{circular=}\NormalTok{T) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_edge_diagonal}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+
+\CommentTok{# tree map}
+\KeywordTok{ggraph}\NormalTok{(mygraph, }\StringTok{'treemap'}\NormalTok{, }\DataTypeTok{weight =} \StringTok{'size'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_node_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ depth), }\DataTypeTok{size =} \FloatTok{0.25}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+
+\CommentTok{# circular partition}
+\KeywordTok{ggraph}\NormalTok{(mygraph, }\StringTok{'partition'}\NormalTok{, }\DataTypeTok{circular =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_node_arc_bar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ depth), }\DataTypeTok{size =} \FloatTok{0.25}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+
+\CommentTok{# node }
+\KeywordTok{ggraph}\NormalTok{(mygraph) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_edge_link}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_node_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
