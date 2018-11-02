@@ -648,6 +648,7 @@ Circle packing, tree, dendogram, network plots
 \begin{Highlighting}[]
 \CommentTok{# dendogram tree nested bubble circle packing network }
 \CommentTok{# https://www.r-graph-gallery.com/313-basic-circle-packing-with-several-levels/}
+
 \CommentTok{# circle packing plot  }
 \CommentTok{# Libraries}
 \NormalTok{p <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"ggraph"}\NormalTok{,}\StringTok{"igraph"}\NormalTok{,}\StringTok{"tidyverse"}\NormalTok{,}\StringTok{"DeducerSpatial"}\NormalTok{,}\StringTok{"Rcpp"}\NormalTok{,}\StringTok{"car"}\NormalTok{)}
@@ -662,21 +663,36 @@ Circle packing, tree, dendogram, network plots
 \NormalTok{vertices =}\StringTok{ }\NormalTok{flare}\OperatorTok{$}\NormalTok{vertices}
 \CommentTok{# vertices cols = character, numeric, character}
 
+\CommentTok{# Create a subset of the dataset (I remove 1 level)}
+\NormalTok{edges =}\StringTok{ }\NormalTok{flare}\OperatorTok{$}\NormalTok{edges }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(to }\OperatorTok{%in%}\StringTok{ }\NormalTok{from) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{droplevels}\NormalTok{()}
+\NormalTok{vertices =}\StringTok{ }\NormalTok{flare}\OperatorTok{$}\NormalTok{vertices }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(name }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(edges}\OperatorTok{$}\NormalTok{from, edges}\OperatorTok{$}\NormalTok{to)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{droplevels}\NormalTok{()}
+\NormalTok{vertices}\OperatorTok{$}\NormalTok{size=}\KeywordTok{runif}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(vertices))}
+
 \CommentTok{# Then we have to make a 'graph' object using the igraph library:}
-\NormalTok{??graph_from_data_frame}
 \NormalTok{mygraph <-}\StringTok{ }\KeywordTok{graph_from_data_frame}\NormalTok{( edges, }\DataTypeTok{vertices=}\NormalTok{vertices )}
 
 \CommentTok{# circle packing}
-\KeywordTok{ggraph}\NormalTok{(mygraph, }\DataTypeTok{layout =} \StringTok{'circlepack'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_node_circle}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_void}\NormalTok{()}
+\KeywordTok{ggraph}\NormalTok{(mygraph, }\DataTypeTok{layout =} \StringTok{'circlepack'}\NormalTok{, }\DataTypeTok{weight=}\StringTok{"size"}\NormalTok{,}\DataTypeTok{sort.by=}\OtherTok{NULL}\NormalTok{,}\DataTypeTok{direction=}\StringTok{"out"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_node_circle}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{depth)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_node_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\NormalTok{shortName, }\DataTypeTok{filter=}\NormalTok{leaf, }\DataTypeTok{fill=}\NormalTok{depth, }\DataTypeTok{size=}\NormalTok{size)) }\OperatorTok{+}\StringTok{ }\CommentTok{# add text}
+\StringTok{  }\CommentTok{# geom_node_label(aes(label=shortName, filter=leaf, size=size)) + # add text boxes}
+\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\CommentTok{# theme(legend.position="F") + #show legend}
+\StringTok{  }\KeywordTok{scale_fill_viridis}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.5}\NormalTok{,}\DataTypeTok{direction=}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DataTypeTok{option=}\StringTok{"magma"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\CommentTok{# scale_fill_distiller(palette = "Blues")}
 
 \CommentTok{#circular dendo}
 \KeywordTok{str}\NormalTok{(mygraph)}
 \KeywordTok{ggraph}\NormalTok{(mygraph, }\DataTypeTok{layout=}\StringTok{'dendrogram'}\NormalTok{, }\DataTypeTok{circular=}\NormalTok{T) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_edge_diagonal}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_edge_diagonal}\NormalTok{(}\DataTypeTok{flipped=}\NormalTok{F,}
+                     \DataTypeTok{label_colour =} \StringTok{"black"}\NormalTok{,}
+                     \DataTypeTok{label_alpha =} \DecValTok{1}\NormalTok{,}
+                     \DataTypeTok{angle_calc =} \StringTok{"rot"}\NormalTok{,}
+                     \DataTypeTok{force_flip =} \OtherTok{TRUE}\NormalTok{,}\DataTypeTok{label_dodge =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{label_push =} \OtherTok{NULL}\NormalTok{, }
+                     \DataTypeTok{show.legend =} \OtherTok{NA}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+\StringTok{  }\CommentTok{# theme(legend.position="none") +}
+\StringTok{  }\KeywordTok{scale_fill_distiller}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Blues"}\NormalTok{)}
 
 \CommentTok{# tree map}
 \KeywordTok{ggraph}\NormalTok{(mygraph, }\StringTok{'treemap'}\NormalTok{, }\DataTypeTok{weight =} \StringTok{'size'}\NormalTok{) }\OperatorTok{+}\StringTok{ }

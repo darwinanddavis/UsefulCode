@@ -512,6 +512,7 @@ Circle packing, tree, dendogram, network plots
 ```{r plot11, results="hide",eval=F}
 # dendogram tree nested bubble circle packing network 
 # https://www.r-graph-gallery.com/313-basic-circle-packing-with-several-levels/
+
 # circle packing plot  
 # Libraries
 p <- c("ggraph","igraph","tidyverse","DeducerSpatial","Rcpp","car")
@@ -526,21 +527,36 @@ edges=flare$edges
 vertices = flare$vertices
 # vertices cols = character, numeric, character
 
+# Create a subset of the dataset (I remove 1 level)
+edges = flare$edges %>% filter(to %in% from) %>% droplevels()
+vertices = flare$vertices %>% filter(name %in% c(edges$from, edges$to)) %>% droplevels()
+vertices$size=runif(nrow(vertices))
+
 # Then we have to make a 'graph' object using the igraph library:
-??graph_from_data_frame
 mygraph <- graph_from_data_frame( edges, vertices=vertices )
 
 # circle packing
-ggraph(mygraph, layout = 'circlepack') + 
-  geom_node_circle() +
-  theme_void()
+ggraph(mygraph, layout = 'circlepack', weight="size",sort.by=NULL,direction="out") + 
+  geom_node_circle(aes(fill=depth)) +
+  geom_node_text(aes(label=shortName, filter=leaf, fill=depth, size=size)) + # add text
+  # geom_node_label(aes(label=shortName, filter=leaf, size=size)) + # add text boxes
+  theme_void() + 
+  # theme(legend.position="F") + #show legend
+  scale_fill_viridis(alpha=0.5,direction=-1,option="magma") +
+  # scale_fill_distiller(palette = "Blues")
 
 #circular dendo
 str(mygraph)
 ggraph(mygraph, layout='dendrogram', circular=T) + 
-  geom_edge_diagonal() +
+  geom_edge_diagonal(flipped=F,
+                     label_colour = "black",
+                     label_alpha = 1,
+                     angle_calc = "rot",
+                     force_flip = TRUE,label_dodge = NULL, label_push = NULL, 
+                     show.legend = NA) +
   theme_void() +
-  theme(legend.position="none")
+  # theme(legend.position="none") +
+  scale_fill_distiller(palette = "Blues")
 
 # tree map
 ggraph(mygraph, 'treemap', weight = 'size') + 
@@ -560,6 +576,7 @@ ggraph(mygraph) +
   geom_node_point() +
   theme_void() +
   theme(legend.position="none")
+
 
 ```
 
