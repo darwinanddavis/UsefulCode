@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-11-02\\
+Date: 2018-11-06\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -742,6 +742,19 @@ Circle packing, tree, dendogram, network plots
 \end{Highlighting}
 \end{Shaded}
 
+Insert an animal silhouette into a plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1. Get image from http://www.phylopic.org  }
+\KeywordTok{library}\NormalTok{(png)}
+\NormalTok{ima <-}\StringTok{ }\KeywordTok{readPNG}\NormalTok{(}\StringTok{"thething.png"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
+\KeywordTok{rasterImage}\NormalTok{(}\DataTypeTok{image=}\NormalTok{ima, }\DataTypeTok{xleft=}\DecValTok{2}\NormalTok{,}\DataTypeTok{ybottom=}\FloatTok{1.8}\NormalTok{,}
+            \DataTypeTok{xright=}\FloatTok{2.7}\NormalTok{,}\DataTypeTok{ytop=}\FloatTok{2.7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Reading in files/data}\label{reading-in-filesdata}
 
 Read in file manually
@@ -853,6 +866,14 @@ Insert or replace a character in a string at a specific location
 \begin{verbatim}
 [1] "New: ABCdEF"
 \end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Testing regex expressions and their output   }
+
+\CommentTok{# https://regex101.com/r/ksY7HU/2}
+\end{Highlighting}
+\end{Shaded}
 
 \subsubsection{R Markdown}\label{r-markdown}
 

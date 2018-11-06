@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-11-02<br />
+<p>Date: 2018-11-06<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -693,6 +693,13 @@ mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</sp
 <span class="st">  </span><span class="kw">geom_node_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</code></pre></div>
+<p>Insert an animal silhouette into a plot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#1. Get image from http://www.phylopic.org  </span>
+<span class="kw">library</span>(png)
+ima &lt;-<span class="st"> </span><span class="kw">readPNG</span>(<span class="st">&quot;thething.png&quot;</span>)
+<span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)
+<span class="kw">rasterImage</span>(<span class="dt">image=</span>ima, <span class="dt">xleft=</span><span class="dv">2</span>,<span class="dt">ybottom=</span><span class="fl">1.8</span>,
+            <span class="dt">xright=</span><span class="fl">2.7</span>,<span class="dt">ytop=</span><span class="fl">2.7</span>)</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
@@ -770,6 +777,9 @@ vec &lt;-<span class="st"> &quot;ABCEF&quot;</span>
 <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Original: ABCEF&quot;</span>)); <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;New: &quot;</span>,vec))</code></pre></div>
 <pre><code>[1] &quot;Original: ABCEF&quot;</code></pre>
 <pre><code>[1] &quot;New: ABCdEF&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Testing regex expressions and their output   </span>
+
+<span class="co"># https://regex101.com/r/ksY7HU/2</span></code></pre></div>
 <div id="section" class="section level6">
 <h6></h6>
 </div>
