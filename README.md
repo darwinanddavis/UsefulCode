@@ -523,6 +523,16 @@ ggraph(mygraph) +
 
 ```
 
+Insert an animal silhouette into a plot      
+```{r, plot12, results='hide',eval=F}
+#1. Get image from http://www.phylopic.org  
+library(png)
+ima <- readPNG("thething.png")
+plot(1:3,1:3)
+rasterImage(image=ima, xleft=2,ybottom=1.8,
+            xright=2.7,ytop=2.7)
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
@@ -603,14 +613,21 @@ df %>%
 
 ```
 
-Insert or replace a character in a string at a specific location 
+Insert or replace a character in a string at a specific location
 ```{r regex2}
 require(stringi)
 vec <- "ABCEF"
 stri_sub(vec, 4, 2) <- "d" 
 print(paste0("Original: ABCEF")); print(paste0("New: ",vec))
 ```
-  
+
+
+```{r regex3}
+# Testing regex expressions and their output   
+
+# https://regex101.com/r/ksY7HU/2
+```
+
 ######      
   
 ### R Markdown
