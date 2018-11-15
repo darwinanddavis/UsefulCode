@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-11-06\\
+Date: 2018-11-15\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -132,18 +132,6 @@ This document outlines some useful \texttt{R} code for plotting, cool
 functions, and other random tidbits.
 
 \subsubsection{Install dependencies}\label{install-dependencies}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"rgdal"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"zoo"}\NormalTok{,}\StringTok{"RColorBrewer"}\NormalTok{,}\StringTok{"viridis"}\NormalTok{,}\StringTok{"plyr"}\NormalTok{,}\StringTok{"digitize"}\NormalTok{,}\StringTok{"jpeg"}\NormalTok{,}\StringTok{"devtools"}\NormalTok{,}\StringTok{"imager"}\NormalTok{,}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"ggplot2"}\NormalTok{,}\StringTok{"ggridges"}\NormalTok{,}\StringTok{"ggjoy"}\NormalTok{,}\StringTok{"ggthemes"}\NormalTok{,}\StringTok{"svDialogs"}\NormalTok{,}\StringTok{"data.table"}\NormalTok{,}\StringTok{"tibble"}\NormalTok{,}\StringTok{"extrafont"}\NormalTok{,}\StringTok{"sp"}\NormalTok{,}\StringTok{"ggmap"}\NormalTok{, }\StringTok{"deSolve"}\NormalTok{,}\StringTok{"pdftools"}\NormalTok{,}\StringTok{"jsonlite"}\NormalTok{)   }
-\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{require}\NormalTok{(packages)) \{}
-    \KeywordTok{install.packages}\NormalTok{(packages,}\DataTypeTok{dependencies =}\NormalTok{ T)}
-    \KeywordTok{require}\NormalTok{(packages)}
-\NormalTok{\}}
-\KeywordTok{lapply}\NormalTok{(packages,library,}\DataTypeTok{character.only=}\NormalTok{T)}
-\KeywordTok{sessionInfo}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
 
 \subsubsection{Attributes}\label{attributes}
 
@@ -858,14 +846,6 @@ Insert or replace a character in a string at a specific location
 \KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Original: ABCEF"}\NormalTok{)); }\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"New: "}\NormalTok{,vec))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-[1] "Original: ABCEF"
-\end{verbatim}
-
-\begin{verbatim}
-[1] "New: ABCdEF"
-\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]

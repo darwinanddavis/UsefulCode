@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-11-06<br />
+<p>Date: 2018-11-15<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -286,13 +286,6 @@ This document can be found at <a href="https://github.com/darwinanddavis/UsefulC
 <p>This document outlines some useful <code>R</code> code for plotting, cool functions, and other random tidbits.</p>
 <div id="install-dependencies" class="section level3">
 <h3>Install dependencies</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rgdal&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;zoo&quot;</span>,<span class="st">&quot;RColorBrewer&quot;</span>,<span class="st">&quot;viridis&quot;</span>,<span class="st">&quot;plyr&quot;</span>,<span class="st">&quot;digitize&quot;</span>,<span class="st">&quot;jpeg&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;imager&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;ggridges&quot;</span>,<span class="st">&quot;ggjoy&quot;</span>,<span class="st">&quot;ggthemes&quot;</span>,<span class="st">&quot;svDialogs&quot;</span>,<span class="st">&quot;data.table&quot;</span>,<span class="st">&quot;tibble&quot;</span>,<span class="st">&quot;extrafont&quot;</span>,<span class="st">&quot;sp&quot;</span>,<span class="st">&quot;ggmap&quot;</span>, <span class="st">&quot;deSolve&quot;</span>,<span class="st">&quot;pdftools&quot;</span>,<span class="st">&quot;jsonlite&quot;</span>)   
-<span class="cf">if</span> (<span class="kw">require</span>(packages)) {
-    <span class="kw">install.packages</span>(packages,<span class="dt">dependencies =</span> T)
-    <span class="kw">require</span>(packages)
-}
-<span class="kw">lapply</span>(packages,library,<span class="dt">character.only=</span>T)
-<span class="kw">sessionInfo</span>()</code></pre></div>
 </div>
 <div id="attributes" class="section level3">
 <h3>Attributes</h3>
@@ -775,8 +768,6 @@ df <span class="op">%&gt;%</span>
 vec &lt;-<span class="st"> &quot;ABCEF&quot;</span>
 <span class="kw">stri_sub</span>(vec, <span class="dv">4</span>, <span class="dv">2</span>) &lt;-<span class="st"> &quot;d&quot;</span> 
 <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Original: ABCEF&quot;</span>)); <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;New: &quot;</span>,vec))</code></pre></div>
-<pre><code>[1] &quot;Original: ABCEF&quot;</code></pre>
-<pre><code>[1] &quot;New: ABCdEF&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Testing regex expressions and their output   </span>
 
 <span class="co"># https://regex101.com/r/ksY7HU/2</span></code></pre></div>

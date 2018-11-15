@@ -25,8 +25,8 @@ Files:
 This document outlines some useful R code for plotting, cool functions, and other random tidbits.   
 
 ### Install dependencies
-```{r, load packages, include=T, cache=T, message=F, warning=F, results='hide'}
-packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","svDialogs","data.table","tibble","extrafont","sp","ggmap", "deSolve","pdftools","jsonlite")   
+```{r, load packages, include=F, cache=F, message=F, warning=F, results='hide'}
+packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","ggforce","svDialogs","data.table","tibble","extrafont","sp","readr","igraph","ggraph","jsonlite","deSolve") 
 if (require(packages)) {
     install.packages(packages,dependencies = T)
     require(packages)
@@ -379,7 +379,7 @@ relationships %>%
 Define global plotting graphics function.  
 
 The `plot_it.R` function is updated on the [plot_it Github page](https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R).  
-```{r, plot7, eval=F, cache = TRUE, tidy = TRUE, lazy = TRUE, results="hide"}
+```{r, plot7, eval=F, cache = F, tidy = TRUE, lazy = TRUE, results="hide"}
 require(ggplot2)
 require(ggthemes)
 ### set plotting params   
@@ -632,7 +632,7 @@ print(paste0("Original: ABCEF")); print(paste0("New: ",vec))
   
 ### R Markdown
 Hide unwanted code output, such as inherent examples for functions  
-```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
+```{r, cache = F, tidy = TRUE, lazy = TRUE, results='markup'}
 
 # ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
@@ -663,7 +663,7 @@ within(df, rm("Col1"))
 ```
 
 ### Web scraping  
-Scraping web tables  
+Scraping web tables    
 http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html[http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/XML/html/readHTMLTable.html]
 ```{r, web1, results='hide',eval=F}
 library(XML)
