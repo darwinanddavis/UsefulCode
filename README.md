@@ -533,6 +533,17 @@ rasterImage(image=ima, xleft=2,ybottom=1.8,
             xright=2.7,ytop=2.7)
 ```
 
+Create an empty plot window    
+```{r, plot13, results='hide',eval=F}
+# 1
+plot(0,type='n',axes=FALSE,ann=FALSE)  
+# 2  
+plot(1, type="n", xlab="", ylab="", xlim=c(0, 10), ylim=c(0, 10))  
+# 3  
+plot.new()  
+```  
+
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}

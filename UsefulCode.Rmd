@@ -12,13 +12,6 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -34,6 +27,13 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -611,6 +611,16 @@ ima <- readPNG("thething.png")
 plot(1:3,1:3)
 rasterImage(image=ima, xleft=2,ybottom=1.8,
             xright=2.7,ytop=2.7)
+```
+
+Create an empty plot window    
+```{r, plot13, results='hide',eval=F}
+# 1
+plot(0,type='n',axes=FALSE,ann=FALSE)  
+# 2  
+plot(1, type="n", xlab="", ylab="", xlim=c(0, 10), ylim=c(0, 10))  
+# 3  
+plot.new()  
 ```
 
 ### Reading in files/data

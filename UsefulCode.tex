@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-11-15\\
+Date: 2018-11-26\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -740,6 +740,19 @@ Insert an animal silhouette into a plot
 \KeywordTok{plot}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
 \KeywordTok{rasterImage}\NormalTok{(}\DataTypeTok{image=}\NormalTok{ima, }\DataTypeTok{xleft=}\DecValTok{2}\NormalTok{,}\DataTypeTok{ybottom=}\FloatTok{1.8}\NormalTok{,}
             \DataTypeTok{xright=}\FloatTok{2.7}\NormalTok{,}\DataTypeTok{ytop=}\FloatTok{2.7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Create an empty plot window
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 1}
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DataTypeTok{type=}\StringTok{'n'}\NormalTok{,}\DataTypeTok{axes=}\OtherTok{FALSE}\NormalTok{,}\DataTypeTok{ann=}\OtherTok{FALSE}\NormalTok{)  }
+\CommentTok{# 2  }
+\KeywordTok{plot}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{""}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{""}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{))  }
+\CommentTok{# 3  }
+\KeywordTok{plot.new}\NormalTok{()  }
 \end{Highlighting}
 \end{Shaded}
 
