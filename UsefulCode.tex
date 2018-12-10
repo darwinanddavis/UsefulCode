@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-11-26\\
+Date: 2018-12-10\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -753,6 +753,17 @@ Create an empty plot window
 \KeywordTok{plot}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{""}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{""}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{))  }
 \CommentTok{# 3  }
 \KeywordTok{plot.new}\NormalTok{()  }
+\end{Highlighting}
+\end{Shaded}
+
+Set color gradient, palette for smoothing data points
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(RColorBrewer)}
+\NormalTok{colv <-}\StringTok{ }\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"white"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{,}\StringTok{"red"}\NormalTok{))}
+\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{colv}\NormalTok{(}\KeywordTok{length}\NormalTok{(output}\OperatorTok{$}\NormalTok{X1))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(output}\OperatorTok{$}\NormalTok{X1,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(output}\OperatorTok{$}\NormalTok{X1)))]}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{),}\DataTypeTok{col=}\NormalTok{colfunc)}
 \end{Highlighting}
 \end{Shaded}
 

@@ -540,8 +540,15 @@ plot(0,type='n',axes=FALSE,ann=FALSE)
 plot(1, type="n", xlab="", ylab="", xlim=c(0, 10), ylim=c(0, 10))  
 # 3  
 plot.new()  
-```  
+```
 
+Set color gradient, palette for smoothing data points
+```{r, plot14, results='hide',eval=F}
+require(RColorBrewer)
+colv <- colorRampPalette(c("white", "yellow","red"))
+colfunc <- colv(length(output$X1))[as.numeric(cut(output$X1,breaks = length(output$X1)))]
+plot(rnorm(10000),col=colfunc)
+```
 
 ### Reading in files/data
 Read in file manually
@@ -689,3 +696,4 @@ library(purrr)
 library(twitteR)
 
 ```
+

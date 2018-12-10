@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-11-26<br />
+<p>Date: 2018-12-10<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -700,6 +700,11 @@ ima &lt;-<span class="st"> </span><span class="kw">readPNG</span>(<span class="s
 <span class="kw">plot</span>(<span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))  
 <span class="co"># 3  </span>
 <span class="kw">plot.new</span>()  </code></pre></div>
+<p>Set color gradient, palette for smoothing data points</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(RColorBrewer)
+colv &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;yellow&quot;</span>,<span class="st">&quot;red&quot;</span>))
+colfunc &lt;-<span class="st"> </span><span class="kw">colv</span>(<span class="kw">length</span>(output<span class="op">$</span>X1))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(output<span class="op">$</span>X1,<span class="dt">breaks =</span> <span class="kw">length</span>(output<span class="op">$</span>X1)))]
+<span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>),<span class="dt">col=</span>colfunc)</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
