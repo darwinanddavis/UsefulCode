@@ -626,9 +626,23 @@ plot.new()
 Set color gradient, palette for smoothing data points
 ```{r, plot14, results='hide',eval=F}
 require(RColorBrewer)
-colv <- colorRampPalette(c("white", "yellow","red"))
-colfunc <- colv(length(output$X1))[as.numeric(cut(output$X1,breaks = length(output$X1)))]
-plot(rnorm(10000),col=colfunc)
+
+alpha <- 0.8 # transparency (0 to 1 value)
+set.seed(5000)
+rr <- rnorm(5000)
+
+# user defined gradient
+col<-colorRampPalette(c("steelblue","lightblue","orange","red")) # set your own col gradient with as many colours as you want
+colfunc <- col(length(rr))[as.numeric(cut(rr,breaks = length(rr)))] # define breaks in col gradient
+plot(rr,col=colfunc,pch=20)
+
+# gradient from palette
+display.brewer.all()
+col <- "Greens"
+col<-colorRampPalette(brewer.pal(brewer.pal.info[col,]$maxcolors,col)) # col gradient
+colfunc <- col(length(rr))[as.numeric(cut(rr,breaks = length(rr)))] # define breaks in col gradient
+plot(rr,col=colfunc,pch=20)
+
 ```
 
 ### Reading in files/data
