@@ -288,6 +288,14 @@ Remove rows with NA
 ```{r, NA6, results='hide',eval=F}
 data <- data[!is.na(data$X),]
 ```
+
+### Packages  
+[`rLandsat`](https://blog.socialcops.com/technology/data-science/announcing-rlandsat-landsat-8-data/)    
+Sourcing, requesting, and downloading NASA Landsat 8 satellite data.  
+\  
+[Radix](https://blog.rstudio.com/2018/09/19/radix-for-r-markdown/)  
+Improved `RMarkdown` output and interaction  
+\  
   
 ### Plotting
 Plot one plot window above and two below
