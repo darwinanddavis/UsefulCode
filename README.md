@@ -2,7 +2,7 @@
 ### Matthew Malishev<sup>1*</sup>  
 #### _<sup>1</sup> Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322_  
 
-##### *Corresponding author: matthew.malishev@gmail.com    
+##### *Corresponding author: matthew.malishev [at] gmail.com   
 
 doi: [DOI](https://github.com/darwinanddavis/UsefulCode)  
 :link: [Github](https://github.com/darwinanddavis/UsefulCode)    

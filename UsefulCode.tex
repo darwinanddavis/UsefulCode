@@ -761,9 +761,22 @@ Set color gradient, palette for smoothing data points
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{require}\NormalTok{(RColorBrewer)}
-\NormalTok{colv <-}\StringTok{ }\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"white"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{,}\StringTok{"red"}\NormalTok{))}
-\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{colv}\NormalTok{(}\KeywordTok{length}\NormalTok{(output}\OperatorTok{$}\NormalTok{X1))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(output}\OperatorTok{$}\NormalTok{X1,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(output}\OperatorTok{$}\NormalTok{X1)))]}
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{),}\DataTypeTok{col=}\NormalTok{colfunc)}
+
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.8} \CommentTok{# transparency (0 to 1 value)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{5000}\NormalTok{)}
+\NormalTok{rr <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{5000}\NormalTok{)}
+
+\CommentTok{# user defined gradient}
+\NormalTok{col<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"steelblue"}\NormalTok{,}\StringTok{"lightblue"}\NormalTok{,}\StringTok{"orange"}\NormalTok{,}\StringTok{"red"}\NormalTok{)) }\CommentTok{# set your own col gradient with as many colours as you want}
+\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{col}\NormalTok{(}\KeywordTok{length}\NormalTok{(rr))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(rr,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(rr)))] }\CommentTok{# define breaks in col gradient}
+\KeywordTok{plot}\NormalTok{(rr,}\DataTypeTok{col=}\NormalTok{colfunc,}\DataTypeTok{pch=}\DecValTok{20}\NormalTok{)}
+
+\CommentTok{# gradient from palette}
+\KeywordTok{display.brewer.all}\NormalTok{()}
+\NormalTok{col <-}\StringTok{ "Greens"}
+\NormalTok{col<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(brewer.pal.info[col,]}\OperatorTok{$}\NormalTok{maxcolors,col)) }\CommentTok{# col gradient}
+\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{col}\NormalTok{(}\KeywordTok{length}\NormalTok{(rr))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(rr,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(rr)))] }\CommentTok{# define breaks in col gradient}
+\KeywordTok{plot}\NormalTok{(rr,}\DataTypeTok{col=}\NormalTok{colfunc,}\DataTypeTok{pch=}\DecValTok{20}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 

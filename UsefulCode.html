@@ -702,9 +702,22 @@ ima &lt;-<span class="st"> </span><span class="kw">readPNG</span>(<span class="s
 <span class="kw">plot.new</span>()  </code></pre></div>
 <p>Set color gradient, palette for smoothing data points</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(RColorBrewer)
-colv &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;yellow&quot;</span>,<span class="st">&quot;red&quot;</span>))
-colfunc &lt;-<span class="st"> </span><span class="kw">colv</span>(<span class="kw">length</span>(output<span class="op">$</span>X1))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(output<span class="op">$</span>X1,<span class="dt">breaks =</span> <span class="kw">length</span>(output<span class="op">$</span>X1)))]
-<span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>),<span class="dt">col=</span>colfunc)</code></pre></div>
+
+alpha &lt;-<span class="st"> </span><span class="fl">0.8</span> <span class="co"># transparency (0 to 1 value)</span>
+<span class="kw">set.seed</span>(<span class="dv">5000</span>)
+rr &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5000</span>)
+
+<span class="co"># user defined gradient</span>
+col&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;steelblue&quot;</span>,<span class="st">&quot;lightblue&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;red&quot;</span>)) <span class="co"># set your own col gradient with as many colours as you want</span>
+colfunc &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="kw">length</span>(rr))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(rr,<span class="dt">breaks =</span> <span class="kw">length</span>(rr)))] <span class="co"># define breaks in col gradient</span>
+<span class="kw">plot</span>(rr,<span class="dt">col=</span>colfunc,<span class="dt">pch=</span><span class="dv">20</span>)
+
+<span class="co"># gradient from palette</span>
+<span class="kw">display.brewer.all</span>()
+col &lt;-<span class="st"> &quot;Greens&quot;</span>
+col&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(brewer.pal.info[col,]<span class="op">$</span>maxcolors,col)) <span class="co"># col gradient</span>
+colfunc &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="kw">length</span>(rr))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(rr,<span class="dt">breaks =</span> <span class="kw">length</span>(rr)))] <span class="co"># define breaks in col gradient</span>
+<span class="kw">plot</span>(rr,<span class="dt">col=</span>colfunc,<span class="dt">pch=</span><span class="dv">20</span>)</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
