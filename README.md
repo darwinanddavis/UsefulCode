@@ -236,8 +236,7 @@ for(i in u) {
 Sys.sleep(5)
 close(pb)
 ```
-
-
+  
 ### `NAs` 
 Replace `NAs` with 0's
 ```{r, NA1, results='hide',eval=F}
@@ -291,12 +290,15 @@ data <- data[!is.na(data$X),]
 
 ### Packages  
 [`rLandsat`](https://blog.socialcops.com/technology/data-science/announcing-rlandsat-landsat-8-data/)    
-Sourcing, requesting, and downloading NASA Landsat 8 satellite data.  
-\  
+Sourcing, requesting, and downloading NASA Landsat 8 satellite data.    
+    
 [Radix](https://blog.rstudio.com/2018/09/19/radix-for-r-markdown/)  
-Improved `RMarkdown` output and interaction  
-\  
-  
+Improved `RMarkdown` output and interaction.    
+
+[rpanel](http://www.stats.gla.ac.uk/~adrian/rpanel/)  
+[Reference guide](https://cran.r-project.org/doc/Rnews/Rnews_2006-4.pdf)  
+Create interactive GUI control toggles from `R`. Like an early Shiny.     
+
 ### Plotting
 Plot one plot window above and two below
 ```{r, plot1}
@@ -718,5 +720,4 @@ library(purrr)
 library(twitteR)
 
 ```
-
 

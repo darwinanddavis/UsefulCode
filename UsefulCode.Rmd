@@ -12,6 +12,13 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -27,13 +34,6 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -317,8 +317,7 @@ for(i in u) {
 Sys.sleep(5)
 close(pb)
 ```
-
-
+  
 ### `NAs` 
 Replace `NAs` with 0's
 ```{r, NA1, results='hide',eval=F}
@@ -372,12 +371,15 @@ data <- data[!is.na(data$X),]
 
 ### Packages  
 [`rLandsat`](https://blog.socialcops.com/technology/data-science/announcing-rlandsat-landsat-8-data/)    
-Sourcing, requesting, and downloading NASA Landsat 8 satellite data.  
-\  
+Sourcing, requesting, and downloading NASA Landsat 8 satellite data.    
+    
 [Radix](https://blog.rstudio.com/2018/09/19/radix-for-r-markdown/)  
-Improved `RMarkdown` output and interaction  
-\  
-  
+Improved `RMarkdown` output and interaction.    
+
+[`rpanel`](http://www.stats.gla.ac.uk/~adrian/rpanel/)  
+[Reference guide](https://cran.r-project.org/doc/Rnews/Rnews_2006-4.pdf)  
+Create interactive GUI control toggles from `R`. Like an early Shiny.     
+
 ### Plotting
 Plot one plot window above and two below
 ```{r, plot1}
