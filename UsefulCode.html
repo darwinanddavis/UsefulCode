@@ -431,6 +431,12 @@ Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-
 } <span class="co"># end loop </span>
 <span class="kw">dev.off</span>()</code></pre></div>
 </div>
+<div id="lists" class="section level3">
+<h3>Lists</h3>
+<p>Find maximum value in entire list</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">master &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">100</span>,<span class="kw">rnorm</span>(<span class="dv">12</span>))
+<span class="kw">do.call</span>(max,master)</code></pre></div>
+</div>
 <div id="loops" class="section level3">
 <h3>Loops</h3>
 <p>Save loop output in master list</p>

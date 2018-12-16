@@ -354,6 +354,17 @@ to dir
 \end{Highlighting}
 \end{Shaded}
 
+\subsubsection{Lists}\label{lists}
+
+Find maximum value in entire list
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{master <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{100}\NormalTok{,}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{12}\NormalTok{))}
+\KeywordTok{do.call}\NormalTok{(max,master)}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Loops}\label{loops}
 
 Save loop output in master list

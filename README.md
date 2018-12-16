@@ -207,6 +207,14 @@ dev.off()
 
 ```
 
+### Lists    
+Find maximum value in entire list    
+```{r, list1, results='hide',eval=F}
+master <- list(1:10,100,rnorm(12))
+do.call(max,master)
+```
+
+
 ### Loops  
 Save loop output in master list  
 ```{r, loop1, results='hide',eval=F}
@@ -735,5 +743,6 @@ library(purrr)
 library(twitteR)
 
 ```
+
 
 
