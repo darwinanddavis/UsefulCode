@@ -207,6 +207,21 @@ dev.off()
 
 ```
 
+### Loops  
+Save loop output in master list  
+```{r, loop1, results='hide',eval=F}
+pars <- seq(0,1,0.5)
+master <- list()
+t_list <- list()
+for (p in 1:length(pars)){
+  for(t in 5){
+    tt <- rnorm(1000*t)
+    t_list[t] <-tt 
+  }
+  master[[length(master)+1]] <- t_list # store in master list
+} 
+```
+
 ### Messages  
 Display status message of progress  
 ```{r, message1, results='hide',eval=F}
@@ -295,7 +310,7 @@ Sourcing, requesting, and downloading NASA Landsat 8 satellite data.
 [Radix](https://blog.rstudio.com/2018/09/19/radix-for-r-markdown/)  
 Improved `RMarkdown` output and interaction.    
 
-[rpanel](http://www.stats.gla.ac.uk/~adrian/rpanel/)  
+[`rpanel`](http://www.stats.gla.ac.uk/~adrian/rpanel/)  
 [Reference guide](https://cran.r-project.org/doc/Rnews/Rnews_2006-4.pdf)  
 Create interactive GUI control toggles from `R`. Like an early Shiny.     
 
@@ -720,4 +735,5 @@ library(purrr)
 library(twitteR)
 
 ```
+
 

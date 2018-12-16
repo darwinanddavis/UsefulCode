@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-12-12\\
+Date: 2018-12-16\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -354,6 +354,25 @@ to dir
 \end{Highlighting}
 \end{Shaded}
 
+\subsubsection{Loops}\label{loops}
+
+Save loop output in master list
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pars <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{master <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{t_list <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (p }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(pars))\{}
+  \ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{5}\NormalTok{)\{}
+\NormalTok{    tt <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\OperatorTok{*}\NormalTok{t)}
+\NormalTok{    t_list[t] <-tt }
+\NormalTok{  \}}
+\NormalTok{  master[[}\KeywordTok{length}\NormalTok{(master)}\OperatorTok{+}\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\NormalTok{t_list }\CommentTok{# store in master list}
+\NormalTok{\} }
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Messages}\label{messages}
 
 Display status message of progress
@@ -469,7 +488,7 @@ Sourcing, requesting, and downloading NASA Landsat 8 satellite data.
 \href{https://blog.rstudio.com/2018/09/19/radix-for-r-markdown/}{Radix}\\
 Improved \texttt{RMarkdown} output and interaction.
 
-\href{http://www.stats.gla.ac.uk/~adrian/rpanel/}{rpanel}\\
+\href{http://www.stats.gla.ac.uk/~adrian/rpanel/}{\texttt{rpanel}}\\
 \href{https://cran.r-project.org/doc/Rnews/Rnews_2006-4.pdf}{Reference
 guide}\\
 Create interactive GUI control toggles from \texttt{R}. Like an early

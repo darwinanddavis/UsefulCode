@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-12-12<br />
+<p>Date: 2018-12-16<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -431,6 +431,20 @@ Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-
 } <span class="co"># end loop </span>
 <span class="kw">dev.off</span>()</code></pre></div>
 </div>
+<div id="loops" class="section level3">
+<h3>Loops</h3>
+<p>Save loop output in master list</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pars &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.5</span>)
+master &lt;-<span class="st"> </span><span class="kw">list</span>()
+t_list &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="cf">for</span> (p <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pars)){
+  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">5</span>){
+    tt &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span><span class="op">*</span>t)
+    t_list[t] &lt;-tt 
+  }
+  master[[<span class="kw">length</span>(master)<span class="op">+</span><span class="dv">1</span>]] &lt;-<span class="st"> </span>t_list <span class="co"># store in master list</span>
+} </code></pre></div>
+</div>
 <div id="messages" class="section level3">
 <h3>Messages</h3>
 <p>Display status message of progress</p>
@@ -498,7 +512,7 @@ minTb &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cla
 Sourcing, requesting, and downloading NASA Landsat 8 satellite data.</p>
 <p><a href="https://blog.rstudio.com/2018/09/19/radix-for-r-markdown/">Radix</a><br />
 Improved <code>RMarkdown</code> output and interaction.</p>
-<p><a href="http://www.stats.gla.ac.uk/~adrian/rpanel/">rpanel</a><br />
+<p><a href="http://www.stats.gla.ac.uk/~adrian/rpanel/"><code>rpanel</code></a><br />
 <a href="https://cran.r-project.org/doc/Rnews/Rnews_2006-4.pdf">Reference guide</a><br />
 Create interactive GUI control toggles from <code>R</code>. Like an early Shiny.</p>
 </div>

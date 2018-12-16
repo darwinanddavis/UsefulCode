@@ -12,13 +12,6 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -34,6 +27,13 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -286,6 +286,21 @@ par(bty="n", las = 1)
 } # end loop 
 dev.off()
 
+```
+
+### Loops  
+Save loop output in master list  
+```{r, loop1, results='hide',eval=F}
+pars <- seq(0,1,0.5)
+master <- list()
+t_list <- list()
+for (p in 1:length(pars)){
+  for(t in 5){
+    tt <- rnorm(1000*t)
+    t_list[t] <-tt 
+  }
+  master[[length(master)+1]] <- t_list # store in master list
+} 
 ```
 
 ### Messages  
