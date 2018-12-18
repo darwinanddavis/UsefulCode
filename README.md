@@ -597,10 +597,16 @@ plot(rr,col=colfunc,pch=20)
 
 ```
 
-Add plot point every nth element    
+Add plot point every nth element      
 ```{r, plot15, results='hide',eval=F}
 n <- 3
 plot(runif(10, 0, 1), type = "o", pch = c(20, rep(NA, n)))
+```
+
+Create function to make line as default type in plot   
+```{r, plot16, results='hide',eval=F}
+lplot <- function(...) plot(..., type="l")
+lplot(runif(200))
 ```
 
 ### Reading in files/data

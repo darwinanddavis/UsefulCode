@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-12-16\\
+Date: 2018-12-18\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -821,6 +821,24 @@ Set color gradient, palette for smoothing data points
 \NormalTok{col<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(brewer.pal.info[col,]}\OperatorTok{$}\NormalTok{maxcolors,col)) }\CommentTok{# col gradient}
 \NormalTok{colfunc <-}\StringTok{ }\KeywordTok{col}\NormalTok{(}\KeywordTok{length}\NormalTok{(rr))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(rr,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(rr)))] }\CommentTok{# define breaks in col gradient}
 \KeywordTok{plot}\NormalTok{(rr,}\DataTypeTok{col=}\NormalTok{colfunc,}\DataTypeTok{pch=}\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Add plot point every nth element
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n <-}\StringTok{ }\DecValTok{3}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type =} \StringTok{"o"}\NormalTok{, }\DataTypeTok{pch =} \KeywordTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{, }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{, n)))}
+\end{Highlighting}
+\end{Shaded}
+
+Create function to make line as default type in plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lplot <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(...) }\KeywordTok{plot}\NormalTok{(..., }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\KeywordTok{lplot}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{200}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 

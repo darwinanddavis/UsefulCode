@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-12-16<br />
+<p>Date: 2018-12-18<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -748,6 +748,12 @@ col &lt;-<span class="st"> &quot;Greens&quot;</span>
 col&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(brewer.pal.info[col,]<span class="op">$</span>maxcolors,col)) <span class="co"># col gradient</span>
 colfunc &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="kw">length</span>(rr))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(rr,<span class="dt">breaks =</span> <span class="kw">length</span>(rr)))] <span class="co"># define breaks in col gradient</span>
 <span class="kw">plot</span>(rr,<span class="dt">col=</span>colfunc,<span class="dt">pch=</span><span class="dv">20</span>)</code></pre></div>
+<p>Add plot point every nth element</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">3</span>
+<span class="kw">plot</span>(<span class="kw">runif</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">type =</span> <span class="st">&quot;o&quot;</span>, <span class="dt">pch =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="kw">rep</span>(<span class="ot">NA</span>, n)))</code></pre></div>
+<p>Create function to make line as default type in plot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lplot &lt;-<span class="st"> </span><span class="cf">function</span>(...) <span class="kw">plot</span>(..., <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
+<span class="kw">lplot</span>(<span class="kw">runif</span>(<span class="dv">200</span>))</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
