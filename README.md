@@ -597,6 +597,12 @@ plot(rr,col=colfunc,pch=20)
 
 ```
 
+Add plot point every nth element    
+```{r, plot15, results='hide',eval=F}
+n <- 3
+plot(runif(10, 0, 1), type = "o", pch = c(20, rep(NA, n)))
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
@@ -743,6 +749,3 @@ library(purrr)
 library(twitteR)
 
 ```
-
-
-
