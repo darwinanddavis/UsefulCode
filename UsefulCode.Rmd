@@ -111,7 +111,9 @@ if (require(packages)) {
     install.packages(packages,dependencies = T)
     require(packages)
 }
-lapply(packages,library,character.only=T)
+lapply(packages,require,character.only=T)
+ppp <- lapply(packages,require,character.only=T)
+if(any(ppp==F)){print("Check packages are loaded")}
 sessionInfo()
 ```
 
