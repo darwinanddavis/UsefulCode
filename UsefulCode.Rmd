@@ -692,6 +692,18 @@ lplot <- function(...) plot(..., type="l")
 lplot(runif(200))
 ```
 
+
+```{r, plot17, results='hide',eval=F}
+head(outplot)
+  # time          N        P        S        I
+# 1 0.00 200.000000 200.0000 20.00000 2.000000
+# 2 0.01  78.245140 177.1952 20.58217 2.067159
+# 3 0.02  34.785145 168.9650 21.12174 2.136073
+dats <- zoo(outplot)
+plot(dats)
+
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
