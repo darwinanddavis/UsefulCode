@@ -712,6 +712,66 @@ plot(dats)
 
 ```
 
+Make 3D scatterplot  
+```{r, plot18, results='hide',eval=F}
+require(scatterplot3d)
+xx <- rnorm(1000)
+yy <- runif(1000)
+dens <- runif(1000)
+controls <- runif(3)
+add.control <- 1
+dens_val <- 1*10^-10 # 0 or 1*10^-10. value to knock out blanket of colour on plot surface 
+#linear model of r/ship between coords
+dens_lm <- lm(dens ~ xx + yy)
+
+xlim <- c(min(xx),max(xx)); ylim <- c(min(yy),max(yy)); zlim=c(min(dens),max(dens)) # set lims
+colv <- "YlOrRd"
+colvv<-colorRampPalette(brewer.pal(brewer.pal.info[colv,]$maxcolors,colv)) # col gradient
+colvv<-colorRampPalette(c("steelblue","lightblue","orange","red")) # set your own col gradient with as many colours as you want
+# colvv<-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as you want
+
+# set col palette
+colfunc <- colvv(length(dens))[as.numeric(cut(dens,breaks = length(dens)))] # define breaks in col gradient
+bg <- bpy.colors(1)
+alpha <- 0.3
+
+# pdf(paste0(plot.dir,strat,"_",density,"_",stage,"_kudspdf.pdf"),width=8.27,height=11.69,paper="a4r")
+scatterplot3d(x=xx,y=yy,z=dens,
+              # color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor("lightgreen",alpha=0.2)),
+              color=ifelse(dens<=dens_val,adjustcolor(ifelse(bg==bpy.colors(1),bpy.colors(1),"white"),alpha=0.1),adjustcolor(colfunc,alpha=alpha)),
+              # col.axis="light green",
+              las=1,
+              pch=20,
+              type="p",
+              lty.hplot = 1,
+              xlim=xlim,
+              ylim=ylim,
+              zlim=zlim,
+              xlab="Growth rate of resources",
+              ylab="Day",
+              zlab="Cercariae density",
+              main=ttl,
+              box=F,
+              lty.axis=par(1),
+              grid=F,
+              col.grid = adjustcolor("gray",1),
+              lty.grid=par(3),
+              cex.symbols=dens*3,
+              #cex.symbols = ifelse(z<=0,0,0.5),
+              # highlight.3d=T, # ignores color arg if T
+              # angle=70,
+              axis=T
+              # add below part to end of scatterplot3d plot
+)#$plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL, lty = "dashed", lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border = NA, col = rgb(0,0,0,0.2))
+#            lty="dashed",
+#          lty.box = NULL,
+#          draw_lines = F, draw_polygon = T,
+#          polygon_args = list(border = NA, col = adjustcolor("light green",alpha=0.4)))
+# add control dates
+if(add.control==1){par(new=T); scatterplot3d(x=rep(0,length(controls)),y=controls,z=rep(max(dens),length(controls)),color="gray",las=1,pch="",lty.hplot = 1,xlim=xlim,ylim=ylim,zlim=zlim,xlab="",ylab="",zlab="",box=F,grid=F,cex.symbols=2,axis=F,type="h")}
+
+```
+  
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}

@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2018-12-18\\
+Date: 2019-01-08\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -259,6 +259,17 @@ here
 \CommentTok{# dput() for converting outputs such as copied text or data tables into vectors}
 \NormalTok{xx <-}\StringTok{ "Some copied text or table from the internet"}
 \KeywordTok{dput}\NormalTok{(xx)}
+\end{Highlighting}
+\end{Shaded}
+
+Round up integers to optimal rounded value
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nn <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{46}\NormalTok{,}\DecValTok{11}\NormalTok{,}\DecValTok{23}\NormalTok{)}
+\KeywordTok{round_any}\NormalTok{(nn,}\DecValTok{10}\NormalTok{)}
+\KeywordTok{round_any}\NormalTok{(nn,}\DecValTok{10}\NormalTok{,ceiling)}
+\KeywordTok{round_any}\NormalTok{(nn,}\DecValTok{10}\NormalTok{,floor)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -839,6 +850,80 @@ Create function to make line as default type in plot
 \begin{Highlighting}[]
 \NormalTok{lplot <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(...) }\KeywordTok{plot}\NormalTok{(..., }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
 \KeywordTok{lplot}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{200}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Stack dataframe columns automatically in plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(outplot)}
+  \CommentTok{# time          N        P        S        I}
+\CommentTok{# 1 0.00 200.000000 200.0000 20.00000 2.000000}
+\CommentTok{# 2 0.01  78.245140 177.1952 20.58217 2.067159}
+\CommentTok{# 3 0.02  34.785145 168.9650 21.12174 2.136073}
+\NormalTok{dats <-}\StringTok{ }\KeywordTok{zoo}\NormalTok{(outplot)}
+\KeywordTok{plot}\NormalTok{(dats)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(scatterplot3d)}
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\NormalTok{yy <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\NormalTok{dens <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\NormalTok{controls <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\NormalTok{add.control <-}\StringTok{ }\DecValTok{1}
+\NormalTok{dens_val <-}\StringTok{ }\DecValTok{1}\OperatorTok{*}\DecValTok{10}\OperatorTok{^-}\DecValTok{10} \CommentTok{# 0 or 1*10^-10. value to knock out blanket of colour on plot surface }
+\CommentTok{#linear model of r/ship between coords}
+\NormalTok{dens_lm <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(dens }\OperatorTok{~}\StringTok{ }\NormalTok{xx }\OperatorTok{+}\StringTok{ }\NormalTok{yy)}
+
+\NormalTok{xlim <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(xx),}\KeywordTok{max}\NormalTok{(xx)); ylim <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(yy),}\KeywordTok{max}\NormalTok{(yy)); zlim=}\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(dens),}\KeywordTok{max}\NormalTok{(dens)) }\CommentTok{# set lims}
+\NormalTok{colv <-}\StringTok{ "YlOrRd"}
+\NormalTok{colvv<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(brewer.pal.info[colv,]}\OperatorTok{$}\NormalTok{maxcolors,colv)) }\CommentTok{# col gradient}
+\NormalTok{colvv<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"steelblue"}\NormalTok{,}\StringTok{"lightblue"}\NormalTok{,}\StringTok{"orange"}\NormalTok{,}\StringTok{"red"}\NormalTok{)) }\CommentTok{# set your own col gradient with as many colours as you want}
+\CommentTok{# colvv<-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as you want}
+
+\CommentTok{# set col palette}
+\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{colvv}\NormalTok{(}\KeywordTok{length}\NormalTok{(dens))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(dens,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(dens)))] }\CommentTok{# define breaks in col gradient}
+\NormalTok{bg <-}\StringTok{ }\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.3}
+
+\CommentTok{# pdf(paste0(plot.dir,strat,"_",density,"_",stage,"_kudspdf.pdf"),width=8.27,height=11.69,paper="a4r")}
+\KeywordTok{scatterplot3d}\NormalTok{(}\DataTypeTok{x=}\NormalTok{xx,}\DataTypeTok{y=}\NormalTok{yy,}\DataTypeTok{z=}\NormalTok{dens,}
+              \CommentTok{# color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor("lightgreen",alpha=0.2)),}
+              \DataTypeTok{color=}\KeywordTok{ifelse}\NormalTok{(dens}\OperatorTok{<=}\NormalTok{dens_val,}\KeywordTok{adjustcolor}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(bg}\OperatorTok{==}\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{),}\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{),}\StringTok{"white"}\NormalTok{),}\DataTypeTok{alpha=}\FloatTok{0.1}\NormalTok{),}\KeywordTok{adjustcolor}\NormalTok{(colfunc,}\DataTypeTok{alpha=}\NormalTok{alpha)),}
+              \CommentTok{# col.axis="light green",}
+              \DataTypeTok{las=}\DecValTok{1}\NormalTok{,}
+              \DataTypeTok{pch=}\DecValTok{20}\NormalTok{,}
+              \DataTypeTok{type=}\StringTok{"p"}\NormalTok{,}
+              \DataTypeTok{lty.hplot =} \DecValTok{1}\NormalTok{,}
+              \DataTypeTok{xlim=}\NormalTok{xlim,}
+              \DataTypeTok{ylim=}\NormalTok{ylim,}
+              \DataTypeTok{zlim=}\NormalTok{zlim,}
+              \DataTypeTok{xlab=}\StringTok{"Growth rate of resources"}\NormalTok{,}
+              \DataTypeTok{ylab=}\StringTok{"Day"}\NormalTok{,}
+              \DataTypeTok{zlab=}\StringTok{"Cercariae density"}\NormalTok{,}
+              \DataTypeTok{main=}\NormalTok{ttl,}
+              \DataTypeTok{box=}\NormalTok{F,}
+              \DataTypeTok{lty.axis=}\KeywordTok{par}\NormalTok{(}\DecValTok{1}\NormalTok{),}
+              \DataTypeTok{grid=}\NormalTok{F,}
+              \DataTypeTok{col.grid =} \KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"gray"}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+              \DataTypeTok{lty.grid=}\KeywordTok{par}\NormalTok{(}\DecValTok{3}\NormalTok{),}
+              \DataTypeTok{cex.symbols=}\NormalTok{dens}\OperatorTok{*}\DecValTok{3}\NormalTok{,}
+              \CommentTok{#cex.symbols = ifelse(z<=0,0,0.5),}
+              \CommentTok{# highlight.3d=T, # ignores color arg if T}
+              \CommentTok{# angle=70,}
+              \DataTypeTok{axis=}\NormalTok{T}
+              \CommentTok{# add below part to end of scatterplot3d plot}
+\NormalTok{)}\CommentTok{#$plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL, lty = "dashed", lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border = NA, col = rgb(0,0,0,0.2))}
+\CommentTok{#            lty="dashed",}
+\CommentTok{#          lty.box = NULL,}
+\CommentTok{#          draw_lines = F, draw_polygon = T,}
+\CommentTok{#          polygon_args = list(border = NA, col = adjustcolor("light green",alpha=0.4)))}
+\CommentTok{# add control dates}
+\ControlFlowTok{if}\NormalTok{(add.control}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}\KeywordTok{par}\NormalTok{(}\DataTypeTok{new=}\NormalTok{T); }\KeywordTok{scatterplot3d}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\KeywordTok{length}\NormalTok{(controls)),}\DataTypeTok{y=}\NormalTok{controls,}\DataTypeTok{z=}\KeywordTok{rep}\NormalTok{(}\KeywordTok{max}\NormalTok{(dens),}\KeywordTok{length}\NormalTok{(controls)),}\DataTypeTok{color=}\StringTok{"gray"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}\DataTypeTok{pch=}\StringTok{""}\NormalTok{,}\DataTypeTok{lty.hplot =} \DecValTok{1}\NormalTok{,}\DataTypeTok{xlim=}\NormalTok{xlim,}\DataTypeTok{ylim=}\NormalTok{ylim,}\DataTypeTok{zlim=}\NormalTok{zlim,}\DataTypeTok{xlab=}\StringTok{""}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{""}\NormalTok{,}\DataTypeTok{zlab=}\StringTok{""}\NormalTok{,}\DataTypeTok{box=}\NormalTok{F,}\DataTypeTok{grid=}\NormalTok{F,}\DataTypeTok{cex.symbols=}\DecValTok{2}\NormalTok{,}\DataTypeTok{axis=}\NormalTok{F,}\DataTypeTok{type=}\StringTok{"h"}\NormalTok{)\}}
 \end{Highlighting}
 \end{Shaded}
 
