@@ -717,7 +717,7 @@ Make 3D scatterplot
 require(scatterplot3d)
 xx <- rnorm(1000)
 yy <- runif(1000)
-dens <- runif(1000)
+dens <- c(rep(0.0001,500),rep(1,500))
 controls <- runif(3)
 add.control <- 1
 dens_val <- 1*10^-10 # 0 or 1*10^-10. value to knock out blanket of colour on plot surface 
@@ -725,7 +725,7 @@ dens_val <- 1*10^-10 # 0 or 1*10^-10. value to knock out blanket of colour on pl
 dens_lm <- lm(dens ~ xx + yy)
 
 xlim <- c(min(xx),max(xx)); ylim <- c(min(yy),max(yy)); zlim=c(min(dens),max(dens)) # set lims
-colv <- "YlOrRd"
+colv <- "Blues"
 colvv<-colorRampPalette(brewer.pal(brewer.pal.info[colv,]$maxcolors,colv)) # col gradient
 colvv<-colorRampPalette(c("steelblue","lightblue","orange","red")) # set your own col gradient with as many colours as you want
 # colvv<-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as you want
@@ -733,7 +733,7 @@ colvv<-colorRampPalette(c("steelblue","lightblue","orange","red")) # set your ow
 # set col palette
 colfunc <- colvv(length(dens))[as.numeric(cut(dens,breaks = length(dens)))] # define breaks in col gradient
 bg <- bpy.colors(1)
-alpha <- 0.3
+alpha <- 0.8
 
 # pdf(paste0(plot.dir,strat,"_",density,"_",stage,"_kudspdf.pdf"),width=8.27,height=11.69,paper="a4r")
 scatterplot3d(x=xx,y=yy,z=dens,
@@ -741,22 +741,22 @@ scatterplot3d(x=xx,y=yy,z=dens,
               color=ifelse(dens<=dens_val,adjustcolor(ifelse(bg==bpy.colors(1),bpy.colors(1),"white"),alpha=0.1),adjustcolor(colfunc,alpha=alpha)),
               # col.axis="light green",
               las=1,
-              pch=20,
+              pch=15,
               type="p",
               lty.hplot = 1,
               xlim=xlim,
               ylim=ylim,
               zlim=zlim,
-              xlab="Growth rate of resources",
-              ylab="Day",
-              zlab="Cercariae density",
-              main=ttl,
+              xlab="X",
+              ylab="Y",
+              zlab="Density",
+              main="Main",
               box=F,
               lty.axis=par(1),
               grid=F,
               col.grid = adjustcolor("gray",1),
               lty.grid=par(3),
-              cex.symbols=dens*3,
+              #cex.symbols=dens*3,
               #cex.symbols = ifelse(z<=0,0,0.5),
               # highlight.3d=T, # ignores color arg if T
               # angle=70,
