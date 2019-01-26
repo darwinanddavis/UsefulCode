@@ -12,6 +12,13 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -27,13 +34,6 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -770,6 +770,35 @@ scatterplot3d(x=xx,y=yy,z=dens,
 # add control dates
 if(add.control==1){par(new=T); scatterplot3d(x=rep(0,length(controls)),y=controls,z=rep(max(dens),length(controls)),color="gray",las=1,pch="",lty.hplot = 1,xlim=xlim,ylim=ylim,zlim=zlim,xlab="",ylab="",zlab="",box=F,grid=F,cex.symbols=2,axis=F,type="h")}
 
+```
+  
+Adding title from separate list to plot in loop (`ggplot`)
+```{r, plot19, results='hide',eval=F}  
+# plot all sim results in one window 
+gspl <- list()
+ttl_list <- c("cerc","food", "juv", "adult", "infec", "infec (shed)", "host L", "parasite mass")
+
+# choose sim to plot
+global_sim_plot <- global_detritus
+
+for(g in 1:10){
+  gspl[[g]] <- ggplot() +
+  geom_line(data = y_m, aes(x = rep.int(1:n.ticks,max(L1)) , y = value, group = L1, colour=factor(L1)), ) +
+  # scale_color_manual(values = viridis(length(mm))) +
+  #linetype=y_m$L1) +
+  theme_tufte() +
+    labs(title=ttl_list[g],x="",y="") +
+    if(g==length(global_sim_plot)){
+      theme(legend.title=element_text(size=0.2), 
+            legend.text=element_text(size=0.2)) +
+        theme(legend.position = "top")
+      labs(x="Time")
+    }else{
+      theme(legend.position="none")
+    }
+    }
+# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)
+do.call(grid.arrange,gspl) # plot in one window 
 ```
   
 ### Reading in files/data

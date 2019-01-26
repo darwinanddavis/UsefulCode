@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2018-12-18<br />
+<p>Date: 2019-01-26<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -364,6 +364,11 @@ df <span class="op">%&gt;%</span><span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dput() for converting outputs such as copied text or data tables into vectors</span>
 xx &lt;-<span class="st"> &quot;Some copied text or table from the internet&quot;</span>
 <span class="kw">dput</span>(xx)</code></pre></div>
+<p>Round up integers to optimal rounded value</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">46</span>,<span class="dv">11</span>,<span class="dv">23</span>)
+<span class="kw">round_any</span>(nn,<span class="dv">10</span>)
+<span class="kw">round_any</span>(nn,<span class="dv">10</span>,ceiling)
+<span class="kw">round_any</span>(nn,<span class="dv">10</span>,floor)</code></pre></div>
 </div>
 <div id="ggplot-functions" class="section level3">
 <h3><code>ggplot</code> functions</h3>
@@ -754,6 +759,96 @@ colfunc &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="k
 <p>Create function to make line as default type in plot</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lplot &lt;-<span class="st"> </span><span class="cf">function</span>(...) <span class="kw">plot</span>(..., <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
 <span class="kw">lplot</span>(<span class="kw">runif</span>(<span class="dv">200</span>))</code></pre></div>
+<p>Stack dataframe columns automatically in plot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(outplot)
+  <span class="co"># time          N        P        S        I</span>
+<span class="co"># 1 0.00 200.000000 200.0000 20.00000 2.000000</span>
+<span class="co"># 2 0.01  78.245140 177.1952 20.58217 2.067159</span>
+<span class="co"># 3 0.02  34.785145 168.9650 21.12174 2.136073</span>
+dats &lt;-<span class="st"> </span><span class="kw">zoo</span>(outplot)
+<span class="kw">plot</span>(dats)</code></pre></div>
+<p>Make 3D scatterplot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(scatterplot3d)
+xx &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)
+yy &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)
+dens &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="fl">0.0001</span>,<span class="dv">500</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">500</span>))
+controls &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">3</span>)
+add.control &lt;-<span class="st"> </span><span class="dv">1</span>
+dens_val &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">*</span><span class="dv">10</span><span class="op">^-</span><span class="dv">10</span> <span class="co"># 0 or 1*10^-10. value to knock out blanket of colour on plot surface </span>
+<span class="co">#linear model of r/ship between coords</span>
+dens_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(dens <span class="op">~</span><span class="st"> </span>xx <span class="op">+</span><span class="st"> </span>yy)
+
+xlim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(xx),<span class="kw">max</span>(xx)); ylim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(yy),<span class="kw">max</span>(yy)); zlim=<span class="kw">c</span>(<span class="kw">min</span>(dens),<span class="kw">max</span>(dens)) <span class="co"># set lims</span>
+colv &lt;-<span class="st"> &quot;Blues&quot;</span>
+colvv&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(brewer.pal.info[colv,]<span class="op">$</span>maxcolors,colv)) <span class="co"># col gradient</span>
+colvv&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;steelblue&quot;</span>,<span class="st">&quot;lightblue&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;red&quot;</span>)) <span class="co"># set your own col gradient with as many colours as you want</span>
+<span class="co"># colvv&lt;-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as you want</span>
+
+<span class="co"># set col palette</span>
+colfunc &lt;-<span class="st"> </span><span class="kw">colvv</span>(<span class="kw">length</span>(dens))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(dens,<span class="dt">breaks =</span> <span class="kw">length</span>(dens)))] <span class="co"># define breaks in col gradient</span>
+bg &lt;-<span class="st"> </span><span class="kw">bpy.colors</span>(<span class="dv">1</span>)
+alpha &lt;-<span class="st"> </span><span class="fl">0.8</span>
+
+<span class="co"># pdf(paste0(plot.dir,strat,&quot;_&quot;,density,&quot;_&quot;,stage,&quot;_kudspdf.pdf&quot;),width=8.27,height=11.69,paper=&quot;a4r&quot;)</span>
+<span class="kw">scatterplot3d</span>(<span class="dt">x=</span>xx,<span class="dt">y=</span>yy,<span class="dt">z=</span>dens,
+              <span class="co"># color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor(&quot;lightgreen&quot;,alpha=0.2)),</span>
+              <span class="dt">color=</span><span class="kw">ifelse</span>(dens<span class="op">&lt;=</span>dens_val,<span class="kw">adjustcolor</span>(<span class="kw">ifelse</span>(bg<span class="op">==</span><span class="kw">bpy.colors</span>(<span class="dv">1</span>),<span class="kw">bpy.colors</span>(<span class="dv">1</span>),<span class="st">&quot;white&quot;</span>),<span class="dt">alpha=</span><span class="fl">0.1</span>),<span class="kw">adjustcolor</span>(colfunc,<span class="dt">alpha=</span>alpha)),
+              <span class="co"># col.axis=&quot;light green&quot;,</span>
+              <span class="dt">las=</span><span class="dv">1</span>,
+              <span class="dt">pch=</span><span class="dv">15</span>,
+              <span class="dt">type=</span><span class="st">&quot;p&quot;</span>,
+              <span class="dt">lty.hplot =</span> <span class="dv">1</span>,
+              <span class="dt">xlim=</span>xlim,
+              <span class="dt">ylim=</span>ylim,
+              <span class="dt">zlim=</span>zlim,
+              <span class="dt">xlab=</span><span class="st">&quot;X&quot;</span>,
+              <span class="dt">ylab=</span><span class="st">&quot;Y&quot;</span>,
+              <span class="dt">zlab=</span><span class="st">&quot;Density&quot;</span>,
+              <span class="dt">main=</span><span class="st">&quot;Main&quot;</span>,
+              <span class="dt">box=</span>F,
+              <span class="dt">lty.axis=</span><span class="kw">par</span>(<span class="dv">1</span>),
+              <span class="dt">grid=</span>F,
+              <span class="dt">col.grid =</span> <span class="kw">adjustcolor</span>(<span class="st">&quot;gray&quot;</span>,<span class="dv">1</span>),
+              <span class="dt">lty.grid=</span><span class="kw">par</span>(<span class="dv">3</span>),
+              <span class="co">#cex.symbols=dens*3,</span>
+              <span class="co">#cex.symbols = ifelse(z&lt;=0,0,0.5),</span>
+              <span class="co"># highlight.3d=T, # ignores color arg if T</span>
+              <span class="co"># angle=70,</span>
+              <span class="dt">axis=</span>T
+              <span class="co"># add below part to end of scatterplot3d plot</span>
+)<span class="co">#$plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL, lty = &quot;dashed&quot;, lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border = NA, col = rgb(0,0,0,0.2))</span>
+<span class="co">#            lty=&quot;dashed&quot;,</span>
+<span class="co">#          lty.box = NULL,</span>
+<span class="co">#          draw_lines = F, draw_polygon = T,</span>
+<span class="co">#          polygon_args = list(border = NA, col = adjustcolor(&quot;light green&quot;,alpha=0.4)))</span>
+<span class="co"># add control dates</span>
+<span class="cf">if</span>(add.control<span class="op">==</span><span class="dv">1</span>){<span class="kw">par</span>(<span class="dt">new=</span>T); <span class="kw">scatterplot3d</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">length</span>(controls)),<span class="dt">y=</span>controls,<span class="dt">z=</span><span class="kw">rep</span>(<span class="kw">max</span>(dens),<span class="kw">length</span>(controls)),<span class="dt">color=</span><span class="st">&quot;gray&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">pch=</span><span class="st">&quot;&quot;</span>,<span class="dt">lty.hplot =</span> <span class="dv">1</span>,<span class="dt">xlim=</span>xlim,<span class="dt">ylim=</span>ylim,<span class="dt">zlim=</span>zlim,<span class="dt">xlab=</span><span class="st">&quot;&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;&quot;</span>,<span class="dt">zlab=</span><span class="st">&quot;&quot;</span>,<span class="dt">box=</span>F,<span class="dt">grid=</span>F,<span class="dt">cex.symbols=</span><span class="dv">2</span>,<span class="dt">axis=</span>F,<span class="dt">type=</span><span class="st">&quot;h&quot;</span>)}</code></pre></div>
+<p>Adding title from separate list to plot in loop (<code>ggplot</code>)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot all sim results in one window </span>
+gspl &lt;-<span class="st"> </span><span class="kw">list</span>()
+ttl_list &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cerc&quot;</span>,<span class="st">&quot;food&quot;</span>, <span class="st">&quot;juv&quot;</span>, <span class="st">&quot;adult&quot;</span>, <span class="st">&quot;infec&quot;</span>, <span class="st">&quot;infec (shed)&quot;</span>, <span class="st">&quot;host L&quot;</span>, <span class="st">&quot;parasite mass&quot;</span>)
+
+<span class="co"># choose sim to plot</span>
+global_sim_plot &lt;-<span class="st"> </span>global_detritus
+
+<span class="cf">for</span>(g <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
+  gspl[[g]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> y_m, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rep.int</span>(<span class="dv">1</span><span class="op">:</span>n.ticks,<span class="kw">max</span>(L1)) , <span class="dt">y =</span> value, <span class="dt">group =</span> L1, <span class="dt">colour=</span><span class="kw">factor</span>(L1)), ) <span class="op">+</span>
+<span class="st">  </span><span class="co"># scale_color_manual(values = viridis(length(mm))) +</span>
+<span class="st">  </span><span class="co">#linetype=y_m$L1) +</span>
+<span class="st">  </span><span class="kw">theme_tufte</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">title=</span>ttl_list[g],<span class="dt">x=</span><span class="st">&quot;&quot;</span>,<span class="dt">y=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="cf">if</span>(g<span class="op">==</span><span class="kw">length</span>(global_sim_plot)){
+      <span class="kw">theme</span>(<span class="dt">legend.title=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="fl">0.2</span>), 
+            <span class="dt">legend.text=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="fl">0.2</span>)) <span class="op">+</span>
+<span class="st">        </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>)
+      <span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Time&quot;</span>)
+    }<span class="cf">else</span>{
+      <span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
+    }
+    }
+<span class="co"># +  geom_text(x=,y=,label = max(value),check_overlap = TUE)</span>
+<span class="kw">do.call</span>(grid.arrange,gspl) <span class="co"># plot in one window </span></code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>

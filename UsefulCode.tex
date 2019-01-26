@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2019-01-08\\
+Date: 2019-01-26\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -867,12 +867,14 @@ Stack dataframe columns automatically in plot
 \end{Highlighting}
 \end{Shaded}
 
+Make 3D scatterplot
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{require}\NormalTok{(scatterplot3d)}
 \NormalTok{xx <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
 \NormalTok{yy <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
-\NormalTok{dens <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\NormalTok{dens <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\FloatTok{0.0001}\NormalTok{,}\DecValTok{500}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{500}\NormalTok{))}
 \NormalTok{controls <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{3}\NormalTok{)}
 \NormalTok{add.control <-}\StringTok{ }\DecValTok{1}
 \NormalTok{dens_val <-}\StringTok{ }\DecValTok{1}\OperatorTok{*}\DecValTok{10}\OperatorTok{^-}\DecValTok{10} \CommentTok{# 0 or 1*10^-10. value to knock out blanket of colour on plot surface }
@@ -880,7 +882,7 @@ Stack dataframe columns automatically in plot
 \NormalTok{dens_lm <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(dens }\OperatorTok{~}\StringTok{ }\NormalTok{xx }\OperatorTok{+}\StringTok{ }\NormalTok{yy)}
 
 \NormalTok{xlim <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(xx),}\KeywordTok{max}\NormalTok{(xx)); ylim <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(yy),}\KeywordTok{max}\NormalTok{(yy)); zlim=}\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(dens),}\KeywordTok{max}\NormalTok{(dens)) }\CommentTok{# set lims}
-\NormalTok{colv <-}\StringTok{ "YlOrRd"}
+\NormalTok{colv <-}\StringTok{ "Blues"}
 \NormalTok{colvv<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(brewer.pal.info[colv,]}\OperatorTok{$}\NormalTok{maxcolors,colv)) }\CommentTok{# col gradient}
 \NormalTok{colvv<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"steelblue"}\NormalTok{,}\StringTok{"lightblue"}\NormalTok{,}\StringTok{"orange"}\NormalTok{,}\StringTok{"red"}\NormalTok{)) }\CommentTok{# set your own col gradient with as many colours as you want}
 \CommentTok{# colvv<-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as you want}
@@ -888,7 +890,7 @@ Stack dataframe columns automatically in plot
 \CommentTok{# set col palette}
 \NormalTok{colfunc <-}\StringTok{ }\KeywordTok{colvv}\NormalTok{(}\KeywordTok{length}\NormalTok{(dens))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(dens,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(dens)))] }\CommentTok{# define breaks in col gradient}
 \NormalTok{bg <-}\StringTok{ }\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{)}
-\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.3}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.8}
 
 \CommentTok{# pdf(paste0(plot.dir,strat,"_",density,"_",stage,"_kudspdf.pdf"),width=8.27,height=11.69,paper="a4r")}
 \KeywordTok{scatterplot3d}\NormalTok{(}\DataTypeTok{x=}\NormalTok{xx,}\DataTypeTok{y=}\NormalTok{yy,}\DataTypeTok{z=}\NormalTok{dens,}
@@ -896,22 +898,22 @@ Stack dataframe columns automatically in plot
               \DataTypeTok{color=}\KeywordTok{ifelse}\NormalTok{(dens}\OperatorTok{<=}\NormalTok{dens_val,}\KeywordTok{adjustcolor}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(bg}\OperatorTok{==}\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{),}\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{),}\StringTok{"white"}\NormalTok{),}\DataTypeTok{alpha=}\FloatTok{0.1}\NormalTok{),}\KeywordTok{adjustcolor}\NormalTok{(colfunc,}\DataTypeTok{alpha=}\NormalTok{alpha)),}
               \CommentTok{# col.axis="light green",}
               \DataTypeTok{las=}\DecValTok{1}\NormalTok{,}
-              \DataTypeTok{pch=}\DecValTok{20}\NormalTok{,}
+              \DataTypeTok{pch=}\DecValTok{15}\NormalTok{,}
               \DataTypeTok{type=}\StringTok{"p"}\NormalTok{,}
               \DataTypeTok{lty.hplot =} \DecValTok{1}\NormalTok{,}
               \DataTypeTok{xlim=}\NormalTok{xlim,}
               \DataTypeTok{ylim=}\NormalTok{ylim,}
               \DataTypeTok{zlim=}\NormalTok{zlim,}
-              \DataTypeTok{xlab=}\StringTok{"Growth rate of resources"}\NormalTok{,}
-              \DataTypeTok{ylab=}\StringTok{"Day"}\NormalTok{,}
-              \DataTypeTok{zlab=}\StringTok{"Cercariae density"}\NormalTok{,}
-              \DataTypeTok{main=}\NormalTok{ttl,}
+              \DataTypeTok{xlab=}\StringTok{"X"}\NormalTok{,}
+              \DataTypeTok{ylab=}\StringTok{"Y"}\NormalTok{,}
+              \DataTypeTok{zlab=}\StringTok{"Density"}\NormalTok{,}
+              \DataTypeTok{main=}\StringTok{"Main"}\NormalTok{,}
               \DataTypeTok{box=}\NormalTok{F,}
               \DataTypeTok{lty.axis=}\KeywordTok{par}\NormalTok{(}\DecValTok{1}\NormalTok{),}
               \DataTypeTok{grid=}\NormalTok{F,}
               \DataTypeTok{col.grid =} \KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"gray"}\NormalTok{,}\DecValTok{1}\NormalTok{),}
               \DataTypeTok{lty.grid=}\KeywordTok{par}\NormalTok{(}\DecValTok{3}\NormalTok{),}
-              \DataTypeTok{cex.symbols=}\NormalTok{dens}\OperatorTok{*}\DecValTok{3}\NormalTok{,}
+              \CommentTok{#cex.symbols=dens*3,}
               \CommentTok{#cex.symbols = ifelse(z<=0,0,0.5),}
               \CommentTok{# highlight.3d=T, # ignores color arg if T}
               \CommentTok{# angle=70,}
@@ -924,6 +926,38 @@ Stack dataframe columns automatically in plot
 \CommentTok{#          polygon_args = list(border = NA, col = adjustcolor("light green",alpha=0.4)))}
 \CommentTok{# add control dates}
 \ControlFlowTok{if}\NormalTok{(add.control}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}\KeywordTok{par}\NormalTok{(}\DataTypeTok{new=}\NormalTok{T); }\KeywordTok{scatterplot3d}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\KeywordTok{length}\NormalTok{(controls)),}\DataTypeTok{y=}\NormalTok{controls,}\DataTypeTok{z=}\KeywordTok{rep}\NormalTok{(}\KeywordTok{max}\NormalTok{(dens),}\KeywordTok{length}\NormalTok{(controls)),}\DataTypeTok{color=}\StringTok{"gray"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}\DataTypeTok{pch=}\StringTok{""}\NormalTok{,}\DataTypeTok{lty.hplot =} \DecValTok{1}\NormalTok{,}\DataTypeTok{xlim=}\NormalTok{xlim,}\DataTypeTok{ylim=}\NormalTok{ylim,}\DataTypeTok{zlim=}\NormalTok{zlim,}\DataTypeTok{xlab=}\StringTok{""}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{""}\NormalTok{,}\DataTypeTok{zlab=}\StringTok{""}\NormalTok{,}\DataTypeTok{box=}\NormalTok{F,}\DataTypeTok{grid=}\NormalTok{F,}\DataTypeTok{cex.symbols=}\DecValTok{2}\NormalTok{,}\DataTypeTok{axis=}\NormalTok{F,}\DataTypeTok{type=}\StringTok{"h"}\NormalTok{)\}}
+\end{Highlighting}
+\end{Shaded}
+
+Adding title from separate list to plot in loop (\texttt{ggplot})
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# plot all sim results in one window }
+\NormalTok{gspl <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{ttl_list <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"cerc"}\NormalTok{,}\StringTok{"food"}\NormalTok{, }\StringTok{"juv"}\NormalTok{, }\StringTok{"adult"}\NormalTok{, }\StringTok{"infec"}\NormalTok{, }\StringTok{"infec (shed)"}\NormalTok{, }\StringTok{"host L"}\NormalTok{, }\StringTok{"parasite mass"}\NormalTok{)}
+
+\CommentTok{# choose sim to plot}
+\NormalTok{global_sim_plot <-}\StringTok{ }\NormalTok{global_detritus}
+
+\ControlFlowTok{for}\NormalTok{(g }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)\{}
+\NormalTok{  gspl[[g]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ y_m, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{rep.int}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.ticks,}\KeywordTok{max}\NormalTok{(L1)) , }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{group =}\NormalTok{ L1, }\DataTypeTok{colour=}\KeywordTok{factor}\NormalTok{(L1)), ) }\OperatorTok{+}
+\StringTok{  }\CommentTok{# scale_color_manual(values = viridis(length(mm))) +}
+\StringTok{  }\CommentTok{#linetype=y_m$L1) +}
+\StringTok{  }\KeywordTok{theme_tufte}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=}\NormalTok{ttl_list[g],}\DataTypeTok{x=}\StringTok{""}\NormalTok{,}\DataTypeTok{y=}\StringTok{""}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\ControlFlowTok{if}\NormalTok{(g}\OperatorTok{==}\KeywordTok{length}\NormalTok{(global_sim_plot))\{}
+      \KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\FloatTok{0.2}\NormalTok{), }
+            \DataTypeTok{legend.text=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\FloatTok{0.2}\NormalTok{)) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"top"}\NormalTok{)}
+      \KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Time"}\NormalTok{)}
+\NormalTok{    \}}\ControlFlowTok{else}\NormalTok{\{}
+      \KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+\NormalTok{    \}}
+\NormalTok{    \}}
+\CommentTok{# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)}
+\KeywordTok{do.call}\NormalTok{(grid.arrange,gspl) }\CommentTok{# plot in one window }
 \end{Highlighting}
 \end{Shaded}
 

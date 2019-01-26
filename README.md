@@ -637,7 +637,7 @@ Make 3D scatterplot
 require(scatterplot3d)
 xx <- rnorm(1000)
 yy <- runif(1000)
-dens <- runif(1000)
+dens <- c(rep(0.0001,500),rep(1,500))
 controls <- runif(3)
 add.control <- 1
 dens_val <- 1*10^-10 # 0 or 1*10^-10. value to knock out blanket of colour on plot surface 
@@ -645,7 +645,7 @@ dens_val <- 1*10^-10 # 0 or 1*10^-10. value to knock out blanket of colour on pl
 dens_lm <- lm(dens ~ xx + yy)
 
 xlim <- c(min(xx),max(xx)); ylim <- c(min(yy),max(yy)); zlim=c(min(dens),max(dens)) # set lims
-colv <- "YlOrRd"
+colv <- "Blues"
 colvv<-colorRampPalette(brewer.pal(brewer.pal.info[colv,]$maxcolors,colv)) # col gradient
 colvv<-colorRampPalette(c("steelblue","lightblue","orange","red")) # set your own col gradient with as many colours as you want
 # colvv<-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as you want
@@ -653,7 +653,7 @@ colvv<-colorRampPalette(c("steelblue","lightblue","orange","red")) # set your ow
 # set col palette
 colfunc <- colvv(length(dens))[as.numeric(cut(dens,breaks = length(dens)))] # define breaks in col gradient
 bg <- bpy.colors(1)
-alpha <- 0.3
+alpha <- 0.8
 
 # pdf(paste0(plot.dir,strat,"_",density,"_",stage,"_kudspdf.pdf"),width=8.27,height=11.69,paper="a4r")
 scatterplot3d(x=xx,y=yy,z=dens,
@@ -661,22 +661,22 @@ scatterplot3d(x=xx,y=yy,z=dens,
               color=ifelse(dens<=dens_val,adjustcolor(ifelse(bg==bpy.colors(1),bpy.colors(1),"white"),alpha=0.1),adjustcolor(colfunc,alpha=alpha)),
               # col.axis="light green",
               las=1,
-              pch=20,
+              pch=15,
               type="p",
               lty.hplot = 1,
               xlim=xlim,
               ylim=ylim,
               zlim=zlim,
-              xlab="Growth rate of resources",
-              ylab="Day",
-              zlab="Cercariae density",
-              main=ttl,
+              xlab="X",
+              ylab="Y",
+              zlab="Density",
+              main="Main",
               box=F,
               lty.axis=par(1),
               grid=F,
               col.grid = adjustcolor("gray",1),
               lty.grid=par(3),
-              cex.symbols=dens*3,
+              #cex.symbols=dens*3,
               #cex.symbols = ifelse(z<=0,0,0.5),
               # highlight.3d=T, # ignores color arg if T
               # angle=70,
@@ -690,6 +690,35 @@ scatterplot3d(x=xx,y=yy,z=dens,
 # add control dates
 if(add.control==1){par(new=T); scatterplot3d(x=rep(0,length(controls)),y=controls,z=rep(max(dens),length(controls)),color="gray",las=1,pch="",lty.hplot = 1,xlim=xlim,ylim=ylim,zlim=zlim,xlab="",ylab="",zlab="",box=F,grid=F,cex.symbols=2,axis=F,type="h")}
 
+```
+  
+Adding title from separate list to plot in loop (`ggplot`)
+```{r, plot19, results='hide',eval=F}  
+# plot all sim results in one window 
+gspl <- list()
+ttl_list <- c("cerc","food", "juv", "adult", "infec", "infec (shed)", "host L", "parasite mass")
+
+# choose sim to plot
+global_sim_plot <- global_detritus
+
+for(g in 1:10){
+  gspl[[g]] <- ggplot() +
+  geom_line(data = y_m, aes(x = rep.int(1:n.ticks,max(L1)) , y = value, group = L1, colour=factor(L1)), ) +
+  # scale_color_manual(values = viridis(length(mm))) +
+  #linetype=y_m$L1) +
+  theme_tufte() +
+    labs(title=ttl_list[g],x="",y="") +
+    if(g==length(global_sim_plot)){
+      theme(legend.title=element_text(size=0.2), 
+            legend.text=element_text(size=0.2)) +
+        theme(legend.position = "top")
+      labs(x="Time")
+    }else{
+      theme(legend.position="none")
+    }
+    }
+# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)
+do.call(grid.arrange,gspl) # plot in one window 
 ```
   
 ### Reading in files/data
