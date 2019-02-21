@@ -8,10 +8,11 @@ doi: [DOI](https://github.com/darwinanddavis/UsefulCode)
 :link: [Github](https://github.com/darwinanddavis/UsefulCode)    
 
 TO ADD:  
+- Math symbols in Rmarkdown [ ](https://www.calvin.edu/~rpruim/courses/s341/S17/from-class/MathinRmd.html)
 - grep and removing multiple cols from df examples from lec_keyword_search.R file in LEC working group
 - plotting multiple plots per page using PDF  http://rstudio-pubs-static.s3.amazonaws.com/2852_379274d7c5734f979e106dcf019ec46c.html  
 - add dendogram and sunburst examples https://www.r-graph-gallery.com/dendrogram/  
-- Convert list of lists into df (tibble) https://stackoverflow.com/questions/45452015/how-to-convert-list-of-list-into-a-tibble-dataframe  
+- Convert list of lists into df (tibble) https://stackoverflow.com/questions/45452015/how-to-convert-list-of-list-into-a-tibble-dataframe    
 
 ****** 
 
