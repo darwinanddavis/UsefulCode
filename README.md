@@ -7,8 +7,7 @@
 doi: [DOI](https://github.com/darwinanddavis/UsefulCode)  
 :link: [Github](https://github.com/darwinanddavis/UsefulCode)    
 
-TO ADD:  
-- Math symbols in Rmarkdown [ ](https://www.calvin.edu/~rpruim/courses/s341/S17/from-class/MathinRmd.html)
+TO ADD:    
 - grep and removing multiple cols from df examples from lec_keyword_search.R file in LEC working group
 - plotting multiple plots per page using PDF  http://rstudio-pubs-static.s3.amazonaws.com/2852_379274d7c5734f979e106dcf019ec46c.html  
 - add dendogram and sunburst examples https://www.r-graph-gallery.com/dendrogram/  
@@ -827,7 +826,81 @@ Hide unwanted code output, such as inherent examples for functions
 # ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}
 
 ```
-    
+
+Math notation in R Markdown  
+
+```{r}
+
+x=y $x = y$    
+x<y $x < y$  
+x>y $x > y$  
+x≤y $x \le y$  
+x≥y $x \ge y$  
+xn  $x^{n}$  
+xn  $x_{n}$  
+x⎯⎯⎯  $\overline{x}$  
+x̂  $\hat{x}$  
+x̃  $\tilde{x}$  
+ab  $\frac{a}{b}$  
+∂f∂x  $\frac{a}{b}$  
+∂f∂x  $\displaystyle \frac{a}{b}$  
+(nk)  $\binom{n}{k}$  
+x1+x2+⋯+xn  $x_{1} + x_{2} + \cdots + x_{n}$   
+x1,x2,…,xn  $x_{1}, x_{2}, \dots, x_{n}$  
+x=⟨x1,x2,…,xn $\mathbf{x} = \langle x_{1}, x_{2}, \dots, x_{n}\rangle$    
+x∈A $x \in A$    
+|A| $|A|$  
+x∈A $x \in A$  
+A⊂B $x \subset B$  
+A⊆B $x \subseteq B$  
+A∪B $A \cup B$  
+A∩B $A \cap B$  
+X∼𝖡𝗂𝗇𝗈𝗆(n,π)  $X \sim {\sf Binom}(n, \pi)$
+
+P(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π)  $\mathrm{P}(X \le x) = {\tt pbinom}(x, n, \pi)$   
+P(A∣B)  $P(A \mid B)$  
+P(A∣B)  $\mathrm{P}(A \mid B)$   
+{1,2,3} $\{1, 2, 3\}$  
+sin(x)  $\sin(x)$    
+log(x)  $\log(x)$  
+∫ba $\int_{a}^{b}$  
+(∫baf(x)dx) $\left(\int_{a}^{b} f(x) \; dx\right)$  
+[∫∞−∞f(x)dx]  $\left[\int_{\-infty}^{\infty} f(x) \; dx\right]$  
+F(x)|ba $\left. F(x) \right|_{a}^{b}$  
+∑bx=af(x) $\sum_{x = a}^{b} f(x)$  
+∏bx=af(x) $\prod_{x = a}^{b} f(x)$  
+limx→∞f(x)  $\lim_{x \to \infty} f(x)$  
+limx→∞f(x)  $\displaystyle \lim_{x \to \infty} f(x)$    
+```  
+
+Greek Letters  
+```{r}
+αA  $\alpha A$    
+νN  $\nu N$  
+βB  $\beta B$   
+ξΞ  $\xi\Xi$  
+γΓ  $\gamma \Gamma$  
+oO  $o O$ (omicron)  
+δΔ  $\delta \Delta$   
+πΠ  $\pi \Pi$  
+ϵεE $\epsilon \varepsilon E$  
+ρϱP $\rho\varrho P$  
+ζZ  $\zeta Z \sigma \,\!$  
+Σ $\sigma \Sigma$  
+ηH  $\eta H$  
+τT  $\tau T$  
+θϑΘ $\theta \vartheta \Theta$  
+υΥ  $\upsilon \Upsilon$  
+ιI  $\iota I$  
+ϕφΦ $\phi \varphi \Phi$    
+κK  $\kappa K$    
+χX  $\chi X$    
+λΛ  $\lambda \Lambda$    
+ψΨ  $\psi \Psi$    
+μM  $\mu M$   
+ω Ω$\omega \Omega$    
+```
+
 ######    
   
 ### Subsetting

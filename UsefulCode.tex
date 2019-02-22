@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2019-01-26\\
+Date: 2019-02-22\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -1080,6 +1080,84 @@ Hide unwanted code output, such as inherent examples for functions
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# ```\{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'\}}
+\end{Highlighting}
+\end{Shaded}
+
+Math notation in R Markdown
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x=y }\OperatorTok{$}\NormalTok{x =}\StringTok{ }\NormalTok{y}\OperatorTok{$}\StringTok{    }
+\NormalTok{x}\OperatorTok{<}\NormalTok{y }\OperatorTok{$}\NormalTok{x }\OperatorTok{<}\StringTok{ }\NormalTok{y}\OperatorTok{$}\StringTok{  }
+\NormalTok{x}\OperatorTok{>}\NormalTok{y }\OperatorTok{$}\NormalTok{x }\OperatorTok{>}\StringTok{ }\NormalTok{y}\OperatorTok{$}\StringTok{  }
+\NormalTok{x≤y }\OperatorTok{$}\NormalTok{x \textbackslash{}le y}\OperatorTok{$}\StringTok{  }
+\NormalTok{x≥y }\OperatorTok{$}\NormalTok{x \textbackslash{}ge y}\OperatorTok{$}\StringTok{  }
+\NormalTok{xn  }\OperatorTok{$}\NormalTok{x}\OperatorTok{^}\NormalTok{\{n\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{xn  }\OperatorTok{$}\NormalTok{x_\{n\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{x⎯⎯⎯    }\OperatorTok{$}\NormalTok{\textbackslash{}overline\{x\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{x̂  }\OperatorTok{$}\NormalTok{\textbackslash{}hat\{x\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{x̃  }\OperatorTok{$}\NormalTok{\textbackslash{}tilde\{x\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{ab  }\OperatorTok{$}\NormalTok{\textbackslash{}frac\{a\}\{b\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{∂f∂x    }\OperatorTok{$}\NormalTok{\textbackslash{}frac\{a\}\{b\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{∂f∂x    }\OperatorTok{$}\NormalTok{\textbackslash{}displaystyle \textbackslash{}frac\{a\}\{b\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{(nk)    }\OperatorTok{$}\NormalTok{\textbackslash{}binom\{n\}\{k\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{x1}\OperatorTok{+}\NormalTok{x2}\OperatorTok{+}\NormalTok{⋯}\OperatorTok{+}\NormalTok{xn  }\OperatorTok{$}\NormalTok{x_\{}\DecValTok{1}\NormalTok{\} }\OperatorTok{+}\StringTok{ }\NormalTok{x_\{}\DecValTok{2}\NormalTok{\} }\OperatorTok{+}\StringTok{ }\NormalTok{\textbackslash{}cdots }\OperatorTok{+}\StringTok{ }\NormalTok{x_\{n\}}\OperatorTok{$}\StringTok{   }
+\NormalTok{x1,x2,…,xn  }\OperatorTok{$}\NormalTok{x_\{}\DecValTok{1}\NormalTok{\}, x_\{}\DecValTok{2}\NormalTok{\}, \textbackslash{}dots, x_\{n\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{x=⟨x1,x2,…,xn }\OperatorTok{$}\NormalTok{\textbackslash{}mathbf\{x\} =}\StringTok{ }\NormalTok{\textbackslash{}langle x_\{}\DecValTok{1}\NormalTok{\}, x_\{}\DecValTok{2}\NormalTok{\}, \textbackslash{}dots, x_\{n\}\textbackslash{}rangle}\OperatorTok{$}\StringTok{    }
+\NormalTok{x∈A }\OperatorTok{$}\NormalTok{x \textbackslash{}}\ControlFlowTok{in}\NormalTok{ A}\OperatorTok{$}\StringTok{    }
+\ErrorTok{|}\NormalTok{A}\OperatorTok{|}\StringTok{ }\ErrorTok{$|}\NormalTok{A}\OperatorTok{|}\ErrorTok{$}\StringTok{  }
+\NormalTok{x∈A }\OperatorTok{$}\NormalTok{x \textbackslash{}}\ControlFlowTok{in}\NormalTok{ A}\OperatorTok{$}\StringTok{  }
+\NormalTok{A⊂B }\OperatorTok{$}\NormalTok{x \textbackslash{}subset B}\OperatorTok{$}\StringTok{  }
+\NormalTok{A⊆B }\OperatorTok{$}\NormalTok{x \textbackslash{}subseteq B}\OperatorTok{$}\StringTok{  }
+\NormalTok{A∪B }\OperatorTok{$}\NormalTok{A \textbackslash{}cup B}\OperatorTok{$}\StringTok{  }
+\NormalTok{A∩B }\OperatorTok{$}\NormalTok{A \textbackslash{}cap B}\OperatorTok{$}\StringTok{  }
+\NormalTok{X∼𝖡𝗂𝗇𝗈𝗆(n,π)    }\OperatorTok{$}\NormalTok{X \textbackslash{}sim \{\textbackslash{}sf Binom\}(n, \textbackslash{}pi)}\OperatorTok{$}
+
+\KeywordTok{P}\NormalTok{(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π)    }\OperatorTok{$}\NormalTok{\textbackslash{}mathrm\{P\}(X \textbackslash{}le x) =}\StringTok{ }\NormalTok{\{\textbackslash{}tt pbinom\}(x, n, \textbackslash{}pi)}\OperatorTok{$}\StringTok{   }
+\KeywordTok{P}\NormalTok{(A∣B)  }\OperatorTok{$}\KeywordTok{P}\NormalTok{(A \textbackslash{}mid B)}\OperatorTok{$}\StringTok{  }
+\KeywordTok{P}\NormalTok{(A∣B)  }\OperatorTok{$}\NormalTok{\textbackslash{}mathrm\{P\}(A \textbackslash{}mid B)}\OperatorTok{$}\StringTok{   }
+\NormalTok{\{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{\} }\OperatorTok{$}\NormalTok{\textbackslash{}\{}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{\textbackslash{}\}}\OperatorTok{$}\StringTok{  }
+\KeywordTok{sin}\NormalTok{(x)  }\OperatorTok{$}\NormalTok{\textbackslash{}}\KeywordTok{sin}\NormalTok{(x)}\OperatorTok{$}\StringTok{    }
+\KeywordTok{log}\NormalTok{(x)  }\OperatorTok{$}\NormalTok{\textbackslash{}}\KeywordTok{log}\NormalTok{(x)}\OperatorTok{$}\StringTok{  }
+\NormalTok{∫ba }\OperatorTok{$}\NormalTok{\textbackslash{}int_\{a\}}\OperatorTok{^}\NormalTok{\{b\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{(∫}\KeywordTok{baf}\NormalTok{(x)dx) }\OperatorTok{$}\NormalTok{\textbackslash{}}\KeywordTok{left}\NormalTok{(\textbackslash{}int_\{a\}}\OperatorTok{^}\NormalTok{\{b\} }\KeywordTok{f}\NormalTok{(x) \textbackslash{}; dx\textbackslash{}right)}\OperatorTok{$}\StringTok{  }
+\NormalTok{[∫∞−∞}\KeywordTok{f}\NormalTok{(x)dx]    }\OperatorTok{$}\NormalTok{\textbackslash{}left[\textbackslash{}int_\{\textbackslash{}}\OperatorTok{-}\NormalTok{infty\}}\OperatorTok{^}\NormalTok{\{\textbackslash{}infty\} }\KeywordTok{f}\NormalTok{(x) \textbackslash{}; dx\textbackslash{}right]}\OperatorTok{$}\StringTok{  }
+\KeywordTok{F}\NormalTok{(x)}\OperatorTok{|}\NormalTok{ba }\OperatorTok{$}\NormalTok{\textbackslash{}left. }\KeywordTok{F}\NormalTok{(x) \textbackslash{}right}\OperatorTok{|}\NormalTok{_\{a\}}\OperatorTok{^}\NormalTok{\{b\}}\OperatorTok{$}\StringTok{  }
+\NormalTok{∑bx=}\KeywordTok{af}\NormalTok{(x)   }\OperatorTok{$}\NormalTok{\textbackslash{}sum_\{x =}\StringTok{ }\NormalTok{a\}}\OperatorTok{^}\NormalTok{\{b\} }\KeywordTok{f}\NormalTok{(x)}\OperatorTok{$}\StringTok{  }
+\NormalTok{∏bx=}\KeywordTok{af}\NormalTok{(x)   }\OperatorTok{$}\NormalTok{\textbackslash{}prod_\{x =}\StringTok{ }\NormalTok{a\}}\OperatorTok{^}\NormalTok{\{b\} }\KeywordTok{f}\NormalTok{(x)}\OperatorTok{$}\StringTok{  }
+\NormalTok{limx→∞}\KeywordTok{f}\NormalTok{(x)  }\OperatorTok{$}\NormalTok{\textbackslash{}lim_\{x \textbackslash{}to \textbackslash{}infty\} }\KeywordTok{f}\NormalTok{(x)}\OperatorTok{$}\StringTok{  }
+\NormalTok{limx→∞}\KeywordTok{f}\NormalTok{(x)  }\OperatorTok{$}\NormalTok{\textbackslash{}displaystyle \textbackslash{}lim_\{x \textbackslash{}to \textbackslash{}infty\} }\KeywordTok{f}\NormalTok{(x)}\OperatorTok{$}\StringTok{    }
+\end{Highlighting}
+\end{Shaded}
+
+Greek Letters
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{αA  }\OperatorTok{$}\NormalTok{\textbackslash{}alpha A}\OperatorTok{$}\StringTok{      }
+\NormalTok{νN  }\OperatorTok{$}\NormalTok{\textbackslash{}nu N}\OperatorTok{$}\StringTok{  }
+\NormalTok{βB  }\OperatorTok{$}\NormalTok{\textbackslash{}beta B}\OperatorTok{$}\StringTok{   }
+\NormalTok{ξΞ  }\OperatorTok{$}\NormalTok{\textbackslash{}xi\textbackslash{}Xi}\OperatorTok{$}\StringTok{  }
+\NormalTok{γΓ  }\OperatorTok{$}\NormalTok{\textbackslash{}gamma \textbackslash{}Gamma}\OperatorTok{$}\StringTok{  }
+\NormalTok{oO  }\OperatorTok{$}\NormalTok{o O}\OperatorTok{$}\StringTok{ }\NormalTok{(omicron)  }
+\NormalTok{δΔ  }\OperatorTok{$}\NormalTok{\textbackslash{}delta \textbackslash{}Delta}\OperatorTok{$}\StringTok{   }
+\NormalTok{πΠ  }\OperatorTok{$}\NormalTok{\textbackslash{}pi \textbackslash{}Pi}\OperatorTok{$}\StringTok{  }
+\NormalTok{ϵεE }\OperatorTok{$}\NormalTok{\textbackslash{}epsilon \textbackslash{}varepsilon E}\OperatorTok{$}\StringTok{  }
+\NormalTok{ρϱP }\OperatorTok{$}\NormalTok{\textbackslash{}rho\textbackslash{}varrho P}\OperatorTok{$}\StringTok{  }
+\NormalTok{ζZ  }\OperatorTok{$}\NormalTok{\textbackslash{}zeta Z \textbackslash{}sigma \textbackslash{},\textbackslash{}}\OperatorTok{!}\ErrorTok{$}\StringTok{  }
+\NormalTok{Σ   }\OperatorTok{$}\NormalTok{\textbackslash{}sigma \textbackslash{}Sigma}\OperatorTok{$}\StringTok{  }
+\NormalTok{ηH  }\OperatorTok{$}\NormalTok{\textbackslash{}eta H}\OperatorTok{$}\StringTok{  }
+\NormalTok{τT  }\OperatorTok{$}\NormalTok{\textbackslash{}tau T}\OperatorTok{$}\StringTok{  }
+\NormalTok{θϑΘ }\OperatorTok{$}\NormalTok{\textbackslash{}theta \textbackslash{}vartheta \textbackslash{}Theta}\OperatorTok{$}\StringTok{  }
+\NormalTok{υΥ  }\OperatorTok{$}\NormalTok{\textbackslash{}upsilon \textbackslash{}Upsilon}\OperatorTok{$}\StringTok{  }
+\NormalTok{ιI  }\OperatorTok{$}\NormalTok{\textbackslash{}iota I}\OperatorTok{$}\StringTok{  }
+\NormalTok{ϕφΦ }\OperatorTok{$}\NormalTok{\textbackslash{}phi \textbackslash{}varphi \textbackslash{}Phi}\OperatorTok{$}\StringTok{    }
+\NormalTok{κK  }\OperatorTok{$}\NormalTok{\textbackslash{}kappa K}\OperatorTok{$}\StringTok{    }
+\NormalTok{χX  }\OperatorTok{$}\NormalTok{\textbackslash{}chi X}\OperatorTok{$}\StringTok{    }
+\NormalTok{λΛ  }\OperatorTok{$}\NormalTok{\textbackslash{}lambda \textbackslash{}Lambda}\OperatorTok{$}\StringTok{    }
+\NormalTok{ψΨ  }\OperatorTok{$}\NormalTok{\textbackslash{}psi \textbackslash{}Psi}\OperatorTok{$}\StringTok{    }
+\NormalTok{μM  }\OperatorTok{$}\NormalTok{\textbackslash{}mu M}\OperatorTok{$}\StringTok{     }
+\NormalTok{ω Ω}\OperatorTok{$}\NormalTok{\textbackslash{}omega \textbackslash{}Omega}\OperatorTok{$}\StringTok{    }
 \end{Highlighting}
 \end{Shaded}
 
