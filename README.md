@@ -226,7 +226,12 @@ master <- list(1:10,100,rnorm(12))
 do.call(max,master)
 ```
 
-
+Plot all elements in a list  
+```{r, list2, results='hide',eval=F}
+xx <- list(sample(5,1000,replace=T),rnorm(1000),sample(50,1000,replace=T))
+plot(unlist(xx),type="l")
+```
+  
 ### Loops  
 Save loop output in master list  
 ```{r, loop1, results='hide',eval=F}
@@ -722,6 +727,14 @@ for(g in 1:10){
 do.call(grid.arrange,gspl) # plot in one window 
 ```
   
+  
+```{r}
+plot(rnorm(1000),
+     xlab=expression(paste("X values"^2)),
+     ylab=expression(paste("Y values"^3,hat(beta)))
+)
+```
+  
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
@@ -876,7 +889,7 @@ limx→∞f(x)  $\displaystyle \lim_{x \to \infty} f(x)$
 Greek Letters  
 ```{r}
 αA  $\alpha A$    
-νN  $\nu N$  
+νN  $\nu N $  
 βB  $\beta B$   
 ξΞ  $\xi\Xi$  
 γΓ  $\gamma \Gamma$  
