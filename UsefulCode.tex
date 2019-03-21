@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2019-02-22\\
+Date: 2019-03-21\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -373,6 +373,15 @@ Find maximum value in entire list
 \begin{Highlighting}[]
 \NormalTok{master <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{100}\NormalTok{,}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{12}\NormalTok{))}
 \KeywordTok{do.call}\NormalTok{(max,master)}
+\end{Highlighting}
+\end{Shaded}
+
+Plot all elements in a list
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{sample}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DataTypeTok{replace=}\NormalTok{T),}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{),}\KeywordTok{sample}\NormalTok{(}\DecValTok{50}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DataTypeTok{replace=}\NormalTok{T))}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(xx),}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -961,6 +970,15 @@ Adding title from separate list to plot in loop (\texttt{ggplot})
 \end{Highlighting}
 \end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{),}
+     \DataTypeTok{xlab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"X values"}\OperatorTok{^}\DecValTok{2}\NormalTok{)),}
+     \DataTypeTok{ylab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"Y values"}\OperatorTok{^}\DecValTok{3}\NormalTok{,}\KeywordTok{hat}\NormalTok{(beta)))}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Reading in files/data}\label{reading-in-filesdata}
 
 Read in file manually
@@ -1135,7 +1153,7 @@ Greek Letters
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{αA  }\OperatorTok{$}\NormalTok{\textbackslash{}alpha A}\OperatorTok{$}\StringTok{      }
-\NormalTok{νN  }\OperatorTok{$}\NormalTok{\textbackslash{}nu N}\OperatorTok{$}\StringTok{  }
+\NormalTok{νN  }\OperatorTok{$}\NormalTok{\textbackslash{}nu N }\OperatorTok{$}\StringTok{  }
 \NormalTok{βB  }\OperatorTok{$}\NormalTok{\textbackslash{}beta B}\OperatorTok{$}\StringTok{   }
 \NormalTok{ξΞ  }\OperatorTok{$}\NormalTok{\textbackslash{}xi\textbackslash{}Xi}\OperatorTok{$}\StringTok{  }
 \NormalTok{γΓ  }\OperatorTok{$}\NormalTok{\textbackslash{}gamma \textbackslash{}Gamma}\OperatorTok{$}\StringTok{  }

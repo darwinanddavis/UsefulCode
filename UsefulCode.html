@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2019-02-22<br />
+<p>Date: 2019-03-21<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -441,6 +441,9 @@ Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-
 <p>Find maximum value in entire list</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">master &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">100</span>,<span class="kw">rnorm</span>(<span class="dv">12</span>))
 <span class="kw">do.call</span>(max,master)</code></pre></div>
+<p>Plot all elements in a list</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xx &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">sample</span>(<span class="dv">5</span>,<span class="dv">1000</span>,<span class="dt">replace=</span>T),<span class="kw">rnorm</span>(<span class="dv">1000</span>),<span class="kw">sample</span>(<span class="dv">50</span>,<span class="dv">1000</span>,<span class="dt">replace=</span>T))
+<span class="kw">plot</span>(<span class="kw">unlist</span>(xx),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
 </div>
 <div id="loops" class="section level3">
 <h3>Loops</h3>
@@ -849,6 +852,10 @@ global_sim_plot &lt;-<span class="st"> </span>global_detritus
     }
 <span class="co"># +  geom_text(x=,y=,label = max(value),check_overlap = TUE)</span>
 <span class="kw">do.call</span>(grid.arrange,gspl) <span class="co"># plot in one window </span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>),
+     <span class="dt">xlab=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;X values&quot;</span><span class="op">^</span><span class="dv">2</span>)),
+     <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Y values&quot;</span><span class="op">^</span><span class="dv">3</span>,<span class="kw">hat</span>(beta)))
+)</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
