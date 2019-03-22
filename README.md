@@ -126,6 +126,14 @@ Change `df` column names
 colnames(data)[c(1,2,3)] <- c("TimeStamp","Lat","Long")
 ```
 
+Remove multiple columns from df     
+```{r, df4, results='hide',eval=F}
+### Remove multiple NA columns  
+rm_cols <- grep("NA", names(tt), ignore.case = F)
+df[,colnames(df[,rm_cols])] <- list(NULL)
+```
+
+
 ### Generic functions  
 Generic useful functions that I can't place under any other headings here  
 ```{r, gen1, results='hide',eval=F}

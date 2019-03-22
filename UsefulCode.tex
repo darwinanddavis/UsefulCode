@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2019-03-21\\
+Date: 2019-03-22\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -246,6 +246,16 @@ Change \texttt{df} column names
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{colnames}\NormalTok{(data)[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)] <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"TimeStamp"}\NormalTok{,}\StringTok{"Lat"}\NormalTok{,}\StringTok{"Long"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Remove multiple columns from df
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{### Remove multiple NA columns  }
+\NormalTok{rm_cols <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(}\StringTok{"NA"}\NormalTok{, }\KeywordTok{names}\NormalTok{(tt), }\DataTypeTok{ignore.case =}\NormalTok{ F)}
+\NormalTok{df[,}\KeywordTok{colnames}\NormalTok{(df[,rm_cols])] <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\OtherTok{NULL}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 

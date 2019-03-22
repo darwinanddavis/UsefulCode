@@ -12,6 +12,13 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -27,13 +34,6 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -205,6 +205,14 @@ Change `df` column names
 ```{r, df3, results='hide',eval=F}
 colnames(data)[c(1,2,3)] <- c("TimeStamp","Lat","Long")
 ```
+
+Remove multiple columns from df     
+```{r, df4, results='hide',eval=F}
+### Remove multiple NA columns  
+rm_cols <- grep("NA", names(tt), ignore.case = F)
+df[,colnames(df[,rm_cols])] <- list(NULL)
+```
+
 
 ### Generic functions  
 Generic useful functions that I can't place under any other headings here  
