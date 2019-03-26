@@ -119,7 +119,7 @@ sessionInfo()
 ```
 
 ### Attributes  
-Access structural attributes of unique classes, such as raster and ggmap.  
+Access structural attributes of unique classes, such as raster and ggmap (bbox).  
 ``` {r, attr1, results='hide',eval=F}
 # Normal example
 df <- data.frame("X"=c(1:5),"Y"=c(6:10))
