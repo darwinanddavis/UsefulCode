@@ -12,13 +12,6 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -34,6 +27,13 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -304,6 +304,23 @@ par(bty="n", las = 1)
   )
 } # end loop 
 dev.off()
+
+```
+
+Converting lists and dataframes to usable format for `ggplot` (`melt` package)
+```{r, ggplot5, results='hide',eval=F}
+# ------------------------- plot individual outputs -------------------------
+mm_ = readRDS(paste0(model.path,fh,".R"))
+cat("order = cerc, food, juv, adult, infected, infected shedding, host length, parasite mass")
+# plot master
+mm <- mm_[[2]]
+y_m <- melt(mm);y_m
+ggplot() +
+  geom_point(data = y_m, aes(x = rep.int(1:n.ticks,max(L1)) , y = value, group = L1, colour=factor(L1)), ) +
+  geom_line(data = y_m, aes(x = rep.int(1:n.ticks,max(L1)) , y = value, group = L1, colour=factor(L1)), ) +
+  #linetype=y_m$L1) +
+  theme_tufte() 
+# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)
 
 ```
 

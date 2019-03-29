@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2019-03-26\\
+Date: 2019-03-28\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -372,6 +372,26 @@ to dir
 \StringTok{  }\NormalTok{)}
 \NormalTok{\} }\CommentTok{# end loop }
 \KeywordTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Converting lists and dataframes to usable format for \texttt{ggplot}
+(\texttt{melt} package)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# ------------------------- plot individual outputs -------------------------}
+\NormalTok{mm_ =}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(model.path,fh,}\StringTok{".R"}\NormalTok{))}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"order = cerc, food, juv, adult, infected, infected shedding, host length, parasite mass"}\NormalTok{)}
+\CommentTok{# plot master}
+\NormalTok{mm <-}\StringTok{ }\NormalTok{mm_[[}\DecValTok{2}\NormalTok{]]}
+\NormalTok{y_m <-}\StringTok{ }\KeywordTok{melt}\NormalTok{(mm);y_m}
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ y_m, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{rep.int}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.ticks,}\KeywordTok{max}\NormalTok{(L1)) , }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{group =}\NormalTok{ L1, }\DataTypeTok{colour=}\KeywordTok{factor}\NormalTok{(L1)), ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ y_m, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{rep.int}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.ticks,}\KeywordTok{max}\NormalTok{(L1)) , }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{group =}\NormalTok{ L1, }\DataTypeTok{colour=}\KeywordTok{factor}\NormalTok{(L1)), ) }\OperatorTok{+}
+\StringTok{  }\CommentTok{#linetype=y_m$L1) +}
+\StringTok{  }\KeywordTok{theme_tufte}\NormalTok{() }
+\CommentTok{# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)}
 \end{Highlighting}
 \end{Shaded}
 
