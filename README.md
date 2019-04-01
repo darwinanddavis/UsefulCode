@@ -39,7 +39,7 @@ sessionInfo()
 ```
 
 ### Attributes  
-Access structural attributes of unique classes, such as raster and ggmap.  
+Access structural attributes of unique classes, such as raster and ggmap (bbox).  
 ``` {r, attr1, results='hide',eval=F}
 # Normal example
 df <- data.frame("X"=c(1:5),"Y"=c(6:10))
@@ -224,6 +224,23 @@ par(bty="n", las = 1)
   )
 } # end loop 
 dev.off()
+
+```
+
+Converting lists and dataframes to usable format for `ggplot` (`melt` package)
+```{r, ggplot5, results='hide',eval=F}
+# ------------------------- plot individual outputs -------------------------
+mm_ = readRDS(paste0(model.path,fh,".R"))
+cat("order = cerc, food, juv, adult, infected, infected shedding, host length, parasite mass")
+# plot master
+mm <- mm_[[2]]
+y_m <- melt(mm);y_m
+ggplot() +
+  geom_point(data = y_m, aes(x = rep.int(1:n.ticks,max(L1)) , y = value, group = L1, colour=factor(L1)), ) +
+  geom_line(data = y_m, aes(x = rep.int(1:n.ticks,max(L1)) , y = value, group = L1, colour=factor(L1)), ) +
+  #linetype=y_m$L1) +
+  theme_tufte() 
+# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)
 
 ```
 
@@ -735,12 +752,18 @@ for(g in 1:10){
 do.call(grid.arrange,gspl) # plot in one window 
 ```
   
-  
-```{r}
+Using math expressions in plot labels  
+```{r, plot20, results='hide',eval=F}
 plot(rnorm(1000),
      xlab=expression(paste("X values"^2)),
      ylab=expression(paste("Y values"^3,hat(beta)))
 )
+```
+
+Adding faint gridlines to plot  
+```{r, plot21, results='hide',eval=F}
+# add gridlines
+grid(nx=NA,ny=NULL)
 ```
   
 ### Reading in files/data
