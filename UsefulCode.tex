@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2019-03-28\\
+Date: 2019-04-06\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -256,6 +256,14 @@ Remove multiple columns from df
 \NormalTok{### Remove multiple NA columns  }
 \NormalTok{rm_cols <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(}\StringTok{"NA"}\NormalTok{, }\KeywordTok{names}\NormalTok{(tt), }\DataTypeTok{ignore.case =}\NormalTok{ F)}
 \NormalTok{df[,}\KeywordTok{colnames}\NormalTok{(df[,rm_cols])] <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\OtherTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Check number of characters in each column
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sapply}\NormalTok{(meso1, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{nchar}\NormalTok{(x)))   }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1000,12 +1008,23 @@ Adding title from separate list to plot in loop (\texttt{ggplot})
 \end{Highlighting}
 \end{Shaded}
 
+Using math expressions in plot labels
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{plot}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{),}
      \DataTypeTok{xlab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"X values"}\OperatorTok{^}\DecValTok{2}\NormalTok{)),}
      \DataTypeTok{ylab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"Y values"}\OperatorTok{^}\DecValTok{3}\NormalTok{,}\KeywordTok{hat}\NormalTok{(beta)))}
 \NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Adding faint gridlines to plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# add gridlines}
+\KeywordTok{grid}\NormalTok{(}\DataTypeTok{nx=}\OtherTok{NA}\NormalTok{,}\DataTypeTok{ny=}\OtherTok{NULL}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 

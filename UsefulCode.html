@@ -276,7 +276,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2019-03-28<br />
+<p>Date: 2019-04-06<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -361,6 +361,8 @@ df <span class="op">%&gt;%</span><span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Remove multiple NA columns  
 rm_cols &lt;-<span class="st"> </span><span class="kw">grep</span>(<span class="st">&quot;NA&quot;</span>, <span class="kw">names</span>(tt), <span class="dt">ignore.case =</span> F)
 df[,<span class="kw">colnames</span>(df[,rm_cols])] &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="ot">NULL</span>)</code></pre></div>
+<p>Check number of characters in each column</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(meso1, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">nchar</span>(x)))   </code></pre></div>
 </div>
 <div id="generic-functions" class="section level3">
 <h3>Generic functions</h3>
@@ -869,10 +871,14 @@ global_sim_plot &lt;-<span class="st"> </span>global_detritus
     }
 <span class="co"># +  geom_text(x=,y=,label = max(value),check_overlap = TUE)</span>
 <span class="kw">do.call</span>(grid.arrange,gspl) <span class="co"># plot in one window </span></code></pre></div>
+<p>Using math expressions in plot labels</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>),
      <span class="dt">xlab=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;X values&quot;</span><span class="op">^</span><span class="dv">2</span>)),
      <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Y values&quot;</span><span class="op">^</span><span class="dv">3</span>,<span class="kw">hat</span>(beta)))
 )</code></pre></div>
+<p>Adding faint gridlines to plot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add gridlines</span>
+<span class="kw">grid</span>(<span class="dt">nx=</span><span class="ot">NA</span>,<span class="dt">ny=</span><span class="ot">NULL</span>)</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
