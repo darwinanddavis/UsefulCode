@@ -117,7 +117,7 @@ GA, USA, 30322}}
 }
 ~
 
-Date: 2019-04-19\\
+Date: 2019-05-03\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -1025,6 +1025,14 @@ Adding faint gridlines to plot
 \begin{Highlighting}[]
 \CommentTok{# add gridlines}
 \KeywordTok{grid}\NormalTok{(}\DataTypeTok{nx=}\OtherTok{NA}\NormalTok{,}\DataTypeTok{ny=}\OtherTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Storing current \texttt{par} variables for plotting
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{og_pars <-}\StringTok{ }\KeywordTok{par}\NormalTok{(}\DataTypeTok{no.readonly =}\NormalTok{ T) }\CommentTok{# store current par values}
 \end{Highlighting}
 \end{Shaded}
 

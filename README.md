@@ -769,7 +769,12 @@ Adding faint gridlines to plot
 # add gridlines
 grid(nx=NA,ny=NULL)
 ```
-  
+
+Storing current `par` variables for plotting 
+```{r, plot22, results='hide',eval=F}
+og_pars <- par(no.readonly = T) # store current par values
+```
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
