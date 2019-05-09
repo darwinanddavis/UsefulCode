@@ -115,9 +115,13 @@ GA, USA, 30322}}
 \setcounter{tocdepth}{4}
 \tableofcontents
 }
+\begin{verbatim}
+## Warning: package 'rmarkdown' was built under R version 3.5.2
+\end{verbatim}
+
 ~
 
-Date: 2019-05-03\\
+Date: 2019-05-09\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -288,6 +292,14 @@ Round up integers to optimal rounded value
 \KeywordTok{round_any}\NormalTok{(nn,}\DecValTok{10}\NormalTok{)}
 \KeywordTok{round_any}\NormalTok{(nn,}\DecValTok{10}\NormalTok{,ceiling)}
 \KeywordTok{round_any}\NormalTok{(nn,}\DecValTok{10}\NormalTok{,floor)}
+\end{Highlighting}
+\end{Shaded}
+
+Get summary stats for dataset (means)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{means =}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(Cumulative_cercs }\OperatorTok{~}\StringTok{ }\NormalTok{r}\OperatorTok{*}\NormalTok{hb, }\DataTypeTok{data=}\NormalTok{df,  }\DataTypeTok{FUN=}\NormalTok{mean)}
 \end{Highlighting}
 \end{Shaded}
 

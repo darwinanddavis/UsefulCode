@@ -154,6 +154,11 @@ round_any(nn,10,ceiling)
 round_any(nn,10,floor)
 ```
 
+Get summary stats for dataset (means)     
+```{r, gen3, results='hide',eval=F}
+means = aggregate(Cumulative_cercs ~ r*hb, data=df,  FUN=mean)
+```
+
 ### `ggplot` functions  
 Remove annoying stock gridlines from plot window  
 ```{r, ggplot1, results='hide',eval=F}
