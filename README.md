@@ -253,6 +253,21 @@ ggplot() +
 
 ```
 
+Insert math expression in legend title      
+```{r, ggplot6, results='hide',eval=F}
+ggplot() + 
+  labs(title = bquote("Hello" ~ r[xy] ~ "and" ~ B^2))
+```
+
+Create double line break with expression in legend title (and labels)      
+```{r, ggplot7, results='hide',eval=F}
+ggplot() +
+  scale_color_manual(
+    expression(atop("text", 
+    atop(textstyle(epsilon))))
+    )
+```
+
 ### Lists    
 Find maximum value in entire list    
 ```{r, list1, results='hide',eval=F}

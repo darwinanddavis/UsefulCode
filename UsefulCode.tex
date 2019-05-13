@@ -121,7 +121,7 @@ GA, USA, 30322}}
 
 ~
 
-Date: 2019-05-09\\
+Date: 2019-05-13\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -412,6 +412,27 @@ Converting lists and dataframes to usable format for \texttt{ggplot}
 \StringTok{  }\CommentTok{#linetype=y_m$L1) +}
 \StringTok{  }\KeywordTok{theme_tufte}\NormalTok{() }
 \CommentTok{# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)}
+\end{Highlighting}
+\end{Shaded}
+
+Insert math expression in legend title
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \KeywordTok{bquote}\NormalTok{(}\StringTok{"Hello"} \OperatorTok{~}\StringTok{ }\NormalTok{r[xy] }\OperatorTok{~}\StringTok{ "and"} \OperatorTok{~}\StringTok{ }\NormalTok{B}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Create double line break with expression in legend title (and labels)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}
+    \KeywordTok{expression}\NormalTok{(}\KeywordTok{atop}\NormalTok{(}\StringTok{"text"}\NormalTok{, }
+    \KeywordTok{atop}\NormalTok{(}\KeywordTok{textstyle}\NormalTok{(epsilon))))}
+\NormalTok{    )}
 \end{Highlighting}
 \end{Shaded}
 
