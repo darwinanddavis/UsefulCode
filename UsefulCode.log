@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.4.16)  23 MAY 2019 13:58
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.4.16)  25 MAY 2019 17:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1151,19 +1151,23 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 ]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 148.
-[2] [3] [4] [5] [6] [7] [8]
-Overfull \vbox (0.56996pt too high) detected at line 754
+[2] [3] [4] [5] [6] [7]
+Overfull \vbox (1.51282pt too high) detected at line 711
  []
 
-[9] [10]
-Underfull \vbox (badness 3058) detected at line 879
+[8] [9]
+Overfull \vbox (1.20988pt too high) detected at line 875
  []
 
-[11] [12] [13] [14]
-Overfull \vbox (0.33284pt too high) detected at line 1163
+[10] [11] [12]
+Underfull \vbox (badness 10000) detected at line 1019
  []
 
-[15]
+
+Underfull \vbox (badness 10000) detected at line 1019
+ []
+
+[13] [14] [15]
 Missing character: There is no ≤ in font [lmmono10-regular]:!
 Missing character: There is no ≥ in font [lmmono10-regular]:!
 Missing character: There is no ⎯ in font [lmmono10-regular]:!
@@ -1203,6 +1207,10 @@ Missing character: There is no ∫ in font [lmmono10-regular]:!
 Missing character: There is no ∫ in font [lmmono10-regular]:!
 Missing character: There is no ∑ in font [lmmono10-regular]:!
 Missing character: There is no ∏ in font [lmmono10-regular]:!
+
+Overfull \vbox (0.30782pt too high) detected at line 1248
+ []
+
 [16]
 Missing character: There is no α in font [lmmono10-regular]:!
 Missing character: There is no ν in font [lmmono10-regular]:!
@@ -1230,29 +1238,33 @@ Missing character: There is no λ in font [lmmono10-regular]:!
 Missing character: There is no ψ in font [lmmono10-regular]:!
 Missing character: There is no μ in font [lmmono10-regular]:!
 Missing character: There is no ω in font [lmmono10-regular]:!
+
+Overfull \vbox (1.02286pt too high) detected at line 1294
+ []
+
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 1305--1307
+Underfull \hbox (badness 10000) in paragraph at lines 1314--1316
 [][]$[][][][] [] [] [] [][][] [] [][][] [] [][][] [] [][] [] [][][][][][][] [] 
 [][][][] [] [][][][] [] [][][][][][][] [] [][][] [] [] [] [][][][][][][] [] [][
 ][] [] [][][][] [] [][][][][][][][][][][][][] [] [][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1305--1307
+Underfull \hbox (badness 10000) in paragraph at lines 1314--1316
 [][][][][][] [] [] [] [][][] [] [][][] [] [][][] [] [][] [] [][][][][][][] [] [
 ][][][] [] [][][][] [] [][][][][][][] [] [][][] [] [] [] [][][][][][][] [] [][]
 [] [] [][][][] [] [][][][][][][][][][][][][] [] [][][][] []
  []
 
 
-LaTeX Warning: Empty bibliography on input line 1328.
+LaTeX Warning: Empty bibliography on input line 1337.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1330.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1339.
 [18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1330.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1339.
 (./UsefulCode.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1330.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1330.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1339.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1339.
 
 Package rerunfilecheck Info: File `UsefulCode.out' has not changed.
 (rerunfilecheck)             Checksum: 285BC91EA62BD451BE34F1E1161082FA.
@@ -1263,7 +1275,7 @@ Package logreq Info: Writing requests to 'UsefulCode.run.xml'.
 Here is how much of TeX's memory you used:
  28412 strings out of 492970
  533257 string characters out of 6133938
- 1040346 words of memory out of 5000000
+ 1039346 words of memory out of 5000000
  32160 multiletter control sequences out of 15000+600000
  555035 words of font info for 68 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191

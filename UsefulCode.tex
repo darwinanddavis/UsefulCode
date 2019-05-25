@@ -121,7 +121,7 @@ GA, USA, 30322}}
 
 ~
 
-Date: 2019-05-23\\
+Date: 2019-05-25\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -579,6 +579,15 @@ Remove rows with NA
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{data <-}\StringTok{ }\NormalTok{data[}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(data}\OperatorTok{$}\NormalTok{X),]}
+\end{Highlighting}
+\end{Shaded}
+
+Turn NULLs in list into NAs to get numeric values (fix for `cannot
+coerce double' error)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hl_list <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(hl_list, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(x }\OperatorTok{==}\StringTok{ "NULL"}\NormalTok{, }\OtherTok{NA}\NormalTok{, x))}
 \end{Highlighting}
 \end{Shaded}
 

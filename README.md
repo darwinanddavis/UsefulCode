@@ -377,6 +377,11 @@ Remove rows with NA
 data <- data[!is.na(data$X),]
 ```
 
+Turn NULLs in list into NAs to get numeric values (fix for 'cannot coerce double' error)  
+```{r, NA7, results='hide',eval=F}
+hl_list <- lapply(hl_list, function(x) ifelse(x == "NULL", NA, x))
+```
+
 ### Packages  
 [`rLandsat`](https://blog.socialcops.com/technology/data-science/announcing-rlandsat-landsat-8-data/)    
 Sourcing, requesting, and downloading NASA Landsat 8 satellite data.    
