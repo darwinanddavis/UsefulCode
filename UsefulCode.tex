@@ -121,7 +121,7 @@ GA, USA, 30322}}
 
 ~
 
-Date: 2019-05-25\\
+Date: 2019-05-29\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -588,6 +588,18 @@ coerce double' error)
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{hl_list <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(hl_list, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(x }\OperatorTok{==}\StringTok{ "NULL"}\NormalTok{, }\OtherTok{NA}\NormalTok{, x))}
+\end{Highlighting}
+\end{Shaded}
+
+Turn NaN or NAs in list into 0s
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# NaN}
+\NormalTok{global_output <-}\StringTok{ }\KeywordTok{rapply}\NormalTok{(global_output, }\DataTypeTok{f=}\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.nan}\NormalTok{(x),}\DecValTok{0}\NormalTok{,x), }\DataTypeTok{how=}\StringTok{"replace"}\NormalTok{ )}
+
+\CommentTok{# NA}
+\NormalTok{global_output <-}\StringTok{ }\KeywordTok{rapply}\NormalTok{(global_output, }\DataTypeTok{f=}\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(x),}\DecValTok{0}\NormalTok{,x), }\DataTypeTok{how=}\StringTok{"replace"}\NormalTok{ )}
 \end{Highlighting}
 \end{Shaded}
 

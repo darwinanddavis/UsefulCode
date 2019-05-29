@@ -374,7 +374,7 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<p>Date: 2019-05-25<br />
+<p>Date: 2019-05-29<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -649,6 +649,12 @@ minTb &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>data[<span class="op">!</span><span class="kw">is.na</span>(data<span class="op">$</span>X),]</code></pre></div>
 <p>Turn NULLs in list into NAs to get numeric values (fix for ‘cannot coerce double’ error)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hl_list &lt;-<span class="st"> </span><span class="kw">lapply</span>(hl_list, <span class="cf">function</span>(x) <span class="kw">ifelse</span>(x <span class="op">==</span><span class="st"> &quot;NULL&quot;</span>, <span class="ot">NA</span>, x))</code></pre></div>
+<p>Turn NaN or NAs in list into 0s</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># NaN</span>
+global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(global_output, <span class="dt">f=</span><span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.nan</span>(x),<span class="dv">0</span>,x), <span class="dt">how=</span><span class="st">&quot;replace&quot;</span> )
+
+<span class="co"># NA</span>
+global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(global_output, <span class="dt">f=</span><span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.na</span>(x),<span class="dv">0</span>,x), <span class="dt">how=</span><span class="st">&quot;replace&quot;</span> )</code></pre></div>
 </div>
 <div id="packages" class="section level3">
 <h3>Packages</h3>

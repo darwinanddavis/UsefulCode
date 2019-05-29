@@ -462,6 +462,15 @@ Turn NULLs in list into NAs to get numeric values (fix for 'cannot coerce double
 hl_list <- lapply(hl_list, function(x) ifelse(x == "NULL", NA, x))
 ```
 
+Turn NaN or NAs in list into 0s  
+```{r, NA8, results='hide',eval=F}
+# NaN
+global_output <- rapply(global_output, f=function(x) ifelse(is.nan(x),0,x), how="replace" )
+
+# NA
+global_output <- rapply(global_output, f=function(x) ifelse(is.na(x),0,x), how="replace" )
+```
+
 ### Packages  
 [`rLandsat`](https://blog.socialcops.com/technology/data-science/announcing-rlandsat-landsat-8-data/)    
 Sourcing, requesting, and downloading NASA Landsat 8 satellite data.    
