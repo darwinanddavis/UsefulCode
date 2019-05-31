@@ -121,7 +121,7 @@ GA, USA, 30322}}
 
 ~
 
-Date: 2019-05-29\\
+Date: 2019-05-31\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -1194,11 +1194,33 @@ Insert or replace a character in a string at a specific location
 \end{Highlighting}
 \end{Shaded}
 
+Testing regex expressions and their output
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Testing regex expressions and their output   }
 
 \CommentTok{# https://regex101.com/r/ksY7HU/2}
+\end{Highlighting}
+\end{Shaded}
+
+Removing multiple cols from df using grep
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"purrr"}\NormalTok{) }
+
+\NormalTok{fh <-}\StringTok{ "LEC100testrecords.txt"}
+\NormalTok{tt <-}\StringTok{ }\KeywordTok{read.delim}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(wd,}\StringTok{"/"}\NormalTok{,fh),}\DataTypeTok{header=}\NormalTok{T,}\DataTypeTok{sep=}\StringTok{"}\CharTok{\textbackslash{}t}\StringTok{"}\NormalTok{)}
+
+\CommentTok{# Enter data column you want to search  }
+\NormalTok{col2search <-}\StringTok{ "Title"}
+\NormalTok{keyterms <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"evidence"}\NormalTok{, }\StringTok{"human"}\NormalTok{, }\StringTok{"africa"}\NormalTok{)}
+
+\CommentTok{# 1. find key terms}
+\NormalTok{final <-}\StringTok{ }\NormalTok{tt[}\KeywordTok{grep}\NormalTok{(keyterms, tt[,col2search], }\DataTypeTok{ignore.case =}\NormalTok{ T),] }\CommentTok{#}
+\KeywordTok{length}\NormalTok{(final[,col2search]) }\CommentTok{# get number of results}
+\NormalTok{tt[final[,col2search],col2search] }\CommentTok{# show raw outputs }
 \end{Highlighting}
 \end{Shaded}
 

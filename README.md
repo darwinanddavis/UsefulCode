@@ -897,13 +897,30 @@ stri_sub(vec, 4, 2) <- "d"
 print(paste0("Original: ABCEF")); print(paste0("New: ",vec))
 ```
 
-
+Testing regex expressions and their output  
 ```{r regex3}
 # Testing regex expressions and their output   
 
 # https://regex101.com/r/ksY7HU/2
 ```
 
+Removing multiple cols from df using grep  
+```{r regex4, results="hide", eval=F}
+packages <- c("dplyr","purrr") 
+
+fh <- "LEC100testrecords.txt"
+tt <- read.delim(paste0(wd,"/",fh),header=T,sep="\t")
+
+# Enter data column you want to search  
+col2search <- "Title"
+keyterms <- c("evidence", "human", "africa")
+
+# 1. find key terms
+final <- tt[grep(keyterms, tt[,col2search], ignore.case = T),] #
+length(final[,col2search]) # get number of results
+tt[final[,col2search],col2search] # show raw outputs 
+```
+  
 ######      
   
 ### R Markdown

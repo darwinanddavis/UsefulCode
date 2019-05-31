@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.4.16)  29 MAY 2019 18:08
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.4.16)  31 MAY 2019 12:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1167,7 +1167,7 @@ Underfull \vbox (badness 10000) detected at line 887
 Underfull \vbox (badness 3250) detected at line 1031
  []
 
-[13] [14] [15]
+[13] [14] [15] [16]
 Missing character: There is no ≤ in font [lmmono10-regular]:!
 Missing character: There is no ≥ in font [lmmono10-regular]:!
 Missing character: There is no ⎯ in font [lmmono10-regular]:!
@@ -1207,7 +1207,6 @@ Missing character: There is no ∫ in font [lmmono10-regular]:!
 Missing character: There is no ∫ in font [lmmono10-regular]:!
 Missing character: There is no ∑ in font [lmmono10-regular]:!
 Missing character: There is no ∏ in font [lmmono10-regular]:!
-[16]
 Missing character: There is no α in font [lmmono10-regular]:!
 Missing character: There is no ν in font [lmmono10-regular]:!
 Missing character: There is no β in font [lmmono10-regular]:!
@@ -1234,33 +1233,30 @@ Missing character: There is no λ in font [lmmono10-regular]:!
 Missing character: There is no ψ in font [lmmono10-regular]:!
 Missing character: There is no μ in font [lmmono10-regular]:!
 Missing character: There is no ω in font [lmmono10-regular]:!
-
-Underfull \vbox (badness 3078) detected at line 1291
- []
-
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 1326--1328
+Underfull \hbox (badness 10000) in paragraph at lines 1348--1350
 [][]$[][][][] [] [] [] [][][] [] [][][] [] [][][] [] [][] [] [][][][][][][] [] 
 [][][][] [] [][][][] [] [][][][][][][] [] [][][] [] [] [] [][][][][][][] [] [][
 ][] [] [][][][] [] [][][][][][][][][][][][][] [] [][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1326--1328
+Underfull \hbox (badness 10000) in paragraph at lines 1348--1350
 [][][][][][] [] [] [] [][][] [] [][][] [] [][][] [] [][] [] [][][][][][][] [] [
 ][][][] [] [][][][] [] [][][][][][][] [] [][][] [] [] [] [][][][][][][] [] [][]
 [] [] [][][][] [] [][][][][][][][][][][][][] [] [][][][] []
  []
 
-
-LaTeX Warning: Empty bibliography on input line 1349.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1351.
 [18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1351.
+
+LaTeX Warning: Empty bibliography on input line 1371.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1373.
+[19]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1373.
 (./UsefulCode.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1351.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1351.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1373.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1373.
 
 Package rerunfilecheck Info: File `UsefulCode.out' has not changed.
 (rerunfilecheck)             Checksum: 285BC91EA62BD451BE34F1E1161082FA.
@@ -1277,4 +1273,4 @@ Here is how much of TeX's memory you used:
  1348 hyphenation exceptions out of 8191
  45i,10n,68p,10451b,787s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on UsefulCode.pdf (18 pages).
+Output written on UsefulCode.pdf (19 pages).

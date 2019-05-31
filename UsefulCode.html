@@ -374,7 +374,7 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<p>Date: 2019-05-29<br />
+<p>Date: 2019-05-31<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -1073,9 +1073,24 @@ df <span class="op">%&gt;%</span>
 vec &lt;-<span class="st"> &quot;ABCEF&quot;</span>
 <span class="kw">stri_sub</span>(vec, <span class="dv">4</span>, <span class="dv">2</span>) &lt;-<span class="st"> &quot;d&quot;</span> 
 <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Original: ABCEF&quot;</span>)); <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;New: &quot;</span>,vec))</code></pre></div>
+<p>Testing regex expressions and their output</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Testing regex expressions and their output   </span>
 
 <span class="co"># https://regex101.com/r/ksY7HU/2</span></code></pre></div>
+<p>Removing multiple cols from df using grep</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;purrr&quot;</span>) 
+
+fh &lt;-<span class="st"> &quot;LEC100testrecords.txt&quot;</span>
+tt &lt;-<span class="st"> </span><span class="kw">read.delim</span>(<span class="kw">paste0</span>(wd,<span class="st">&quot;/&quot;</span>,fh),<span class="dt">header=</span>T,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
+
+<span class="co"># Enter data column you want to search  </span>
+col2search &lt;-<span class="st"> &quot;Title&quot;</span>
+keyterms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;evidence&quot;</span>, <span class="st">&quot;human&quot;</span>, <span class="st">&quot;africa&quot;</span>)
+
+<span class="co"># 1. find key terms</span>
+final &lt;-<span class="st"> </span>tt[<span class="kw">grep</span>(keyterms, tt[,col2search], <span class="dt">ignore.case =</span> T),] <span class="co">#</span>
+<span class="kw">length</span>(final[,col2search]) <span class="co"># get number of results</span>
+tt[final[,col2search],col2search] <span class="co"># show raw outputs </span></code></pre></div>
 <div id="section" class="section level6">
 <h6></h6>
 </div>
