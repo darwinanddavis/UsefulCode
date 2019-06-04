@@ -873,6 +873,12 @@ webp::write_webp(bitmap, "page.webp")
 
 ```
 
+Read .txt files  
+``` {r, read4, results='hide',eval=F}
+readLines("search_terms.txt")  # must have a blank link at end of file to avoid line read error  
+```
+
+
 ### Regular expressions (`regex`)
 Get just numbers or characters      
 ```{r regex1, results="hide", eval=F}

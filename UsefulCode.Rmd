@@ -12,6 +12,13 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -27,13 +34,6 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -952,6 +952,12 @@ jpeg::writeJPEG(bitmap, "page.jpeg")
 webp::write_webp(bitmap, "page.webp")
 
 ```
+
+Read .txt files  
+``` {r, read4, results='hide',eval=F}
+readLines("search_terms.txt")  # must have a blank link at end of file to avoid line read error  
+```
+
 
 ### Regular expressions (`regex`)
 Get just numbers or characters      

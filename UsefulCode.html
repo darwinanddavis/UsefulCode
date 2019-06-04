@@ -374,7 +374,7 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<p>Date: 2019-05-31<br />
+<p>Date: 2019-06-04<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -1054,6 +1054,8 @@ bitmap &lt;-<span class="st"> </span><span class="kw">pdf_render_page</span>(f, 
 png<span class="op">::</span><span class="kw">writePNG</span>(bitmap, <span class="st">&quot;page.png&quot;</span>)
 jpeg<span class="op">::</span><span class="kw">writeJPEG</span>(bitmap, <span class="st">&quot;page.jpeg&quot;</span>)
 webp<span class="op">::</span><span class="kw">write_webp</span>(bitmap, <span class="st">&quot;page.webp&quot;</span>)</code></pre></div>
+<p>Read .txt files</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(<span class="st">&quot;search_terms.txt&quot;</span>)  <span class="co"># must have a blank link at end of file to avoid line read error  </span></code></pre></div>
 </div>
 <div id="regular-expressions-regex" class="section level3">
 <h3>Regular expressions (<code>regex</code>)</h3>

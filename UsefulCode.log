@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.4.16)  31 MAY 2019 12:07
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2018.4.16)  4 JUN 2019 13:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1234,14 +1234,14 @@ Missing character: There is no ψ in font [lmmono10-regular]:!
 Missing character: There is no μ in font [lmmono10-regular]:!
 Missing character: There is no ω in font [lmmono10-regular]:!
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 1348--1350
+Underfull \hbox (badness 10000) in paragraph at lines 1356--1358
 [][]$[][][][] [] [] [] [][][] [] [][][] [] [][][] [] [][] [] [][][][][][][] [] 
 [][][][] [] [][][][] [] [][][][][][][] [] [][][] [] [] [] [][][][][][][] [] [][
 ][] [] [][][][] [] [][][][][][][][][][][][][] [] [][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1348--1350
+Underfull \hbox (badness 10000) in paragraph at lines 1356--1358
 [][][][][][] [] [] [] [][][] [] [][][] [] [][][] [] [][] [] [][][][][][][] [] [
 ][][][] [] [][][][] [] [][][][][][][] [] [][][] [] [] [] [][][][][][][] [] [][]
 [] [] [][][][] [] [][][][][][][][][][][][][] [] [][][][] []
@@ -1249,14 +1249,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 1348--1350
 
 [18]
 
-LaTeX Warning: Empty bibliography on input line 1371.
+LaTeX Warning: Empty bibliography on input line 1379.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1373.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1381.
 [19]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1373.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1381.
 (./UsefulCode.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1373.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1373.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1381.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1381.
 
 Package rerunfilecheck Info: File `UsefulCode.out' has not changed.
 (rerunfilecheck)             Checksum: 285BC91EA62BD451BE34F1E1161082FA.

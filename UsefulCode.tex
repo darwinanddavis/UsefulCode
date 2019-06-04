@@ -121,7 +121,7 @@ GA, USA, 30322}}
 
 ~
 
-Date: 2019-05-31\\
+Date: 2019-06-04\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -1160,6 +1160,14 @@ Read in PDF files from online source in R and save to drive.
 \NormalTok{png}\OperatorTok{::}\KeywordTok{writePNG}\NormalTok{(bitmap, }\StringTok{"page.png"}\NormalTok{)}
 \NormalTok{jpeg}\OperatorTok{::}\KeywordTok{writeJPEG}\NormalTok{(bitmap, }\StringTok{"page.jpeg"}\NormalTok{)}
 \NormalTok{webp}\OperatorTok{::}\KeywordTok{write_webp}\NormalTok{(bitmap, }\StringTok{"page.webp"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Read .txt files
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{readLines}\NormalTok{(}\StringTok{"search_terms.txt"}\NormalTok{)  }\CommentTok{# must have a blank link at end of file to avoid line read error  }
 \end{Highlighting}
 \end{Shaded}
 
