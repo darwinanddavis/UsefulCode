@@ -374,7 +374,7 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<p>Date: 2019-06-04<br />
+<p>Date: 2019-06-05<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -1005,7 +1005,8 @@ global_sim_plot &lt;-<span class="st"> </span>global_detritus
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">get.file.vol &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="kw">file.choose</span>())<span class="co">#read file manually</span>
 v.file &lt;-<span class="st"> </span>get.file.vol[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">1</span>]<span class="co">#get the volume</span></code></pre></div>
 <p>Loop through files from dir and append to list</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># reading in spdf (hrpath) files from drive</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># option 1 </span>
+<span class="co"># reading in spdf (hrpath) files from drive</span>
 <span class="kw">setwd</span>(<span class="st">&quot;/Users/camel/Desktop/Matt2016/Manuscripts/MalishevBullKearney/Resubmission/2016/barcoo sims/barcooresults/hrpath_75&quot;</span>)
 file.list&lt;-<span class="kw">list.files</span>()
 hrs75&lt;-<span class="kw">as.list</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">100</span>)) <span class="co"># empty list</span>
@@ -1020,7 +1021,21 @@ ghr&lt;-<span class="kw">list</span>()
 <span class="cf">for</span> (i <span class="cf">in</span> hrs75[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]) {
   m&lt;-<span class="kw">mcp</span>(i,<span class="dv">100</span>,<span class="dt">unout=</span><span class="st">'m2'</span>)
   ghr&lt;-<span class="kw">c</span>(ghr,m)
-};ghr</code></pre></div>
+};ghr
+
+<span class="co"># option 2</span>
+wd &lt;-<span class="st"> </span><span class="kw">getwd</span>()
+me_list &lt;-<span class="st"> </span><span class="kw">list</span>() <span class="co"># create list </span>
+<span class="cf">for</span>(me_day <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>)){
+  <span class="cf">for</span>(me_im <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){
+    mes &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">paste0</span>(wd,resource_type,<span class="st">&quot;_meday_&quot;</span>,me_day,<span class="st">&quot;_meim&quot;</span>,me_im,<span class="st">&quot;.R&quot;</span>)) <span class="co"># read .R files from dir  </span>
+    <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="kw">paste0</span>(wd,resource_type,<span class="st">&quot;_meday_&quot;</span>,me_day,<span class="st">&quot;_meim&quot;</span>,me_im,<span class="st">&quot;.R&quot;</span>))
+    <span class="kw">names</span>(mes) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cerc&quot;</span>, <span class="st">&quot;food&quot;</span>, <span class="st">&quot;juv&quot;</span>, <span class="st">&quot;adult&quot;</span>, <span class="st">&quot;infected&quot;</span>, <span class="st">&quot;infected shedding&quot;</span>, <span class="st">&quot;mean host length&quot;</span>, <span class="st">&quot;mean parasite mass&quot;</span>, <span class="st">&quot;summed host biomass&quot;</span>, <span class="st">&quot;summed host eggs&quot;</span>, <span class="st">&quot;mean host eggs&quot;</span>, <span class="st">&quot;infected host length&quot;</span>) <span class="co"># name all original R file list elements</span>
+    mes &lt;-<span class="st"> </span>mes<span class="op">$</span><span class="st">&quot;cerc&quot;</span> <span class="co"># get cercs (as list) use mes$&quot;cerc&quot;[[1]] for numeric </span>
+    <span class="kw">names</span>(mes) &lt;-<span class="st"> </span><span class="kw">paste0</span>(me_day,<span class="st">&quot;_&quot;</span>,me_im) <span class="co"># name list elements according to loop iterations </span>
+    me_list &lt;-<span class="st"> </span><span class="kw">c</span>(me_list,mes) <span class="co"># bind to master list </span>
+  }
+}</code></pre></div>
 <p>Read in PDF files from online source in R and save to drive.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># from https://github.com/ropensci/pdftools</span>
 

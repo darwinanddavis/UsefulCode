@@ -818,6 +818,8 @@ v.file <- get.file.vol[1:100,1]#get the volume
 
 Loop through files from dir and append to list  
 ``` {r, read2, results='hide',eval=F}
+
+# option 1 
 # reading in spdf (hrpath) files from drive
 setwd("/Users/camel/Desktop/Matt2016/Manuscripts/MalishevBullKearney/Resubmission/2016/barcoo sims/barcooresults/hrpath_75")
 file.list<-list.files()
@@ -834,6 +836,21 @@ for (i in hrs75[1:10]) {
   m<-mcp(i,100,unout='m2')
   ghr<-c(ghr,m)
 };ghr
+
+# option 2
+wd <- getwd()
+me_list <- list() # create list 
+for(me_day in c("A","B","C")){
+  for(me_im in 1:5){
+    mes <- readRDS(paste0(wd,resource_type,"_meday_",me_day,"_meim",me_im,".R")) # read .R files from dir  
+    cat("\n",paste0(wd,resource_type,"_meday_",me_day,"_meim",me_im,".R"))
+    names(mes) <- c("cerc", "food", "juv", "adult", "infected", "infected shedding", "mean host length", "mean parasite mass", "summed host biomass", "summed host eggs", "mean host eggs", "infected host length") # name all original R file list elements
+    mes <- mes$"cerc" # get cercs (as list) use mes$"cerc"[[1]] for numeric 
+    names(mes) <- paste0(me_day,"_",me_im) # name list elements according to loop iterations 
+    me_list <- c(me_list,mes) # bind to master list 
+  }
+}
+
 ```
 
 Read in PDF files from online source in R and save to drive.  

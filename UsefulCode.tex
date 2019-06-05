@@ -121,7 +121,7 @@ GA, USA, 30322}}
 
 ~
 
-Date: 2019-06-04\\
+Date: 2019-06-05\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -1105,6 +1105,7 @@ Loop through files from dir and append to list
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# option 1 }
 \CommentTok{# reading in spdf (hrpath) files from drive}
 \KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/camel/Desktop/Matt2016/Manuscripts/MalishevBullKearney/Resubmission/2016/barcoo sims/barcooresults/hrpath_75"}\NormalTok{)}
 \NormalTok{file.list<-}\KeywordTok{list.files}\NormalTok{()}
@@ -1121,6 +1122,20 @@ Loop through files from dir and append to list
 \NormalTok{  m<-}\KeywordTok{mcp}\NormalTok{(i,}\DecValTok{100}\NormalTok{,}\DataTypeTok{unout=}\StringTok{'m2'}\NormalTok{)}
 \NormalTok{  ghr<-}\KeywordTok{c}\NormalTok{(ghr,m)}
 \NormalTok{\};ghr}
+
+\CommentTok{# option 2}
+\NormalTok{wd <-}\StringTok{ }\KeywordTok{getwd}\NormalTok{()}
+\NormalTok{me_list <-}\StringTok{ }\KeywordTok{list}\NormalTok{() }\CommentTok{# create list }
+\ControlFlowTok{for}\NormalTok{(me_day }\ControlFlowTok{in} \KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{,}\StringTok{"B"}\NormalTok{,}\StringTok{"C"}\NormalTok{))\{}
+  \ControlFlowTok{for}\NormalTok{(me_im }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)\{}
+\NormalTok{    mes <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(wd,resource_type,}\StringTok{"_meday_"}\NormalTok{,me_day,}\StringTok{"_meim"}\NormalTok{,me_im,}\StringTok{".R"}\NormalTok{)) }\CommentTok{# read .R files from dir  }
+    \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,}\KeywordTok{paste0}\NormalTok{(wd,resource_type,}\StringTok{"_meday_"}\NormalTok{,me_day,}\StringTok{"_meim"}\NormalTok{,me_im,}\StringTok{".R"}\NormalTok{))}
+    \KeywordTok{names}\NormalTok{(mes) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"cerc"}\NormalTok{, }\StringTok{"food"}\NormalTok{, }\StringTok{"juv"}\NormalTok{, }\StringTok{"adult"}\NormalTok{, }\StringTok{"infected"}\NormalTok{, }\StringTok{"infected shedding"}\NormalTok{, }\StringTok{"mean host length"}\NormalTok{, }\StringTok{"mean parasite mass"}\NormalTok{, }\StringTok{"summed host biomass"}\NormalTok{, }\StringTok{"summed host eggs"}\NormalTok{, }\StringTok{"mean host eggs"}\NormalTok{, }\StringTok{"infected host length"}\NormalTok{) }\CommentTok{# name all original R file list elements}
+\NormalTok{    mes <-}\StringTok{ }\NormalTok{mes}\OperatorTok{$}\StringTok{"cerc"} \CommentTok{# get cercs (as list) use mes$"cerc"[[1]] for numeric }
+    \KeywordTok{names}\NormalTok{(mes) <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(me_day,}\StringTok{"_"}\NormalTok{,me_im) }\CommentTok{# name list elements according to loop iterations }
+\NormalTok{    me_list <-}\StringTok{ }\KeywordTok{c}\NormalTok{(me_list,mes) }\CommentTok{# bind to master list }
+\NormalTok{  \}}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
