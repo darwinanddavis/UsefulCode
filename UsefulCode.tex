@@ -121,7 +121,7 @@ GA, USA, 30322}}
 
 ~
 
-Date: 2019-06-05\\
+Date: 2019-06-10\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -1182,7 +1182,17 @@ Read .txt files
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{readLines}\NormalTok{(}\StringTok{"search_terms.txt"}\NormalTok{)  }\CommentTok{# must have a blank link at end of file to avoid line read error  }
+\KeywordTok{readLines}\NormalTok{(}\StringTok{"search_terms.txt"}\NormalTok{)  }\CommentTok{# must have a blank line at end of file to avoid line read error  }
+\end{Highlighting}
+\end{Shaded}
+
+Load in data to avoid `magic number error'
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# avoid load()}
+\KeywordTok{readRDS}\NormalTok{(}\StringTok{"path to file .R"}\NormalTok{) }\CommentTok{# can use .R and .Rdata}
+\KeywordTok{source}\NormalTok{(}\StringTok{"path to file .R"}\NormalTok{)  }
 \end{Highlighting}
 \end{Shaded}
 
