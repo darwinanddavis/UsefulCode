@@ -374,7 +374,7 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<p>Date: 2019-06-07<br />
+<p>Date: 2019-06-11<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -613,15 +613,16 @@ u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</sp
 <span class="kw">Sys.sleep</span>(<span class="dv">5</span>)
 <span class="kw">close</span>(pb)</code></pre></div>
 </div>
-<div id="nas" class="section level3">
-<h3><code>NAs</code></h3>
-<p>Replace <code>NAs</code> with 0’s</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="kw">is.na</span>(df)] &lt;-<span class="st"> </span><span class="dv">0</span></code></pre></div>
+<div id="nas-and-nans" class="section level3">
+<h3><code>NAs</code> and <code>NaNs</code></h3>
+<p>Replace NAs and NaNs with 0’s</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="kw">is.na</span>(df)] &lt;-<span class="st"> </span><span class="dv">0</span>
+df[<span class="kw">is.nan</span>(df)] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># good for matrices </span></code></pre></div>
 <p>Replace X values less than given value (V) with 0</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>X[df<span class="op">$</span>X<span class="op">&lt;</span>V] &lt;-<span class="st"> </span><span class="dv">0</span> </code></pre></div>
 <p>Check for <code>NAs</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(df, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))</code></pre></div>
-<p>Replace <code>NaN</code> and <code>Inf</code> values with <code>NA</code></p>
+<p>snail.update[is.nan(snail.update)] &lt;- 0 Replace <code>NaN</code> and <code>Inf</code> values with <code>NA</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>col1[<span class="kw">which</span>(<span class="op">!</span><span class="kw">is.finite</span>(df<span class="op">$</span>col1))] &lt;-<span class="st">  </span><span class="ot">NA</span></code></pre></div>
 <p>Fill in missing data values in sequence with <code>NA</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># /Users/malishev/Documents/Manuscripts/Chapter4/Sims/Chapter4_figs.R</span>

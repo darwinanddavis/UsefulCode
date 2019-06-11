@@ -12,6 +12,13 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -27,13 +34,6 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
   word_document:
     highlight: tango
     keep_md: yes
@@ -406,10 +406,11 @@ Sys.sleep(5)
 close(pb)
 ```
   
-### `NAs` 
-Replace `NAs` with 0's
+### `NAs` and `NaNs  ` 
+Replace NAs and NaNs with 0's
 ```{r, NA1, results='hide',eval=F}
 df[is.na(df)] <- 0
+df[is.nan(df)] <- 0 # good for matrices 
 ```
 
 Replace X values less than given value (V) with 0  
@@ -422,7 +423,7 @@ Check for `NAs`
 sapply(df, function(x) sum(is.na(x)))
 ```
 
-Replace `NaN` and `Inf` values with `NA` 
+snail.update[is.nan(snail.update)] <- 0 Replace `NaN` and `Inf` values with `NA` 
 ```{r, NA4, results='hide',eval=F}
 df$col1[which(!is.finite(df$col1))] <-  NA
 ```

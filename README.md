@@ -326,10 +326,11 @@ Sys.sleep(5)
 close(pb)
 ```
   
-### `NAs` 
-Replace `NAs` with 0's
+### `NAs` and `NaNs  ` 
+Replace NAs and NaNs with 0's
 ```{r, NA1, results='hide',eval=F}
 df[is.na(df)] <- 0
+df[is.nan(df)] <- 0 # good for matrices 
 ```
 
 Replace X values less than given value (V) with 0  
@@ -342,7 +343,7 @@ Check for `NAs`
 sapply(df, function(x) sum(is.na(x)))
 ```
 
-Replace `NaN` and `Inf` values with `NA` 
+snail.update[is.nan(snail.update)] <- 0 Replace `NaN` and `Inf` values with `NA` 
 ```{r, NA4, results='hide',eval=F}
 df$col1[which(!is.finite(df$col1))] <-  NA
 ```
@@ -1075,3 +1076,4 @@ library(purrr)
 library(twitteR)
 
 ```
+
