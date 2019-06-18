@@ -374,7 +374,7 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<p>Date: 2019-06-11<br />
+<p>Date: 2019-06-18<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -1076,6 +1076,14 @@ webp<span class="op">::</span><span class="kw">write_webp</span>(bitmap, <span c
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># avoid load()</span>
 <span class="kw">readRDS</span>(<span class="st">&quot;path to file .R&quot;</span>) <span class="co"># can use .R and .Rdata</span>
 <span class="kw">source</span>(<span class="st">&quot;path to file .R&quot;</span>)  </code></pre></div>
+<p>Access files anywhere without changing working dir</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(here)
+<span class="kw">getwd</span>()
+<span class="co"># &quot;/Users/malishev/Documents/Data/gggmap&quot;</span>
+here_loc &lt;-<span class="st"> </span><span class="kw">here</span>(<span class="st">&quot;here_test&quot;</span>, <span class="st">&quot;here_test.txt&quot;</span>)
+here_loc
+<span class="co"># &quot;/Users/malishev/Documents/Data/gggmap/here_test/here_test.txt&quot;</span>
+<span class="kw">readLines</span>(here_loc) <span class="co"># access the file even though your working dir is up N levels from the file in your dir </span></code></pre></div>
 </div>
 <div id="regular-expressions-regex" class="section level3">
 <h3>Regular expressions (<code>regex</code>)</h3>

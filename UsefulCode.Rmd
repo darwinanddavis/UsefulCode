@@ -983,6 +983,18 @@ readRDS("path to file .R") # can use .R and .Rdata
 source("path to file .R")  
 ```
 
+Access files anywhere without changing working dir  
+``` {r, read6, results='hide',eval=F}
+require(here)
+getwd()
+# "/Users/malishev/Documents/Data/gggmap"
+here_loc <- here("here_test", "here_test.txt")
+here_loc
+# "/Users/malishev/Documents/Data/gggmap/here_test/here_test.txt"
+readLines(here_loc) # access the file even though your working dir is up N levels from the file in your dir 
+```
+
+
 ### Regular expressions (`regex`)
 Get just numbers or characters      
 ```{r regex1, results="hide", eval=F}
