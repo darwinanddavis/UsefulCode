@@ -890,6 +890,14 @@ Storing current `par` variables for plotting
 og_pars <- par(no.readonly = T) # store current par values
 ```
 
+Clear graphics memory  
+```{r, plot23, results='hide',eval=F}
+dput(par(no.readonly=TRUE)) # reset graphical params 
+par()
+
+```
+
+
 ### Reading in files/data
 Read in file manually
 ```{r, read1, results='hide',eval=F}
@@ -985,6 +993,7 @@ source("path to file .R")
 
 Access files anywhere without changing working dir  
 ``` {r, read6, results='hide',eval=F}
+# https://github.com/jennybc/here_here
 require(here)
 getwd()
 # "/Users/malishev/Documents/Data/gggmap"

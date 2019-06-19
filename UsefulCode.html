@@ -374,7 +374,7 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<p>Date: 2019-06-18<br />
+<p>Date: 2019-06-19<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -999,6 +999,9 @@ global_sim_plot &lt;-<span class="st"> </span>global_detritus
 <span class="kw">grid</span>(<span class="dt">nx=</span><span class="ot">NA</span>,<span class="dt">ny=</span><span class="ot">NULL</span>)</code></pre></div>
 <p>Storing current <code>par</code> variables for plotting</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">og_pars &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> T) <span class="co"># store current par values</span></code></pre></div>
+<p>Clear graphics memory</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dput</span>(<span class="kw">par</span>(<span class="dt">no.readonly=</span><span class="ot">TRUE</span>)) <span class="co"># reset graphical params </span>
+<span class="kw">par</span>()</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
@@ -1077,7 +1080,8 @@ webp<span class="op">::</span><span class="kw">write_webp</span>(bitmap, <span c
 <span class="kw">readRDS</span>(<span class="st">&quot;path to file .R&quot;</span>) <span class="co"># can use .R and .Rdata</span>
 <span class="kw">source</span>(<span class="st">&quot;path to file .R&quot;</span>)  </code></pre></div>
 <p>Access files anywhere without changing working dir</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(here)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># https://github.com/jennybc/here_here</span>
+<span class="kw">require</span>(here)
 <span class="kw">getwd</span>()
 <span class="co"># &quot;/Users/malishev/Documents/Data/gggmap&quot;</span>
 here_loc &lt;-<span class="st"> </span><span class="kw">here</span>(<span class="st">&quot;here_test&quot;</span>, <span class="st">&quot;here_test.txt&quot;</span>)
