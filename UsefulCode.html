@@ -587,6 +587,23 @@ t_list &lt;-<span class="st"> </span><span class="kw">list</span>()
   master[[<span class="kw">length</span>(master)<span class="op">+</span><span class="dv">1</span>]] &lt;-<span class="st"> </span>t_list <span class="co"># store in master list</span>
 } </code></pre></div>
 </div>
+<div id="maps" class="section level3">
+<h3>Maps</h3>
+<p>High res maps</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># https://hecate.hakai.org/rguide/mapping-in-r.html</span>
+<span class="kw">require</span>(maptools) 
+d &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;worldHires&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Colombia&quot;</span>,<span class="st">&quot;Ecuador&quot;</span>,<span class="st">&quot;Peru&quot;</span>,<span class="st">&quot;Panama&quot;</span>))
+
+<span class="co"># plot </span>
+<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data=</span>d,<span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat, <span class="dt">group =</span> group), <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">col=</span><span class="st">&quot;pink&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="co"># theme_tufte(ticks=F) +</span>
+<span class="st">  </span><span class="kw">theme_nothing</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_map</span>(<span class="st">&quot;mercator&quot;</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">75</span>,<span class="op">-</span><span class="dv">81</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">8</span>))</code></pre></div>
+<p>Read in KMZ/KML data (Google Maps data)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(sf)  
+zp &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">st_read</span>(<span class="st">&quot;ziggy_test.kml&quot;</span>)</code></pre></div>
+</div>
 <div id="messages" class="section level3">
 <h3>Messages</h3>
 <p>Display status message of progress</p>

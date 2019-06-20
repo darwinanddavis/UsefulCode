@@ -121,7 +121,7 @@ GA, USA, 30322}}
 
 ~
 
-Date: 2019-06-10\\
+Date: 2019-06-20\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -475,6 +475,34 @@ Save loop output in master list
 \end{Highlighting}
 \end{Shaded}
 
+\subsubsection{Maps}\label{maps}
+
+High res maps
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# https://hecate.hakai.org/rguide/mapping-in-r.html}
+\KeywordTok{require}\NormalTok{(maptools) }
+\NormalTok{d <-}\StringTok{ }\KeywordTok{map_data}\NormalTok{(}\StringTok{"worldHires"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"Colombia"}\NormalTok{,}\StringTok{"Ecuador"}\NormalTok{,}\StringTok{"Peru"}\NormalTok{,}\StringTok{"Panama"}\NormalTok{))}
+
+\CommentTok{# plot }
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_polygon}\NormalTok{(}\DataTypeTok{data=}\NormalTok{d,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{long, }\DataTypeTok{y=}\NormalTok{lat, }\DataTypeTok{group =}\NormalTok{ group), }\DataTypeTok{fill =} \StringTok{"black"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"pink"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\CommentTok{# theme_tufte(ticks=F) +}
+\StringTok{  }\KeywordTok{theme_nothing}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{coord_map}\NormalTok{(}\StringTok{"mercator"}\NormalTok{,}\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{75}\NormalTok{,}\OperatorTok{-}\DecValTok{81}\NormalTok{),}\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\NormalTok{,}\DecValTok{8}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Read in KMZ/KML data (Google Maps data)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(sf)  }
+\NormalTok{zp <-}\StringTok{ }\NormalTok{sf}\OperatorTok{::}\KeywordTok{st_read}\NormalTok{(}\StringTok{"ziggy_test.kml"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Messages}\label{messages}
 
 Display status message of progress
@@ -512,13 +540,15 @@ Display popup progress bar
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{\texorpdfstring{\texttt{NAs}}{NAs}}\label{nas}
+\subsubsection{\texorpdfstring{\texttt{NAs} and
+\texttt{NaNs}}{NAs and NaNs}}\label{nas-and-nans}
 
-Replace \texttt{NAs} with 0's
+Replace NAs and NaNs with 0's
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{df[}\KeywordTok{is.na}\NormalTok{(df)] <-}\StringTok{ }\DecValTok{0}
+\NormalTok{df[}\KeywordTok{is.nan}\NormalTok{(df)] <-}\StringTok{ }\DecValTok{0} \CommentTok{# good for matrices }
 \end{Highlighting}
 \end{Shaded}
 
@@ -538,7 +568,8 @@ Check for \texttt{NAs}
 \end{Highlighting}
 \end{Shaded}
 
-Replace \texttt{NaN} and \texttt{Inf} values with \texttt{NA}
+snail.update{[}is.nan(snail.update){]} \textless{}- 0 Replace
+\texttt{NaN} and \texttt{Inf} values with \texttt{NA}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1090,6 +1121,15 @@ Storing current \texttt{par} variables for plotting
 \end{Highlighting}
 \end{Shaded}
 
+Clear graphics memory
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dput}\NormalTok{(}\KeywordTok{par}\NormalTok{(}\DataTypeTok{no.readonly=}\OtherTok{TRUE}\NormalTok{)) }\CommentTok{# reset graphical params }
+\KeywordTok{par}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Reading in files/data}\label{reading-in-filesdata}
 
 Read in file manually
@@ -1193,6 +1233,21 @@ Load in data to avoid `magic number error'
 \CommentTok{# avoid load()}
 \KeywordTok{readRDS}\NormalTok{(}\StringTok{"path to file .R"}\NormalTok{) }\CommentTok{# can use .R and .Rdata}
 \KeywordTok{source}\NormalTok{(}\StringTok{"path to file .R"}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+Access files anywhere without changing working dir
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# https://github.com/jennybc/here_here}
+\KeywordTok{require}\NormalTok{(here)}
+\KeywordTok{getwd}\NormalTok{()}
+\CommentTok{# "/Users/malishev/Documents/Data/gggmap"}
+\NormalTok{here_loc <-}\StringTok{ }\KeywordTok{here}\NormalTok{(}\StringTok{"here_test"}\NormalTok{, }\StringTok{"here_test.txt"}\NormalTok{)}
+\NormalTok{here_loc}
+\CommentTok{# "/Users/malishev/Documents/Data/gggmap/here_test/here_test.txt"}
+\KeywordTok{readLines}\NormalTok{(here_loc) }\CommentTok{# access the file even though your working dir is up N levels from the file in your dir }
 \end{Highlighting}
 \end{Shaded}
 

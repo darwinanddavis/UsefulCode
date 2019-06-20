@@ -296,6 +296,27 @@ for (p in 1:length(pars)){
 } 
 ```
 
+### Maps    
+High res maps
+```{r, map1, results='hide',eval=F}
+# https://hecate.hakai.org/rguide/mapping-in-r.html
+require(maptools) 
+d <- map_data("worldHires", c("Colombia","Ecuador","Peru","Panama"))
+
+# plot 
+ggplot() + 
+  geom_polygon(data=d,aes(x=long, y=lat, group = group), fill = "black", col="pink") +
+  # theme_tufte(ticks=F) +
+  theme_nothing() +
+  coord_map("mercator",xlim=c(-75,-81),ylim=c(-2,8))
+```
+
+Read in KMZ/KML data (Google Maps data)    
+```{r, map2, results='hide',eval=F}
+require(sf)  
+zp <- sf::st_read("ziggy_test.kml")
+```
+  
 ### Messages  
 Display status message of progress  
 ```{r, message1, results='hide',eval=F}
