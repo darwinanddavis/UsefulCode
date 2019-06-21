@@ -296,6 +296,43 @@ for (p in 1:length(pars)){
 } 
 ```
 
+
+Optimal way to save results to data frame in loop  
+```{r, loop2, results='hide',eval=F}
+require(dplyr)
+
+fun <- sum # sum # choose mean or sum  
+out_first <- list() # create first empty list
+out_second <- list() # create second empty list
+
+for(me in 1:10){
+  global_output_fh = paste0(getwd(),"/",me,".R") # get file handle
+  output <- readRDS(global_output_fh) # read in file 
+  cercs <- output[[1]] # get data 
+  # define function 
+  SEM = function(x){
+    sd(x)/sqrt(length(x))
+  }
+  # create col name to pass to aggregate function 
+  cerc_outs = list("Outs" = cercs) 
+  outs = aggregate(Outs ~ ., data=cerc_outs,  FUN=fun)
+  cerc_se = list("SEs" = cercs) 
+  se = aggregate(SEs ~ ., data=cerc_se, FUN=SEM)
+  
+  # save to df by creating new df cols 
+  outs$me <- me  # create new col with iteration
+  out_first[[me]] <- outs # add first output to list
+  out_second[[me]] <- se # add second output to list
+} # end file read  
+
+# option 1
+out_final = do.call(rbind, out_first) 
+# option 2 
+out_final <- bind_rows(out_first) # make fresh df 
+out_final$Second <- bind_rows(out_second) # add second col
+
+```
+
 ### Maps    
 High res maps
 ```{r, map1, results='hide',eval=F}
