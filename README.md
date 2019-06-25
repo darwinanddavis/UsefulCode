@@ -280,7 +280,21 @@ Plot all elements in a list
 xx <- list(sample(5,1000,replace=T),rnorm(1000),sample(50,1000,replace=T))
 plot(unlist(xx),type="l")
 ```
-  
+
+Apply each row of df or vector to individual elements of a list  
+```{r, list3, results='hide',eval=F}
+df = data.frame("events" = LETTERS[1:10], "outs" = 1:10)
+sapply(df$outs,list)
+```
+
+Append extra element onto existing list  
+```{r, list4, results='hide',eval=F}
+rv <- sample(1000,15) # random vector
+listvec <- sapply(rep(NA,7),list) # list with 7 empty elements
+listvec_final <- c(listvec,list(rv)) # append rv
+listvec_final <- c(listvec,rv) # to append rv contents as separate elements, remove internal list 
+```
+
 ### Loops  
 Save loop output in master list  
 ```{r, loop1, results='hide',eval=F}

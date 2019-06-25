@@ -360,7 +360,21 @@ Plot all elements in a list
 xx <- list(sample(5,1000,replace=T),rnorm(1000),sample(50,1000,replace=T))
 plot(unlist(xx),type="l")
 ```
-  
+
+Apply each row of df or vector to individual elements of a list  
+```{r, list3, results='hide',eval=F}
+df = data.frame("events" = LETTERS[1:10], "outs" = 1:10)
+sapply(df$outs,list)
+```
+
+Append extra element onto existing list  
+```{r, list4, results='hide',eval=F}
+rv <- sample(1000,15) # random vector
+listvec <- sapply(rep(NA,7),list) # list with 7 empty elements
+listvec_final <- c(listvec,list(rv)) # append rv
+listvec_final <- c(listvec,rv) # to append rv contents as separate elements, remove internal list 
+```
+
 ### Loops  
 Save loop output in master list  
 ```{r, loop1, results='hide',eval=F}
@@ -393,17 +407,16 @@ for(me in 1:10){
   SEM = function(x){
     sd(x)/sqrt(length(x))
   }
-  
-  cerc_outs = list("Outs" = cercs) # create col name to pass to aggregate function 
+  # create col name to pass to aggregate function 
+  cerc_outs = list("Outs" = cercs) 
   outs = aggregate(Outs ~ ., data=cerc_outs,  FUN=fun)
-  
-  cerc_se = list("SEs" = cercs) # create col name to pass to aggregate function 
+  cerc_se = list("SEs" = cercs) 
   se = aggregate(SEs ~ ., data=cerc_se, FUN=SEM)
   
   # save to df by creating new df cols 
   outs$me <- me  # create new col with iteration
-  out_first[[me]] <- outs # add mean to list
-  out_second[[me]] <- se # add se to list
+  out_first[[me]] <- outs # add first output to list
+  out_second[[me]] <- se # add second output to list
 } # end file read  
 
 # option 1
@@ -411,7 +424,6 @@ out_final = do.call(rbind, out_first)
 # option 2 
 out_final <- bind_rows(out_first) # make fresh df 
 out_final$Second <- bind_rows(out_second) # add second col
-
 
 ```
 

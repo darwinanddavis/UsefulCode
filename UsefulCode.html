@@ -374,7 +374,7 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<p>Date: 2019-06-19<br />
+<p>Date: 2019-06-25<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -572,6 +572,14 @@ y_m &lt;-<span class="st"> </span><span class="kw">melt</span>(mm);y_m
 <p>Plot all elements in a list</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xx &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">sample</span>(<span class="dv">5</span>,<span class="dv">1000</span>,<span class="dt">replace=</span>T),<span class="kw">rnorm</span>(<span class="dv">1000</span>),<span class="kw">sample</span>(<span class="dv">50</span>,<span class="dv">1000</span>,<span class="dt">replace=</span>T))
 <span class="kw">plot</span>(<span class="kw">unlist</span>(xx),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p>Apply each row of df or vector to individual elements of a list</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;events&quot;</span> =<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>], <span class="st">&quot;outs&quot;</span> =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
+<span class="kw">sapply</span>(df<span class="op">$</span>outs,list)</code></pre></div>
+<p>Append extra element onto existing list</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rv &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1000</span>,<span class="dv">15</span>) <span class="co"># random vector</span>
+listvec &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">7</span>),list) <span class="co"># list with 7 empty elements</span>
+listvec_final &lt;-<span class="st"> </span><span class="kw">c</span>(listvec,<span class="kw">list</span>(rv)) <span class="co"># append rv</span>
+listvec_final &lt;-<span class="st"> </span><span class="kw">c</span>(listvec,rv) <span class="co"># to append rv contents as separate elements, remove internal list </span></code></pre></div>
 </div>
 <div id="loops" class="section level3">
 <h3>Loops</h3>
@@ -586,6 +594,38 @@ t_list &lt;-<span class="st"> </span><span class="kw">list</span>()
   }
   master[[<span class="kw">length</span>(master)<span class="op">+</span><span class="dv">1</span>]] &lt;-<span class="st"> </span>t_list <span class="co"># store in master list</span>
 } </code></pre></div>
+<p>Optimal way to save results to data frame in loop</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(dplyr)
+
+fun &lt;-<span class="st"> </span>sum <span class="co"># sum # choose mean or sum  </span>
+out_first &lt;-<span class="st"> </span><span class="kw">list</span>() <span class="co"># create first empty list</span>
+out_second &lt;-<span class="st"> </span><span class="kw">list</span>() <span class="co"># create second empty list</span>
+
+<span class="cf">for</span>(me <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
+  global_output_fh =<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">getwd</span>(),<span class="st">&quot;/&quot;</span>,me,<span class="st">&quot;.R&quot;</span>) <span class="co"># get file handle</span>
+  output &lt;-<span class="st"> </span><span class="kw">readRDS</span>(global_output_fh) <span class="co"># read in file </span>
+  cercs &lt;-<span class="st"> </span>output[[<span class="dv">1</span>]] <span class="co"># get data </span>
+  <span class="co"># define function </span>
+  SEM =<span class="st"> </span><span class="cf">function</span>(x){
+    <span class="kw">sd</span>(x)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">length</span>(x))
+  }
+  <span class="co"># create col name to pass to aggregate function </span>
+  cerc_outs =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Outs&quot;</span> =<span class="st"> </span>cercs) 
+  outs =<span class="st"> </span><span class="kw">aggregate</span>(Outs <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>cerc_outs,  <span class="dt">FUN=</span>fun)
+  cerc_se =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;SEs&quot;</span> =<span class="st"> </span>cercs) 
+  se =<span class="st"> </span><span class="kw">aggregate</span>(SEs <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>cerc_se, <span class="dt">FUN=</span>SEM)
+  
+  <span class="co"># save to df by creating new df cols </span>
+  outs<span class="op">$</span>me &lt;-<span class="st"> </span>me  <span class="co"># create new col with iteration</span>
+  out_first[[me]] &lt;-<span class="st"> </span>outs <span class="co"># add first output to list</span>
+  out_second[[me]] &lt;-<span class="st"> </span>se <span class="co"># add second output to list</span>
+} <span class="co"># end file read  </span>
+
+<span class="co"># option 1</span>
+out_final =<span class="st"> </span><span class="kw">do.call</span>(rbind, out_first) 
+<span class="co"># option 2 </span>
+out_final &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(out_first) <span class="co"># make fresh df </span>
+out_final<span class="op">$</span>Second &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(out_second) <span class="co"># add second col</span></code></pre></div>
 </div>
 <div id="maps" class="section level3">
 <h3>Maps</h3>

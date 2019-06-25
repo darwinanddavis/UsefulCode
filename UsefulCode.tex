@@ -121,7 +121,7 @@ GA, USA, 30322}}
 
 ~
 
-Date: 2019-06-20\\
+Date: 2019-06-25\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -456,6 +456,26 @@ Plot all elements in a list
 \end{Highlighting}
 \end{Shaded}
 
+Apply each row of df or vector to individual elements of a list
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"events"}\NormalTok{ =}\StringTok{ }\NormalTok{LETTERS[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{], }\StringTok{"outs"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\KeywordTok{sapply}\NormalTok{(df}\OperatorTok{$}\NormalTok{outs,list)}
+\end{Highlighting}
+\end{Shaded}
+
+Append extra element onto existing list
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rv <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1000}\NormalTok{,}\DecValTok{15}\NormalTok{) }\CommentTok{# random vector}
+\NormalTok{listvec <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\DecValTok{7}\NormalTok{),list) }\CommentTok{# list with 7 empty elements}
+\NormalTok{listvec_final <-}\StringTok{ }\KeywordTok{c}\NormalTok{(listvec,}\KeywordTok{list}\NormalTok{(rv)) }\CommentTok{# append rv}
+\NormalTok{listvec_final <-}\StringTok{ }\KeywordTok{c}\NormalTok{(listvec,rv) }\CommentTok{# to append rv contents as separate elements, remove internal list }
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{Loops}\label{loops}
 
 Save loop output in master list
@@ -472,6 +492,44 @@ Save loop output in master list
 \NormalTok{  \}}
 \NormalTok{  master[[}\KeywordTok{length}\NormalTok{(master)}\OperatorTok{+}\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\NormalTok{t_list }\CommentTok{# store in master list}
 \NormalTok{\} }
+\end{Highlighting}
+\end{Shaded}
+
+Optimal way to save results to data frame in loop
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(dplyr)}
+
+\NormalTok{fun <-}\StringTok{ }\NormalTok{sum }\CommentTok{# sum # choose mean or sum  }
+\NormalTok{out_first <-}\StringTok{ }\KeywordTok{list}\NormalTok{() }\CommentTok{# create first empty list}
+\NormalTok{out_second <-}\StringTok{ }\KeywordTok{list}\NormalTok{() }\CommentTok{# create second empty list}
+
+\ControlFlowTok{for}\NormalTok{(me }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)\{}
+\NormalTok{  global_output_fh =}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\KeywordTok{getwd}\NormalTok{(),}\StringTok{"/"}\NormalTok{,me,}\StringTok{".R"}\NormalTok{) }\CommentTok{# get file handle}
+\NormalTok{  output <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(global_output_fh) }\CommentTok{# read in file }
+\NormalTok{  cercs <-}\StringTok{ }\NormalTok{output[[}\DecValTok{1}\NormalTok{]] }\CommentTok{# get data }
+  \CommentTok{# define function }
+\NormalTok{  SEM =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+    \KeywordTok{sd}\NormalTok{(x)}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{length}\NormalTok{(x))}
+\NormalTok{  \}}
+  \CommentTok{# create col name to pass to aggregate function }
+\NormalTok{  cerc_outs =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"Outs"}\NormalTok{ =}\StringTok{ }\NormalTok{cercs) }
+\NormalTok{  outs =}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(Outs }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data=}\NormalTok{cerc_outs,  }\DataTypeTok{FUN=}\NormalTok{fun)}
+\NormalTok{  cerc_se =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"SEs"}\NormalTok{ =}\StringTok{ }\NormalTok{cercs) }
+\NormalTok{  se =}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(SEs }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data=}\NormalTok{cerc_se, }\DataTypeTok{FUN=}\NormalTok{SEM)}
+  
+  \CommentTok{# save to df by creating new df cols }
+\NormalTok{  outs}\OperatorTok{$}\NormalTok{me <-}\StringTok{ }\NormalTok{me  }\CommentTok{# create new col with iteration}
+\NormalTok{  out_first[[me]] <-}\StringTok{ }\NormalTok{outs }\CommentTok{# add first output to list}
+\NormalTok{  out_second[[me]] <-}\StringTok{ }\NormalTok{se }\CommentTok{# add second output to list}
+\NormalTok{\} }\CommentTok{# end file read  }
+
+\CommentTok{# option 1}
+\NormalTok{out_final =}\StringTok{ }\KeywordTok{do.call}\NormalTok{(rbind, out_first) }
+\CommentTok{# option 2 }
+\NormalTok{out_final <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(out_first) }\CommentTok{# make fresh df }
+\NormalTok{out_final}\OperatorTok{$}\NormalTok{Second <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(out_second) }\CommentTok{# add second col}
 \end{Highlighting}
 \end{Shaded}
 
