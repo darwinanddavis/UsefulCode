@@ -4,10 +4,10 @@
 
 ##### *Corresponding author: matthew.malishev [at] gmail.com   
 
-doi: [DOI](https://github.com/darwinanddavis/UsefulCode)  
-:link: [Github](https://github.com/darwinanddavis/UsefulCode)    
+## Links to HTML versions    
 
-[HTML link](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)  
+[Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)  
+[Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)      
 
 TO ADD:    
 - grep and removing multiple cols from df examples from lec_keyword_search.R file in LEC working group
