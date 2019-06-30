@@ -7,6 +7,8 @@
 doi: [DOI](https://github.com/darwinanddavis/UsefulCode)  
 :link: [Github](https://github.com/darwinanddavis/UsefulCode)    
 
+[HTML link](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)  
+
 TO ADD:    
 - grep and removing multiple cols from df examples from lec_keyword_search.R file in LEC working group
 - plotting multiple plots per page using PDF  http://rstudio-pubs-static.s3.amazonaws.com/2852_379274d7c5734f979e106dcf019ec46c.html  
