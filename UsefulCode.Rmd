@@ -12,6 +12,8 @@ linkcolor: pink
 urlcolor: blue
 citecolor: red
 output:
+  md_document:
+   variant: markdown_github
   pdf_document:
     includes:
       in_header: # add .tex file with header content
