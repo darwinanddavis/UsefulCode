@@ -113,4 +113,48 @@ url <- 'https://raw.githubusercontent.com/plotly/datasets/master/2011_february_a
 flights <- read.csv(url)  
 ```
 
+### `Rmarkdown`  
+***  
+Split page into three columns (displays best in browser)        
+
+<!-- #https://holtzy.github.io/Pimp-my-rmd/ -->
+<div class = "row">
+
+<div class = "col-md-4">
+```{r, message=F, echo=F, eval=T}
+# r plot code
+require(ggplot2)
+ggplot(mtcars, aes(x=mpg)) + 
+  geom_histogram(fill="skyblue", alpha=0.5) + 
+  theme_classic()
+```
+</div>
+  
+<div class = "col-md-4">
+<br><br>  
+
+>Praise the lord, I was born to travel  
+>Feeling like Slash in front of the chapel  
+>I'm leaned back with the Les Paul  
+>Shit I smoke is like cholesterol  
+>Spilled dressin' on the vest at the festival  
+>The best of all, had a midget Puerto Rican at my beckon call
+
+</div>
+  
+<div class = "col-md-4">
+<br><br>
+Pump the bass in the trunk  
+It rattled like a baby hand  
+Except this toy cost 80 grand  
+And I'm crazy tan, from all the places that I've been  
+Just from writing words with a pen  
+
+</div>
+<!-- close div -->
+</div> 
+
+***
+
+
 

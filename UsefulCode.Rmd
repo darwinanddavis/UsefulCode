@@ -94,12 +94,12 @@ knitr::opts_knit$set(root.dir=paste0(params$dir,"/")) # set working dir
 setwd(paste0(params$dir,"/")) # for running just in R not knitr
 ```
 
-\  
+\    
 
-Date: `r params$date`  
-`R` version: `r params$version`  
-*Corresponding author: `r params$email`  
-This document can be found at `r params$doi`
+Date: `r params$date`    
+`R` version: `r params$version`    
+*Corresponding author: `r params$email`    
+This document can be found at `r params$doi`  
 
 \newpage  
 

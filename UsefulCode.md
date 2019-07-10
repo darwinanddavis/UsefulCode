@@ -5,6 +5,16 @@
 
  
 
+Useful Code 1
+=============
+
+ 
+ 
+
+### Matthew Malishev<sup>1\*</sup>
+
+##### *<sup>1</sup> Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322*
+
 Date: 2019-07-10
 `R` version: 3.5.0
 \*Corresponding author: <matthew.malishev@gmail.com>

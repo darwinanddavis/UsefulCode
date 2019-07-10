@@ -374,11 +374,21 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<p>Date: 2019-06-25<br />
+<div id="useful-code-1" class="section level1">
+<h1>Useful Code 1</h1>
+<p> <br />
+ </p>
+<div id="matthew-malishev1" class="section level3">
+<h3>Matthew Malishev<sup>1*</sup></h3>
+<div id="department-of-biology-emory-university-1510-clifton-road-ne-atlanta-ga-usa-30322" class="section level5">
+<h5><em><sup>1</sup> Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322</em></h5>
+<p>Date: 2019-07-10<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
 
+</div>
+</div>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
 <p>This document outlines some useful <code>R</code> code for plotting, cool functions, and other random tidbits.</p>
@@ -389,32 +399,33 @@ This document can be found at <a href="https://github.com/darwinanddavis/UsefulC
 <h3>Attributes</h3>
 <p>Access structural attributes of unique classes, such as raster and ggmap (bbox).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Normal example</span>
-df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;X&quot;</span>=<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>),<span class="st">&quot;Y&quot;</span>=<span class="kw">c</span>(<span class="dv">6</span><span class="op">:</span><span class="dv">10</span>))
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>), <span class="dt">Y =</span> <span class="kw">c</span>(<span class="dv">6</span><span class="op">:</span><span class="dv">10</span>))
 <span class="kw">str</span>(df)
 df<span class="op">$</span>X
 
 <span class="co"># `attr` method</span>
 <span class="kw">require</span>(ggmap)
-map &lt;-<span class="st"> </span><span class="kw">get_map</span>(<span class="st">&quot;Atlanta&quot;</span>,<span class="dt">zoom=</span><span class="dv">12</span>,<span class="dt">source=</span><span class="st">&quot;stamen&quot;</span>,<span class="dt">maptype=</span><span class="st">&quot;toner-lines&quot;</span>)
+map &lt;-<span class="st"> </span><span class="kw">get_map</span>(<span class="st">&quot;Atlanta&quot;</span>, <span class="dt">zoom =</span> <span class="dv">12</span>, <span class="dt">source =</span> <span class="st">&quot;stamen&quot;</span>, <span class="dt">maptype =</span> <span class="st">&quot;toner-lines&quot;</span>)
 <span class="kw">str</span>(map)
-<span class="kw">attr</span>(map,<span class="st">&quot;bb&quot;</span>)<span class="op">$</span>ll.lat</code></pre></div>
+<span class="kw">attr</span>(map, <span class="st">&quot;bb&quot;</span>)<span class="op">$</span>ll.lat</code></pre></div>
 </div>
 <div id="classes" class="section level3">
 <h3>Classes</h3>
 <p>Convert character to factor to numeric without conversion error</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.table</span>(f,<span class="dt">header=</span>T,<span class="dt">sep=</span><span class="st">&quot;,&quot;</span>,<span class="dt">row.names=</span><span class="ot">NULL</span>,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>, <span class="dt">strip.white=</span><span class="ot">TRUE</span>)
-f<span class="op">$</span>V2&lt;-<span class="kw">as.numeric</span>(f<span class="op">$</span>V2)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.table</span>(f, <span class="dt">header =</span> T, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names =</span> <span class="ot">NULL</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">strip.white =</span> <span class="ot">TRUE</span>)
+f<span class="op">$</span>V2 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(f<span class="op">$</span>V2)</code></pre></div>
 <p>See call options for class</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">methods</span>(<span class="dt">class=</span><span class="st">&quot;estUDm&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">methods</span>(<span class="dt">class =</span> <span class="st">&quot;estUDm&quot;</span>)</code></pre></div>
 <p>Set dynamic input for variable / assign variable to char vector</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shadedens&lt;-<span class="cf">function</span>(shadedens){ <span class="co"># set shade density to clumped (to match food) or sparse </span>
-  <span class="cf">if</span> (shadedens <span class="op">==</span><span class="st"> &quot;Random&quot;</span>){
-    <span class="kw">NLCommand</span>(<span class="st">&quot;set Shade-density </span><span class="ch">\&quot;</span><span class="st">Random</span><span class="ch">\&quot;</span><span class="st"> &quot;</span>) 
-    }<span class="cf">else</span>{
-    <span class="kw">NLCommand</span>(<span class="st">&quot;set Shade-density </span><span class="ch">\&quot;</span><span class="st">Clumped</span><span class="ch">\&quot;</span><span class="st"> &quot;</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shadedens &lt;-<span class="st"> </span><span class="cf">function</span>(shadedens) {
+    <span class="co"># set shade density to clumped (to match food) or sparse</span>
+    <span class="cf">if</span> (shadedens <span class="op">==</span><span class="st"> &quot;Random&quot;</span>) {
+        <span class="kw">NLCommand</span>(<span class="st">&quot;set Shade-density </span><span class="ch">\&quot;</span><span class="st">Random</span><span class="ch">\&quot;</span><span class="st"> &quot;</span>)
+    } <span class="cf">else</span> {
+        <span class="kw">NLCommand</span>(<span class="st">&quot;set Shade-density </span><span class="ch">\&quot;</span><span class="st">Clumped</span><span class="ch">\&quot;</span><span class="st"> &quot;</span>)
     }
-  }
-<span class="kw">shadedens</span>(<span class="st">&quot;Clumped&quot;</span>) <span class="co"># set clumped resources</span></code></pre></div>
+}
+<span class="kw">shadedens</span>(<span class="st">&quot;Clumped&quot;</span>)  <span class="co"># set clumped resources</span></code></pre></div>
 </div>
 <div id="d3-apps" class="section level3">
 <h3>D3 apps</h3>
@@ -427,40 +438,33 @@ f<span class="op">$</span>V2&lt;-<span class="kw">as.numeric</span>(f<span class
 URL &lt;-<span class="st"> &quot;https://cdn.rawgit.com/christophergandrud/networkD3/master/JSONdata/energy.json&quot;</span>
 Energy &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">fromJSON</span>(URL)
 
-<span class="co"># Now we have 2 data frames: a 'links' data frame with 3 columns (from, to, value), and a 'nodes' data frame that gives the name of each node.</span>
+<span class="co"># Now we have 2 data frames: a 'links' data frame with 3 columns (from, to, value), and a 'nodes'</span>
+<span class="co"># data frame that gives the name of each node.</span>
 <span class="kw">head</span>(Energy<span class="op">$</span>links)
 <span class="kw">head</span>(Energy<span class="op">$</span>nodes)
 
 <span class="co"># Thus we can plot it</span>
-<span class="kw">sankeyNetwork</span>(<span class="dt">Links =</span> Energy<span class="op">$</span>links, <span class="dt">Nodes =</span> Energy<span class="op">$</span>nodes, <span class="dt">Source =</span> <span class="st">&quot;source&quot;</span>,
-              <span class="dt">Target =</span> <span class="st">&quot;target&quot;</span>, <span class="dt">Value =</span> <span class="st">&quot;value&quot;</span>, <span class="dt">NodeID =</span> <span class="st">&quot;name&quot;</span>,
-              <span class="dt">units =</span> <span class="st">&quot;TWh&quot;</span>, <span class="dt">fontSize =</span> <span class="dv">12</span>, <span class="dt">nodeWidth =</span> <span class="dv">30</span>)
+<span class="kw">sankeyNetwork</span>(<span class="dt">Links =</span> Energy<span class="op">$</span>links, <span class="dt">Nodes =</span> Energy<span class="op">$</span>nodes, <span class="dt">Source =</span> <span class="st">&quot;source&quot;</span>, <span class="dt">Target =</span> <span class="st">&quot;target&quot;</span>, <span class="dt">Value =</span> <span class="st">&quot;value&quot;</span>, 
+    <span class="dt">NodeID =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">units =</span> <span class="st">&quot;TWh&quot;</span>, <span class="dt">fontSize =</span> <span class="dv">12</span>, <span class="dt">nodeWidth =</span> <span class="dv">30</span>)
 
-?sankeyNetwork</code></pre></div>
+<span class="st">`</span><span class="dt">?</span><span class="st">`</span>(sankeyNetwork)</code></pre></div>
 </div>
 <div id="dataframes" class="section level3">
 <h3>Dataframes</h3>
 <p>Optimal empty data frame</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Date=</span><span class="kw">as.Date</span>(<span class="kw">character</span>()),
-                 <span class="dt">X=</span><span class="kw">numeric</span>(), 
-                 <span class="dt">Y=</span><span class="kw">integer</span>(), 
-                 <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Date =</span> <span class="kw">as.Date</span>(<span class="kw">character</span>()), <span class="dt">X =</span> <span class="kw">numeric</span>(), <span class="dt">Y =</span> <span class="kw">integer</span>(), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Add df cols with <code>mutate</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(dplyr)  
-df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;a&quot;</span>=<span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="st">&quot;b&quot;</span>=(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>))
-df <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(
-  <span class="st">&quot;c&quot;</span>=<span class="kw">rnorm</span>(<span class="dv">20</span>),
-  <span class="dt">b =</span> b <span class="op">*</span><span class="dv">67</span>
-  )</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(dplyr)
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">b =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>))
+df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>), <span class="dt">b =</span> b <span class="op">*</span><span class="st"> </span><span class="dv">67</span>)</code></pre></div>
 <p>Change <code>df</code> column names</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(data)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;TimeStamp&quot;</span>,<span class="st">&quot;Lat&quot;</span>,<span class="st">&quot;Long&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(data)[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;TimeStamp&quot;</span>, <span class="st">&quot;Lat&quot;</span>, <span class="st">&quot;Long&quot;</span>)</code></pre></div>
 <p>Remove multiple columns from df</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Remove multiple NA columns  
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Remove multiple NA columns
 rm_cols &lt;-<span class="st"> </span><span class="kw">grep</span>(<span class="st">&quot;NA&quot;</span>, <span class="kw">names</span>(tt), <span class="dt">ignore.case =</span> F)
-df[,<span class="kw">colnames</span>(df[,rm_cols])] &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="ot">NULL</span>)</code></pre></div>
+df[, <span class="kw">colnames</span>(df[, rm_cols])] &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="ot">NULL</span>)</code></pre></div>
 <p>Check number of characters in each column</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(meso1, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">nchar</span>(x)))   </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(meso1, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">nchar</span>(x)))</code></pre></div>
 </div>
 <div id="generic-functions" class="section level3">
 <h3>Generic functions</h3>
@@ -469,21 +473,20 @@ df[,<span class="kw">colnames</span>(df[,rm_cols])] &lt;-<span class="st"> </spa
 xx &lt;-<span class="st"> &quot;Some copied text or table from the internet&quot;</span>
 <span class="kw">dput</span>(xx)</code></pre></div>
 <p>Round up integers to optimal rounded value</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">46</span>,<span class="dv">11</span>,<span class="dv">23</span>)
-<span class="kw">round_any</span>(nn,<span class="dv">10</span>)
-<span class="kw">round_any</span>(nn,<span class="dv">10</span>,ceiling)
-<span class="kw">round_any</span>(nn,<span class="dv">10</span>,floor)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">46</span>, <span class="dv">11</span>, <span class="dv">23</span>)
+<span class="kw">round_any</span>(nn, <span class="dv">10</span>)
+<span class="kw">round_any</span>(nn, <span class="dv">10</span>, ceiling)
+<span class="kw">round_any</span>(nn, <span class="dv">10</span>, floor)</code></pre></div>
 <p>Get summary stats for dataset (means)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">means =<span class="st"> </span><span class="kw">aggregate</span>(Cumulative_cercs <span class="op">~</span><span class="st"> </span>r<span class="op">*</span>hb, <span class="dt">data=</span>df,  <span class="dt">FUN=</span>mean)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">means =<span class="st"> </span><span class="kw">aggregate</span>(Cumulative_cercs <span class="op">~</span><span class="st"> </span>r <span class="op">*</span><span class="st"> </span>hb, <span class="dt">data =</span> df, <span class="dt">FUN =</span> mean)</code></pre></div>
 </div>
 <div id="ggplot-functions" class="section level3">
 <h3><code>ggplot</code> functions</h3>
 <p>Remove annoying stock gridlines from plot window</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.border =</span> <span class="kw">element_blank</span>(), <span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),
-                            <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.line =</span> <span class="kw">element_line</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">panel.border =</span> <span class="kw">element_blank</span>(), <span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(), <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(), 
+    <span class="dt">axis.line =</span> <span class="kw">element_line</span>(<span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>))
 <span class="co"># alternative (after loading ggridges library)</span>
-<span class="kw">theme_ridges</span>(<span class="dt">grid=</span>F,<span class="dt">center_axis_labels =</span> T)</code></pre></div>
+<span class="kw">theme_ridges</span>(<span class="dt">grid =</span> F, <span class="dt">center_axis_labels =</span> T)</code></pre></div>
 <p>Setting global graphics theme for ggplot</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_it_gg &lt;-<span class="st"> </span><span class="cf">function</span>(bg,family){ <span class="co"># bg = colour to plot bg, family = font family</span>
   <span class="kw">theme_tufte</span>(<span class="dt">base_family =</span> family) <span class="op">+</span>
@@ -508,18 +511,14 @@ xx &lt;-<span class="st"> &quot;Some copied text or table from the internet&quot
 <p>Put plot in function to take dynamic data inputs<br />
 Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-local-elections-in-helsinki.html" class="uri">http://jcborras.net/carpet/visualizing-political-divergences-2012-local-elections-in-helsinki.html</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hr.mass.plot &lt;-<span class="st"> </span><span class="cf">function</span>(d) {
-  p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(HR, Mass, <span class="dt">color =</span> colfunc)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_density_2d</span>(<span class="dt">data=</span>d, <span class="kw">aes</span>(<span class="dt">x =</span> HR, <span class="dt">y =</span> Mass), 
-                    <span class="dt">stat =</span> <span class="st">&quot;density2d&quot;</span>,<span class="dt">position=</span><span class="st">&quot;identity&quot;</span>, 
-                    <span class="dt">color=</span><span class="kw">adjustcolor</span>(<span class="st">&quot;orange&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.8</span>), <span class="dt">size=</span><span class="fl">1.5</span>, <span class="dt">contour =</span> T, <span class="dt">lineend=</span><span class="st">&quot;square&quot;</span>,<span class="dt">linejoin=</span><span class="st">&quot;round&quot;</span>) 
-  p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data=</span>d, <span class="kw">aes</span>(<span class="dt">x =</span> HR, <span class="dt">y =</span> Mass),
-                      <span class="dt">color=</span>colfunc,
-                      <span class="dt">fill=</span>colfunc) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">magma</span>(<span class="dv">8</span>))
-  p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">200</span>,<span class="dv">200</span>), <span class="dt">name=</span><span class="st">&quot;Mass lost (g)&quot;</span>) 
-  p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">limits=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.35</span>),<span class="dt">name=</span><span class="kw">expression</span>(<span class="st">&quot;Home range area (km^2)&quot;</span>)) 
-  p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()
-  <span class="kw">print</span>(p)
+    p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(HR, Mass, <span class="dt">color =</span> colfunc)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_density_2d</span>(<span class="dt">data =</span> d, <span class="kw">aes</span>(<span class="dt">x =</span> HR, <span class="dt">y =</span> Mass), 
+        <span class="dt">stat =</span> <span class="st">&quot;density2d&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">color =</span> <span class="kw">adjustcolor</span>(<span class="st">&quot;orange&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>), <span class="dt">size =</span> <span class="fl">1.5</span>, 
+        <span class="dt">contour =</span> T, <span class="dt">lineend =</span> <span class="st">&quot;square&quot;</span>, <span class="dt">linejoin =</span> <span class="st">&quot;round&quot;</span>)
+    p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> d, <span class="kw">aes</span>(<span class="dt">x =</span> HR, <span class="dt">y =</span> Mass), <span class="dt">color =</span> colfunc, <span class="dt">fill =</span> colfunc) <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">magma</span>(<span class="dv">8</span>))
+    p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">200</span>, <span class="dv">200</span>), <span class="dt">name =</span> <span class="st">&quot;Mass lost (g)&quot;</span>)
+    p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.35</span>), <span class="dt">name =</span> <span class="kw">expression</span>(<span class="st">&quot;Home range area (km^2)&quot;</span>))
+    p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()
+    <span class="kw">print</span>(p)
 }
 <span class="kw">hr.mass.plot</span>(d)</code></pre></div>
 <p>Using <code>ggplot</code> when looping through <code>for</code> loop and saving to dir</p>
@@ -543,126 +542,116 @@ Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-
 <span class="kw">dev.off</span>()</code></pre></div>
 <p>Converting lists and dataframes to usable format for <code>ggplot</code> (<code>melt</code> package)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ------------------------- plot individual outputs -------------------------</span>
-mm_ =<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">paste0</span>(model.path,fh,<span class="st">&quot;.R&quot;</span>))
+mm_ =<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">paste0</span>(model.path, fh, <span class="st">&quot;.R&quot;</span>))
 <span class="kw">cat</span>(<span class="st">&quot;order = cerc, food, juv, adult, infected, infected shedding, host length, parasite mass&quot;</span>)
 <span class="co"># plot master</span>
 mm &lt;-<span class="st"> </span>mm_[[<span class="dv">2</span>]]
-y_m &lt;-<span class="st"> </span><span class="kw">melt</span>(mm);y_m
-<span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> y_m, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rep.int</span>(<span class="dv">1</span><span class="op">:</span>n.ticks,<span class="kw">max</span>(L1)) , <span class="dt">y =</span> value, <span class="dt">group =</span> L1, <span class="dt">colour=</span><span class="kw">factor</span>(L1)), ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> y_m, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rep.int</span>(<span class="dv">1</span><span class="op">:</span>n.ticks,<span class="kw">max</span>(L1)) , <span class="dt">y =</span> value, <span class="dt">group =</span> L1, <span class="dt">colour=</span><span class="kw">factor</span>(L1)), ) <span class="op">+</span>
-<span class="st">  </span><span class="co">#linetype=y_m$L1) +</span>
-<span class="st">  </span><span class="kw">theme_tufte</span>() 
-<span class="co"># +  geom_text(x=,y=,label = max(value),check_overlap = TUE)</span></code></pre></div>
+y_m &lt;-<span class="st"> </span><span class="kw">melt</span>(mm)
+y_m
+<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> y_m, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rep.int</span>(<span class="dv">1</span><span class="op">:</span>n.ticks, <span class="kw">max</span>(L1)), <span class="dt">y =</span> value, <span class="dt">group =</span> L1, <span class="dt">colour =</span> <span class="kw">factor</span>(L1)), 
+    ) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> y_m, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rep.int</span>(<span class="dv">1</span><span class="op">:</span>n.ticks, <span class="kw">max</span>(L1)), <span class="dt">y =</span> value, <span class="dt">group =</span> L1, <span class="dt">colour =</span> <span class="kw">factor</span>(L1)), 
+    ) <span class="op">+</span><span class="st"> </span><span class="co"># linetype=y_m$L1) +</span>
+<span class="kw">theme_tufte</span>()
+<span class="co"># + geom_text(x=,y=,label = max(value),check_overlap = TUE)</span></code></pre></div>
 <p>Insert math expression in legend title</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">bquote</span>(<span class="st">&quot;Hello&quot;</span> <span class="op">~</span><span class="st"> </span>r[xy] <span class="op">~</span><span class="st"> &quot;and&quot;</span> <span class="op">~</span><span class="st"> </span>B<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">bquote</span>(<span class="st">&quot;Hello&quot;</span> <span class="op">~</span><span class="st"> </span>r[xy] <span class="op">~</span><span class="st"> &quot;and&quot;</span> <span class="op">~</span><span class="st"> </span>B<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
 <p>Create double line break with expression in legend title (and labels)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(
-    <span class="kw">expression</span>(<span class="kw">atop</span>(<span class="st">&quot;text&quot;</span>, 
-    <span class="kw">atop</span>(<span class="kw">textstyle</span>(epsilon))))
-    )</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="kw">expression</span>(<span class="kw">atop</span>(<span class="st">&quot;text&quot;</span>, <span class="kw">atop</span>(<span class="kw">textstyle</span>(epsilon)))))</code></pre></div>
 </div>
 <div id="lists" class="section level3">
 <h3>Lists</h3>
 <p>Find maximum value in entire list</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">master &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">100</span>,<span class="kw">rnorm</span>(<span class="dv">12</span>))
-<span class="kw">do.call</span>(max,master)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">master &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">100</span>, <span class="kw">rnorm</span>(<span class="dv">12</span>))
+<span class="kw">do.call</span>(max, master)</code></pre></div>
 <p>Plot all elements in a list</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xx &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">sample</span>(<span class="dv">5</span>,<span class="dv">1000</span>,<span class="dt">replace=</span>T),<span class="kw">rnorm</span>(<span class="dv">1000</span>),<span class="kw">sample</span>(<span class="dv">50</span>,<span class="dv">1000</span>,<span class="dt">replace=</span>T))
-<span class="kw">plot</span>(<span class="kw">unlist</span>(xx),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xx &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">sample</span>(<span class="dv">5</span>, <span class="dv">1000</span>, <span class="dt">replace =</span> T), <span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="kw">sample</span>(<span class="dv">50</span>, <span class="dv">1000</span>, <span class="dt">replace =</span> T))
+<span class="kw">plot</span>(<span class="kw">unlist</span>(xx), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</code></pre></div>
 <p>Apply each row of df or vector to individual elements of a list</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;events&quot;</span> =<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>], <span class="st">&quot;outs&quot;</span> =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
-<span class="kw">sapply</span>(df<span class="op">$</span>outs,list)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">events =</span> LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>], <span class="dt">outs =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
+<span class="kw">sapply</span>(df<span class="op">$</span>outs, list)</code></pre></div>
 <p>Append extra element onto existing list</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rv &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1000</span>,<span class="dv">15</span>) <span class="co"># random vector</span>
-listvec &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">7</span>),list) <span class="co"># list with 7 empty elements</span>
-listvec_final &lt;-<span class="st"> </span><span class="kw">c</span>(listvec,<span class="kw">list</span>(rv)) <span class="co"># append rv</span>
-listvec_final &lt;-<span class="st"> </span><span class="kw">c</span>(listvec,rv) <span class="co"># to append rv contents as separate elements, remove internal list </span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rv &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1000</span>, <span class="dv">15</span>)  <span class="co"># random vector</span>
+listvec &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">7</span>), list)  <span class="co"># list with 7 empty elements</span>
+listvec_final &lt;-<span class="st"> </span><span class="kw">c</span>(listvec, <span class="kw">list</span>(rv))  <span class="co"># append rv</span>
+listvec_final &lt;-<span class="st"> </span><span class="kw">c</span>(listvec, rv)  <span class="co"># to append rv contents as separate elements, remove internal list </span></code></pre></div>
 </div>
 <div id="loops" class="section level3">
 <h3>Loops</h3>
 <p>Save loop output in master list</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pars &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.5</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pars &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)
 master &lt;-<span class="st"> </span><span class="kw">list</span>()
 t_list &lt;-<span class="st"> </span><span class="kw">list</span>()
-<span class="cf">for</span> (p <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pars)){
-  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">5</span>){
-    tt &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span><span class="op">*</span>t)
-    t_list[t] &lt;-tt 
-  }
-  master[[<span class="kw">length</span>(master)<span class="op">+</span><span class="dv">1</span>]] &lt;-<span class="st"> </span>t_list <span class="co"># store in master list</span>
-} </code></pre></div>
+<span class="cf">for</span> (p <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pars)) {
+    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">5</span>) {
+        tt &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span> <span class="op">*</span><span class="st"> </span>t)
+        t_list[t] &lt;-<span class="st"> </span>tt
+    }
+    master[[<span class="kw">length</span>(master) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]] &lt;-<span class="st"> </span>t_list  <span class="co"># store in master list</span>
+}</code></pre></div>
 <p>Optimal way to save results to data frame in loop</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(dplyr)
 
-fun &lt;-<span class="st"> </span>sum <span class="co"># sum # choose mean or sum  </span>
-out_first &lt;-<span class="st"> </span><span class="kw">list</span>() <span class="co"># create first empty list</span>
-out_second &lt;-<span class="st"> </span><span class="kw">list</span>() <span class="co"># create second empty list</span>
+fun &lt;-<span class="st"> </span>sum  <span class="co"># sum # choose mean or sum  </span>
+out_first &lt;-<span class="st"> </span><span class="kw">list</span>()  <span class="co"># create first empty list</span>
+out_second &lt;-<span class="st"> </span><span class="kw">list</span>()  <span class="co"># create second empty list</span>
 
-<span class="cf">for</span>(me <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
-  global_output_fh =<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">getwd</span>(),<span class="st">&quot;/&quot;</span>,me,<span class="st">&quot;.R&quot;</span>) <span class="co"># get file handle</span>
-  output &lt;-<span class="st"> </span><span class="kw">readRDS</span>(global_output_fh) <span class="co"># read in file </span>
-  cercs &lt;-<span class="st"> </span>output[[<span class="dv">1</span>]] <span class="co"># get data </span>
-  <span class="co"># define function </span>
-  SEM =<span class="st"> </span><span class="cf">function</span>(x){
-    <span class="kw">sd</span>(x)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">length</span>(x))
-  }
-  <span class="co"># create col name to pass to aggregate function </span>
-  cerc_outs =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Outs&quot;</span> =<span class="st"> </span>cercs) 
-  outs =<span class="st"> </span><span class="kw">aggregate</span>(Outs <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>cerc_outs,  <span class="dt">FUN=</span>fun)
-  cerc_se =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;SEs&quot;</span> =<span class="st"> </span>cercs) 
-  se =<span class="st"> </span><span class="kw">aggregate</span>(SEs <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>cerc_se, <span class="dt">FUN=</span>SEM)
-  
-  <span class="co"># save to df by creating new df cols </span>
-  outs<span class="op">$</span>me &lt;-<span class="st"> </span>me  <span class="co"># create new col with iteration</span>
-  out_first[[me]] &lt;-<span class="st"> </span>outs <span class="co"># add first output to list</span>
-  out_second[[me]] &lt;-<span class="st"> </span>se <span class="co"># add second output to list</span>
-} <span class="co"># end file read  </span>
+<span class="cf">for</span> (me <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+    global_output_fh =<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">getwd</span>(), <span class="st">&quot;/&quot;</span>, me, <span class="st">&quot;.R&quot;</span>)  <span class="co"># get file handle</span>
+    output &lt;-<span class="st"> </span><span class="kw">readRDS</span>(global_output_fh)  <span class="co"># read in file </span>
+    cercs &lt;-<span class="st"> </span>output[[<span class="dv">1</span>]]  <span class="co"># get data </span>
+    <span class="co"># define function</span>
+    SEM =<span class="st"> </span><span class="cf">function</span>(x) {
+        <span class="kw">sd</span>(x)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">length</span>(x))
+    }
+    <span class="co"># create col name to pass to aggregate function</span>
+    cerc_outs =<span class="st"> </span><span class="kw">list</span>(<span class="dt">Outs =</span> cercs)
+    outs =<span class="st"> </span><span class="kw">aggregate</span>(Outs <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> cerc_outs, <span class="dt">FUN =</span> fun)
+    cerc_se =<span class="st"> </span><span class="kw">list</span>(<span class="dt">SEs =</span> cercs)
+    se =<span class="st"> </span><span class="kw">aggregate</span>(SEs <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> cerc_se, <span class="dt">FUN =</span> SEM)
+    
+    <span class="co"># save to df by creating new df cols</span>
+    outs<span class="op">$</span>me &lt;-<span class="st"> </span>me  <span class="co"># create new col with iteration</span>
+    out_first[[me]] &lt;-<span class="st"> </span>outs  <span class="co"># add first output to list</span>
+    out_second[[me]] &lt;-<span class="st"> </span>se  <span class="co"># add second output to list</span>
+}  <span class="co"># end file read  </span>
 
 <span class="co"># option 1</span>
-out_final =<span class="st"> </span><span class="kw">do.call</span>(rbind, out_first) 
-<span class="co"># option 2 </span>
-out_final &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(out_first) <span class="co"># make fresh df </span>
-out_final<span class="op">$</span>Second &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(out_second) <span class="co"># add second col</span></code></pre></div>
+out_final =<span class="st"> </span><span class="kw">do.call</span>(rbind, out_first)
+<span class="co"># option 2</span>
+out_final &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(out_first)  <span class="co"># make fresh df </span>
+out_final<span class="op">$</span>Second &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(out_second)  <span class="co"># add second col</span></code></pre></div>
 </div>
 <div id="maps" class="section level3">
 <h3>Maps</h3>
 <p>High res maps</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># https://hecate.hakai.org/rguide/mapping-in-r.html</span>
-<span class="kw">require</span>(maptools) 
-d &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;worldHires&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Colombia&quot;</span>,<span class="st">&quot;Ecuador&quot;</span>,<span class="st">&quot;Peru&quot;</span>,<span class="st">&quot;Panama&quot;</span>))
+<span class="kw">require</span>(maptools)
+d &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;worldHires&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Ecuador&quot;</span>, <span class="st">&quot;Peru&quot;</span>, <span class="st">&quot;Panama&quot;</span>))
 
-<span class="co"># plot </span>
-<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data=</span>d,<span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat, <span class="dt">group =</span> group), <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">col=</span><span class="st">&quot;pink&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="co"># theme_tufte(ticks=F) +</span>
-<span class="st">  </span><span class="kw">theme_nothing</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_map</span>(<span class="st">&quot;mercator&quot;</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">75</span>,<span class="op">-</span><span class="dv">81</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">8</span>))</code></pre></div>
+<span class="co"># plot</span>
+<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> d, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;pink&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="co"># theme_tufte(ticks=F) +</span>
+<span class="kw">theme_nothing</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_map</span>(<span class="st">&quot;mercator&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">75</span>, <span class="op">-</span><span class="dv">81</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>))</code></pre></div>
 <p>Read in KMZ/KML data (Google Maps data)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(sf)  
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(sf)
 zp &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">st_read</span>(<span class="st">&quot;ziggy_test.kml&quot;</span>)</code></pre></div>
 </div>
 <div id="messages" class="section level3">
 <h3>Messages</h3>
 <p>Display status message of progress</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
-  <span class="kw">Sys.sleep</span>(<span class="fl">0.2</span>)
-  <span class="co"># Dirk says using cat() like this is naughty ;-)</span>
-  <span class="co">#cat(i,&quot;\r&quot;)</span>
-  <span class="co"># So you can use message() like this, thanks to Sharpie's</span>
-  <span class="co"># comment to use appendLF=FALSE.</span>
-  <span class="kw">message</span>(i,<span class="st">&quot;</span><span class="ch">\r</span><span class="st">&quot;</span>,<span class="dt">appendLF=</span><span class="ot">FALSE</span>) <span class="co"># appendLF = new line </span>
-  <span class="kw">flush.console</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+    <span class="kw">Sys.sleep</span>(<span class="fl">0.2</span>)
+    <span class="co"># Dirk says using cat() like this is naughty ;-) cat(i,'\r') So you can use message() like this,</span>
+    <span class="co"># thanks to Sharpie's comment to use appendLF=FALSE.</span>
+    <span class="kw">message</span>(i, <span class="st">&quot;</span><span class="ch">\r</span><span class="st">&quot;</span>, <span class="dt">appendLF =</span> <span class="ot">FALSE</span>)  <span class="co"># appendLF = new line </span>
+    <span class="kw">flush.console</span>()
 }</code></pre></div>
 <p>Display popup progress bar</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(tcltk)
-pb &lt;-<span class="st"> </span><span class="kw">tkProgressBar</span>(<span class="st">&quot;test progress bar&quot;</span>, <span class="st">&quot;Some information in %&quot;</span>,
-        <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">50</span>)
+pb &lt;-<span class="st"> </span><span class="kw">tkProgressBar</span>(<span class="st">&quot;test progress bar&quot;</span>, <span class="st">&quot;Some information in %&quot;</span>, <span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">50</span>)
 <span class="kw">Sys.sleep</span>(<span class="fl">0.5</span>)
-u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">sort</span>(<span class="kw">runif</span>(<span class="dv">20</span>, <span class="dv">0</span> ,<span class="dv">100</span>)), <span class="dv">100</span>)
-<span class="cf">for</span>(i <span class="cf">in</span> u) {
+u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">sort</span>(<span class="kw">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">100</span>)), <span class="dv">100</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> u) {
     <span class="kw">Sys.sleep</span>(<span class="fl">0.1</span>)
     info &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">&quot;%d%% done&quot;</span>, <span class="kw">round</span>(i))
     <span class="kw">setTkProgressBar</span>(pb, i, <span class="kw">sprintf</span>(<span class="st">&quot;test (%s)&quot;</span>, info), info)
@@ -674,45 +663,43 @@ u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</sp
 <h3><code>NAs</code> and <code>NaNs</code></h3>
 <p>Replace NAs and NaNs with 0’s</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="kw">is.na</span>(df)] &lt;-<span class="st"> </span><span class="dv">0</span>
-df[<span class="kw">is.nan</span>(df)] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># good for matrices </span></code></pre></div>
+df[<span class="kw">is.nan</span>(df)] &lt;-<span class="st"> </span><span class="dv">0</span>  <span class="co"># good for matrices </span></code></pre></div>
 <p>Replace X values less than given value (V) with 0</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>X[df<span class="op">$</span>X<span class="op">&lt;</span>V] &lt;-<span class="st"> </span><span class="dv">0</span> </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>X[df<span class="op">$</span>X <span class="op">&lt;</span><span class="st"> </span>V] &lt;-<span class="st"> </span><span class="dv">0</span></code></pre></div>
 <p>Check for <code>NAs</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(df, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))</code></pre></div>
 <p>snail.update[is.nan(snail.update)] &lt;- 0 Replace <code>NaN</code> and <code>Inf</code> values with <code>NA</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>col1[<span class="kw">which</span>(<span class="op">!</span><span class="kw">is.finite</span>(df<span class="op">$</span>col1))] &lt;-<span class="st">  </span><span class="ot">NA</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>col1[<span class="kw">which</span>(<span class="op">!</span><span class="kw">is.finite</span>(df<span class="op">$</span>col1))] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
 <p>Fill in missing data values in sequence with <code>NA</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># /Users/malishev/Documents/Manuscripts/Chapter4/Sims/Chapter4_figs.R</span>
 <span class="kw">library</span>(zoo)
-data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">index =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>),
-  <span class="dt">data =</span> <span class="kw">c</span>(<span class="fl">1.5</span>,<span class="fl">4.3</span>,<span class="fl">5.6</span>,<span class="fl">6.7</span>,<span class="fl">7.1</span>,<span class="fl">12.5</span>,<span class="fl">14.5</span>,<span class="fl">16.8</span>,<span class="fl">3.4</span>))
-<span class="co">#you can create a series</span>
+data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">index =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>), <span class="dt">data =</span> <span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">4.3</span>, <span class="fl">5.6</span>, <span class="fl">6.7</span>, <span class="fl">7.1</span>, <span class="fl">12.5</span>, <span class="fl">14.5</span>, <span class="fl">16.8</span>, <span class="fl">3.4</span>))
+<span class="co"># you can create a series</span>
 z &lt;-<span class="st"> </span><span class="kw">zoo</span>(data<span class="op">$</span>data, data<span class="op">$</span>index)
-<span class="co">#end extend it to the grid 1:10</span>
-z &lt;-<span class="st"> </span><span class="kw">merge</span>(<span class="kw">zoo</span>(,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>), z)
+<span class="co"># end extend it to the grid 1:10</span>
+z &lt;-<span class="st"> </span><span class="kw">merge</span>(<span class="kw">zoo</span>(, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>), z)
 
-<span class="co">#worked example</span>
-<span class="co"># fill in missing Tb values </span>
-minTb.d &lt;-<span class="st"> </span><span class="kw">zoo</span>(minTb<span class="op">$</span>Tick,minTb<span class="op">$</span>Days)
-minTb.d &lt;-<span class="st"> </span><span class="kw">merge</span>(<span class="kw">zoo</span>(<span class="ot">NULL</span>,<span class="dv">1</span><span class="op">:</span>days), minTb.d) <span class="co"># make the minTb series match the temp series (117 days)</span>
-minTb.d &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(minTb.d) <span class="co"># = time individuals reached VTMIN in ticks</span>
-minTb &lt;-<span class="st"> </span>minTb.d <span class="op">-</span><span class="st"> </span>temp<span class="op">$</span>Tick <span class="co"># get diff between starting time and time to reach VTMIN</span>
-minTb &lt;-<span class="st"> </span>minTb<span class="op">/</span><span class="dv">2</span> <span class="co"># convert ticks to minutes</span>
-minTb &lt;-<span class="st"> </span>minTb<span class="op">/</span><span class="dv">60</span> <span class="co">#convert to hours</span>
-minTb &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Days&quot;</span>=<span class="dv">1</span><span class="op">:</span>days,<span class="st">&quot;Time&quot;</span>=minTb)
+<span class="co"># worked example fill in missing Tb values</span>
+minTb.d &lt;-<span class="st"> </span><span class="kw">zoo</span>(minTb<span class="op">$</span>Tick, minTb<span class="op">$</span>Days)
+minTb.d &lt;-<span class="st"> </span><span class="kw">merge</span>(<span class="kw">zoo</span>(<span class="ot">NULL</span>, <span class="dv">1</span><span class="op">:</span>days), minTb.d)  <span class="co"># make the minTb series match the temp series (117 days)</span>
+minTb.d &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(minTb.d)  <span class="co"># = time individuals reached VTMIN in ticks</span>
+minTb &lt;-<span class="st"> </span>minTb.d <span class="op">-</span><span class="st"> </span>temp<span class="op">$</span>Tick  <span class="co"># get diff between starting time and time to reach VTMIN</span>
+minTb &lt;-<span class="st"> </span>minTb<span class="op">/</span><span class="dv">2</span>  <span class="co"># convert ticks to minutes</span>
+minTb &lt;-<span class="st"> </span>minTb<span class="op">/</span><span class="dv">60</span>  <span class="co">#convert to hours</span>
+minTb &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Days =</span> <span class="dv">1</span><span class="op">:</span>days, <span class="dt">Time =</span> minTb)
 
 <span class="co"># then fill in missing values</span>
-<span class="kw">approx</span>(minTb<span class="op">$</span>Time,<span class="dt">method =</span> <span class="st">&quot;linear&quot;</span>)</code></pre></div>
+<span class="kw">approx</span>(minTb<span class="op">$</span>Time, <span class="dt">method =</span> <span class="st">&quot;linear&quot;</span>)</code></pre></div>
 <p>Remove rows with NA</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>data[<span class="op">!</span><span class="kw">is.na</span>(data<span class="op">$</span>X),]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>data[<span class="op">!</span><span class="kw">is.na</span>(data<span class="op">$</span>X), ]</code></pre></div>
 <p>Turn NULLs in list into NAs to get numeric values (fix for ‘cannot coerce double’ error)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hl_list &lt;-<span class="st"> </span><span class="kw">lapply</span>(hl_list, <span class="cf">function</span>(x) <span class="kw">ifelse</span>(x <span class="op">==</span><span class="st"> &quot;NULL&quot;</span>, <span class="ot">NA</span>, x))</code></pre></div>
 <p>Turn NaN or NAs in list into 0s</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># NaN</span>
-global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(global_output, <span class="dt">f=</span><span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.nan</span>(x),<span class="dv">0</span>,x), <span class="dt">how=</span><span class="st">&quot;replace&quot;</span> )
+global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(global_output, <span class="dt">f =</span> <span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.nan</span>(x), <span class="dv">0</span>, x), <span class="dt">how =</span> <span class="st">&quot;replace&quot;</span>)
 
 <span class="co"># NA</span>
-global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(global_output, <span class="dt">f=</span><span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.na</span>(x),<span class="dv">0</span>,x), <span class="dt">how=</span><span class="st">&quot;replace&quot;</span> )</code></pre></div>
+global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(global_output, <span class="dt">f =</span> <span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.na</span>(x), <span class="dv">0</span>, x), <span class="dt">how =</span> <span class="st">&quot;replace&quot;</span>)</code></pre></div>
 </div>
 <div id="packages" class="section level3">
 <h3>Packages</h3>
@@ -727,34 +714,30 @@ Create interactive GUI control toggles from <code>R</code>. Like an early Shiny.
 <div id="plotting" class="section level3">
 <h3>Plotting</h3>
 <p>Plot one plot window above and two below</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>))</code></pre></div>
 <p>Bookend axis ticks for plot E.g. at 0 and 100 when data is 1:99</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">axis</span>(<span class="dv">1</span>,<span class="dt">at=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">length</span>(loco<span class="op">$</span>X)),<span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>))<span class="co"># bookending axis tick marks</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">length</span>(loco<span class="op">$</span>X)), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>))  <span class="co"># bookending axis tick marks</span></code></pre></div>
 <p>Optimal legend formatting for base</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">legend</span>(<span class="st">&quot;right&quot;</span>,<span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Small&quot;</span>,<span class="st">&quot;Intermediate&quot;</span>,<span class="st">&quot;Large&quot;</span>),<span class="dt">col=</span><span class="kw">c</span>(colfunc[colvec[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]]),
-       <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">pt.cex=</span><span class="fl">1.5</span>,<span class="dt">cex=</span><span class="fl">0.7</span>,<span class="dt">y.intersp =</span> <span class="fl">0.5</span>, <span class="dt">xjust =</span> <span class="fl">0.5</span>,
-       <span class="dt">title=</span><span class="st">&quot;Size class&quot;</span>,<span class="dt">title.adj =</span> <span class="fl">0.3</span>,<span class="dt">text.font=</span><span class="dv">2</span>,
-       <span class="dt">trace=</span>T,<span class="dt">inset=</span><span class="fl">0.1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">legend</span>(<span class="st">&quot;right&quot;</span>, <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Small&quot;</span>, <span class="st">&quot;Intermediate&quot;</span>, <span class="st">&quot;Large&quot;</span>), <span class="dt">col =</span> <span class="kw">c</span>(colfunc[colvec[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]]), <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, 
+    <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">pt.cex =</span> <span class="fl">1.5</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>, <span class="dt">y.intersp =</span> <span class="fl">0.5</span>, <span class="dt">xjust =</span> <span class="fl">0.5</span>, <span class="dt">title =</span> <span class="st">&quot;Size class&quot;</span>, <span class="dt">title.adj =</span> <span class="fl">0.3</span>, 
+    <span class="dt">text.font =</span> <span class="dv">2</span>, <span class="dt">trace =</span> T, <span class="dt">inset =</span> <span class="fl">0.1</span>)</code></pre></div>
 <p>Plot inset plot in current plot (<a href="https://stackoverflow.com/questions/17041246/how-to-add-an-inset-subplot-to-topright-of-an-r-plot" class="uri">https://stackoverflow.com/questions/17041246/how-to-add-an-inset-subplot-to-topright-of-an-r-plot</a>)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate position of inset</span>
-plotdim &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="st">&quot;plt&quot;</span>)<span class="co"># get plot window dims as fraction of current plot dims </span>
-xleft    =<span class="st"> </span>plotdim[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>(plotdim[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>plotdim[<span class="dv">1</span>]) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>
-xright   =<span class="st"> </span>plotdim[<span class="dv">2</span>]  <span class="co">#</span>
-ybottom  =<span class="st"> </span>plotdim[<span class="dv">4</span>] <span class="op">-</span><span class="st"> </span>(plotdim[<span class="dv">4</span>] <span class="op">-</span><span class="st"> </span>plotdim[<span class="dv">3</span>]) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>  <span class="co">#</span>
-ytop     =<span class="st"> </span>plotdim[<span class="dv">4</span>]  <span class="co">#</span>
+plotdim &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="st">&quot;plt&quot;</span>)  <span class="co"># get plot window dims as fraction of current plot dims </span>
+xleft =<span class="st"> </span>plotdim[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>(plotdim[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>plotdim[<span class="dv">1</span>]) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>
+xright =<span class="st"> </span>plotdim[<span class="dv">2</span>]  <span class="co">#</span>
+ybottom =<span class="st"> </span>plotdim[<span class="dv">4</span>] <span class="op">-</span><span class="st"> </span>(plotdim[<span class="dv">4</span>] <span class="op">-</span><span class="st"> </span>plotdim[<span class="dv">3</span>]) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>  <span class="co">#</span>
+ytop =<span class="st"> </span>plotdim[<span class="dv">4</span>]  <span class="co">#</span>
 
 <span class="co"># set position for plot inset</span>
-<span class="kw">par</span>(<span class="dt">fig =</span> <span class="kw">c</span>(xleft, xright, ybottom, ytop),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">new=</span><span class="ot">TRUE</span>)
+<span class="kw">par</span>(<span class="dt">fig =</span> <span class="kw">c</span>(xleft, xright, ybottom, ytop), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">new =</span> <span class="ot">TRUE</span>)
 
-<span class="kw">boxplot</span>(Eggs<span class="op">~</span>Size,<span class="dt">data=</span>meso2,
-                <span class="dt">col=</span><span class="kw">adjustcolor</span>(colfunc[colvec[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]],<span class="dt">alpha=</span><span class="fl">0.5</span>),
-                <span class="dt">notch =</span> T,<span class="dt">xlab=</span><span class="st">&quot;Week&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Diameter (mm)&quot;</span>,
-                <span class="dt">xaxs =</span> <span class="st">&quot;i&quot;</span>, <span class="dt">yaxs =</span> <span class="st">&quot;i&quot;</span>
-                ) </code></pre></div>
+<span class="kw">boxplot</span>(Eggs <span class="op">~</span><span class="st"> </span>Size, <span class="dt">data =</span> meso2, <span class="dt">col =</span> <span class="kw">adjustcolor</span>(colfunc[colvec[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]], <span class="dt">alpha =</span> <span class="fl">0.5</span>), <span class="dt">notch =</span> T, <span class="dt">xlab =</span> <span class="st">&quot;Week&quot;</span>, 
+    <span class="dt">ylab =</span> <span class="st">&quot;Diameter (mm)&quot;</span>, <span class="dt">xaxs =</span> <span class="st">&quot;i&quot;</span>, <span class="dt">yaxs =</span> <span class="st">&quot;i&quot;</span>)</code></pre></div>
 <p>Interactive plots with rCharts (javascript and d3 viz)<br />
 <a href="http://ramnathv.github.io/rCharts/" class="uri">http://ramnathv.github.io/rCharts/</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(devtools)
-<span class="kw">install_github</span>(<span class="st">'rCharts'</span>, <span class="st">'ramnathv'</span>)</code></pre></div>
+<span class="kw">install_github</span>(<span class="st">&quot;rCharts&quot;</span>, <span class="st">&quot;ramnathv&quot;</span>)</code></pre></div>
 <p>Cluster plot<br />
 <a href="https://rpubs.com/dgrtwo/technology-clusters" class="uri">https://rpubs.com/dgrtwo/technology-clusters</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
@@ -763,93 +746,89 @@ ytop     =<span class="st"> </span>plotdim[<span class="dv">4</span>]  <span cla
 <span class="kw">library</span>(ggraph)
 <span class="kw">library</span>(ggforce)
 
-<span class="co"># This shared file contains the number of question that have each pair of tags</span>
-<span class="co"># This counts only questions that are not deleted and have a positive score</span>
+<span class="co"># This shared file contains the number of question that have each pair of tags This counts only</span>
+<span class="co"># questions that are not deleted and have a positive score</span>
 tag_pair_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://varianceexplained.org/files/tag_pairs.csv.gz&quot;</span>)
 
-relationships &lt;-<span class="st"> </span>tag_pair_data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Fraction =</span> Cooccur <span class="op">/</span><span class="st"> </span>Tag1Total) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Fraction <span class="op">&gt;=</span><span class="st"> </span>.<span class="dv">35</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">distinct</span>(Tag1)
+relationships &lt;-<span class="st"> </span>tag_pair_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Fraction =</span> Cooccur<span class="op">/</span>Tag1Total) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Fraction <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.35</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">distinct</span>(Tag1)
 
-v &lt;-<span class="st"> </span>tag_pair_data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(Tag1, Tag1Total) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">distinct</span>(Tag1) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Tag1 <span class="op">%in%</span><span class="st"> </span>relationships<span class="op">$</span>Tag1 <span class="op">|</span>
-<span class="st">         </span>Tag1 <span class="op">%in%</span><span class="st"> </span>relationships<span class="op">$</span>Tag2) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Tag1Total))
+v &lt;-<span class="st"> </span>tag_pair_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Tag1, Tag1Total) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Tag1) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Tag1 <span class="op">%in%</span><span class="st"> </span>relationships<span class="op">$</span>Tag1 <span class="op">|</span><span class="st"> </span>
+<span class="st">    </span>Tag1 <span class="op">%in%</span><span class="st"> </span>relationships<span class="op">$</span>Tag2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Tag1Total))
 
-a &lt;-<span class="st"> </span>grid<span class="op">::</span><span class="kw">arrow</span>(<span class="dt">length =</span> grid<span class="op">::</span><span class="kw">unit</span>(.<span class="dv">08</span>, <span class="st">&quot;inches&quot;</span>), <span class="dt">ends =</span> <span class="st">&quot;first&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;closed&quot;</span>)
+a &lt;-<span class="st"> </span>grid<span class="op">::</span><span class="kw">arrow</span>(<span class="dt">length =</span> grid<span class="op">::</span><span class="kw">unit</span>(<span class="fl">0.08</span>, <span class="st">&quot;inches&quot;</span>), <span class="dt">ends =</span> <span class="st">&quot;first&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;closed&quot;</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">2016</span>)
 
-relationships <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">graph_from_data_frame</span>(<span class="dt">vertices =</span> v) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggraph</span>(<span class="dt">layout =</span> <span class="st">&quot;fr&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_edge_link</span>(<span class="kw">aes</span>(<span class="dt">alpha =</span> Fraction), <span class="dt">arrow =</span> a) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Tag1Total), <span class="dt">color =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Tag1Total, <span class="dt">label =</span> name), <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_size_continuous</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>)) <span class="op">+</span>
-<span class="st">  </span>ggforce<span class="op">::</span><span class="kw">theme_no_axes</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</code></pre></div>
+relationships <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">graph_from_data_frame</span>(<span class="dt">vertices =</span> v) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggraph</span>(<span class="dt">layout =</span> <span class="st">&quot;fr&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_edge_link</span>(<span class="kw">aes</span>(<span class="dt">alpha =</span> Fraction), 
+    <span class="dt">arrow =</span> a) <span class="op">+</span><span class="st"> </span><span class="kw">geom_node_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Tag1Total), <span class="dt">color =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">size =</span> Tag1Total, 
+    <span class="dt">label =</span> name), <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_size_continuous</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>)) <span class="op">+</span><span class="st"> </span>ggforce<span class="op">::</span><span class="kw">theme_no_axes</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</code></pre></div>
 <p>Define global plotting graphics function.</p>
 <p>The <code>plot_it.R</code> function is updated on the <a href="https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R">plot_it Github page</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(ggplot2)
 <span class="kw">require</span>(ggthemes)
-### set plotting params   
-plot_it &lt;-<span class="st"> </span><span class="cf">function</span>(manuscript,bg,cp1,cp2,alpha,family){ <span class="co"># plotting function (plot for MS or not, set bg color, set color palette from RColorBrewer, set alpha value for transperancy) </span>
-  <span class="kw">graphics.off</span>()
-  <span class="cf">if</span>(manuscript<span class="op">==</span><span class="dv">0</span>){
-    <span class="cf">if</span>(bg<span class="op">==</span><span class="st">&quot;black&quot;</span>){
-      colvec &lt;&lt;-<span class="st"> </span><span class="kw">magma</span>(<span class="dv">200</span>,<span class="dv">1</span>) <span class="co"># plot window bg # USES &lt;&lt;- OPERATOR</span>
-      <span class="kw">par</span>(<span class="dt">bg =</span> colvec[<span class="dv">1</span>],<span class="dt">col.axis=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.lab=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.main=</span><span class="st">&quot;white&quot;</span>,<span class="dt">fg=</span><span class="st">&quot;white&quot;</span>,<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">2</span>),<span class="dt">family=</span>family) <span class="co">#mono</span>
-      border=<span class="kw">adjustcolor</span>(<span class="st">&quot;purple&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.5</span>)
-    }<span class="cf">else</span>{
-      colvec &lt;&lt;-<span class="st"> </span><span class="kw">bpy.colors</span>(<span class="dv">200</span>) <span class="co"># plot window bg # USES &lt;&lt;- OPERATOR</span>
-      <span class="kw">par</span>(<span class="dt">bg =</span> colvec[<span class="dv">1</span>],<span class="dt">col.axis=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.lab=</span><span class="st">&quot;white&quot;</span>,<span class="dt">col.main=</span><span class="st">&quot;white&quot;</span>,<span class="dt">fg=</span><span class="st">&quot;white&quot;</span>,<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">2</span>),<span class="dt">family=</span>family) 
-      border=<span class="kw">adjustcolor</span>(<span class="st">&quot;blue&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.5</span>)
+### set plotting params plotting function (plot for MS or not, set bg color, set color palette from
+### RColorBrewer, set alpha value for transperancy)
+plot_it &lt;-<span class="st"> </span><span class="cf">function</span>(manuscript, bg, cp1, cp2, alpha, family) {
+    <span class="kw">graphics.off</span>()
+    <span class="cf">if</span> (manuscript <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+        <span class="cf">if</span> (bg <span class="op">==</span><span class="st"> &quot;black&quot;</span>) {
+            colvec &lt;&lt;-<span class="st"> </span><span class="kw">magma</span>(<span class="dv">200</span>, <span class="dv">1</span>)  <span class="co"># plot window bg # USES &lt;&lt;- OPERATOR</span>
+            <span class="kw">par</span>(<span class="dt">bg =</span> colvec[<span class="dv">1</span>], <span class="dt">col.axis =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">col.lab =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">col.main =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fg =</span> <span class="st">&quot;white&quot;</span>, 
+                <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">family =</span> family)  <span class="co">#mono</span>
+            border =<span class="st"> </span><span class="kw">adjustcolor</span>(<span class="st">&quot;purple&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>)
+        } <span class="cf">else</span> {
+            colvec &lt;&lt;-<span class="st"> </span><span class="kw">bpy.colors</span>(<span class="dv">200</span>)  <span class="co"># plot window bg # USES &lt;&lt;- OPERATOR</span>
+            <span class="kw">par</span>(<span class="dt">bg =</span> colvec[<span class="dv">1</span>], <span class="dt">col.axis =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">col.lab =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">col.main =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fg =</span> <span class="st">&quot;white&quot;</span>, 
+                <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">family =</span> family)
+            border =<span class="st"> </span><span class="kw">adjustcolor</span>(<span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>)
+        }
+    } <span class="cf">else</span> {
+        <span class="co"># graphics.off()</span>
+        <span class="kw">par</span>(<span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">family =</span> family)
+        colv &lt;-<span class="st"> &quot;white&quot;</span>
     }
-  }<span class="cf">else</span>{
-    <span class="co">#    graphics.off()</span>
-    <span class="kw">par</span>(<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">family=</span>family) 
-    colv&lt;-<span class="st">&quot;white&quot;</span>
-  }
-  <span class="co"># color palettes</span>
-  <span class="co"># ifelse(manuscript==1,colvec&lt;-adjustcolor(brewer.pal(9,cp1)[9], alpha = alpha),colvec &lt;- adjustcolor(brewer.pal(9,cp1)[5], alpha = alpha)) # fine tune plotting colors for plotting bg</span>
-  <span class="co"># colfunc &lt;&lt;- colorRampPalette(brewer.pal(9,cp1),alpha=alpha)</span>
-  cp1_info &lt;-<span class="st"> </span>brewer.pal.info[cp1,]<span class="op">$</span>maxcolors
-  cp2_info &lt;-<span class="st"> </span>brewer.pal.info[cp2,]<span class="op">$</span>maxcolors
-  colv &lt;&lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(cp1_info,cp1) <span class="co"># USES &lt;&lt;- OPERATOR</span>
-  colv2 &lt;&lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(cp2_info,cp2) <span class="co"># USES &lt;&lt;- OPERATOR</span>
+    <span class="co"># color palettes ifelse(manuscript==1,colvec&lt;-adjustcolor(brewer.pal(9,cp1)[9], alpha = alpha),colvec</span>
+    <span class="co"># &lt;- adjustcolor(brewer.pal(9,cp1)[5], alpha = alpha)) # fine tune plotting colors for plotting bg</span>
+    <span class="co"># colfunc &lt;&lt;- colorRampPalette(brewer.pal(9,cp1),alpha=alpha)</span>
+    cp1_info &lt;-<span class="st"> </span>brewer.pal.info[cp1, ]<span class="op">$</span>maxcolors
+    cp2_info &lt;-<span class="st"> </span>brewer.pal.info[cp2, ]<span class="op">$</span>maxcolors
+    colv &lt;&lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(cp1_info, cp1)  <span class="co"># USES &lt;&lt;- OPERATOR</span>
+    colv2 &lt;&lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(cp2_info, cp2)  <span class="co"># USES &lt;&lt;- OPERATOR</span>
 }
 
-<span class="co"># Setting ggplot theme graphics</span>
-plot_it_gg &lt;-<span class="st"> </span><span class="cf">function</span>(bg){ <span class="co"># bg = colour to plot bg, family = font family</span>
-  <span class="cf">if</span>(bg<span class="op">==</span><span class="st">&quot;white&quot;</span>){
-    bg &lt;-<span class="st"> &quot;white&quot;</span>
-    fg &lt;-<span class="st"> &quot;black&quot;</span>
-    <span class="kw">theme_tufte</span>(<span class="dt">base_family =</span> <span class="st">&quot;HersheySans&quot;</span>) <span class="op">+</span>
-<span class="st">      </span><span class="kw">theme</span>(<span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(),<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg,<span class="dt">colour =</span> bg),<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill=</span>bg)) <span class="op">+</span>
-<span class="st">      </span><span class="kw">theme</span>(<span class="dt">axis.line =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg), <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg),<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span>fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span>fg))
-  }
-}<span class="co"># end gg</span>
+<span class="co"># Setting ggplot theme graphics bg = colour to plot bg, family = font family</span>
+plot_it_gg &lt;-<span class="st"> </span><span class="cf">function</span>(bg) {
+    <span class="cf">if</span> (bg <span class="op">==</span><span class="st"> &quot;white&quot;</span>) {
+        bg &lt;-<span class="st"> &quot;white&quot;</span>
+        fg &lt;-<span class="st"> &quot;black&quot;</span>
+        <span class="kw">theme_tufte</span>(<span class="dt">base_family =</span> <span class="st">&quot;HersheySans&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">panel.border =</span> <span class="kw">element_blank</span>(), <span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(), 
+            <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(), <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg, <span class="dt">colour =</span> bg), 
+            <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.line =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span>
+<span class="st">            </span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="st"> </span>
+<span class="st">            </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg), <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="st"> </span>
+<span class="st">            </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg), <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg)) <span class="op">+</span><span class="st"> </span>
+<span class="st">            </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> fg))
+    }
+}  <span class="co"># end gg</span>
 
-### Set plotting function  </code></pre></div>
+### Set plotting function</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(<span class="st">&quot;RCurl&quot;</span>)
 script &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class="st">&quot;https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R&quot;</span>, <span class="dt">ssl.verifypeer =</span> <span class="ot">FALSE</span>)
 <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> script))
 
 <span class="kw">cat</span>(<span class="st">&quot;plot_it( </span><span class="ch">\n</span><span class="st">0 for presentation, 1 for manuscript, </span><span class="ch">\n</span><span class="st">set colour for background, </span><span class="ch">\n</span><span class="st">set colour palette. use 'display.brewer.all()', </span><span class="ch">\n</span><span class="st">set alpha for colour transperancy, </span><span class="ch">\n</span><span class="st">set font style </span><span class="ch">\n</span><span class="st">)&quot;</span>)
-<span class="kw">plot_it</span>(<span class="dv">0</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;Spectral&quot;</span>,<span class="st">&quot;Greens&quot;</span>,<span class="dv">1</span>,<span class="st">&quot;mono&quot;</span>) <span class="co"># set col function params</span>
-<span class="kw">plot_it_gg</span>(<span class="st">&quot;white&quot;</span>) <span class="co"># same as above </span></code></pre></div>
+<span class="kw">plot_it</span>(<span class="dv">0</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;Spectral&quot;</span>, <span class="st">&quot;Greens&quot;</span>, <span class="dv">1</span>, <span class="st">&quot;mono&quot;</span>)  <span class="co"># set col function params</span>
+<span class="kw">plot_it_gg</span>(<span class="st">&quot;white&quot;</span>)  <span class="co"># same as above </span></code></pre></div>
 <p>Make plot cycle on one page</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(m_abundance<span class="op">$</span>gam,<span class="dt">pages=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(m_abundance<span class="op">$</span>gam, <span class="dt">pages =</span> <span class="dv">1</span>)</code></pre></div>
 <p>Get plot summaries and values from plot</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>] <span class="co"># everything</span>
-<span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>x <span class="co">#subset x</span>
-<span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam,<span class="dt">shade=</span>T,<span class="dt">pages=</span><span class="dv">1</span>,<span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>fit <span class="co">#get values to produce fit curve </span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam, <span class="dt">shade =</span> T, <span class="dt">pages =</span> <span class="dv">1</span>, <span class="dt">seWithMean =</span> T)[<span class="dv">1</span>]  <span class="co"># everything</span>
+<span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam, <span class="dt">shade =</span> T, <span class="dt">pages =</span> <span class="dv">1</span>, <span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>x  <span class="co">#subset x</span>
+<span class="kw">plot.gam</span>(m_abundance<span class="op">$</span>gam, <span class="dt">shade =</span> T, <span class="dt">pages =</span> <span class="dv">1</span>, <span class="dt">seWithMean =</span> T)[<span class="dv">1</span>][[<span class="dv">1</span>]]<span class="op">$</span>fit  <span class="co">#get values to produce fit curve </span></code></pre></div>
 <p>Package for stock world maps</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#worldmap</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># worldmap</span>
 <span class="kw">library</span>(choroplethrMaps)</code></pre></div>
 <p>Circle packing, tree, dendogram, network plots</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dendogram tree nested bubble circle packing network </span>
@@ -919,49 +898,46 @@ mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</sp
 <span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</code></pre></div>
 <p>Insert an animal silhouette into a plot</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#1. Get image from http://www.phylopic.org  </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1. Get image from http://www.phylopic.org</span>
 <span class="kw">library</span>(png)
 ima &lt;-<span class="st"> </span><span class="kw">readPNG</span>(<span class="st">&quot;thething.png&quot;</span>)
-<span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)
-<span class="kw">rasterImage</span>(<span class="dt">image=</span>ima, <span class="dt">xleft=</span><span class="dv">2</span>,<span class="dt">ybottom=</span><span class="fl">1.8</span>,
-            <span class="dt">xright=</span><span class="fl">2.7</span>,<span class="dt">ytop=</span><span class="fl">2.7</span>)</code></pre></div>
+<span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)
+<span class="kw">rasterImage</span>(<span class="dt">image =</span> ima, <span class="dt">xleft =</span> <span class="dv">2</span>, <span class="dt">ybottom =</span> <span class="fl">1.8</span>, <span class="dt">xright =</span> <span class="fl">2.7</span>, <span class="dt">ytop =</span> <span class="fl">2.7</span>)</code></pre></div>
 <p>Create an empty plot window</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1</span>
-<span class="kw">plot</span>(<span class="dv">0</span>,<span class="dt">type=</span><span class="st">'n'</span>,<span class="dt">axes=</span><span class="ot">FALSE</span>,<span class="dt">ann=</span><span class="ot">FALSE</span>)  
-<span class="co"># 2  </span>
-<span class="kw">plot</span>(<span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))  
-<span class="co"># 3  </span>
-<span class="kw">plot.new</span>()  </code></pre></div>
+<span class="kw">plot</span>(<span class="dv">0</span>, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">ann =</span> <span class="ot">FALSE</span>)
+<span class="co"># 2</span>
+<span class="kw">plot</span>(<span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))
+<span class="co"># 3</span>
+<span class="kw">plot.new</span>()</code></pre></div>
 <p>Set color gradient, palette for smoothing data points</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(RColorBrewer)
 
-alpha &lt;-<span class="st"> </span><span class="fl">0.8</span> <span class="co"># transparency (0 to 1 value)</span>
+alpha &lt;-<span class="st"> </span><span class="fl">0.8</span>  <span class="co"># transparency (0 to 1 value)</span>
 <span class="kw">set.seed</span>(<span class="dv">5000</span>)
 rr &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5000</span>)
 
 <span class="co"># user defined gradient</span>
-col&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;steelblue&quot;</span>,<span class="st">&quot;lightblue&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;red&quot;</span>)) <span class="co"># set your own col gradient with as many colours as you want</span>
-colfunc &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="kw">length</span>(rr))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(rr,<span class="dt">breaks =</span> <span class="kw">length</span>(rr)))] <span class="co"># define breaks in col gradient</span>
-<span class="kw">plot</span>(rr,<span class="dt">col=</span>colfunc,<span class="dt">pch=</span><span class="dv">20</span>)
+col &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;red&quot;</span>))  <span class="co"># set your own col gradient with as many colours as you want</span>
+colfunc &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="kw">length</span>(rr))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(rr, <span class="dt">breaks =</span> <span class="kw">length</span>(rr)))]  <span class="co"># define breaks in col gradient</span>
+<span class="kw">plot</span>(rr, <span class="dt">col =</span> colfunc, <span class="dt">pch =</span> <span class="dv">20</span>)
 
 <span class="co"># gradient from palette</span>
 <span class="kw">display.brewer.all</span>()
 col &lt;-<span class="st"> &quot;Greens&quot;</span>
-col&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(brewer.pal.info[col,]<span class="op">$</span>maxcolors,col)) <span class="co"># col gradient</span>
-colfunc &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="kw">length</span>(rr))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(rr,<span class="dt">breaks =</span> <span class="kw">length</span>(rr)))] <span class="co"># define breaks in col gradient</span>
-<span class="kw">plot</span>(rr,<span class="dt">col=</span>colfunc,<span class="dt">pch=</span><span class="dv">20</span>)</code></pre></div>
+col &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(brewer.pal.info[col, ]<span class="op">$</span>maxcolors, col))  <span class="co"># col gradient</span>
+colfunc &lt;-<span class="st"> </span><span class="kw">col</span>(<span class="kw">length</span>(rr))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(rr, <span class="dt">breaks =</span> <span class="kw">length</span>(rr)))]  <span class="co"># define breaks in col gradient</span>
+<span class="kw">plot</span>(rr, <span class="dt">col =</span> colfunc, <span class="dt">pch =</span> <span class="dv">20</span>)</code></pre></div>
 <p>Add plot point every nth element</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">3</span>
 <span class="kw">plot</span>(<span class="kw">runif</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">type =</span> <span class="st">&quot;o&quot;</span>, <span class="dt">pch =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="kw">rep</span>(<span class="ot">NA</span>, n)))</code></pre></div>
 <p>Create function to make line as default type in plot</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lplot &lt;-<span class="st"> </span><span class="cf">function</span>(...) <span class="kw">plot</span>(..., <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lplot &lt;-<span class="st"> </span><span class="cf">function</span>(...) <span class="kw">plot</span>(..., <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)
 <span class="kw">lplot</span>(<span class="kw">runif</span>(<span class="dv">200</span>))</code></pre></div>
 <p>Stack dataframe columns automatically in plot</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(outplot)
-  <span class="co"># time          N        P        S        I</span>
-<span class="co"># 1 0.00 200.000000 200.0000 20.00000 2.000000</span>
-<span class="co"># 2 0.01  78.245140 177.1952 20.58217 2.067159</span>
-<span class="co"># 3 0.02  34.785145 168.9650 21.12174 2.136073</span>
+<span class="co"># time N P S I 1 0.00 200.000000 200.0000 20.00000 2.000000 2 0.01 78.245140 177.1952 20.58217</span>
+<span class="co"># 2.067159 3 0.02 34.785145 168.9650 21.12174 2.136073</span>
 dats &lt;-<span class="st"> </span><span class="kw">zoo</span>(outplot)
 <span class="kw">plot</span>(dats)</code></pre></div>
 <p>Make 3D scatterplot</p>
@@ -1021,81 +997,72 @@ alpha &lt;-<span class="st"> </span><span class="fl">0.8</span>
 <span class="co"># add control dates</span>
 <span class="cf">if</span>(add.control<span class="op">==</span><span class="dv">1</span>){<span class="kw">par</span>(<span class="dt">new=</span>T); <span class="kw">scatterplot3d</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">length</span>(controls)),<span class="dt">y=</span>controls,<span class="dt">z=</span><span class="kw">rep</span>(<span class="kw">max</span>(dens),<span class="kw">length</span>(controls)),<span class="dt">color=</span><span class="st">&quot;gray&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">pch=</span><span class="st">&quot;&quot;</span>,<span class="dt">lty.hplot =</span> <span class="dv">1</span>,<span class="dt">xlim=</span>xlim,<span class="dt">ylim=</span>ylim,<span class="dt">zlim=</span>zlim,<span class="dt">xlab=</span><span class="st">&quot;&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;&quot;</span>,<span class="dt">zlab=</span><span class="st">&quot;&quot;</span>,<span class="dt">box=</span>F,<span class="dt">grid=</span>F,<span class="dt">cex.symbols=</span><span class="dv">2</span>,<span class="dt">axis=</span>F,<span class="dt">type=</span><span class="st">&quot;h&quot;</span>)}</code></pre></div>
 <p>Adding title from separate list to plot in loop (<code>ggplot</code>)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot all sim results in one window </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot all sim results in one window</span>
 gspl &lt;-<span class="st"> </span><span class="kw">list</span>()
-ttl_list &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cerc&quot;</span>,<span class="st">&quot;food&quot;</span>, <span class="st">&quot;juv&quot;</span>, <span class="st">&quot;adult&quot;</span>, <span class="st">&quot;infec&quot;</span>, <span class="st">&quot;infec (shed)&quot;</span>, <span class="st">&quot;host L&quot;</span>, <span class="st">&quot;parasite mass&quot;</span>)
+ttl_list &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cerc&quot;</span>, <span class="st">&quot;food&quot;</span>, <span class="st">&quot;juv&quot;</span>, <span class="st">&quot;adult&quot;</span>, <span class="st">&quot;infec&quot;</span>, <span class="st">&quot;infec (shed)&quot;</span>, <span class="st">&quot;host L&quot;</span>, <span class="st">&quot;parasite mass&quot;</span>)
 
 <span class="co"># choose sim to plot</span>
 global_sim_plot &lt;-<span class="st"> </span>global_detritus
 
-<span class="cf">for</span>(g <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
-  gspl[[g]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> y_m, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rep.int</span>(<span class="dv">1</span><span class="op">:</span>n.ticks,<span class="kw">max</span>(L1)) , <span class="dt">y =</span> value, <span class="dt">group =</span> L1, <span class="dt">colour=</span><span class="kw">factor</span>(L1)), ) <span class="op">+</span>
-<span class="st">  </span><span class="co"># scale_color_manual(values = viridis(length(mm))) +</span>
-<span class="st">  </span><span class="co">#linetype=y_m$L1) +</span>
-<span class="st">  </span><span class="kw">theme_tufte</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">title=</span>ttl_list[g],<span class="dt">x=</span><span class="st">&quot;&quot;</span>,<span class="dt">y=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="cf">if</span>(g<span class="op">==</span><span class="kw">length</span>(global_sim_plot)){
-      <span class="kw">theme</span>(<span class="dt">legend.title=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="fl">0.2</span>), 
-            <span class="dt">legend.text=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="fl">0.2</span>)) <span class="op">+</span>
-<span class="st">        </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>)
-      <span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Time&quot;</span>)
-    }<span class="cf">else</span>{
-      <span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
+<span class="cf">for</span> (g <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+    gspl[[g]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> y_m, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">rep.int</span>(<span class="dv">1</span><span class="op">:</span>n.ticks, <span class="kw">max</span>(L1)), <span class="dt">y =</span> value, <span class="dt">group =</span> L1, 
+        <span class="dt">colour =</span> <span class="kw">factor</span>(L1)), ) <span class="op">+</span><span class="st"> </span><span class="co"># scale_color_manual(values = viridis(length(mm))) + linetype=y_m$L1) +</span>
+<span class="st">    </span><span class="kw">theme_tufte</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> ttl_list[g], <span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="cf">if</span> (g <span class="op">==</span><span class="st"> </span><span class="kw">length</span>(global_sim_plot)) {
+        <span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="fl">0.2</span>), <span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="fl">0.2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>)
+        <span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time&quot;</span>)
+    } <span class="cf">else</span> {
+        <span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)
     }
-    }
-<span class="co"># +  geom_text(x=,y=,label = max(value),check_overlap = TUE)</span>
-<span class="kw">do.call</span>(grid.arrange,gspl) <span class="co"># plot in one window </span></code></pre></div>
+}
+<span class="co"># + geom_text(x=,y=,label = max(value),check_overlap = TUE)</span>
+<span class="kw">do.call</span>(grid.arrange, gspl)  <span class="co"># plot in one window </span></code></pre></div>
 <p>Using math expressions in plot labels</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>),
-     <span class="dt">xlab=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;X values&quot;</span><span class="op">^</span><span class="dv">2</span>)),
-     <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Y values&quot;</span><span class="op">^</span><span class="dv">3</span>,<span class="kw">hat</span>(beta)))
-)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="dt">xlab =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;X values&quot;</span><span class="op">^</span><span class="dv">2</span>)), <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Y values&quot;</span><span class="op">^</span><span class="dv">3</span>, <span class="kw">hat</span>(beta))))</code></pre></div>
 <p>Adding faint gridlines to plot</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add gridlines</span>
-<span class="kw">grid</span>(<span class="dt">nx=</span><span class="ot">NA</span>,<span class="dt">ny=</span><span class="ot">NULL</span>)</code></pre></div>
+<span class="kw">grid</span>(<span class="dt">nx =</span> <span class="ot">NA</span>, <span class="dt">ny =</span> <span class="ot">NULL</span>)</code></pre></div>
 <p>Storing current <code>par</code> variables for plotting</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">og_pars &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> T) <span class="co"># store current par values</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">og_pars &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> T)  <span class="co"># store current par values</span></code></pre></div>
 <p>Clear graphics memory</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dput</span>(<span class="kw">par</span>(<span class="dt">no.readonly=</span><span class="ot">TRUE</span>)) <span class="co"># reset graphical params </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dput</span>(<span class="kw">par</span>(<span class="dt">no.readonly =</span> <span class="ot">TRUE</span>))  <span class="co"># reset graphical params </span>
 <span class="kw">par</span>()</code></pre></div>
 </div>
 <div id="reading-in-filesdata" class="section level3">
 <h3>Reading in files/data</h3>
 <p>Read in file manually</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">get.file.vol &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="kw">file.choose</span>())<span class="co">#read file manually</span>
-v.file &lt;-<span class="st"> </span>get.file.vol[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">1</span>]<span class="co">#get the volume</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">get.file.vol &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="kw">file.choose</span>())  <span class="co">#read file manually</span>
+v.file &lt;-<span class="st"> </span>get.file.vol[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dv">1</span>]  <span class="co">#get the volume</span></code></pre></div>
 <p>Loop through files from dir and append to list</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># option 1 </span>
-<span class="co"># reading in spdf (hrpath) files from drive</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># option 1 reading in spdf (hrpath) files from drive</span>
 <span class="kw">setwd</span>(<span class="st">&quot;/Users/camel/Desktop/Matt2016/Manuscripts/MalishevBullKearney/Resubmission/2016/barcoo sims/barcooresults/hrpath_75&quot;</span>)
-file.list&lt;-<span class="kw">list.files</span>()
-hrs75&lt;-<span class="kw">as.list</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">100</span>)) <span class="co"># empty list</span>
-<span class="cf">for</span> (f <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){
-  <span class="kw">load</span>(file.list[f])
-  hrs75[f]&lt;-hrpath
+file.list &lt;-<span class="st"> </span><span class="kw">list.files</span>()
+hrs75 &lt;-<span class="st"> </span><span class="kw">as.list</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">100</span>))  <span class="co"># empty list</span>
+<span class="cf">for</span> (f <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {
+    <span class="kw">load</span>(file.list[f])
+    hrs75[f] &lt;-<span class="st"> </span>hrpath
 }
 
-<span class="co"># working version</span>
-<span class="co">#converting spdf into mcp(spdf,100,unout=&quot;m2)</span>
-ghr&lt;-<span class="kw">list</span>()
+<span class="co"># working version converting spdf into mcp(spdf,100,unout='m2)</span>
+ghr &lt;-<span class="st"> </span><span class="kw">list</span>()
 <span class="cf">for</span> (i <span class="cf">in</span> hrs75[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]) {
-  m&lt;-<span class="kw">mcp</span>(i,<span class="dv">100</span>,<span class="dt">unout=</span><span class="st">'m2'</span>)
-  ghr&lt;-<span class="kw">c</span>(ghr,m)
-};ghr
+    m &lt;-<span class="st"> </span><span class="kw">mcp</span>(i, <span class="dv">100</span>, <span class="dt">unout =</span> <span class="st">&quot;m2&quot;</span>)
+    ghr &lt;-<span class="st"> </span><span class="kw">c</span>(ghr, m)
+}
+ghr
 
 <span class="co"># option 2</span>
 wd &lt;-<span class="st"> </span><span class="kw">getwd</span>()
-me_list &lt;-<span class="st"> </span><span class="kw">list</span>() <span class="co"># create list </span>
-<span class="cf">for</span>(me_day <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>)){
-  <span class="cf">for</span>(me_im <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){
-    mes &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">paste0</span>(wd,resource_type,<span class="st">&quot;_meday_&quot;</span>,me_day,<span class="st">&quot;_meim&quot;</span>,me_im,<span class="st">&quot;.R&quot;</span>)) <span class="co"># read .R files from dir  </span>
-    <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="kw">paste0</span>(wd,resource_type,<span class="st">&quot;_meday_&quot;</span>,me_day,<span class="st">&quot;_meim&quot;</span>,me_im,<span class="st">&quot;.R&quot;</span>))
-    <span class="kw">names</span>(mes) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cerc&quot;</span>, <span class="st">&quot;food&quot;</span>, <span class="st">&quot;juv&quot;</span>, <span class="st">&quot;adult&quot;</span>, <span class="st">&quot;infected&quot;</span>, <span class="st">&quot;infected shedding&quot;</span>, <span class="st">&quot;mean host length&quot;</span>, <span class="st">&quot;mean parasite mass&quot;</span>, <span class="st">&quot;summed host biomass&quot;</span>, <span class="st">&quot;summed host eggs&quot;</span>, <span class="st">&quot;mean host eggs&quot;</span>, <span class="st">&quot;infected host length&quot;</span>) <span class="co"># name all original R file list elements</span>
-    mes &lt;-<span class="st"> </span>mes<span class="op">$</span><span class="st">&quot;cerc&quot;</span> <span class="co"># get cercs (as list) use mes$&quot;cerc&quot;[[1]] for numeric </span>
-    <span class="kw">names</span>(mes) &lt;-<span class="st"> </span><span class="kw">paste0</span>(me_day,<span class="st">&quot;_&quot;</span>,me_im) <span class="co"># name list elements according to loop iterations </span>
-    me_list &lt;-<span class="st"> </span><span class="kw">c</span>(me_list,mes) <span class="co"># bind to master list </span>
-  }
+me_list &lt;-<span class="st"> </span><span class="kw">list</span>()  <span class="co"># create list </span>
+<span class="cf">for</span> (me_day <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>)) {
+    <span class="cf">for</span> (me_im <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {
+        mes &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">paste0</span>(wd, resource_type, <span class="st">&quot;_meday_&quot;</span>, me_day, <span class="st">&quot;_meim&quot;</span>, me_im, <span class="st">&quot;.R&quot;</span>))  <span class="co"># read .R files from dir  </span>
+        <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="kw">paste0</span>(wd, resource_type, <span class="st">&quot;_meday_&quot;</span>, me_day, <span class="st">&quot;_meim&quot;</span>, me_im, <span class="st">&quot;.R&quot;</span>))
+        <span class="kw">names</span>(mes) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cerc&quot;</span>, <span class="st">&quot;food&quot;</span>, <span class="st">&quot;juv&quot;</span>, <span class="st">&quot;adult&quot;</span>, <span class="st">&quot;infected&quot;</span>, <span class="st">&quot;infected shedding&quot;</span>, <span class="st">&quot;mean host length&quot;</span>, 
+            <span class="st">&quot;mean parasite mass&quot;</span>, <span class="st">&quot;summed host biomass&quot;</span>, <span class="st">&quot;summed host eggs&quot;</span>, <span class="st">&quot;mean host eggs&quot;</span>, <span class="st">&quot;infected host length&quot;</span>)  <span class="co"># name all original R file list elements</span>
+        mes &lt;-<span class="st"> </span>mes<span class="op">$</span>cerc  <span class="co"># get cercs (as list) use mes$'cerc'[[1]] for numeric </span>
+        <span class="kw">names</span>(mes) &lt;-<span class="st"> </span><span class="kw">paste0</span>(me_day, <span class="st">&quot;_&quot;</span>, me_im)  <span class="co"># name list elements according to loop iterations </span>
+        me_list &lt;-<span class="st"> </span><span class="kw">c</span>(me_list, mes)  <span class="co"># bind to master list </span>
+    }
 }</code></pre></div>
 <p>Read in PDF files from online source in R and save to drive.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># from https://github.com/ropensci/pdftools</span>
@@ -1103,18 +1070,18 @@ me_list &lt;-<span class="st"> </span><span class="kw">list</span>() <span class
 <span class="kw">require</span>(pdftools)
 url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/darwinanddavis/499R/master/exp_pop_growth.pdf&quot;</span>
 dir &lt;-<span class="st"> &quot;FOLDER ON YOUR COMPUTER WHERE YOU WANT THE FILE SAVED&quot;</span>
-f &lt;-<span class="st"> &quot;NAME OF THE FILE&quot;</span> 
-f &lt;-<span class="st"> </span><span class="kw">paste0</span>(f,<span class="st">&quot;.pdf&quot;</span>) 
+f &lt;-<span class="st"> &quot;NAME OF THE FILE&quot;</span>
+f &lt;-<span class="st"> </span><span class="kw">paste0</span>(f, <span class="st">&quot;.pdf&quot;</span>)
 
 <span class="co"># run all this</span>
-<span class="kw">download.file</span>(url, <span class="kw">paste0</span>(dir,<span class="st">&quot;/&quot;</span>,f), <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)
-txt &lt;-<span class="st"> </span><span class="kw">pdf_text</span>(<span class="kw">paste0</span>(dir,<span class="st">&quot;/&quot;</span>,f))
+<span class="kw">download.file</span>(url, <span class="kw">paste0</span>(dir, <span class="st">&quot;/&quot;</span>, f), <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)
+txt &lt;-<span class="st"> </span><span class="kw">pdf_text</span>(<span class="kw">paste0</span>(dir, <span class="st">&quot;/&quot;</span>, f))
 
 <span class="co"># first page text</span>
-page &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># enter the page number</span>
+page &lt;-<span class="st"> </span><span class="dv">1</span>  <span class="co"># enter the page number</span>
 <span class="kw">cat</span>(txt[page])
 
-toc &lt;-<span class="st"> </span><span class="kw">pdf_toc</span>(<span class="kw">paste0</span>(dir,<span class="st">&quot;/&quot;</span>,f))
+toc &lt;-<span class="st"> </span><span class="kw">pdf_toc</span>(<span class="kw">paste0</span>(dir, <span class="st">&quot;/&quot;</span>, f))
 
 <span class="kw">require</span>(jsonlite)
 <span class="co"># Show as JSON</span>
@@ -1134,54 +1101,58 @@ webp<span class="op">::</span><span class="kw">write_webp</span>(bitmap, <span c
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(<span class="st">&quot;search_terms.txt&quot;</span>)  <span class="co"># must have a blank line at end of file to avoid line read error  </span></code></pre></div>
 <p>Load in data to avoid ‘magic number error’</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># avoid load()</span>
-<span class="kw">readRDS</span>(<span class="st">&quot;path to file .R&quot;</span>) <span class="co"># can use .R and .Rdata</span>
-<span class="kw">source</span>(<span class="st">&quot;path to file .R&quot;</span>)  </code></pre></div>
+<span class="kw">readRDS</span>(<span class="st">&quot;path to file .R&quot;</span>)  <span class="co"># can use .R and .Rdata</span>
+<span class="kw">source</span>(<span class="st">&quot;path to file .R&quot;</span>)</code></pre></div>
 <p>Access files anywhere without changing working dir</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># https://github.com/jennybc/here_here</span>
 <span class="kw">require</span>(here)
 <span class="kw">getwd</span>()
-<span class="co"># &quot;/Users/malishev/Documents/Data/gggmap&quot;</span>
+<span class="co"># '/Users/malishev/Documents/Data/gggmap'</span>
 here_loc &lt;-<span class="st"> </span><span class="kw">here</span>(<span class="st">&quot;here_test&quot;</span>, <span class="st">&quot;here_test.txt&quot;</span>)
 here_loc
-<span class="co"># &quot;/Users/malishev/Documents/Data/gggmap/here_test/here_test.txt&quot;</span>
-<span class="kw">readLines</span>(here_loc) <span class="co"># access the file even though your working dir is up N levels from the file in your dir </span></code></pre></div>
+<span class="co"># '/Users/malishev/Documents/Data/gggmap/here_test/here_test.txt'</span>
+<span class="kw">readLines</span>(here_loc)  <span class="co"># access the file even though your working dir is up N levels from the file in your dir </span></code></pre></div>
 </div>
 <div id="regular-expressions-regex" class="section level3">
 <h3>Regular expressions (<code>regex</code>)</h3>
 <p>Get just numbers or characters</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> &quot;16-Feb-2018 20:08:04 PM&quot;</span>
-vecN &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[^[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec); vec; <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just numbers: &quot;</span>,vecN)) 
-vecC &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec); vec; <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just characters: &quot;</span>, vecC))
+vecN &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[^[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec)
+vec
+<span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just numbers: &quot;</span>, vecN))
+vecC &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;[[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, vec)
+vec
+<span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Just characters: &quot;</span>, vecC))
 
-<span class="co"># with tidyr. requires data frame </span>
+<span class="co"># with tidyr. requires data frame</span>
 <span class="kw">require</span>(tidyr)
-df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N1=</span><span class="kw">c</span>(<span class="st">&quot;APPLE348744&quot;</span>, <span class="st">&quot;BANANA77845&quot;</span>, <span class="st">&quot;OATS2647892&quot;</span>, <span class="st">&quot;EGG98586456&quot;</span>))
-<span class="kw">print</span>(<span class="st">&quot;tidyr doesn't work with strings separated by spaces&quot;</span>)  
-df <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">separate</span>(N1, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;text&quot;</span>, <span class="st">&quot;num&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;(?&lt;=[A-Za-z])(?=[0-9])&quot;</span>)</code></pre></div>
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">N1 =</span> <span class="kw">c</span>(<span class="st">&quot;APPLE348744&quot;</span>, <span class="st">&quot;BANANA77845&quot;</span>, <span class="st">&quot;OATS2647892&quot;</span>, <span class="st">&quot;EGG98586456&quot;</span>))
+<span class="kw">print</span>(<span class="st">&quot;tidyr doesn't work with strings separated by spaces&quot;</span>)
+df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">separate</span>(N1, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;text&quot;</span>, <span class="st">&quot;num&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;(?&lt;=[A-Za-z])(?=[0-9])&quot;</span>)</code></pre></div>
 <p>Insert or replace a character in a string at a specific location</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(stringi)
 vec &lt;-<span class="st"> &quot;ABCEF&quot;</span>
-<span class="kw">stri_sub</span>(vec, <span class="dv">4</span>, <span class="dv">2</span>) &lt;-<span class="st"> &quot;d&quot;</span> 
-<span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Original: ABCEF&quot;</span>)); <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;New: &quot;</span>,vec))</code></pre></div>
+<span class="kw">stri_sub</span>(vec, <span class="dv">4</span>, <span class="dv">2</span>) &lt;-<span class="st"> &quot;d&quot;</span>
+<span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;Original: ABCEF&quot;</span>))
+<span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;New: &quot;</span>, vec))</code></pre></div>
 <p>Testing regex expressions and their output</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Testing regex expressions and their output   </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Testing regex expressions and their output</span>
 
 <span class="co"># https://regex101.com/r/ksY7HU/2</span></code></pre></div>
 <p>Removing multiple cols from df using grep</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;purrr&quot;</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;purrr&quot;</span>)
 
 fh &lt;-<span class="st"> &quot;LEC100testrecords.txt&quot;</span>
-tt &lt;-<span class="st"> </span><span class="kw">read.delim</span>(<span class="kw">paste0</span>(wd,<span class="st">&quot;/&quot;</span>,fh),<span class="dt">header=</span>T,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
+tt &lt;-<span class="st"> </span><span class="kw">read.delim</span>(<span class="kw">paste0</span>(wd, <span class="st">&quot;/&quot;</span>, fh), <span class="dt">header =</span> T, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
 
-<span class="co"># Enter data column you want to search  </span>
+<span class="co"># Enter data column you want to search</span>
 col2search &lt;-<span class="st"> &quot;Title&quot;</span>
 keyterms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;evidence&quot;</span>, <span class="st">&quot;human&quot;</span>, <span class="st">&quot;africa&quot;</span>)
 
 <span class="co"># 1. find key terms</span>
-final &lt;-<span class="st"> </span>tt[<span class="kw">grep</span>(keyterms, tt[,col2search], <span class="dt">ignore.case =</span> T),] <span class="co">#</span>
-<span class="kw">length</span>(final[,col2search]) <span class="co"># get number of results</span>
-tt[final[,col2search],col2search] <span class="co"># show raw outputs </span></code></pre></div>
+final &lt;-<span class="st"> </span>tt[<span class="kw">grep</span>(keyterms, tt[, col2search], <span class="dt">ignore.case =</span> T), ]  <span class="co">#</span>
+<span class="kw">length</span>(final[, col2search])  <span class="co"># get number of results</span>
+tt[final[, col2search], col2search]  <span class="co"># show raw outputs </span></code></pre></div>
 <div id="section" class="section level6">
 <h6></h6>
 </div>
@@ -1264,11 +1235,11 @@ oO  <span class="op">$</span>o O<span class="op">$</span><span class="st"> </spa
 <h3>Subsetting</h3>
 <p>Select specific rows E.g. select rows of sfeed_move not in foodh</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sqldf)
-a1NotIna2_h  &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">'SELECT * FROM sfeed_move EXCEPT SELECT * FROM foodh'</span>)
-a1NotIna2_l  &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">'SELECT * FROM sfeed_move EXCEPT SELECT * FROM foodl'</span>)
+a1NotIna2_h &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">&quot;SELECT * FROM sfeed_move EXCEPT SELECT * FROM foodh&quot;</span>)
+a1NotIna2_l &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">&quot;SELECT * FROM sfeed_move EXCEPT SELECT * FROM foodl&quot;</span>)
 <span class="co"># select rows from sfeed_move that also appear in foodh</span>
-a1Ina2_h  &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">'SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodh'</span>)
-a1Ina2_l  &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">'SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodl'</span>)</code></pre></div>
+a1Ina2_h &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">&quot;SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodh&quot;</span>)
+a1Ina2_l &lt;-<span class="st"> </span><span class="kw">sqldf</span>(<span class="st">&quot;SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodl&quot;</span>)</code></pre></div>
 <p>Count occurrences of values in data frame</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">unlist</span>(df<span class="op">$</span>X))</code></pre></div>
 <p>Remove a specific column from a data frame</p>
@@ -1286,6 +1257,7 @@ See complete example at <a href="http://varianceexplained.org/r/trump-tweets/" c
 <span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(purrr)
 <span class="kw">library</span>(twitteR)</code></pre></div>
+</div>
 </div>
 </div>
 
