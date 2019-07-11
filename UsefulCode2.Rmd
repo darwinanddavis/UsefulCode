@@ -105,6 +105,37 @@ This document can be found at `r params$doi`
 
 Same deal as Useful Code, but the second instalment because the first one has too much stuff in it and now runs slow.    
 
+
+### D3  
+
+```{r, d31, eval=T}
+devtools::install_github("jcheng5/d3scatter")
+library(d3scatter)
+library(crosstalk)
+library(leaflet)
+library(tibble)
+
+sd <- SharedData$new(quakes[sample(nrow(quakes), 100),])
+
+bscols(widths = c(12, 6, 6),
+       filter_slider("stations", "Stations", sd, ~stations),
+       leaflet(sd, width = "100%", height = 400) %>% 
+         addTiles() %>% 
+         addCircleMarkers(lng=sd$data()[,"long"],
+                    lat=sd$data()[,"lat"],
+                    stroke = F,
+                    fill = T,
+                    color = "red",
+                    fillOpacity = 0.5,
+                    radius = ~mag + 2,
+                    label = ~paste0("Depth: ",as.character(depth))
+                    ),
+       d3scatter(sd, width = "100%", height = 400, ~mag, ~depth, color = ~stations)
+)
+
+```
+
+
 ### Read in data    
 Read in csv data sources directly from web  
 ``` {r, read1, results='hide',eval=F}
@@ -114,14 +145,17 @@ flights <- read.csv(url)
 ```
 
 ### `Rmarkdown`  
+
+<!-- ———————————————————————————————————————————————————————————————————————————— -->
 ***  
-Split page into three columns (displays best in browser)        
+Split page into three columns (displays best in browser).  
+_`R` code is in Rmd file._    
 
 <!-- #https://holtzy.github.io/Pimp-my-rmd/ -->
 <div class = "row">
 
 <div class = "col-md-4">
-```{r, message=F, echo=F, eval=T}
+```{r, rmarkdown1, message=F, echo=T, eval=T}
 # r plot code
 require(ggplot2)
 ggplot(mtcars, aes(x=mpg)) + 
@@ -155,6 +189,42 @@ Just from writing words with a pen
 </div> 
 
 ***
+<!-- ———————————————————————————————————————————————————————————————————————————— -->
+
+# `plotly`   
+
+HTML widget with plotly and crosstalk
+```{r, plotly1, eval=T, echo=T}
+require(plotly)
+require(tidyr)
+require(crosstalk)
+
+m <- gather(mpg, variable, value, -c(year,cyl))
+msd <- highlight_key(m, ~variable)
+gg <- ggplot(m, aes(factor(year), value)) + 
+  geom_jitter(alpha = 0.3) +
+  labs(x = "Year") +
+  theme_classic()
+
+bscols(
+  widths = c(11, rep(5,2)),
+  filter_select("id", "Select a variable", msd, ~variable, multiple = F),
+  ggplotly(gg, dynamicTicks = "y") %>% 
+    layout(margin = list(l = 30)),
+  plot_ly(msd, x = ~jitter(cyl), y = ~value, alpha = ~cyl, linetype = NULL,
+          mode = "markers",
+          hoverinfo = "text", 
+          text = ~paste0("Cyl: ", round(cyl),
+                        "\n",variable,": ", value,
+                        "\nYear: ", year)
+          ) %>% 
+    add_markers(alpha = 0.3) %>%
+    layout(xaxis = list(showgrid = F,
+                        title = "Cylinder"),
+           yaxis = list(showgrid = F)
+    )
+)
+```
 
 
 
