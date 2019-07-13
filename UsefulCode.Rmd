@@ -1075,6 +1075,9 @@ here_loc <- here("here_test", "here_test.txt")
 here_loc
 # "/Users/malishev/Documents/Data/gggmap/here_test/here_test.txt"
 readLines(here_loc) # access the file even though your working dir is up N levels from the file in your dir 
+
+
+
 ```
 
 

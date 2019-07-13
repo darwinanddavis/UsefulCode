@@ -136,6 +136,15 @@ bscols(widths = c(12, 6, 6),
 ```
 
 
+### Loading packages 
+`pacman`  
+```{r,load1}
+require(pacman)
+p_load(dplyr,mapdeck)
+
+```
+
+
 ### Read in data    
 Read in csv data sources directly from web  
 ``` {r, read1, results='hide',eval=F}
