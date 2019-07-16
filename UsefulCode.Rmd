@@ -11,9 +11,10 @@ documentclass: article
 linkcolor: pink
 urlcolor: blue
 citecolor: red
+always_allow_html: yes
 output:
-  md_document:
-   variant: markdown_github
+  md_document: 
+    variant: markdown_github
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -269,9 +270,9 @@ plot_it_gg <- function(bg,family){ # bg = colour to plot bg, family = font famil
           axis.title.y = element_text(colour = "white")) +
     theme(axis.text.x = element_text(color = "white"),
           axis.text.y = element_text(color = "white")) +
-    theme(legend.key = element_rect(fill = bg)) + # fill bg of legend
-    theme(legend.title = element_text(colour="white")) + # legend title
-    theme(legend.text = element_text(colour="white")) # legend labels
+    theme(legend.key = element_rect(fill = bg)) + 
+    theme(legend.title = element_text(colour="white")) + 
+    theme(legend.text = element_text(colour="white")) 
 } 
 ```
 
@@ -296,25 +297,30 @@ hr.mass.plot(d)
 ```
 
 Using `ggplot` when looping through `for` loop and saving to dir   
-```{r, ggplot4, results='hide',eval=F}
+```{r, ggplot4,eval=F}
 pdf("mypdf.pdf",onefile = T)
 for(i in 1:3){ 
 par(bty="n", las = 1)
   grid.arrange( 
-  ggplot(data, aes(x = X, y = Y, fill=..x..)) + # geom_density_ridges()
-    # scale = overlap
+  ggplot(data, aes(x = X, y = Y, fill=..x..)) + 
     geom_density_ridges_gradient(scale = 5, size=0.2,color="black", rel_min_height = 0.01,panel_scaling=T,alpha=0.2) +
     geom_density_ridges(scale = 5, size=0.2,color="black", rel_min_height = 0.01,fill="white",alpha=0.2) +
-    # geom_density_ridges(scale = 5, size=0.2,color="white", rel_min_height = 0.01,fill=col,alpha=0.5) +
-    scale_fill_viridis(name = "Diameter", alpha=0.1, option = "magma",direction=-1) + # "magma", "inferno","plasma", "viridis", "cividis"
+    scale_fill_viridis(name = "Diameter", alpha=0.1, option = "magma",direction=-1) + 
     xlim(c(0,25)) +
     labs(title = paste0("Title_",i)) +
     xlab("X") +
-    ylab("Y") +
-    # plot_it_gg("white")
+    ylab("Y")
   )
-} # end loop 
+} 
+# end loop 
 dev.off()
+
+
+# geom_density_ridges() # scale = overlap
+
+# geom_density_ridges(scale = 5, size=0.2,color="white", rel_min_height = 0.01,fill=col,alpha=0.5) +
+
+# scale_fill_viridis option =  "magma", "inferno","plasma", "viridis", "cividis"
 
 ```
 
@@ -748,13 +754,15 @@ mygraph <- graph_from_data_frame( edges, vertices=vertices )
 # circle packing
 ggraph(mygraph, layout = 'circlepack', weight="size",sort.by=NULL,direction="out") + 
   geom_node_circle(aes(fill=depth)) +
-  geom_node_text(aes(label=shortName, filter=leaf, fill=depth, size=size)) + # add text
-  # geom_node_label(aes(label=shortName, filter=leaf, size=size)) + # add text boxes
+  geom_node_text(aes(label=shortName, filter=leaf, fill=depth, size=size)) + 
   theme_void() + 
   # theme(legend.position="F") + #show legend
-  scale_fill_viridis(alpha=0.5,direction=-1,option="magma") +
+  scale_fill_viridis(alpha=0.5,direction=-1,option="magma")
+
   # scale_fill_distiller(palette = "Blues")
 
+  # geom_node_label(aes(label=shortName, filter=leaf, size=size)) + # add text boxes
+  
 #circular dendo
 str(mygraph)
 ggraph(mygraph, layout='dendrogram', circular=T) + 
@@ -880,10 +888,10 @@ bg <- bpy.colors(1)
 alpha <- 0.8
 
 # pdf(paste0(plot.dir,strat,"_",density,"_",stage,"_kudspdf.pdf"),width=8.27,height=11.69,paper="a4r")
+
+# color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor("lightgreen",alpha=0.2)),
 scatterplot3d(x=xx,y=yy,z=dens,
-              # color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor("lightgreen",alpha=0.2)),
               color=ifelse(dens<=dens_val,adjustcolor(ifelse(bg==bpy.colors(1),bpy.colors(1),"white"),alpha=0.1),adjustcolor(colfunc,alpha=alpha)),
-              # col.axis="light green",
               las=1,
               pch=15,
               type="p",
@@ -900,17 +908,24 @@ scatterplot3d(x=xx,y=yy,z=dens,
               grid=F,
               col.grid = adjustcolor("gray",1),
               lty.grid=par(3),
-              #cex.symbols=dens*3,
-              #cex.symbols = ifelse(z<=0,0,0.5),
-              # highlight.3d=T, # ignores color arg if T
-              # angle=70,
               axis=T
-              # add below part to end of scatterplot3d plot
-)#$plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL, lty = "dashed", lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border = NA, col = rgb(0,0,0,0.2))
+)
+
+# other plot options  
+#cex.symbols=dens*3,
+              #cex.symbols = ifelse(z<=0,0,0.5),
+              # highlight.3d=T, 
+              # angle=70,
+
+
+# append the below section starting at the '$' to the above closing bracket
+
+#$plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL, lty = "dashed", lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border = NA, col = rgb(0,0,0,0.2))
 #            lty="dashed",
 #          lty.box = NULL,
 #          draw_lines = F, draw_polygon = T,
 #          polygon_args = list(border = NA, col = adjustcolor("light green",alpha=0.4)))
+
 # add control dates
 if(add.control==1){par(new=T); scatterplot3d(x=rep(0,length(controls)),y=controls,z=rep(max(dens),length(controls)),color="gray",las=1,pch="",lty.hplot = 1,xlim=xlim,ylim=ylim,zlim=zlim,xlab="",ylab="",zlab="",box=F,grid=F,cex.symbols=2,axis=F,type="h")}
 
@@ -1141,8 +1156,6 @@ Hide unwanted code output, such as inherent examples for functions
 
 Math notation in R Markdown  
 
-```{r}
-
 x=y	$x = y$    
 x<y	$x < y$  
 x>y	$x > y$  
@@ -1183,35 +1196,34 @@ F(x)|ba	$\left. F(x) \right|_{a}^{b}$
 ∏bx=af(x)	$\prod_{x = a}^{b} f(x)$  
 limx→∞f(x)	$\lim_{x \to \infty} f(x)$  
 limx→∞f(x)	$\displaystyle \lim_{x \to \infty} f(x)$    
-```  
 
-Greek Letters  
-```{r}
-αA	$\alpha A$  	
-νN	$\nu N $  
-βB	$\beta B$  	
-ξΞ	$\xi\Xi$  
-γΓ	$\gamma \Gamma$	 
-oO	$o O$ (omicron)  
-δΔ	$\delta \Delta$	  
-πΠ	$\pi \Pi$  
-ϵεE	$\epsilon \varepsilon E$  
-ρϱP	$\rho\varrho P$  
-ζZ	$\zeta Z \sigma \,\!$  
-Σ	$\sigma \Sigma$  
-ηH	$\eta H$  
-τT	$\tau T$  
-θϑΘ	$\theta \vartheta \Theta$  
-υΥ	$\upsilon \Upsilon$  
-ιI	$\iota I$  
-ϕφΦ	$\phi \varphi \Phi$    
-κK	$\kappa K$    
-χX	$\chi X$    
-λΛ	$\lambda \Lambda$    
-ψΨ	$\psi \Psi$    
-μM	$\mu M$  	
-ω Ω$\omega \Omega$    
-```
+Greek Letters     
+
+αA	$\alpha A$    	
+νN	$\nu N $    
+βB	$\beta B$    	
+ξΞ	$\xi\Xi$    
+γΓ	$\gamma \Gamma$	   
+oO	$o O$ (omicron)    
+δΔ	$\delta \Delta$	    
+πΠ	$\pi \Pi$    
+ϵεE	$\epsilon \varepsilon E$    
+ρϱP	$\rho\varrho P$    
+ζZ	$\zeta Z \sigma \,\!$    
+Σ	$\sigma \Sigma$    
+ηH	$\eta H$    
+τT	$\tau T$    
+θϑΘ	$\theta \vartheta \Theta$    
+υΥ	$\upsilon \Upsilon$    
+ιI	$\iota I$    
+ϕφΦ	$\phi \varphi \Phi$      
+κK	$\kappa K$      
+χX	$\chi X$      
+λΛ	$\lambda \Lambda$      
+ψΨ	$\psi \Psi$      
+μM	$\mu M$ 	  
+ω Ω$\omega \Omega$   
+
 
 ######    
   

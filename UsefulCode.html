@@ -374,21 +374,11 @@ div.tocify {
 </script>
 <pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
-<div id="useful-code-1" class="section level1">
-<h1>Useful Code 1</h1>
-<p> <br />
- </p>
-<div id="matthew-malishev1" class="section level3">
-<h3>Matthew Malishev<sup>1*</sup></h3>
-<div id="department-of-biology-emory-university-1510-clifton-road-ne-atlanta-ga-usa-30322" class="section level5">
-<h5><em><sup>1</sup> Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322</em></h5>
-<p>Date: 2019-07-10<br />
+<p>Date: 2019-07-16<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
 
-</div>
-</div>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
 <p>This document outlines some useful <code>R</code> code for plotting, cool functions, and other random tidbits.</p>
@@ -1162,71 +1152,69 @@ tt[final[, col2search], col2search]  <span class="co"># show raw outputs </span>
 <p>Hide unwanted code output, such as inherent examples for functions</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ```{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'}</span></code></pre></div>
 <p>Math notation in R Markdown</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x=y <span class="op">$</span>x =<span class="st"> </span>y<span class="op">$</span><span class="st">    </span>
-x<span class="op">&lt;</span>y <span class="op">$</span>x <span class="op">&lt;</span><span class="st"> </span>y<span class="op">$</span><span class="st">  </span>
-x<span class="op">&gt;</span>y <span class="op">$</span>x <span class="op">&gt;</span><span class="st"> </span>y<span class="op">$</span><span class="st">  </span>
-x≤y <span class="op">$</span>x \le y<span class="op">$</span><span class="st">  </span>
-x≥y <span class="op">$</span>x \ge y<span class="op">$</span><span class="st">  </span>
-xn  <span class="op">$</span>x<span class="op">^</span>{n}<span class="op">$</span><span class="st">  </span>
-xn  <span class="op">$</span>x_{n}<span class="op">$</span><span class="st">  </span>
-x⎯⎯⎯    <span class="op">$</span>\overline{x}<span class="op">$</span><span class="st">  </span>
-x̂  <span class="op">$</span>\hat{x}<span class="op">$</span><span class="st">  </span>
-x̃  <span class="op">$</span>\tilde{x}<span class="op">$</span><span class="st">  </span>
-ab  <span class="op">$</span>\frac{a}{b}<span class="op">$</span><span class="st">  </span>
-∂f∂x    <span class="op">$</span>\frac{a}{b}<span class="op">$</span><span class="st">  </span>
-∂f∂x    <span class="op">$</span>\displaystyle \frac{a}{b}<span class="op">$</span><span class="st">  </span>
-(nk)    <span class="op">$</span>\binom{n}{k}<span class="op">$</span><span class="st">  </span>
-x1<span class="op">+</span>x2<span class="op">+</span>⋯<span class="op">+</span>xn  <span class="op">$</span>x_{<span class="dv">1</span>} <span class="op">+</span><span class="st"> </span>x_{<span class="dv">2</span>} <span class="op">+</span><span class="st"> </span>\cdots <span class="op">+</span><span class="st"> </span>x_{n}<span class="op">$</span><span class="st">   </span>
-x1,x2,…,xn  <span class="op">$</span>x_{<span class="dv">1</span>}, x_{<span class="dv">2</span>}, \dots, x_{n}<span class="op">$</span><span class="st">  </span>
-x=⟨x1,x2,…,xn <span class="op">$</span>\mathbf{x} =<span class="st"> </span>\langle x_{<span class="dv">1</span>}, x_{<span class="dv">2</span>}, \dots, x_{n}\rangle<span class="op">$</span><span class="st">    </span>
-x∈A <span class="op">$</span>x \<span class="cf">in</span> A<span class="op">$</span><span class="st">    </span>
-<span class="er">|</span>A<span class="op">|</span><span class="st"> </span><span class="er">$|</span>A<span class="op">|</span><span class="er">$</span><span class="st">  </span>
-x∈A <span class="op">$</span>x \<span class="cf">in</span> A<span class="op">$</span><span class="st">  </span>
-A⊂B <span class="op">$</span>x \subset B<span class="op">$</span><span class="st">  </span>
-A⊆B <span class="op">$</span>x \subseteq B<span class="op">$</span><span class="st">  </span>
-A∪B <span class="op">$</span>A \cup B<span class="op">$</span><span class="st">  </span>
-A∩B <span class="op">$</span>A \cap B<span class="op">$</span><span class="st">  </span>
-X∼𝖡𝗂𝗇𝗈𝗆(n,π)    <span class="op">$</span>X \sim {\sf Binom}(n, \pi)<span class="op">$</span>
-
-<span class="kw">P</span>(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π)    <span class="op">$</span>\mathrm{P}(X \le x) =<span class="st"> </span>{\tt pbinom}(x, n, \pi)<span class="op">$</span><span class="st">   </span>
-<span class="kw">P</span>(A∣B)  <span class="op">$</span><span class="kw">P</span>(A \mid B)<span class="op">$</span><span class="st">  </span>
-<span class="kw">P</span>(A∣B)  <span class="op">$</span>\mathrm{P}(A \mid B)<span class="op">$</span><span class="st">   </span>
-{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>} <span class="op">$</span>\{<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>\}<span class="op">$</span><span class="st">  </span>
-<span class="kw">sin</span>(x)  <span class="op">$</span>\<span class="kw">sin</span>(x)<span class="op">$</span><span class="st">    </span>
-<span class="kw">log</span>(x)  <span class="op">$</span>\<span class="kw">log</span>(x)<span class="op">$</span><span class="st">  </span>
-∫ba <span class="op">$</span>\int_{a}<span class="op">^</span>{b}<span class="op">$</span><span class="st">  </span>
-(∫<span class="kw">baf</span>(x)dx) <span class="op">$</span>\<span class="kw">left</span>(\int_{a}<span class="op">^</span>{b} <span class="kw">f</span>(x) \; dx\right)<span class="op">$</span><span class="st">  </span>
-[∫∞−∞<span class="kw">f</span>(x)dx]    <span class="op">$</span>\left[\int_{\<span class="op">-</span>infty}<span class="op">^</span>{\infty} <span class="kw">f</span>(x) \; dx\right]<span class="op">$</span><span class="st">  </span>
-<span class="kw">F</span>(x)<span class="op">|</span>ba <span class="op">$</span>\left. <span class="kw">F</span>(x) \right<span class="op">|</span>_{a}<span class="op">^</span>{b}<span class="op">$</span><span class="st">  </span>
-∑bx=<span class="kw">af</span>(x)   <span class="op">$</span>\sum_{x =<span class="st"> </span>a}<span class="op">^</span>{b} <span class="kw">f</span>(x)<span class="op">$</span><span class="st">  </span>
-∏bx=<span class="kw">af</span>(x)   <span class="op">$</span>\prod_{x =<span class="st"> </span>a}<span class="op">^</span>{b} <span class="kw">f</span>(x)<span class="op">$</span><span class="st">  </span>
-limx→∞<span class="kw">f</span>(x)  <span class="op">$</span>\lim_{x \to \infty} <span class="kw">f</span>(x)<span class="op">$</span><span class="st">  </span>
-limx→∞<span class="kw">f</span>(x)  <span class="op">$</span>\displaystyle \lim_{x \to \infty} <span class="kw">f</span>(x)<span class="op">$</span><span class="st">    </span></code></pre></div>
+<p>x=y <span class="math inline">\(x = y\)</span><br />
+x<y $x < y$ x>y <span class="math inline">\(x &gt; y\)</span><br />
+x≤y <span class="math inline">\(x \le y\)</span><br />
+x≥y <span class="math inline">\(x \ge y\)</span><br />
+xn <span class="math inline">\(x^{n}\)</span><br />
+xn <span class="math inline">\(x_{n}\)</span><br />
+x⎯⎯⎯ <span class="math inline">\(\overline{x}\)</span><br />
+x̂ <span class="math inline">\(\hat{x}\)</span><br />
+x̃ <span class="math inline">\(\tilde{x}\)</span><br />
+ab <span class="math inline">\(\frac{a}{b}\)</span><br />
+∂f∂x <span class="math inline">\(\frac{a}{b}\)</span><br />
+∂f∂x <span class="math inline">\(\displaystyle \frac{a}{b}\)</span><br />
+(nk) <span class="math inline">\(\binom{n}{k}\)</span><br />
+x1+x2+⋯+xn <span class="math inline">\(x_{1} + x_{2} + \cdots + x_{n}\)</span><br />
+x1,x2,…,xn <span class="math inline">\(x_{1}, x_{2}, \dots, x_{n}\)</span><br />
+x=⟨x1,x2,…,xn <span class="math inline">\(\mathbf{x} = \langle x_{1}, x_{2}, \dots, x_{n}\rangle\)</span><br />
+x∈A <span class="math inline">\(x \in A\)</span><br />
+|A| <span class="math inline">\(|A|\)</span><br />
+x∈A <span class="math inline">\(x \in A\)</span><br />
+A⊂B <span class="math inline">\(x \subset B\)</span><br />
+A⊆B <span class="math inline">\(x \subseteq B\)</span><br />
+A∪B <span class="math inline">\(A \cup B\)</span><br />
+A∩B <span class="math inline">\(A \cap B\)</span><br />
+X∼𝖡𝗂𝗇𝗈𝗆(n,π) <span class="math inline">\(X \sim {\sf Binom}(n, \pi)\)</span></p>
+<p>P(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π) <span class="math inline">\(\mathrm{P}(X \le x) = {\tt pbinom}(x, n, \pi)\)</span><br />
+P(A∣B) <span class="math inline">\(P(A \mid B)\)</span><br />
+P(A∣B) <span class="math inline">\(\mathrm{P}(A \mid B)\)</span><br />
+{1,2,3} <span class="math inline">\(\{1, 2, 3\}\)</span><br />
+sin(x) <span class="math inline">\(\sin(x)\)</span><br />
+log(x) <span class="math inline">\(\log(x)\)</span><br />
+∫ba <span class="math inline">\(\int_{a}^{b}\)</span><br />
+(∫baf(x)dx) <span class="math inline">\(\left(\int_{a}^{b} f(x) \; dx\right)\)</span><br />
+[∫∞−∞f(x)dx] <span class="math inline">\(\left[\int_{\-infty}^{\infty} f(x) \; dx\right]\)</span><br />
+F(x)|ba <span class="math inline">\(\left. F(x) \right|_{a}^{b}\)</span><br />
+∑bx=af(x) <span class="math inline">\(\sum_{x = a}^{b} f(x)\)</span><br />
+∏bx=af(x) <span class="math inline">\(\prod_{x = a}^{b} f(x)\)</span><br />
+limx→∞f(x) <span class="math inline">\(\lim_{x \to \infty} f(x)\)</span><br />
+limx→∞f(x) <span class="math inline">\(\displaystyle \lim_{x \to \infty} f(x)\)</span></p>
 <p>Greek Letters</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">αA  <span class="op">$</span>\alpha A<span class="op">$</span><span class="st">      </span>
-νN  <span class="op">$</span>\nu N <span class="op">$</span><span class="st">  </span>
-βB  <span class="op">$</span>\beta B<span class="op">$</span><span class="st">   </span>
-ξΞ  <span class="op">$</span>\xi\Xi<span class="op">$</span><span class="st">  </span>
-γΓ  <span class="op">$</span>\gamma \Gamma<span class="op">$</span><span class="st">  </span>
-oO  <span class="op">$</span>o O<span class="op">$</span><span class="st"> </span>(omicron)  
-δΔ  <span class="op">$</span>\delta \Delta<span class="op">$</span><span class="st">   </span>
-πΠ  <span class="op">$</span>\pi \Pi<span class="op">$</span><span class="st">  </span>
-ϵεE <span class="op">$</span>\epsilon \varepsilon E<span class="op">$</span><span class="st">  </span>
-ρϱP <span class="op">$</span>\rho\varrho P<span class="op">$</span><span class="st">  </span>
-ζZ  <span class="op">$</span>\zeta Z \sigma \,\<span class="op">!</span><span class="er">$</span><span class="st">  </span>
-Σ   <span class="op">$</span>\sigma \Sigma<span class="op">$</span><span class="st">  </span>
-ηH  <span class="op">$</span>\eta H<span class="op">$</span><span class="st">  </span>
-τT  <span class="op">$</span>\tau T<span class="op">$</span><span class="st">  </span>
-θϑΘ <span class="op">$</span>\theta \vartheta \Theta<span class="op">$</span><span class="st">  </span>
-υΥ  <span class="op">$</span>\upsilon \Upsilon<span class="op">$</span><span class="st">  </span>
-ιI  <span class="op">$</span>\iota I<span class="op">$</span><span class="st">  </span>
-ϕφΦ <span class="op">$</span>\phi \varphi \Phi<span class="op">$</span><span class="st">    </span>
-κK  <span class="op">$</span>\kappa K<span class="op">$</span><span class="st">    </span>
-χX  <span class="op">$</span>\chi X<span class="op">$</span><span class="st">    </span>
-λΛ  <span class="op">$</span>\lambda \Lambda<span class="op">$</span><span class="st">    </span>
-ψΨ  <span class="op">$</span>\psi \Psi<span class="op">$</span><span class="st">    </span>
-μM  <span class="op">$</span>\mu M<span class="op">$</span><span class="st">     </span>
-ω Ω<span class="op">$</span>\omega \Omega<span class="op">$</span><span class="st">    </span></code></pre></div>
+<p>αA <span class="math inline">\(\alpha A\)</span><br />
+νN $N $<br />
+βB <span class="math inline">\(\beta B\)</span><br />
+ξΞ <span class="math inline">\(\xi\Xi\)</span><br />
+γΓ <span class="math inline">\(\gamma \Gamma\)</span><br />
+oO <span class="math inline">\(o O\)</span> (omicron)<br />
+δΔ <span class="math inline">\(\delta \Delta\)</span><br />
+πΠ <span class="math inline">\(\pi \Pi\)</span><br />
+ϵεE <span class="math inline">\(\epsilon \varepsilon E\)</span><br />
+ρϱP <span class="math inline">\(\rho\varrho P\)</span><br />
+ζZ <span class="math inline">\(\zeta Z \sigma \,\!\)</span><br />
+Σ <span class="math inline">\(\sigma \Sigma\)</span><br />
+ηH <span class="math inline">\(\eta H\)</span><br />
+τT <span class="math inline">\(\tau T\)</span><br />
+θϑΘ <span class="math inline">\(\theta \vartheta \Theta\)</span><br />
+υΥ <span class="math inline">\(\upsilon \Upsilon\)</span><br />
+ιI <span class="math inline">\(\iota I\)</span><br />
+ϕφΦ <span class="math inline">\(\phi \varphi \Phi\)</span><br />
+κK <span class="math inline">\(\kappa K\)</span><br />
+χX <span class="math inline">\(\chi X\)</span><br />
+λΛ <span class="math inline">\(\lambda \Lambda\)</span><br />
+ψΨ <span class="math inline">\(\psi \Psi\)</span><br />
+μM <span class="math inline">\(\mu M\)</span><br />
+ω Ω<span class="math inline">\(\omega \Omega\)</span></p>
 <div id="section-1" class="section level6">
 <h6></h6>
 </div>
@@ -1257,7 +1245,6 @@ See complete example at <a href="http://varianceexplained.org/r/trump-tweets/" c
 <span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(purrr)
 <span class="kw">library</span>(twitteR)</code></pre></div>
-</div>
 </div>
 </div>
 

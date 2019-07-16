@@ -11,7 +11,10 @@ documentclass: article
 linkcolor: pink
 urlcolor: blue
 citecolor: red
+always_allow_html: yes
 output:
+  md_document: 
+    variant: markdown_github
   html_document:
     highlight: tango
     code_folding: hide

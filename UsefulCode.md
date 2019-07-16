@@ -5,17 +5,7 @@
 
  
 
-Useful Code 1
-=============
-
- 
- 
-
-### Matthew Malishev<sup>1\*</sup>
-
-##### *<sup>1</sup> Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322*
-
-Date: 2019-07-10
+Date: 2019-07-16
 `R` version: 3.5.0
 \*Corresponding author: <matthew.malishev@gmail.com>
 This document can be found at <https://github.com/darwinanddavis/UsefulCode>
@@ -173,26 +163,17 @@ theme_ridges(grid = F, center_axis_labels = T)
 Setting global graphics theme for ggplot
 
 ``` r
-plot_it_gg <- function(bg,family){ # bg = colour to plot bg, family = font family
-  theme_tufte(base_family = family) +
-  theme(panel.border = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = bg,
-                                        colour = bg),
-        plot.background = element_rect(fill=bg)
-  ) +
-    theme(axis.line = element_line(color = "white")) +
-    theme(axis.ticks = element_line(color = "white")) +
-    theme(plot.title = element_text(colour = "white")) +
-    theme(axis.title.x = element_text(colour = "white"), 
-          axis.title.y = element_text(colour = "white")) +
-    theme(axis.text.x = element_text(color = "white"),
-          axis.text.y = element_text(color = "white")) +
-    theme(legend.key = element_rect(fill = bg)) + # fill bg of legend
-    theme(legend.title = element_text(colour="white")) + # legend title
-    theme(legend.text = element_text(colour="white")) # legend labels
-} 
+plot_it_gg <- function(bg, family) {
+    # bg = colour to plot bg, family = font family
+    theme_tufte(base_family = family) + theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), panel.background = element_rect(fill = bg, colour = bg), 
+        plot.background = element_rect(fill = bg)) + theme(axis.line = element_line(color = "white")) + 
+        theme(axis.ticks = element_line(color = "white")) + theme(plot.title = element_text(colour = "white")) + 
+        theme(axis.title.x = element_text(colour = "white"), axis.title.y = element_text(colour = "white")) + 
+        theme(axis.text.x = element_text(color = "white"), axis.text.y = element_text(color = "white")) + 
+        theme(legend.key = element_rect(fill = bg)) + theme(legend.title = element_text(colour = "white")) + 
+        theme(legend.text = element_text(colour = "white"))
+}
 ```
 
 Put plot in function to take dynamic data inputs
@@ -215,24 +196,24 @@ hr.mass.plot(d)
 Using `ggplot` when looping through `for` loop and saving to dir
 
 ``` r
-pdf("mypdf.pdf",onefile = T)
-for(i in 1:3){ 
-par(bty="n", las = 1)
-  grid.arrange( 
-  ggplot(data, aes(x = X, y = Y, fill=..x..)) + # geom_density_ridges()
-    # scale = overlap
-    geom_density_ridges_gradient(scale = 5, size=0.2,color="black", rel_min_height = 0.01,panel_scaling=T,alpha=0.2) +
-    geom_density_ridges(scale = 5, size=0.2,color="black", rel_min_height = 0.01,fill="white",alpha=0.2) +
-    # geom_density_ridges(scale = 5, size=0.2,color="white", rel_min_height = 0.01,fill=col,alpha=0.5) +
-    scale_fill_viridis(name = "Diameter", alpha=0.1, option = "magma",direction=-1) + # "magma", "inferno","plasma", "viridis", "cividis"
-    xlim(c(0,25)) +
-    labs(title = paste0("Title_",i)) +
-    xlab("X") +
-    ylab("Y") +
-    # plot_it_gg("white")
-  )
-} # end loop 
+pdf("mypdf.pdf", onefile = T)
+for (i in 1:3) {
+    par(bty = "n", las = 1)
+    grid.arrange(ggplot(data, aes(x = X, y = Y, fill = ..x..)) + geom_density_ridges_gradient(scale = 5, 
+        size = 0.2, color = "black", rel_min_height = 0.01, panel_scaling = T, alpha = 0.2) + geom_density_ridges(scale = 5, 
+        size = 0.2, color = "black", rel_min_height = 0.01, fill = "white", alpha = 0.2) + scale_fill_viridis(name = "Diameter", 
+        alpha = 0.1, option = "magma", direction = -1) + xlim(c(0, 25)) + labs(title = paste0("Title_", 
+        i)) + xlab("X") + ylab("Y"))
+}
+# end loop
 dev.off()
+
+
+# geom_density_ridges() # scale = overlap
+
+# geom_density_ridges(scale = 5, size=0.2,color='white', rel_min_height = 0.01,fill=col,alpha=0.5) +
+
+# scale_fill_viridis option = 'magma', 'inferno','plasma', 'viridis', 'cividis'
 ```
 
 Converting lists and dataframes to usable format for `ggplot` (`melt` package)
@@ -652,17 +633,16 @@ library(choroplethrMaps)
 Circle packing, tree, dendogram, network plots
 
 ``` r
-# dendogram tree nested bubble circle packing network 
+# dendogram tree nested bubble circle packing network
 # https://www.r-graph-gallery.com/313-basic-circle-packing-with-several-levels/
 
-# circle packing plot  
-# Libraries
-p <- c("ggraph","igraph","tidyverse","DeducerSpatial","Rcpp","car")
-install.packages(p,dependencies = T)
-lapply(p,library,character.only=T)
+# circle packing plot Libraries
+p <- c("ggraph", "igraph", "tidyverse", "DeducerSpatial", "Rcpp", "car")
+install.packages(p, dependencies = T)
+lapply(p, library, character.only = T)
 
 # We need a data frame giving a hierarchical structure. Let's consider the flare dataset:
-edges=flare$edges
+edges = flare$edges
 # edges cols = character
 
 # Usually we associate another dataset that give information about each node of the dataset:
@@ -672,52 +652,38 @@ vertices = flare$vertices
 # Create a subset of the dataset (I remove 1 level)
 edges = flare$edges %>% filter(to %in% from) %>% droplevels()
 vertices = flare$vertices %>% filter(name %in% c(edges$from, edges$to)) %>% droplevels()
-vertices$size=runif(nrow(vertices))
+vertices$size = runif(nrow(vertices))
 
 # Then we have to make a 'graph' object using the igraph library:
-mygraph <- graph_from_data_frame( edges, vertices=vertices )
+mygraph <- graph_from_data_frame(edges, vertices = vertices)
 
 # circle packing
-ggraph(mygraph, layout = 'circlepack', weight="size",sort.by=NULL,direction="out") + 
-  geom_node_circle(aes(fill=depth)) +
-  geom_node_text(aes(label=shortName, filter=leaf, fill=depth, size=size)) + # add text
-  # geom_node_label(aes(label=shortName, filter=leaf, size=size)) + # add text boxes
-  theme_void() + 
-  # theme(legend.position="F") + #show legend
-  scale_fill_viridis(alpha=0.5,direction=-1,option="magma") +
-  # scale_fill_distiller(palette = "Blues")
+ggraph(mygraph, layout = "circlepack", weight = "size", sort.by = NULL, direction = "out") + geom_node_circle(aes(fill = depth)) + 
+    geom_node_text(aes(label = shortName, filter = leaf, fill = depth, size = size)) + theme_void() + 
+    # theme(legend.position='F') + #show legend
+scale_fill_viridis(alpha = 0.5, direction = -1, option = "magma")
 
-#circular dendo
+# scale_fill_distiller(palette = 'Blues')
+
+# geom_node_label(aes(label=shortName, filter=leaf, size=size)) + # add text boxes
+
+# circular dendo
 str(mygraph)
-ggraph(mygraph, layout='dendrogram', circular=T) + 
-  geom_edge_diagonal(flipped=F,
-                     label_colour = "black",
-                     label_alpha = 1,
-                     angle_calc = "rot",
-                     force_flip = TRUE,label_dodge = NULL, label_push = NULL, 
-                     show.legend = NA) +
-  theme_void() +
-  # theme(legend.position="none") +
-  scale_fill_distiller(palette = "Blues")
+ggraph(mygraph, layout = "dendrogram", circular = T) + geom_edge_diagonal(flipped = F, label_colour = "black", 
+    label_alpha = 1, angle_calc = "rot", force_flip = TRUE, label_dodge = NULL, label_push = NULL, show.legend = NA) + 
+    theme_void() + # theme(legend.position='none') +
+scale_fill_distiller(palette = "Blues")
 
 # tree map
-ggraph(mygraph, 'treemap', weight = 'size') + 
-  geom_node_tile(aes(fill = depth), size = 0.25) +
-  theme_void() +
-  theme(legend.position="none")
+ggraph(mygraph, "treemap", weight = "size") + geom_node_tile(aes(fill = depth), size = 0.25) + theme_void() + 
+    theme(legend.position = "none")
 
 # circular partition
-ggraph(mygraph, 'partition', circular = TRUE) + 
-  geom_node_arc_bar(aes(fill = depth), size = 0.25) +
-  theme_void() +
-  theme(legend.position="none")
+ggraph(mygraph, "partition", circular = TRUE) + geom_node_arc_bar(aes(fill = depth), size = 0.25) + theme_void() + 
+    theme(legend.position = "none")
 
-# node 
-ggraph(mygraph) + 
-  geom_edge_link() + 
-  geom_node_point() +
-  theme_void() +
-  theme(legend.position="none")
+# node
+ggraph(mygraph) + geom_edge_link() + geom_node_point() + theme_void() + theme(legend.position = "none")
 ```
 
 Insert an animal silhouette into a plot
@@ -793,58 +759,52 @@ Make 3D scatterplot
 require(scatterplot3d)
 xx <- rnorm(1000)
 yy <- runif(1000)
-dens <- c(rep(0.0001,500),rep(1,500))
+dens <- c(rep(1e-04, 500), rep(1, 500))
 controls <- runif(3)
 add.control <- 1
-dens_val <- 1*10^-10 # 0 or 1*10^-10. value to knock out blanket of colour on plot surface 
-#linear model of r/ship between coords
+dens_val <- 1 * 10^-10  # 0 or 1*10^-10. value to knock out blanket of colour on plot surface 
+# linear model of r/ship between coords
 dens_lm <- lm(dens ~ xx + yy)
 
-xlim <- c(min(xx),max(xx)); ylim <- c(min(yy),max(yy)); zlim=c(min(dens),max(dens)) # set lims
+xlim <- c(min(xx), max(xx))
+ylim <- c(min(yy), max(yy))
+zlim = c(min(dens), max(dens))  # set lims
 colv <- "Blues"
-colvv<-colorRampPalette(brewer.pal(brewer.pal.info[colv,]$maxcolors,colv)) # col gradient
-colvv<-colorRampPalette(c("steelblue","lightblue","orange","red")) # set your own col gradient with as many colours as you want
-# colvv<-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as you want
+colvv <- colorRampPalette(brewer.pal(brewer.pal.info[colv, ]$maxcolors, colv))  # col gradient
+colvv <- colorRampPalette(c("steelblue", "lightblue", "orange", "red"))  # set your own col gradient with as many colours as you want
+# colvv<-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as
+# you want
 
 # set col palette
-colfunc <- colvv(length(dens))[as.numeric(cut(dens,breaks = length(dens)))] # define breaks in col gradient
+colfunc <- colvv(length(dens))[as.numeric(cut(dens, breaks = length(dens)))]  # define breaks in col gradient
 bg <- bpy.colors(1)
 alpha <- 0.8
 
-# pdf(paste0(plot.dir,strat,"_",density,"_",stage,"_kudspdf.pdf"),width=8.27,height=11.69,paper="a4r")
-scatterplot3d(x=xx,y=yy,z=dens,
-              # color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor("lightgreen",alpha=0.2)),
-              color=ifelse(dens<=dens_val,adjustcolor(ifelse(bg==bpy.colors(1),bpy.colors(1),"white"),alpha=0.1),adjustcolor(colfunc,alpha=alpha)),
-              # col.axis="light green",
-              las=1,
-              pch=15,
-              type="p",
-              lty.hplot = 1,
-              xlim=xlim,
-              ylim=ylim,
-              zlim=zlim,
-              xlab="X",
-              ylab="Y",
-              zlab="Density",
-              main="Main",
-              box=F,
-              lty.axis=par(1),
-              grid=F,
-              col.grid = adjustcolor("gray",1),
-              lty.grid=par(3),
-              #cex.symbols=dens*3,
-              #cex.symbols = ifelse(z<=0,0,0.5),
-              # highlight.3d=T, # ignores color arg if T
-              # angle=70,
-              axis=T
-              # add below part to end of scatterplot3d plot
-)#$plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL, lty = "dashed", lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border = NA, col = rgb(0,0,0,0.2))
-#            lty="dashed",
-#          lty.box = NULL,
-#          draw_lines = F, draw_polygon = T,
-#          polygon_args = list(border = NA, col = adjustcolor("light green",alpha=0.4)))
+# pdf(paste0(plot.dir,strat,'_',density,'_',stage,'_kudspdf.pdf'),width=8.27,height=11.69,paper='a4r')
+
+# color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor('lightgreen',alpha=0.2)),
+scatterplot3d(x = xx, y = yy, z = dens, color = ifelse(dens <= dens_val, adjustcolor(ifelse(bg == bpy.colors(1), 
+    bpy.colors(1), "white"), alpha = 0.1), adjustcolor(colfunc, alpha = alpha)), las = 1, pch = 15, type = "p", 
+    lty.hplot = 1, xlim = xlim, ylim = ylim, zlim = zlim, xlab = "X", ylab = "Y", zlab = "Density", main = "Main", 
+    box = F, lty.axis = par(1), grid = F, col.grid = adjustcolor("gray", 1), lty.grid = par(3), axis = T)
+
+# other plot options cex.symbols=dens*3, cex.symbols = ifelse(z<=0,0,0.5), highlight.3d=T, angle=70,
+
+
+# append the below section starting at the '$' to the above closing bracket
+
+# $plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL,
+# lty = 'dashed', lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border
+# = NA, col = rgb(0,0,0,0.2)) lty='dashed', lty.box = NULL, draw_lines = F, draw_polygon = T,
+# polygon_args = list(border = NA, col = adjustcolor('light green',alpha=0.4)))
+
 # add control dates
-if(add.control==1){par(new=T); scatterplot3d(x=rep(0,length(controls)),y=controls,z=rep(max(dens),length(controls)),color="gray",las=1,pch="",lty.hplot = 1,xlim=xlim,ylim=ylim,zlim=zlim,xlab="",ylab="",zlab="",box=F,grid=F,cex.symbols=2,axis=F,type="h")}
+if (add.control == 1) {
+    par(new = T)
+    scatterplot3d(x = rep(0, length(controls)), y = controls, z = rep(max(dens), length(controls)), color = "gray", 
+        las = 1, pch = "", lty.hplot = 1, xlim = xlim, ylim = ylim, zlim = zlim, xlab = "", ylab = "", 
+        zlab = "", box = F, grid = F, cex.symbols = 2, axis = F, type = "h")
+}
 ```
 
 Adding title from separate list to plot in loop (`ggplot`)
@@ -1074,77 +1034,73 @@ Hide unwanted code output, such as inherent examples for functions
 
 Math notation in R Markdown
 
-``` r
-x=y $x = y$    
+x=y *x* = *y*
 x<y $x < y$  
-x>y $x > y$  
-x≤y $x \le y$  
-x≥y $x \ge y$  
-xn  $x^{n}$  
-xn  $x_{n}$  
-x⎯⎯⎯    $\overline{x}$  
-x̂  $\hat{x}$  
-x̃  $\tilde{x}$  
-ab  $\frac{a}{b}$  
-∂f∂x    $\frac{a}{b}$  
-∂f∂x    $\displaystyle \frac{a}{b}$  
-(nk)    $\binom{n}{k}$  
-x1+x2+⋯+xn  $x_{1} + x_{2} + \cdots + x_{n}$   
-x1,x2,…,xn  $x_{1}, x_{2}, \dots, x_{n}$  
-x=⟨x1,x2,…,xn $\mathbf{x} = \langle x_{1}, x_{2}, \dots, x_{n}\rangle$    
-x∈A $x \in A$    
-|A| $|A|$  
-x∈A $x \in A$  
-A⊂B $x \subset B$  
-A⊆B $x \subseteq B$  
-A∪B $A \cup B$  
-A∩B $A \cap B$  
-X∼𝖡𝗂𝗇𝗈𝗆(n,π)    $X \sim {\sf Binom}(n, \pi)$
+x>y *x* &gt; *y*
+x≤y *x* ≤ *y*
+x≥y *x* ≥ *y*
+xn *x*<sup>*n*</sup>
+xn *x*<sub>*n*</sub>
+x⎯⎯⎯ $\\overline{x}$
+x̂ $\\hat{x}$
+x̃ $\\tilde{x}$
+ab $\\frac{a}{b}$
+∂f∂x $\\frac{a}{b}$
+∂f∂x $\\displaystyle \\frac{a}{b}$
+(nk) $\\binom{n}{k}$
+x1+x2+⋯+xn *x*<sub>1</sub> + *x*<sub>2</sub> + ⋯ + *x*<sub>*n*</sub>
+x1,x2,…,xn *x*<sub>1</sub>, *x*<sub>2</sub>, …, *x*<sub>*n*</sub>
+x=⟨x1,x2,…,xn **x** = ⟨*x*<sub>1</sub>, *x*<sub>2</sub>, …, *x*<sub>*n*</sub>⟩
+x∈A *x* ∈ *A*
+|A| |*A*|
+x∈A *x* ∈ *A*
+A⊂B *x* ⊂ *B*
+A⊆B *x* ⊆ *B*
+A∪B *A* ∪ *B*
+A∩B *A* ∩ *B*
+X∼𝖡𝗂𝗇𝗈𝗆(n,π) $X \\sim {\\sf Binom}(n, \\pi)$
 
-P(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π)    $\mathrm{P}(X \le x) = {\tt pbinom}(x, n, \pi)$   
-P(A∣B)  $P(A \mid B)$  
-P(A∣B)  $\mathrm{P}(A \mid B)$   
-{1,2,3} $\{1, 2, 3\}$  
-sin(x)  $\sin(x)$    
-log(x)  $\log(x)$  
-∫ba $\int_{a}^{b}$  
-(∫baf(x)dx) $\left(\int_{a}^{b} f(x) \; dx\right)$  
-[∫∞−∞f(x)dx]    $\left[\int_{\-infty}^{\infty} f(x) \; dx\right]$  
-F(x)|ba $\left. F(x) \right|_{a}^{b}$  
-∑bx=af(x)   $\sum_{x = a}^{b} f(x)$  
-∏bx=af(x)   $\prod_{x = a}^{b} f(x)$  
-limx→∞f(x)  $\lim_{x \to \infty} f(x)$  
-limx→∞f(x)  $\displaystyle \lim_{x \to \infty} f(x)$    
-```
+P(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π) $\\mathrm{P}(X \\le x) = {\\tt pbinom}(x, n, \\pi)$
+P(A∣B) *P*(*A* ∣ *B*)
+P(A∣B) *P*(*A* ∣ *B*)
+{1,2,3} {1, 2, 3}
+sin(x) sin(*x*)
+log(x) log(*x*)
+∫ba ∫<sub>*a*</sub><sup>*b*</sup>
+(∫baf(x)dx) (∫<sub>*a*</sub><sup>*b*</sup>*f*(*x*) *d**x*)
+\[∫∞−∞f(x)dx\] $\\left\[\\int\_{\\-infty}^{\\infty} f(x) \\; dx\\right\]$
+F(x)|ba *F*(*x*)|<sub>*a*</sub><sup>*b*</sup>
+∑bx=af(x) $\\sum\_{x = a}^{b} f(x)$
+∏bx=af(x) $\\prod\_{x = a}^{b} f(x)$
+limx→∞f(x) lim<sub>*x* → ∞</sub>*f*(*x*)
+limx→∞f(x) lim<sub>*x* → ∞</sub>*f*(*x*)
 
 Greek Letters
 
-``` r
-αA  $\alpha A$      
-νN  $\nu N $  
-βB  $\beta B$   
-ξΞ  $\xi\Xi$  
-γΓ  $\gamma \Gamma$  
-oO  $o O$ (omicron)  
-δΔ  $\delta \Delta$   
-πΠ  $\pi \Pi$  
-ϵεE $\epsilon \varepsilon E$  
-ρϱP $\rho\varrho P$  
-ζZ  $\zeta Z \sigma \,\!$  
-Σ   $\sigma \Sigma$  
-ηH  $\eta H$  
-τT  $\tau T$  
-θϑΘ $\theta \vartheta \Theta$  
-υΥ  $\upsilon \Upsilon$  
-ιI  $\iota I$  
-ϕφΦ $\phi \varphi \Phi$    
-κK  $\kappa K$    
-χX  $\chi X$    
-λΛ  $\lambda \Lambda$    
-ψΨ  $\psi \Psi$    
-μM  $\mu M$     
-ω Ω$\omega \Omega$    
-```
+αA *α**A*
+νN $N $
+βB *β**B*
+ξΞ *ξ**Ξ*
+γΓ *γ**Γ*
+oO *o**O* (omicron)
+δΔ *δ**Δ*
+πΠ *π**Π*
+ϵεE *ϵ**ε**E*
+ρϱP *ρ*𝜚*P*
+ζZ *ζ**Z**σ* ​
+Σ *σ**Σ*
+ηH *η**H*
+τT *τ**T*
+θϑΘ *θ**ϑ**Θ*
+υΥ *υ**Υ*
+ιI *ι**I*
+ϕφΦ *ϕ**φ**Φ*
+κK *κ**K*
+χX *χ**X*
+λΛ *λ**Λ*
+ψΨ *ψ**Ψ*
+μM *μ**M*
+ω Ω*ω**Ω*
 
 ###### 
 
