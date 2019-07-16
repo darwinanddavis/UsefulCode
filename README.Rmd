@@ -64,6 +64,14 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
 ---
 
+# Useful `R` Code  
+
+## Links to HTML versions    
+
+[Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)    
+[Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)  
+
+
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
@@ -99,10 +107,10 @@ setwd(paste0(params$dir,"/")) # for running just in R not knitr
 
 \    
 
-Date: `r params$date`    
-`R` version: `r params$version`    
-*Corresponding author: `r params$email`    
-This document can be found at `r params$doi`  
+Date: `r params$date`      
+`R` version: `r params$version`      
+*Corresponding author: `r params$email`      
+This document can be found at `r params$doi`    
 
 \newpage  
 
