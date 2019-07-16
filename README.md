@@ -5,9 +5,12 @@ Useful `R` Code
 Links to HTML versions
 ----------------------
 
-[Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)  
+### [Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)
 
-[Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)
+ 
+
+### [Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)
+
  
 
 <!-- <script type="text/x-mathjax-config"> -->
@@ -19,8 +22,13 @@ Date: 2019-07-16
  
 
 `R` version: 3.5.0
+ 
+
 \*Corresponding author: <matthew.malishev@gmail.com>
+ 
+
 This document can be found at <https://github.com/darwinanddavis/UsefulCode>
+ 
 
 Overview
 --------

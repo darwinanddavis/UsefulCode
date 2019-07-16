@@ -69,10 +69,10 @@ vignette: >
 
 ## Links to HTML versions    
 
-[Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)
+### [Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)
 \  
 
-[Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)  
+### [Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)  
 \  
 
 <!-- <script type="text/x-mathjax-config"> -->
@@ -110,16 +110,16 @@ setwd(paste0(params$dir,"/")) # for running just in R not knitr
 \    
 
 Date: `r params$date`  
-\  
+\    
 
 `R` version: `r params$version`         
-\
+\  
 
 *Corresponding author: `r params$email`      
-\
+\  
 
 This document can be found at `r params$doi`    
-\
+\  
 
 
 \newpage  
@@ -129,7 +129,7 @@ This document can be found at `r params$doi`
 This document outlines some useful `R` code for plotting, cool functions, and other random tidbits.     
 
 ### Install dependencies
-```{r, load packages, include=F, cache=F, message=F, warning=F, results='hide'}
+```{r, load packages, include=F, cache=F, message=F, warning=F, results='hide', echo=T}
 packages <- c("rgdal","dplyr","zoo","RColorBrewer","viridis","plyr","digitize","jpeg","devtools","imager","dplyr","ggplot2","ggridges","ggjoy","ggthemes","ggforce","svDialogs","data.table","tibble","extrafont","sp","readr","igraph","ggraph","jsonlite","deSolve") 
 if (require(packages)) {
     install.packages(packages,dependencies = T)
