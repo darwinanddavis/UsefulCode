@@ -7,8 +7,6 @@ Links to HTML versions
 
 ### [Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)
 
- 
-
 ### [Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)
 
  
@@ -16,18 +14,11 @@ Links to HTML versions
 <!-- <script type="text/x-mathjax-config"> -->
 <!--   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } }); -->
 <!-- </script> -->
- 
-
 Date: 2019-07-16
  
-
 `R` version: 3.5.0
- 
-
-\*Corresponding author: <matthew.malishev@gmail.com>
- 
-
-This document can be found at <https://github.com/darwinanddavis/UsefulCode>
+  \*Corresponding author: <matthew.malishev@gmail.com>
+  This document can be found at <https://github.com/darwinanddavis/UsefulCode>
  
 
 Overview
@@ -1054,73 +1045,77 @@ Hide unwanted code output, such as inherent examples for functions
 
 Math notation in R Markdown
 
-x=y *x* = *y*
+``` markdown
+x=y $x = y$    
 x<y $x < y$  
-x>y *x* &gt; *y*
-x≤y *x* ≤ *y*
-x≥y *x* ≥ *y*
-xn *x*<sup>*n*</sup>
-xn *x*<sub>*n*</sub>
-x⎯⎯⎯ $\\overline{x}$
-x̂ $\\hat{x}$
-x̃ $\\tilde{x}$
-ab $\\frac{a}{b}$
-∂f∂x $\\frac{a}{b}$
-∂f∂x $\\displaystyle \\frac{a}{b}$
-(nk) $\\binom{n}{k}$
-x1+x2+⋯+xn *x*<sub>1</sub> + *x*<sub>2</sub> + ⋯ + *x*<sub>*n*</sub>
-x1,x2,…,xn *x*<sub>1</sub>, *x*<sub>2</sub>, …, *x*<sub>*n*</sub>
-x=⟨x1,x2,…,xn **x** = ⟨*x*<sub>1</sub>, *x*<sub>2</sub>, …, *x*<sub>*n*</sub>⟩
-x∈A *x* ∈ *A*
-|A| |*A*|
-x∈A *x* ∈ *A*
-A⊂B *x* ⊂ *B*
-A⊆B *x* ⊆ *B*
-A∪B *A* ∪ *B*
-A∩B *A* ∩ *B*
-X∼𝖡𝗂𝗇𝗈𝗆(n,π) $X \\sim {\\sf Binom}(n, \\pi)$
+x>y $x > y$  
+x≤y $x \le y$  
+x≥y $x \ge y$  
+xn  $x^{n}$  
+xn  $x_{n}$  
+x⎯⎯⎯    $\overline{x}$  
+x̂  $\hat{x}$  
+x̃  $\tilde{x}$  
+ab  $\frac{a}{b}$  
+∂f∂x    $\frac{a}{b}$  
+∂f∂x    $\displaystyle \frac{a}{b}$  
+(nk)    $\binom{n}{k}$  
+x1+x2+⋯+xn  $x_{1} + x_{2} + \cdots + x_{n}$   
+x1,x2,…,xn  $x_{1}, x_{2}, \dots, x_{n}$  
+x=⟨x1,x2,…,xn $\mathbf{x} = \langle x_{1}, x_{2}, \dots, x_{n}\rangle$    
+x∈A $x \in A$    
+|A| $|A|$  
+x∈A $x \in A$  
+A⊂B $x \subset B$  
+A⊆B $x \subseteq B$  
+A∪B $A \cup B$  
+A∩B $A \cap B$  
+X∼𝖡𝗂𝗇𝗈𝗆(n,π)    $X \sim {\sf Binom}(n, \pi)$
 
-P(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π) $\\mathrm{P}(X \\le x) = {\\tt pbinom}(x, n, \\pi)$
-P(A∣B) *P*(*A* ∣ *B*)
-P(A∣B) *P*(*A* ∣ *B*)
-{1,2,3} {1, 2, 3}
-sin(x) sin(*x*)
-log(x) log(*x*)
-∫ba ∫<sub>*a*</sub><sup>*b*</sup>
-(∫baf(x)dx) (∫<sub>*a*</sub><sup>*b*</sup>*f*(*x*) *d**x*)
-\[∫∞−∞f(x)dx\] $\\left\[\\int\_{\\-infty}^{\\infty} f(x) \\; dx\\right\]$
-F(x)|ba *F*(*x*)|<sub>*a*</sub><sup>*b*</sup>
-∑bx=af(x) $\\sum\_{x = a}^{b} f(x)$
-∏bx=af(x) $\\prod\_{x = a}^{b} f(x)$
-limx→∞f(x) lim<sub>*x* → ∞</sub>*f*(*x*)
-limx→∞f(x) lim<sub>*x* → ∞</sub>*f*(*x*)
+P(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π)    $\mathrm{P}(X \le x) = {\tt pbinom}(x, n, \pi)$   
+P(A∣B)  $P(A \mid B)$  
+P(A∣B)  $\mathrm{P}(A \mid B)$   
+{1,2,3} $\{1, 2, 3\}$  
+sin(x)  $\sin(x)$    
+log(x)  $\log(x)$  
+∫ba $\int_{a}^{b}$  
+(∫baf(x)dx) $\left(\int_{a}^{b} f(x) \; dx\right)$  
+[∫∞−∞f(x)dx]    $\left[\int_{\-infty}^{\infty} f(x) \; dx\right]$  
+F(x)|ba $\left. F(x) \right|_{a}^{b}$  
+∑bx=af(x)   $\sum_{x = a}^{b} f(x)$  
+∏bx=af(x)   $\prod_{x = a}^{b} f(x)$  
+limx→∞f(x)  $\lim_{x \to \infty} f(x)$  
+limx→∞f(x)  $\displaystyle \lim_{x \to \infty} f(x)$    
+```
 
 Greek Letters
 
-αA *α**A*
-νN $N $
-βB *β**B*
-ξΞ *ξ**Ξ*
-γΓ *γ**Γ*
-oO *o**O* (omicron)
-δΔ *δ**Δ*
-πΠ *π**Π*
-ϵεE *ϵ**ε**E*
-ρϱP *ρ*𝜚*P*
-ζZ *ζ**Z**σ* ​
-Σ *σ**Σ*
-ηH *η**H*
-τT *τ**T*
-θϑΘ *θ**ϑ**Θ*
-υΥ *υ**Υ*
-ιI *ι**I*
-ϕφΦ *ϕ**φ**Φ*
-κK *κ**K*
-χX *χ**X*
-λΛ *λ**Λ*
-ψΨ *ψ**Ψ*
-μM *μ**M*
-ω Ω*ω**Ω*
+``` markdown
+αA  $\alpha A$      
+νN  $\nu N $    
+βB  $\beta B$       
+ξΞ  $\xi\Xi$    
+γΓ  $\gamma \Gamma$    
+oO  $o O$ (omicron)    
+δΔ  $\delta \Delta$     
+πΠ  $\pi \Pi$    
+ϵεE $\epsilon \varepsilon E$    
+ρϱP $\rho\varrho P$    
+ζZ  $\zeta Z \sigma \,\!$    
+Σ   $\sigma \Sigma$    
+ηH  $\eta H$    
+τT  $\tau T$    
+θϑΘ $\theta \vartheta \Theta$    
+υΥ  $\upsilon \Upsilon$    
+ιI  $\iota I$    
+ϕφΦ $\phi \varphi \Phi$      
+κK  $\kappa K$      
+χX  $\chi X$      
+λΛ  $\lambda \Lambda$      
+ψΨ  $\psi \Psi$      
+μM  $\mu M$       
+ω Ω$\omega \Omega$   
+```
 
 ###### 
 

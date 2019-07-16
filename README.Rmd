@@ -69,8 +69,7 @@ vignette: >
 
 ## Links to HTML versions    
 
-### [Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)
-\  
+### [Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)  
 
 ### [Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)  
 \  
@@ -107,20 +106,14 @@ knitr::opts_knit$set(root.dir=paste0(params$dir,"/")) # set working dir
 setwd(paste0(params$dir,"/")) # for running just in R not knitr
 ```
 
-\    
-
 Date: `r params$date`  
 \    
-
 `R` version: `r params$version`         
 \  
-
 *Corresponding author: `r params$email`      
 \  
-
 This document can be found at `r params$doi`    
 \  
-
 
 \newpage  
 
@@ -1176,6 +1169,7 @@ Hide unwanted code output, such as inherent examples for functions
 
 Math notation in R Markdown  
 
+```{markdown, echo=T}
 x=y	$x = y$    
 x<y	$x < y$  
 x>y	$x > y$  
@@ -1216,9 +1210,11 @@ F(x)|ba	$\left. F(x) \right|_{a}^{b}$
 ∏bx=af(x)	$\prod_{x = a}^{b} f(x)$  
 limx→∞f(x)	$\lim_{x \to \infty} f(x)$  
 limx→∞f(x)	$\displaystyle \lim_{x \to \infty} f(x)$    
+```
 
 Greek Letters     
 
+```{markdown, echo=T}
 αA	$\alpha A$    	
 νN	$\nu N $    
 βB	$\beta B$    	
@@ -1243,6 +1239,7 @@ oO	$o O$ (omicron)
 ψΨ	$\psi \Psi$      
 μM	$\mu M$ 	  
 ω Ω$\omega \Omega$   
+```
 
 
 ######    
