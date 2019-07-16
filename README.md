@@ -13,15 +13,14 @@ Links to HTML versions
 <!-- <script type="text/x-mathjax-config"> -->
 <!--   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } }); -->
 <!-- </script> -->
-    ## Warning: package 'rmarkdown' was built under R version 3.5.2
-
  
 
 Date: 2019-07-16
-  `R` version: 3.5.0
-  \*Corresponding author: <matthew.malishev@gmail.com>
-  This document can be found at <https://github.com/darwinanddavis/UsefulCode>
  
+
+`R` version: 3.5.0
+\*Corresponding author: <matthew.malishev@gmail.com>
+This document can be found at <https://github.com/darwinanddavis/UsefulCode>
 
 Overview
 --------

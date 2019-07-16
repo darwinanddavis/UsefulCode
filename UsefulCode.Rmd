@@ -13,8 +13,13 @@ urlcolor: blue
 citecolor: red
 always_allow_html: yes
 output:
-  md_document: 
-    variant: markdown_github
+  html_document:
+    highlight: tango
+    code_folding: hide
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
   pdf_document:
     includes:
       in_header: # add .tex file with header content
@@ -30,13 +35,8 @@ output:
     citation_package: biblatex # natbib
     latex_engine: xelatex #pdflatex # lualatex
     keep_tex: true # keep .tex file in dir 
-  html_document:
-    highlight: tango
-    code_folding: hide
-    toc: yes
-    toc_depth: 4
-    number_sections: no
-    toc_float: yes
+  md_document: 
+    variant: markdown_github
   word_document:
     highlight: tango
     keep_md: yes
@@ -68,7 +68,7 @@ vignette: >
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 
-```{r echo = FALSE}
+```{r echo = FALSE, eval=F, warning=F}
  library(rmarkdown)
 # setwd("")
 # f <- list.files()[1]

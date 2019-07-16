@@ -372,7 +372,6 @@ div.tocify {
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
-<pre><code>## Warning: package 'rmarkdown' was built under R version 3.5.2</code></pre>
 <p> </p>
 <p>Date: 2019-07-16<br />
 <code>R</code> version: 3.5.0<br />
@@ -478,26 +477,17 @@ xx &lt;-<span class="st"> &quot;Some copied text or table from the internet&quot
 <span class="co"># alternative (after loading ggridges library)</span>
 <span class="kw">theme_ridges</span>(<span class="dt">grid =</span> F, <span class="dt">center_axis_labels =</span> T)</code></pre></div>
 <p>Setting global graphics theme for ggplot</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_it_gg &lt;-<span class="st"> </span><span class="cf">function</span>(bg,family){ <span class="co"># bg = colour to plot bg, family = font family</span>
-  <span class="kw">theme_tufte</span>(<span class="dt">base_family =</span> family) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),
-        <span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),
-        <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(),
-        <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg,
-                                        <span class="dt">colour =</span> bg),
-        <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill=</span>bg)
-  ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.line =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>), 
-          <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>),
-          <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg)) <span class="op">+</span><span class="st"> </span><span class="co"># fill bg of legend</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span><span class="st">&quot;white&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># legend title</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">colour=</span><span class="st">&quot;white&quot;</span>)) <span class="co"># legend labels</span>
-} </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_it_gg &lt;-<span class="st"> </span><span class="cf">function</span>(bg, family) {
+    <span class="co"># bg = colour to plot bg, family = font family</span>
+    <span class="kw">theme_tufte</span>(<span class="dt">base_family =</span> family) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">panel.border =</span> <span class="kw">element_blank</span>(), <span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(), 
+        <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(), <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg, <span class="dt">colour =</span> bg), 
+        <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.line =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>), <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>), <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> bg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">theme</span>(<span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>))
+}</code></pre></div>
 <p>Put plot in function to take dynamic data inputs<br />
 Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-local-elections-in-helsinki.html" class="uri">http://jcborras.net/carpet/visualizing-political-divergences-2012-local-elections-in-helsinki.html</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hr.mass.plot &lt;-<span class="st"> </span><span class="cf">function</span>(d) {
@@ -512,24 +502,24 @@ Ref: <a href="http://jcborras.net/carpet/visualizing-political-divergences-2012-
 }
 <span class="kw">hr.mass.plot</span>(d)</code></pre></div>
 <p>Using <code>ggplot</code> when looping through <code>for</code> loop and saving to dir</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pdf</span>(<span class="st">&quot;mypdf.pdf&quot;</span>,<span class="dt">onefile =</span> T)
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>){ 
-<span class="kw">par</span>(<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>)
-  <span class="kw">grid.arrange</span>( 
-  <span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y, <span class="dt">fill=</span>..x..)) <span class="op">+</span><span class="st"> </span><span class="co"># geom_density_ridges()</span>
-<span class="st">    </span><span class="co"># scale = overlap</span>
-<span class="st">    </span><span class="kw">geom_density_ridges_gradient</span>(<span class="dt">scale =</span> <span class="dv">5</span>, <span class="dt">size=</span><span class="fl">0.2</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">rel_min_height =</span> <span class="fl">0.01</span>,<span class="dt">panel_scaling=</span>T,<span class="dt">alpha=</span><span class="fl">0.2</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_density_ridges</span>(<span class="dt">scale =</span> <span class="dv">5</span>, <span class="dt">size=</span><span class="fl">0.2</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">rel_min_height =</span> <span class="fl">0.01</span>,<span class="dt">fill=</span><span class="st">&quot;white&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.2</span>) <span class="op">+</span>
-<span class="st">    </span><span class="co"># geom_density_ridges(scale = 5, size=0.2,color=&quot;white&quot;, rel_min_height = 0.01,fill=col,alpha=0.5) +</span>
-<span class="st">    </span><span class="kw">scale_fill_viridis</span>(<span class="dt">name =</span> <span class="st">&quot;Diameter&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.1</span>, <span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>,<span class="dt">direction=</span><span class="op">-</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="co"># &quot;magma&quot;, &quot;inferno&quot;,&quot;plasma&quot;, &quot;viridis&quot;, &quot;cividis&quot;</span>
-<span class="st">    </span><span class="kw">xlim</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">25</span>)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste0</span>(<span class="st">&quot;Title_&quot;</span>,i)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;X&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Y&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="co"># plot_it_gg(&quot;white&quot;)</span>
-<span class="st">  </span>)
-} <span class="co"># end loop </span>
-<span class="kw">dev.off</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pdf</span>(<span class="st">&quot;mypdf.pdf&quot;</span>, <span class="dt">onefile =</span> T)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {
+    <span class="kw">par</span>(<span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>)
+    <span class="kw">grid.arrange</span>(<span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y, <span class="dt">fill =</span> ..x..)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_density_ridges_gradient</span>(<span class="dt">scale =</span> <span class="dv">5</span>, 
+        <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">rel_min_height =</span> <span class="fl">0.01</span>, <span class="dt">panel_scaling =</span> T, <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_density_ridges</span>(<span class="dt">scale =</span> <span class="dv">5</span>, 
+        <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">rel_min_height =</span> <span class="fl">0.01</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis</span>(<span class="dt">name =</span> <span class="st">&quot;Diameter&quot;</span>, 
+        <span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>, <span class="dt">direction =</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">25</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste0</span>(<span class="st">&quot;Title_&quot;</span>, 
+        i)) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;X&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Y&quot;</span>))
+}
+<span class="co"># end loop</span>
+<span class="kw">dev.off</span>()
+
+
+<span class="co"># geom_density_ridges() # scale = overlap</span>
+
+<span class="co"># geom_density_ridges(scale = 5, size=0.2,color='white', rel_min_height = 0.01,fill=col,alpha=0.5) +</span>
+
+<span class="co"># scale_fill_viridis option = 'magma', 'inferno','plasma', 'viridis', 'cividis'</span></code></pre></div>
 <p>Converting lists and dataframes to usable format for <code>ggplot</code> (<code>melt</code> package)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ------------------------- plot individual outputs -------------------------</span>
 mm_ =<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">paste0</span>(model.path, fh, <span class="st">&quot;.R&quot;</span>))
@@ -821,17 +811,16 @@ script &lt;-<span class="st"> </span><span class="kw">getURL</span>(<span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># worldmap</span>
 <span class="kw">library</span>(choroplethrMaps)</code></pre></div>
 <p>Circle packing, tree, dendogram, network plots</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dendogram tree nested bubble circle packing network </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dendogram tree nested bubble circle packing network</span>
 <span class="co"># https://www.r-graph-gallery.com/313-basic-circle-packing-with-several-levels/</span>
 
-<span class="co"># circle packing plot  </span>
-<span class="co"># Libraries</span>
-p &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ggraph&quot;</span>,<span class="st">&quot;igraph&quot;</span>,<span class="st">&quot;tidyverse&quot;</span>,<span class="st">&quot;DeducerSpatial&quot;</span>,<span class="st">&quot;Rcpp&quot;</span>,<span class="st">&quot;car&quot;</span>)
-<span class="kw">install.packages</span>(p,<span class="dt">dependencies =</span> T)
-<span class="kw">lapply</span>(p,library,<span class="dt">character.only=</span>T)
+<span class="co"># circle packing plot Libraries</span>
+p &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ggraph&quot;</span>, <span class="st">&quot;igraph&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;DeducerSpatial&quot;</span>, <span class="st">&quot;Rcpp&quot;</span>, <span class="st">&quot;car&quot;</span>)
+<span class="kw">install.packages</span>(p, <span class="dt">dependencies =</span> T)
+<span class="kw">lapply</span>(p, library, <span class="dt">character.only =</span> T)
 
 <span class="co"># We need a data frame giving a hierarchical structure. Let's consider the flare dataset:</span>
-edges=flare<span class="op">$</span>edges
+edges =<span class="st"> </span>flare<span class="op">$</span>edges
 <span class="co"># edges cols = character</span>
 
 <span class="co"># Usually we associate another dataset that give information about each node of the dataset:</span>
@@ -841,52 +830,38 @@ vertices =<span class="st"> </span>flare<span class="op">$</span>vertices
 <span class="co"># Create a subset of the dataset (I remove 1 level)</span>
 edges =<span class="st"> </span>flare<span class="op">$</span>edges <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(to <span class="op">%in%</span><span class="st"> </span>from) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">droplevels</span>()
 vertices =<span class="st"> </span>flare<span class="op">$</span>vertices <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(edges<span class="op">$</span>from, edges<span class="op">$</span>to)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">droplevels</span>()
-vertices<span class="op">$</span>size=<span class="kw">runif</span>(<span class="kw">nrow</span>(vertices))
+vertices<span class="op">$</span>size =<span class="st"> </span><span class="kw">runif</span>(<span class="kw">nrow</span>(vertices))
 
 <span class="co"># Then we have to make a 'graph' object using the igraph library:</span>
-mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( edges, <span class="dt">vertices=</span>vertices )
+mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>(edges, <span class="dt">vertices =</span> vertices)
 
 <span class="co"># circle packing</span>
-<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">'circlepack'</span>, <span class="dt">weight=</span><span class="st">&quot;size&quot;</span>,<span class="dt">sort.by=</span><span class="ot">NULL</span>,<span class="dt">direction=</span><span class="st">&quot;out&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_node_circle</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>depth)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>shortName, <span class="dt">filter=</span>leaf, <span class="dt">fill=</span>depth, <span class="dt">size=</span>size)) <span class="op">+</span><span class="st"> </span><span class="co"># add text</span>
-<span class="st">  </span><span class="co"># geom_node_label(aes(label=shortName, filter=leaf, size=size)) + # add text boxes</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># theme(legend.position=&quot;F&quot;) + #show legend</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>,<span class="dt">direction=</span><span class="op">-</span><span class="dv">1</span>,<span class="dt">option=</span><span class="st">&quot;magma&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="co"># scale_fill_distiller(palette = &quot;Blues&quot;)</span>
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&quot;circlepack&quot;</span>, <span class="dt">weight =</span> <span class="st">&quot;size&quot;</span>, <span class="dt">sort.by =</span> <span class="ot">NULL</span>, <span class="dt">direction =</span> <span class="st">&quot;out&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_node_circle</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> depth)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> shortName, <span class="dt">filter =</span> leaf, <span class="dt">fill =</span> depth, <span class="dt">size =</span> size)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="co"># theme(legend.position='F') + #show legend</span>
+<span class="kw">scale_fill_viridis</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">direction =</span> <span class="op">-</span><span class="dv">1</span>, <span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>)
 
-<span class="co">#circular dendo</span>
+<span class="co"># scale_fill_distiller(palette = 'Blues')</span>
+
+<span class="co"># geom_node_label(aes(label=shortName, filter=leaf, size=size)) + # add text boxes</span>
+
+<span class="co"># circular dendo</span>
 <span class="kw">str</span>(mygraph)
-<span class="kw">ggraph</span>(mygraph, <span class="dt">layout=</span><span class="st">'dendrogram'</span>, <span class="dt">circular=</span>T) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_edge_diagonal</span>(<span class="dt">flipped=</span>F,
-                     <span class="dt">label_colour =</span> <span class="st">&quot;black&quot;</span>,
-                     <span class="dt">label_alpha =</span> <span class="dv">1</span>,
-                     <span class="dt">angle_calc =</span> <span class="st">&quot;rot&quot;</span>,
-                     <span class="dt">force_flip =</span> <span class="ot">TRUE</span>,<span class="dt">label_dodge =</span> <span class="ot">NULL</span>, <span class="dt">label_push =</span> <span class="ot">NULL</span>, 
-                     <span class="dt">show.legend =</span> <span class="ot">NA</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="co"># theme(legend.position=&quot;none&quot;) +</span>
-<span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;Blues&quot;</span>)
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&quot;dendrogram&quot;</span>, <span class="dt">circular =</span> T) <span class="op">+</span><span class="st"> </span><span class="kw">geom_edge_diagonal</span>(<span class="dt">flipped =</span> F, <span class="dt">label_colour =</span> <span class="st">&quot;black&quot;</span>, 
+    <span class="dt">label_alpha =</span> <span class="dv">1</span>, <span class="dt">angle_calc =</span> <span class="st">&quot;rot&quot;</span>, <span class="dt">force_flip =</span> <span class="ot">TRUE</span>, <span class="dt">label_dodge =</span> <span class="ot">NULL</span>, <span class="dt">label_push =</span> <span class="ot">NULL</span>, <span class="dt">show.legend =</span> <span class="ot">NA</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span><span class="co"># theme(legend.position='none') +</span>
+<span class="kw">scale_fill_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;Blues&quot;</span>)
 
 <span class="co"># tree map</span>
-<span class="kw">ggraph</span>(mygraph, <span class="st">'treemap'</span>, <span class="dt">weight =</span> <span class="st">'size'</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_node_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> depth), <span class="dt">size =</span> <span class="fl">0.25</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
+<span class="kw">ggraph</span>(mygraph, <span class="st">&quot;treemap&quot;</span>, <span class="dt">weight =</span> <span class="st">&quot;size&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_node_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> depth), <span class="dt">size =</span> <span class="fl">0.25</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)
 
 <span class="co"># circular partition</span>
-<span class="kw">ggraph</span>(mygraph, <span class="st">'partition'</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_node_arc_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> depth), <span class="dt">size =</span> <span class="fl">0.25</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
+<span class="kw">ggraph</span>(mygraph, <span class="st">&quot;partition&quot;</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_node_arc_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> depth), <span class="dt">size =</span> <span class="fl">0.25</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)
 
-<span class="co"># node </span>
-<span class="kw">ggraph</span>(mygraph) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_edge_link</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_node_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</code></pre></div>
+<span class="co"># node</span>
+<span class="kw">ggraph</span>(mygraph) <span class="op">+</span><span class="st"> </span><span class="kw">geom_edge_link</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_node_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</code></pre></div>
 <p>Insert an animal silhouette into a plot</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1. Get image from http://www.phylopic.org</span>
 <span class="kw">library</span>(png)
@@ -934,58 +909,52 @@ dats &lt;-<span class="st"> </span><span class="kw">zoo</span>(outplot)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(scatterplot3d)
 xx &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)
 yy &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)
-dens &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="fl">0.0001</span>,<span class="dv">500</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">500</span>))
+dens &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="fl">1e-04</span>, <span class="dv">500</span>), <span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">500</span>))
 controls &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">3</span>)
 add.control &lt;-<span class="st"> </span><span class="dv">1</span>
-dens_val &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">*</span><span class="dv">10</span><span class="op">^-</span><span class="dv">10</span> <span class="co"># 0 or 1*10^-10. value to knock out blanket of colour on plot surface </span>
-<span class="co">#linear model of r/ship between coords</span>
+dens_val &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">10</span><span class="op">^-</span><span class="dv">10</span>  <span class="co"># 0 or 1*10^-10. value to knock out blanket of colour on plot surface </span>
+<span class="co"># linear model of r/ship between coords</span>
 dens_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(dens <span class="op">~</span><span class="st"> </span>xx <span class="op">+</span><span class="st"> </span>yy)
 
-xlim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(xx),<span class="kw">max</span>(xx)); ylim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(yy),<span class="kw">max</span>(yy)); zlim=<span class="kw">c</span>(<span class="kw">min</span>(dens),<span class="kw">max</span>(dens)) <span class="co"># set lims</span>
+xlim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(xx), <span class="kw">max</span>(xx))
+ylim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(yy), <span class="kw">max</span>(yy))
+zlim =<span class="st"> </span><span class="kw">c</span>(<span class="kw">min</span>(dens), <span class="kw">max</span>(dens))  <span class="co"># set lims</span>
 colv &lt;-<span class="st"> &quot;Blues&quot;</span>
-colvv&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(brewer.pal.info[colv,]<span class="op">$</span>maxcolors,colv)) <span class="co"># col gradient</span>
-colvv&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;steelblue&quot;</span>,<span class="st">&quot;lightblue&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;red&quot;</span>)) <span class="co"># set your own col gradient with as many colours as you want</span>
-<span class="co"># colvv&lt;-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as you want</span>
+colvv &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">brewer.pal</span>(brewer.pal.info[colv, ]<span class="op">$</span>maxcolors, colv))  <span class="co"># col gradient</span>
+colvv &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;red&quot;</span>))  <span class="co"># set your own col gradient with as many colours as you want</span>
+<span class="co"># colvv&lt;-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as</span>
+<span class="co"># you want</span>
 
 <span class="co"># set col palette</span>
-colfunc &lt;-<span class="st"> </span><span class="kw">colvv</span>(<span class="kw">length</span>(dens))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(dens,<span class="dt">breaks =</span> <span class="kw">length</span>(dens)))] <span class="co"># define breaks in col gradient</span>
+colfunc &lt;-<span class="st"> </span><span class="kw">colvv</span>(<span class="kw">length</span>(dens))[<span class="kw">as.numeric</span>(<span class="kw">cut</span>(dens, <span class="dt">breaks =</span> <span class="kw">length</span>(dens)))]  <span class="co"># define breaks in col gradient</span>
 bg &lt;-<span class="st"> </span><span class="kw">bpy.colors</span>(<span class="dv">1</span>)
 alpha &lt;-<span class="st"> </span><span class="fl">0.8</span>
 
-<span class="co"># pdf(paste0(plot.dir,strat,&quot;_&quot;,density,&quot;_&quot;,stage,&quot;_kudspdf.pdf&quot;),width=8.27,height=11.69,paper=&quot;a4r&quot;)</span>
-<span class="kw">scatterplot3d</span>(<span class="dt">x=</span>xx,<span class="dt">y=</span>yy,<span class="dt">z=</span>dens,
-              <span class="co"># color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor(&quot;lightgreen&quot;,alpha=0.2)),</span>
-              <span class="dt">color=</span><span class="kw">ifelse</span>(dens<span class="op">&lt;=</span>dens_val,<span class="kw">adjustcolor</span>(<span class="kw">ifelse</span>(bg<span class="op">==</span><span class="kw">bpy.colors</span>(<span class="dv">1</span>),<span class="kw">bpy.colors</span>(<span class="dv">1</span>),<span class="st">&quot;white&quot;</span>),<span class="dt">alpha=</span><span class="fl">0.1</span>),<span class="kw">adjustcolor</span>(colfunc,<span class="dt">alpha=</span>alpha)),
-              <span class="co"># col.axis=&quot;light green&quot;,</span>
-              <span class="dt">las=</span><span class="dv">1</span>,
-              <span class="dt">pch=</span><span class="dv">15</span>,
-              <span class="dt">type=</span><span class="st">&quot;p&quot;</span>,
-              <span class="dt">lty.hplot =</span> <span class="dv">1</span>,
-              <span class="dt">xlim=</span>xlim,
-              <span class="dt">ylim=</span>ylim,
-              <span class="dt">zlim=</span>zlim,
-              <span class="dt">xlab=</span><span class="st">&quot;X&quot;</span>,
-              <span class="dt">ylab=</span><span class="st">&quot;Y&quot;</span>,
-              <span class="dt">zlab=</span><span class="st">&quot;Density&quot;</span>,
-              <span class="dt">main=</span><span class="st">&quot;Main&quot;</span>,
-              <span class="dt">box=</span>F,
-              <span class="dt">lty.axis=</span><span class="kw">par</span>(<span class="dv">1</span>),
-              <span class="dt">grid=</span>F,
-              <span class="dt">col.grid =</span> <span class="kw">adjustcolor</span>(<span class="st">&quot;gray&quot;</span>,<span class="dv">1</span>),
-              <span class="dt">lty.grid=</span><span class="kw">par</span>(<span class="dv">3</span>),
-              <span class="co">#cex.symbols=dens*3,</span>
-              <span class="co">#cex.symbols = ifelse(z&lt;=0,0,0.5),</span>
-              <span class="co"># highlight.3d=T, # ignores color arg if T</span>
-              <span class="co"># angle=70,</span>
-              <span class="dt">axis=</span>T
-              <span class="co"># add below part to end of scatterplot3d plot</span>
-)<span class="co">#$plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL, lty = &quot;dashed&quot;, lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border = NA, col = rgb(0,0,0,0.2))</span>
-<span class="co">#            lty=&quot;dashed&quot;,</span>
-<span class="co">#          lty.box = NULL,</span>
-<span class="co">#          draw_lines = F, draw_polygon = T,</span>
-<span class="co">#          polygon_args = list(border = NA, col = adjustcolor(&quot;light green&quot;,alpha=0.4)))</span>
+<span class="co"># pdf(paste0(plot.dir,strat,'_',density,'_',stage,'_kudspdf.pdf'),width=8.27,height=11.69,paper='a4r')</span>
+
+<span class="co"># color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor('lightgreen',alpha=0.2)),</span>
+<span class="kw">scatterplot3d</span>(<span class="dt">x =</span> xx, <span class="dt">y =</span> yy, <span class="dt">z =</span> dens, <span class="dt">color =</span> <span class="kw">ifelse</span>(dens <span class="op">&lt;=</span><span class="st"> </span>dens_val, <span class="kw">adjustcolor</span>(<span class="kw">ifelse</span>(bg <span class="op">==</span><span class="st"> </span><span class="kw">bpy.colors</span>(<span class="dv">1</span>), 
+    <span class="kw">bpy.colors</span>(<span class="dv">1</span>), <span class="st">&quot;white&quot;</span>), <span class="dt">alpha =</span> <span class="fl">0.1</span>), <span class="kw">adjustcolor</span>(colfunc, <span class="dt">alpha =</span> alpha)), <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">pch =</span> <span class="dv">15</span>, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>, 
+    <span class="dt">lty.hplot =</span> <span class="dv">1</span>, <span class="dt">xlim =</span> xlim, <span class="dt">ylim =</span> ylim, <span class="dt">zlim =</span> zlim, <span class="dt">xlab =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Y&quot;</span>, <span class="dt">zlab =</span> <span class="st">&quot;Density&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Main&quot;</span>, 
+    <span class="dt">box =</span> F, <span class="dt">lty.axis =</span> <span class="kw">par</span>(<span class="dv">1</span>), <span class="dt">grid =</span> F, <span class="dt">col.grid =</span> <span class="kw">adjustcolor</span>(<span class="st">&quot;gray&quot;</span>, <span class="dv">1</span>), <span class="dt">lty.grid =</span> <span class="kw">par</span>(<span class="dv">3</span>), <span class="dt">axis =</span> T)
+
+<span class="co"># other plot options cex.symbols=dens*3, cex.symbols = ifelse(z&lt;=0,0,0.5), highlight.3d=T, angle=70,</span>
+
+
+<span class="co"># append the below section starting at the '$' to the above closing bracket</span>
+
+<span class="co"># $plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL,</span>
+<span class="co"># lty = 'dashed', lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border</span>
+<span class="co"># = NA, col = rgb(0,0,0,0.2)) lty='dashed', lty.box = NULL, draw_lines = F, draw_polygon = T,</span>
+<span class="co"># polygon_args = list(border = NA, col = adjustcolor('light green',alpha=0.4)))</span>
+
 <span class="co"># add control dates</span>
-<span class="cf">if</span>(add.control<span class="op">==</span><span class="dv">1</span>){<span class="kw">par</span>(<span class="dt">new=</span>T); <span class="kw">scatterplot3d</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">length</span>(controls)),<span class="dt">y=</span>controls,<span class="dt">z=</span><span class="kw">rep</span>(<span class="kw">max</span>(dens),<span class="kw">length</span>(controls)),<span class="dt">color=</span><span class="st">&quot;gray&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">pch=</span><span class="st">&quot;&quot;</span>,<span class="dt">lty.hplot =</span> <span class="dv">1</span>,<span class="dt">xlim=</span>xlim,<span class="dt">ylim=</span>ylim,<span class="dt">zlim=</span>zlim,<span class="dt">xlab=</span><span class="st">&quot;&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;&quot;</span>,<span class="dt">zlab=</span><span class="st">&quot;&quot;</span>,<span class="dt">box=</span>F,<span class="dt">grid=</span>F,<span class="dt">cex.symbols=</span><span class="dv">2</span>,<span class="dt">axis=</span>F,<span class="dt">type=</span><span class="st">&quot;h&quot;</span>)}</code></pre></div>
+<span class="cf">if</span> (add.control <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {
+    <span class="kw">par</span>(<span class="dt">new =</span> T)
+    <span class="kw">scatterplot3d</span>(<span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(controls)), <span class="dt">y =</span> controls, <span class="dt">z =</span> <span class="kw">rep</span>(<span class="kw">max</span>(dens), <span class="kw">length</span>(controls)), <span class="dt">color =</span> <span class="st">&quot;gray&quot;</span>, 
+        <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">pch =</span> <span class="st">&quot;&quot;</span>, <span class="dt">lty.hplot =</span> <span class="dv">1</span>, <span class="dt">xlim =</span> xlim, <span class="dt">ylim =</span> ylim, <span class="dt">zlim =</span> zlim, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, 
+        <span class="dt">zlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">box =</span> F, <span class="dt">grid =</span> F, <span class="dt">cex.symbols =</span> <span class="dv">2</span>, <span class="dt">axis =</span> F, <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>)
+}</code></pre></div>
 <p>Adding title from separate list to plot in loop (<code>ggplot</code>)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot all sim results in one window</span>
 gspl &lt;-<span class="st"> </span><span class="kw">list</span>()
