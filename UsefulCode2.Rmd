@@ -13,8 +13,6 @@ urlcolor: blue
 citecolor: red
 always_allow_html: yes
 output:
-  md_document: 
-    variant: markdown_github
   html_document:
     highlight: tango
     code_folding: hide
@@ -22,6 +20,8 @@ output:
     toc_depth: 4
     number_sections: no
     toc_float: yes
+  md_document: 
+    variant: markdown_github
   pdf_document:
     includes:
       in_header: # add .tex file with header content
