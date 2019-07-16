@@ -69,7 +69,7 @@ vignette: >
 
 ## Links to HTML versions    
 
-### [Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)  
+### [Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)    
 
 ### [Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)  
 \  
@@ -107,13 +107,13 @@ setwd(paste0(params$dir,"/")) # for running just in R not knitr
 ```
 
 Date: `r params$date`  
-\    
-`R` version: `r params$version`         
-\  
-*Corresponding author: `r params$email`      
-\  
-This document can be found at `r params$doi`    
-\  
+
+`R` version: `r params$version`  
+
+*Corresponding author: `r params$email`  
+
+This document can be found at `r params$doi`  
+
 
 \newpage  
 

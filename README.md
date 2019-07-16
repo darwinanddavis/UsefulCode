@@ -15,11 +15,12 @@ Links to HTML versions
 <!--   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } }); -->
 <!-- </script> -->
 Date: 2019-07-16
- 
+
 `R` version: 3.5.0
-  \*Corresponding author: <matthew.malishev@gmail.com>
-  This document can be found at <https://github.com/darwinanddavis/UsefulCode>
- 
+
+\*Corresponding author: <matthew.malishev@gmail.com>
+
+This document can be found at <https://github.com/darwinanddavis/UsefulCode>
 
 Overview
 --------
