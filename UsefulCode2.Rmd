@@ -106,11 +106,37 @@ This document can be found at `r params$doi`
 
 ## Overview
 
-Same deal as Useful Code, but the second instalment because the first one has too much stuff in it and now runs slow.    
+Same deal as Useful Code, but the second instalment because the first one has too much stuff in it and now runs slow.   
 
+### Colour palettes
+`Colorspace`  
+```{r, col1, eval=T}
+require(colorspace)
+hcl_palettes(plot = TRUE) # show all palettes
+```
 
-### D3  
+```{r, col1_}
+# https://cran.r-project.org/web/packages/colorspace/vignettes/colorspace.html
+q4 <- qualitative_hcl(4, palette = "Dark 3") # discrete
+s9 <- sequential_hcl(9, "Purples 3") # continuous
+# for ggplot
+scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 2:6)
 
+```
+      
+Neon colour palettes      
+```{r, col2,eval=T}
+# https://www.shutterstock.com/blog/neon-color-palettes
+neon1 <-  c("#3B27BA","#FF61BE","#13CA91","#FF9472")
+neon2 <- c("#FFDEF3","#FF61BE","#3B55CE","#35212A")
+neon3 <- c("#FEA0FE","#F85125","#02B8A2","#535EEB")
+neon4 <- c("#535EEB","#001437","#C6BDEA","#FFAA01")
+scales::show_col(c(neon1,neon2,neon3,neon4))
+```
+    
+    
+### D3    
+D3 and leaflet  
 ```{r, d31, eval=T}
 devtools::install_github("jcheng5/d3scatter")
 library(d3scatter)
