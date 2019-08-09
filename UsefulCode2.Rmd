@@ -164,13 +164,27 @@ bscols(widths = c(12, 6, 6),
 
 ```
 
+### Data frames  
+Reversing order of rows in dataframe
+```{r,d1}
+# df = data.frame
+require(tidyverse)
+df %>% map_df(rev)
+```
 
+### Lists  
+Transpose list (flip list elements)     
+```{r, list1}
+l <- list(1:2, 3:4, 5:7, 8:10);l
+b <- data.table::transpose(l)
+b
+```
+  
 ### Loading packages 
-`pacman`  
+`pacman`    
 ```{r,load1}
 require(pacman)
 p_load(dplyr,mapdeck)
-
 ```
 
 
