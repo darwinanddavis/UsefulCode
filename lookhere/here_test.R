@@ -20,8 +20,7 @@ readLines("/Users/Documents/UsefulCode/lookhere/heretest.txt")
 # and this
 readLines(paste0(getwd(),"/lookhere/heretest.txt"))
 
-# unless I'm missing something amazing here 
-
+# unless I'm missing something amazing here   
 
 
 
