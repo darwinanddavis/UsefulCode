@@ -15,7 +15,7 @@ always_allow_html: yes
 output:
   html_document:
     highlight: tango
-    code_folding: hide
+    code_folding: show
     toc: yes
     toc_depth: 4
     number_sections: no
@@ -186,6 +186,15 @@ Transpose list (flip list elements)
 l <- list(1:2, 3:4, 5:7, 8:10);l
 b <- data.table::transpose(l)
 b
+```
+
+`lengths` for getting length of list indices  
+```{r}
+ls = list(rep(list(sample(50,replace=T)),5))
+ls %>% length
+ls %>% lengths
+lapply(ls,lengths)
+
 ```
   
 ### Loading packages 
