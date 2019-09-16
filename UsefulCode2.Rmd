@@ -196,6 +196,38 @@ ls %>% lengths
 lapply(ls,lengths)
 
 ```
+
+Split list into smaller sublists  
+```{r}
+ls = rep(list(1:5),6)
+names(ls) = rep(LETTERS[1:3],2)
+u <- length(unique(names(la)))
+n <- length(la)/u
+split(la, rep(1:n, each=u))
+
+```
+
+Fill list elements with NAs to match length of longest element
+```{r,list4}
+# https://stackoverflow.com/questions/34570860/add-nas-to-make-all-list-elements-equal-length
+
+#for single index list
+set.seed(1)
+ls = replicate(5, sample(1:100,10), simplify=FALSE)
+names(ls) = LETTERS[1:length(ls)]
+lapply(ls, `length<-`, max(lengths(ls)))
+
+# for sublists
+ls = list(replicate(5, sample(1:100,10), simplify=FALSE))
+n.ticks = 20
+fillvec = function(x){
+  nv = lapply(x,`length<-`, n.ticks) # fill remaining vec with NAs to match total length
+  rapply(nv, f=function(x) ifelse(is.na(x),0,x), how="replace" ) # replace NAs with 0s
+}
+lapply(ls,fillvec) # apply fillvec to list
+
+
+```
   
 ### Loading packages 
 `pacman`    
