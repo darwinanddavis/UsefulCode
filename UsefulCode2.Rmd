@@ -146,11 +146,14 @@ scales::show_col(c(neon1,neon2,neon3,neon4))
 ### D3    
 D3 and leaflet  
 ```{r, d31, eval=T}
+
 devtools::install_github("jcheng5/d3scatter")
 library(d3scatter)
 library(crosstalk)
 library(leaflet)
 library(tibble)
+# install.packages("httpuv")
+require(httpuv)
 
 sd <- SharedData$new(quakes[sample(nrow(quakes), 100),])
 
@@ -241,8 +244,9 @@ p_load(dplyr,mapdeck)
 Read in csv data sources directly from web  
 ``` {r, read1, results='hide',eval=F}
 # link to raw csv link on e.g. github
+require(readr)
 url <- 'https://raw.githubusercontent.com/plotly/datasets/master/2011_february_aa_flight_paths.csv'
-flights <- read.csv(url)  
+flights <- read_csv(url)  
 ```
 
 ### `Rmarkdown`  
