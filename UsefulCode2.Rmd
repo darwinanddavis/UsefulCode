@@ -148,12 +148,8 @@ D3 and leaflet
 ```{r, d31, eval=T}
 
 devtools::install_github("jcheng5/d3scatter")
-library(d3scatter)
-library(crosstalk)
-library(leaflet)
-library(tibble)
-# install.packages("httpuv")
-require(httpuv)
+require(pacman)
+p_load(d3scatter,crosstalk,leaflet,tibble,httpuv)
 
 sd <- SharedData$new(quakes[sample(nrow(quakes), 100),])
 
@@ -300,9 +296,8 @@ Just from writing words with a pen
 
 HTML widget with plotly and crosstalk
 ```{r, plotly1, eval=T, echo=T}
-require(plotly)
-require(tidyr)
-require(crosstalk)
+require(pacman)
+p_load(plotly,tidyr,crosstalk)
 
 m <- gather(mpg, variable, value, -c(year,cyl))
 msd <- highlight_key(m, ~variable)
