@@ -182,7 +182,7 @@ df %>% map_df(rev)
 ### `dplyr` basics 
 ```{r,dplyr1}
 require(dplyr,gapminder)
-names(gapminder)
+p_load(gapminder)
 
 # mutate
 africa_ranked <- mutate(gapminder, 
@@ -195,7 +195,7 @@ africa_ranked %>% filter(continent=="Africa") %>% glimpse # visualise just afric
 
 # summarise data into one line  
 gapminder %>% 
-  summarise("MinYear" = min(year),
+  summarise("MinYear" = min(year,na.rm = T),
             "MaxYear" = max(year),
             "CountryCount" = n_distinct(country)
             )
