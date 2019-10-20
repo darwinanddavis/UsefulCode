@@ -179,6 +179,49 @@ require(tidyverse)
 df %>% map_df(rev)
 ```
 
+### `dplyr` basics 
+```{r,dplyr1}
+require(dplyr,gapminder)
+names(gapminder)
+
+# mutate
+africa_ranked <- mutate(gapminder, 
+       "African" = continent == "Africa",
+       "RankPop" = rank(desc(pop))
+       ) 
+
+africa_ranked %>% glimpse() # visualise the data
+africa_ranked %>% filter(continent=="Africa") %>% glimpse # visualise just africa
+
+# summarise data into one line  
+gapminder %>% 
+  summarise("MinYear" = min(year),
+            "MaxYear" = max(year),
+            "CountryCount" = n_distinct(country)
+            )
+
+gapminder %>%  
+  summarise(median(lifeExp))
+
+# filter
+require(gapminder)
+gapminder %>% 
+  filter(continent == "Africa") 
+
+# group by 
+gapminder %>%  
+  group_by(continent) %>% 
+  summarise(median(lifeExp))
+
+
+# group by continent and filter by year
+gapminder %>% 
+  group_by("Continent" = continent) %>% 
+  filter(year == 1992) %>% 
+  summarise(LifeExpect = median(lifeExp)) -> life_cont_1992
+
+```
+
 ### Lists  
 Transpose list (flip list elements)     
 ```{r, list1}
@@ -325,6 +368,4 @@ bscols(
     )
 )
 ```
-
-
 
