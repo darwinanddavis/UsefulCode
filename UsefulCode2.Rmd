@@ -197,7 +197,8 @@ africa_ranked %>% filter(continent=="Africa") %>% glimpse # visualise just afric
 gapminder %>% 
   summarise("MinYear" = min(year,na.rm = T),
             "MaxYear" = max(year),
-            "CountryCount" = n_distinct(country)
+            "CountryCount" = n_distinct(country),
+            "Counts" = n()
             )
 
 gapminder %>%  
@@ -221,6 +222,10 @@ gapminder %>%
   summarise(LifeExpect = median(lifeExp)) -> life_cont_1992
 
 ```
+
+### Interactive plots  
+Clickme, NVD3, Polychart, rCharts, Rickshaw, and xCharts in `R`.  
+[Link to collated Github page](https://github.com/darwinanddavis/rInteractive).    
 
 ### Lists  
 Transpose list (flip list elements)     

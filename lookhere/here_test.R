@@ -1,4 +1,4 @@
-p_load(here) # load here
+pacman::p_load(here) # load here
 set_here() # set your working dir, ie the .here
 dr_here() # find where the .here is
 here() # print the .here path 

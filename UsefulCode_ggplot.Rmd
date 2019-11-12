@@ -80,6 +80,7 @@ vignette: >
 options(width=100)
 knitr::opts_chunk$set(
  eval = F, # run all code
+ results='hide',
  # echo = FALSE, # show code chunks in output 
  comment = "",
  tidy.opts=list(width.cutoff=100), # set width of code chunks in output
@@ -238,5 +239,25 @@ ggplot() +
   geom_line(aes(xx,yy,size=5),colour=xx,show.legend = F) +
   geom_label(aes(xx,yy,label=xx),size=yy+5,color = yy +5, fill=xx) +
   theme_classic()
+```
+
+Calling data frame columns with weird formatting 
+```{r,gg9}
+# use ticks, not apostrophes  
+ggplot(df, aes(X, `Y col with spaces`)) + 
+  geom_line()
+```
+
+Use POSIX format
+```{r,gg10}
+# turn into posix month day year format
+# Date = factor
+require(lubridate)
+df$Date<- mdy_hms(df$Date, tz='GMT')
+
+ggplot(df, aes(Date,Y)) + geom_line() +
+  scale_x_datetime(date_breaks = "1 month", 
+                   date_minor_breaks = "1 week", 
+                   date_labels = "%B %Y")
 ```
 

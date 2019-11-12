@@ -27,7 +27,7 @@
 \hypersetup{
             pdftitle={Useful R code},
             colorlinks=true,
-            linkcolor=pink,
+            linkcolor=blue,
             citecolor=red,
             urlcolor=blue,
             breaklinks=true}
@@ -115,13 +115,9 @@ GA, USA, 30322}}
 \setcounter{tocdepth}{4}
 \tableofcontents
 }
-\begin{verbatim}
-## Warning: package 'rmarkdown' was built under R version 3.5.2
-\end{verbatim}
-
 ~
 
-Date: 2019-06-25\\
+Date: 2019-10-25\\
 \texttt{R} version: 3.5.0\\
 *Corresponding author:
 \href{mailto:matthew.malishev@gmail.com}{\nolinkurl{matthew.malishev@gmail.com}}\\
@@ -145,15 +141,16 @@ Access structural attributes of unique classes, such as raster and ggmap
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Normal example}
-\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"X"}\NormalTok{=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{),}\StringTok{"Y"}\NormalTok{=}\KeywordTok{c}\NormalTok{(}\DecValTok{6}\OperatorTok{:}\DecValTok{10}\NormalTok{))}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{X =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{), }\DataTypeTok{Y =} \KeywordTok{c}\NormalTok{(}\DecValTok{6}\OperatorTok{:}\DecValTok{10}\NormalTok{))}
 \KeywordTok{str}\NormalTok{(df)}
 \NormalTok{df}\OperatorTok{$}\NormalTok{X}
 
 \CommentTok{# `attr` method}
 \KeywordTok{require}\NormalTok{(ggmap)}
-\NormalTok{map <-}\StringTok{ }\KeywordTok{get_map}\NormalTok{(}\StringTok{"Atlanta"}\NormalTok{,}\DataTypeTok{zoom=}\DecValTok{12}\NormalTok{,}\DataTypeTok{source=}\StringTok{"stamen"}\NormalTok{,}\DataTypeTok{maptype=}\StringTok{"toner-lines"}\NormalTok{)}
+\NormalTok{map <-}\StringTok{ }\KeywordTok{get_map}\NormalTok{(}\StringTok{"Atlanta"}\NormalTok{, }\DataTypeTok{zoom =} \DecValTok{12}\NormalTok{, }\DataTypeTok{source =} \StringTok{"stamen"}\NormalTok{, }
+    \DataTypeTok{maptype =} \StringTok{"toner-lines"}\NormalTok{)}
 \KeywordTok{str}\NormalTok{(map)}
-\KeywordTok{attr}\NormalTok{(map,}\StringTok{"bb"}\NormalTok{)}\OperatorTok{$}\NormalTok{ll.lat}
+\KeywordTok{attr}\NormalTok{(map, }\StringTok{"bb"}\NormalTok{)}\OperatorTok{$}\NormalTok{ll.lat}
 \end{Highlighting}
 \end{Shaded}
 
@@ -163,8 +160,9 @@ Convert character to factor to numeric without conversion error
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{read.table}\NormalTok{(f,}\DataTypeTok{header=}\NormalTok{T,}\DataTypeTok{sep=}\StringTok{","}\NormalTok{,}\DataTypeTok{row.names=}\OtherTok{NULL}\NormalTok{,}\DataTypeTok{stringsAsFactors=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{strip.white=}\OtherTok{TRUE}\NormalTok{)}
-\NormalTok{f}\OperatorTok{$}\NormalTok{V2<-}\KeywordTok{as.numeric}\NormalTok{(f}\OperatorTok{$}\NormalTok{V2)}
+\KeywordTok{read.table}\NormalTok{(f, }\DataTypeTok{header =}\NormalTok{ T, }\DataTypeTok{sep =} \StringTok{","}\NormalTok{, }\DataTypeTok{row.names =} \OtherTok{NULL}\NormalTok{, }
+    \DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{strip.white =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{f}\OperatorTok{$}\NormalTok{V2 <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(f}\OperatorTok{$}\NormalTok{V2)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -172,7 +170,7 @@ See call options for class
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{methods}\NormalTok{(}\DataTypeTok{class=}\StringTok{"estUDm"}\NormalTok{)}
+\KeywordTok{methods}\NormalTok{(}\DataTypeTok{class =} \StringTok{"estUDm"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -180,14 +178,16 @@ Set dynamic input for variable / assign variable to char vector
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{shadedens<-}\ControlFlowTok{function}\NormalTok{(shadedens)\{ }\CommentTok{# set shade density to clumped (to match food) or sparse }
-  \ControlFlowTok{if}\NormalTok{ (shadedens }\OperatorTok{==}\StringTok{ "Random"}\NormalTok{)\{}
-    \KeywordTok{NLCommand}\NormalTok{(}\StringTok{"set Shade-density }\CharTok{\textbackslash{}"}\StringTok{Random}\CharTok{\textbackslash{}"}\StringTok{ "}\NormalTok{) }
-\NormalTok{    \}}\ControlFlowTok{else}\NormalTok{\{}
-    \KeywordTok{NLCommand}\NormalTok{(}\StringTok{"set Shade-density }\CharTok{\textbackslash{}"}\StringTok{Clumped}\CharTok{\textbackslash{}"}\StringTok{ "}\NormalTok{) }
+\NormalTok{shadedens <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(shadedens) \{}
+    \CommentTok{# set shade density to clumped (to match food) or}
+    \CommentTok{# sparse}
+    \ControlFlowTok{if}\NormalTok{ (shadedens }\OperatorTok{==}\StringTok{ "Random"}\NormalTok{) \{}
+        \KeywordTok{NLCommand}\NormalTok{(}\StringTok{"set Shade-density }\CharTok{\textbackslash{}"}\StringTok{Random}\CharTok{\textbackslash{}"}\StringTok{ "}\NormalTok{)}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+        \KeywordTok{NLCommand}\NormalTok{(}\StringTok{"set Shade-density }\CharTok{\textbackslash{}"}\StringTok{Clumped}\CharTok{\textbackslash{}"}\StringTok{ "}\NormalTok{)}
 \NormalTok{    \}}
-\NormalTok{  \}}
-\KeywordTok{shadedens}\NormalTok{(}\StringTok{"Clumped"}\NormalTok{) }\CommentTok{# set clumped resources}
+\NormalTok{\}}
+\KeywordTok{shadedens}\NormalTok{(}\StringTok{"Clumped"}\NormalTok{)  }\CommentTok{# set clumped resources}
 \end{Highlighting}
 \end{Shaded}
 
@@ -205,16 +205,19 @@ Interactive network plots using d3
 \NormalTok{URL <-}\StringTok{ "https://cdn.rawgit.com/christophergandrud/networkD3/master/JSONdata/energy.json"}
 \NormalTok{Energy <-}\StringTok{ }\NormalTok{jsonlite}\OperatorTok{::}\KeywordTok{fromJSON}\NormalTok{(URL)}
 
-\CommentTok{# Now we have 2 data frames: a 'links' data frame with 3 columns (from, to, value), and a 'nodes' data frame that gives the name of each node.}
+\CommentTok{# Now we have 2 data frames: a 'links' data frame}
+\CommentTok{# with 3 columns (from, to, value), and a 'nodes'}
+\CommentTok{# data frame that gives the name of each node.}
 \KeywordTok{head}\NormalTok{(Energy}\OperatorTok{$}\NormalTok{links)}
 \KeywordTok{head}\NormalTok{(Energy}\OperatorTok{$}\NormalTok{nodes)}
 
 \CommentTok{# Thus we can plot it}
-\KeywordTok{sankeyNetwork}\NormalTok{(}\DataTypeTok{Links =}\NormalTok{ Energy}\OperatorTok{$}\NormalTok{links, }\DataTypeTok{Nodes =}\NormalTok{ Energy}\OperatorTok{$}\NormalTok{nodes, }\DataTypeTok{Source =} \StringTok{"source"}\NormalTok{,}
-              \DataTypeTok{Target =} \StringTok{"target"}\NormalTok{, }\DataTypeTok{Value =} \StringTok{"value"}\NormalTok{, }\DataTypeTok{NodeID =} \StringTok{"name"}\NormalTok{,}
-              \DataTypeTok{units =} \StringTok{"TWh"}\NormalTok{, }\DataTypeTok{fontSize =} \DecValTok{12}\NormalTok{, }\DataTypeTok{nodeWidth =} \DecValTok{30}\NormalTok{)}
+\KeywordTok{sankeyNetwork}\NormalTok{(}\DataTypeTok{Links =}\NormalTok{ Energy}\OperatorTok{$}\NormalTok{links, }\DataTypeTok{Nodes =}\NormalTok{ Energy}\OperatorTok{$}\NormalTok{nodes, }
+    \DataTypeTok{Source =} \StringTok{"source"}\NormalTok{, }\DataTypeTok{Target =} \StringTok{"target"}\NormalTok{, }\DataTypeTok{Value =} \StringTok{"value"}\NormalTok{, }
+    \DataTypeTok{NodeID =} \StringTok{"name"}\NormalTok{, }\DataTypeTok{units =} \StringTok{"TWh"}\NormalTok{, }\DataTypeTok{fontSize =} \DecValTok{12}\NormalTok{, }
+    \DataTypeTok{nodeWidth =} \DecValTok{30}\NormalTok{)}
 
-\NormalTok{?sankeyNetwork}
+\StringTok{`}\DataTypeTok{?}\StringTok{`}\NormalTok{(sankeyNetwork)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -224,10 +227,8 @@ Optimal empty data frame
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Date=}\KeywordTok{as.Date}\NormalTok{(}\KeywordTok{character}\NormalTok{()),}
-                 \DataTypeTok{X=}\KeywordTok{numeric}\NormalTok{(), }
-                 \DataTypeTok{Y=}\KeywordTok{integer}\NormalTok{(), }
-                 \DataTypeTok{stringsAsFactors=}\OtherTok{FALSE}\NormalTok{) }
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Date =} \KeywordTok{as.Date}\NormalTok{(}\KeywordTok{character}\NormalTok{()), }\DataTypeTok{X =} \KeywordTok{numeric}\NormalTok{(), }
+    \DataTypeTok{Y =} \KeywordTok{integer}\NormalTok{(), }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -235,13 +236,9 @@ Add df cols with \texttt{mutate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{require}\NormalTok{(dplyr)  }
-\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"a"}\NormalTok{=}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10}\NormalTok{),}\StringTok{"b"}\NormalTok{=(}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{))}
-\NormalTok{df }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-  \StringTok{"c"}\NormalTok{=}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{),}
-  \DataTypeTok{b =}\NormalTok{ b }\OperatorTok{*}\DecValTok{67}
-\NormalTok{  )}
+\KeywordTok{require}\NormalTok{(dplyr)}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{10}\NormalTok{), }\DataTypeTok{b =}\NormalTok{ (}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{))}
+\NormalTok{df }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{c =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{), }\DataTypeTok{b =}\NormalTok{ b }\OperatorTok{*}\StringTok{ }\DecValTok{67}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -249,7 +246,8 @@ Change \texttt{df} column names
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{colnames}\NormalTok{(data)[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)] <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"TimeStamp"}\NormalTok{,}\StringTok{"Lat"}\NormalTok{,}\StringTok{"Long"}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(data)[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)] <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"TimeStamp"}\NormalTok{, }\StringTok{"Lat"}\NormalTok{, }
+    \StringTok{"Long"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -257,9 +255,9 @@ Remove multiple columns from df
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{### Remove multiple NA columns  }
+\NormalTok{### Remove multiple NA columns}
 \NormalTok{rm_cols <-}\StringTok{ }\KeywordTok{grep}\NormalTok{(}\StringTok{"NA"}\NormalTok{, }\KeywordTok{names}\NormalTok{(tt), }\DataTypeTok{ignore.case =}\NormalTok{ F)}
-\NormalTok{df[,}\KeywordTok{colnames}\NormalTok{(df[,rm_cols])] <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\OtherTok{NULL}\NormalTok{)}
+\NormalTok{df[, }\KeywordTok{colnames}\NormalTok{(df[, rm_cols])] <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\OtherTok{NULL}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -267,7 +265,7 @@ Check number of characters in each column
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{sapply}\NormalTok{(meso1, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{nchar}\NormalTok{(x)))   }
+\KeywordTok{sapply}\NormalTok{(meso1, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{nchar}\NormalTok{(x)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -278,7 +276,8 @@ here
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# dput() for converting outputs such as copied text or data tables into vectors}
+\CommentTok{# dput() for converting outputs such as copied text}
+\CommentTok{# or data tables into vectors}
 \NormalTok{xx <-}\StringTok{ "Some copied text or table from the internet"}
 \KeywordTok{dput}\NormalTok{(xx)}
 \end{Highlighting}
@@ -288,10 +287,10 @@ Round up integers to optimal rounded value
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{nn <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{46}\NormalTok{,}\DecValTok{11}\NormalTok{,}\DecValTok{23}\NormalTok{)}
-\KeywordTok{round_any}\NormalTok{(nn,}\DecValTok{10}\NormalTok{)}
-\KeywordTok{round_any}\NormalTok{(nn,}\DecValTok{10}\NormalTok{,ceiling)}
-\KeywordTok{round_any}\NormalTok{(nn,}\DecValTok{10}\NormalTok{,floor)}
+\NormalTok{nn <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{46}\NormalTok{, }\DecValTok{11}\NormalTok{, }\DecValTok{23}\NormalTok{)}
+\KeywordTok{round_any}\NormalTok{(nn, }\DecValTok{10}\NormalTok{)}
+\KeywordTok{round_any}\NormalTok{(nn, }\DecValTok{10}\NormalTok{, ceiling)}
+\KeywordTok{round_any}\NormalTok{(nn, }\DecValTok{10}\NormalTok{, floor)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -299,140 +298,8 @@ Get summary stats for dataset (means)
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{means =}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(Cumulative_cercs }\OperatorTok{~}\StringTok{ }\NormalTok{r}\OperatorTok{*}\NormalTok{hb, }\DataTypeTok{data=}\NormalTok{df,  }\DataTypeTok{FUN=}\NormalTok{mean)}
-\end{Highlighting}
-\end{Shaded}
-
-\subsubsection{\texorpdfstring{\texttt{ggplot}
-functions}{ggplot functions}}\label{ggplot-functions}
-
-Remove annoying stock gridlines from plot window
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{plot }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{panel.border =} \KeywordTok{element_blank}\NormalTok{(), }\DataTypeTok{panel.grid.major =} \KeywordTok{element_blank}\NormalTok{(),}
-                            \DataTypeTok{panel.grid.minor =} \KeywordTok{element_blank}\NormalTok{(), }\DataTypeTok{axis.line =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"black"}\NormalTok{))}
-\CommentTok{# alternative (after loading ggridges library)}
-\KeywordTok{theme_ridges}\NormalTok{(}\DataTypeTok{grid=}\NormalTok{F,}\DataTypeTok{center_axis_labels =}\NormalTok{ T)}
-\end{Highlighting}
-\end{Shaded}
-
-Setting global graphics theme for ggplot
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{plot_it_gg <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(bg,family)\{ }\CommentTok{# bg = colour to plot bg, family = font family}
-  \KeywordTok{theme_tufte}\NormalTok{(}\DataTypeTok{base_family =}\NormalTok{ family) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{panel.border =} \KeywordTok{element_blank}\NormalTok{(),}
-        \DataTypeTok{panel.grid.major =} \KeywordTok{element_blank}\NormalTok{(),}
-        \DataTypeTok{panel.grid.minor =} \KeywordTok{element_blank}\NormalTok{(),}
-        \DataTypeTok{panel.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg,}
-                                        \DataTypeTok{colour =}\NormalTok{ bg),}
-        \DataTypeTok{plot.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{bg)}
-\NormalTok{  ) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.line =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =} \StringTok{"white"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.ticks =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =} \StringTok{"white"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"white"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"white"}\NormalTok{), }
-          \DataTypeTok{axis.title.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"white"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"white"}\NormalTok{),}
-          \DataTypeTok{axis.text.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =} \StringTok{"white"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.key =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg)) }\OperatorTok{+}\StringTok{ }\CommentTok{# fill bg of legend}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour=}\StringTok{"white"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\CommentTok{# legend title}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour=}\StringTok{"white"}\NormalTok{)) }\CommentTok{# legend labels}
-\NormalTok{\} }
-\end{Highlighting}
-\end{Shaded}
-
-Put plot in function to take dynamic data inputs\\
-Ref:
-\url{http://jcborras.net/carpet/visualizing-political-divergences-2012-local-elections-in-helsinki.html}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{hr.mass.plot <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(d) \{}
-\NormalTok{  p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(d, }\KeywordTok{aes}\NormalTok{(HR, Mass, }\DataTypeTok{color =}\NormalTok{ colfunc)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{geom_density_2d}\NormalTok{(}\DataTypeTok{data=}\NormalTok{d, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ HR, }\DataTypeTok{y =}\NormalTok{ Mass), }
-                    \DataTypeTok{stat =} \StringTok{"density2d"}\NormalTok{,}\DataTypeTok{position=}\StringTok{"identity"}\NormalTok{, }
-                    \DataTypeTok{color=}\KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"orange"}\NormalTok{,}\DataTypeTok{alpha=}\FloatTok{0.8}\NormalTok{), }\DataTypeTok{size=}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{contour =}\NormalTok{ T, }\DataTypeTok{lineend=}\StringTok{"square"}\NormalTok{,}\DataTypeTok{linejoin=}\StringTok{"round"}\NormalTok{) }
-\NormalTok{  p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data=}\NormalTok{d, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ HR, }\DataTypeTok{y =}\NormalTok{ Mass),}
-                      \DataTypeTok{color=}\NormalTok{colfunc,}
-                      \DataTypeTok{fill=}\NormalTok{colfunc) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{magma}\NormalTok{(}\DecValTok{8}\NormalTok{))}
-\NormalTok{  p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{200}\NormalTok{,}\DecValTok{200}\NormalTok{), }\DataTypeTok{name=}\StringTok{"Mass lost (g)"}\NormalTok{) }
-\NormalTok{  p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.35}\NormalTok{),}\DataTypeTok{name=}\KeywordTok{expression}\NormalTok{(}\StringTok{"Home range area (km^2)"}\NormalTok{)) }
-\NormalTok{  p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_classic}\NormalTok{()}
-  \KeywordTok{print}\NormalTok{(p)}
-\NormalTok{\}}
-\KeywordTok{hr.mass.plot}\NormalTok{(d)}
-\end{Highlighting}
-\end{Shaded}
-
-Using \texttt{ggplot} when looping through \texttt{for} loop and saving
-to dir
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{pdf}\NormalTok{(}\StringTok{"mypdf.pdf"}\NormalTok{,}\DataTypeTok{onefile =}\NormalTok{ T)}
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)\{ }
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{las =} \DecValTok{1}\NormalTok{)}
-  \KeywordTok{grid.arrange}\NormalTok{( }
-  \KeywordTok{ggplot}\NormalTok{(data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ X, }\DataTypeTok{y =}\NormalTok{ Y, }\DataTypeTok{fill=}\NormalTok{..x..)) }\OperatorTok{+}\StringTok{ }\CommentTok{# geom_density_ridges()}
-\StringTok{    }\CommentTok{# scale = overlap}
-\StringTok{    }\KeywordTok{geom_density_ridges_gradient}\NormalTok{(}\DataTypeTok{scale =} \DecValTok{5}\NormalTok{, }\DataTypeTok{size=}\FloatTok{0.2}\NormalTok{,}\DataTypeTok{color=}\StringTok{"black"}\NormalTok{, }\DataTypeTok{rel_min_height =} \FloatTok{0.01}\NormalTok{,}\DataTypeTok{panel_scaling=}\NormalTok{T,}\DataTypeTok{alpha=}\FloatTok{0.2}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_density_ridges}\NormalTok{(}\DataTypeTok{scale =} \DecValTok{5}\NormalTok{, }\DataTypeTok{size=}\FloatTok{0.2}\NormalTok{,}\DataTypeTok{color=}\StringTok{"black"}\NormalTok{, }\DataTypeTok{rel_min_height =} \FloatTok{0.01}\NormalTok{,}\DataTypeTok{fill=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{alpha=}\FloatTok{0.2}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\CommentTok{# geom_density_ridges(scale = 5, size=0.2,color="white", rel_min_height = 0.01,fill=col,alpha=0.5) +}
-\StringTok{    }\KeywordTok{scale_fill_viridis}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Diameter"}\NormalTok{, }\DataTypeTok{alpha=}\FloatTok{0.1}\NormalTok{, }\DataTypeTok{option =} \StringTok{"magma"}\NormalTok{,}\DataTypeTok{direction=}\OperatorTok{-}\DecValTok{1}\NormalTok{) }\OperatorTok{+}\StringTok{ }\CommentTok{# "magma", "inferno","plasma", "viridis", "cividis"}
-\StringTok{    }\KeywordTok{xlim}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{25}\NormalTok{)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \KeywordTok{paste0}\NormalTok{(}\StringTok{"Title_"}\NormalTok{,i)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\StringTok{"X"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Y"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\CommentTok{# plot_it_gg("white")}
-\StringTok{  }\NormalTok{)}
-\NormalTok{\} }\CommentTok{# end loop }
-\KeywordTok{dev.off}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-Converting lists and dataframes to usable format for \texttt{ggplot}
-(\texttt{melt} package)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# ------------------------- plot individual outputs -------------------------}
-\NormalTok{mm_ =}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(model.path,fh,}\StringTok{".R"}\NormalTok{))}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"order = cerc, food, juv, adult, infected, infected shedding, host length, parasite mass"}\NormalTok{)}
-\CommentTok{# plot master}
-\NormalTok{mm <-}\StringTok{ }\NormalTok{mm_[[}\DecValTok{2}\NormalTok{]]}
-\NormalTok{y_m <-}\StringTok{ }\KeywordTok{melt}\NormalTok{(mm);y_m}
-\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ y_m, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{rep.int}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.ticks,}\KeywordTok{max}\NormalTok{(L1)) , }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{group =}\NormalTok{ L1, }\DataTypeTok{colour=}\KeywordTok{factor}\NormalTok{(L1)), ) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ y_m, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{rep.int}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.ticks,}\KeywordTok{max}\NormalTok{(L1)) , }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{group =}\NormalTok{ L1, }\DataTypeTok{colour=}\KeywordTok{factor}\NormalTok{(L1)), ) }\OperatorTok{+}
-\StringTok{  }\CommentTok{#linetype=y_m$L1) +}
-\StringTok{  }\KeywordTok{theme_tufte}\NormalTok{() }
-\CommentTok{# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)}
-\end{Highlighting}
-\end{Shaded}
-
-Insert math expression in legend title
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \KeywordTok{bquote}\NormalTok{(}\StringTok{"Hello"} \OperatorTok{~}\StringTok{ }\NormalTok{r[xy] }\OperatorTok{~}\StringTok{ "and"} \OperatorTok{~}\StringTok{ }\NormalTok{B}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-Create double line break with expression in legend title (and labels)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}
-    \KeywordTok{expression}\NormalTok{(}\KeywordTok{atop}\NormalTok{(}\StringTok{"text"}\NormalTok{, }
-    \KeywordTok{atop}\NormalTok{(}\KeywordTok{textstyle}\NormalTok{(epsilon))))}
-\NormalTok{    )}
+\NormalTok{means =}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(Cumulative_cercs }\OperatorTok{~}\StringTok{ }\NormalTok{r }\OperatorTok{*}\StringTok{ }\NormalTok{hb, }\DataTypeTok{data =}\NormalTok{ df, }
+    \DataTypeTok{FUN =}\NormalTok{ mean)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -442,8 +309,8 @@ Find maximum value in entire list
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{master <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{100}\NormalTok{,}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{12}\NormalTok{))}
-\KeywordTok{do.call}\NormalTok{(max,master)}
+\NormalTok{master <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{100}\NormalTok{, }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{12}\NormalTok{))}
+\KeywordTok{do.call}\NormalTok{(max, master)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -451,8 +318,9 @@ Plot all elements in a list
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{xx <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{sample}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DataTypeTok{replace=}\NormalTok{T),}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{),}\KeywordTok{sample}\NormalTok{(}\DecValTok{50}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DataTypeTok{replace=}\NormalTok{T))}
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(xx),}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{sample}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DataTypeTok{replace =}\NormalTok{ T), }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{), }
+    \KeywordTok{sample}\NormalTok{(}\DecValTok{50}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DataTypeTok{replace =}\NormalTok{ T))}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(xx), }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -460,8 +328,8 @@ Apply each row of df or vector to individual elements of a list
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"events"}\NormalTok{ =}\StringTok{ }\NormalTok{LETTERS[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{], }\StringTok{"outs"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\KeywordTok{sapply}\NormalTok{(df}\OperatorTok{$}\NormalTok{outs,list)}
+\NormalTok{df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{events =}\NormalTok{ LETTERS[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{], }\DataTypeTok{outs =} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\KeywordTok{sapply}\NormalTok{(df}\OperatorTok{$}\NormalTok{outs, list)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -469,10 +337,10 @@ Append extra element onto existing list
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{rv <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1000}\NormalTok{,}\DecValTok{15}\NormalTok{) }\CommentTok{# random vector}
-\NormalTok{listvec <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\DecValTok{7}\NormalTok{),list) }\CommentTok{# list with 7 empty elements}
-\NormalTok{listvec_final <-}\StringTok{ }\KeywordTok{c}\NormalTok{(listvec,}\KeywordTok{list}\NormalTok{(rv)) }\CommentTok{# append rv}
-\NormalTok{listvec_final <-}\StringTok{ }\KeywordTok{c}\NormalTok{(listvec,rv) }\CommentTok{# to append rv contents as separate elements, remove internal list }
+\NormalTok{rv <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{15}\NormalTok{)  }\CommentTok{# random vector}
+\NormalTok{listvec <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{7}\NormalTok{), list)  }\CommentTok{# list with 7 empty elements}
+\NormalTok{listvec_final <-}\StringTok{ }\KeywordTok{c}\NormalTok{(listvec, }\KeywordTok{list}\NormalTok{(rv))  }\CommentTok{# append rv}
+\NormalTok{listvec_final <-}\StringTok{ }\KeywordTok{c}\NormalTok{(listvec, rv)  }\CommentTok{# to append rv contents as separate elements, remove internal list }
 \end{Highlighting}
 \end{Shaded}
 
@@ -482,16 +350,16 @@ Save loop output in master list
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{pars <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{pars <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
 \NormalTok{master <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
 \NormalTok{t_list <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (p }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(pars))\{}
-  \ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{5}\NormalTok{)\{}
-\NormalTok{    tt <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\OperatorTok{*}\NormalTok{t)}
-\NormalTok{    t_list[t] <-tt }
-\NormalTok{  \}}
-\NormalTok{  master[[}\KeywordTok{length}\NormalTok{(master)}\OperatorTok{+}\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\NormalTok{t_list }\CommentTok{# store in master list}
-\NormalTok{\} }
+\ControlFlowTok{for}\NormalTok{ (p }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(pars)) \{}
+    \ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{5}\NormalTok{) \{}
+\NormalTok{        tt <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000} \OperatorTok{*}\StringTok{ }\NormalTok{t)}
+\NormalTok{        t_list[t] <-}\StringTok{ }\NormalTok{tt}
+\NormalTok{    \}}
+\NormalTok{    master[[}\KeywordTok{length}\NormalTok{(master) }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\NormalTok{t_list  }\CommentTok{# store in master list}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -501,35 +369,35 @@ Optimal way to save results to data frame in loop
 \begin{Highlighting}[]
 \KeywordTok{require}\NormalTok{(dplyr)}
 
-\NormalTok{fun <-}\StringTok{ }\NormalTok{sum }\CommentTok{# sum # choose mean or sum  }
-\NormalTok{out_first <-}\StringTok{ }\KeywordTok{list}\NormalTok{() }\CommentTok{# create first empty list}
-\NormalTok{out_second <-}\StringTok{ }\KeywordTok{list}\NormalTok{() }\CommentTok{# create second empty list}
+\NormalTok{fun <-}\StringTok{ }\NormalTok{sum  }\CommentTok{# sum # choose mean or sum  }
+\NormalTok{out_first <-}\StringTok{ }\KeywordTok{list}\NormalTok{()  }\CommentTok{# create first empty list}
+\NormalTok{out_second <-}\StringTok{ }\KeywordTok{list}\NormalTok{()  }\CommentTok{# create second empty list}
 
-\ControlFlowTok{for}\NormalTok{(me }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)\{}
-\NormalTok{  global_output_fh =}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\KeywordTok{getwd}\NormalTok{(),}\StringTok{"/"}\NormalTok{,me,}\StringTok{".R"}\NormalTok{) }\CommentTok{# get file handle}
-\NormalTok{  output <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(global_output_fh) }\CommentTok{# read in file }
-\NormalTok{  cercs <-}\StringTok{ }\NormalTok{output[[}\DecValTok{1}\NormalTok{]] }\CommentTok{# get data }
-  \CommentTok{# define function }
-\NormalTok{  SEM =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
-    \KeywordTok{sd}\NormalTok{(x)}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{length}\NormalTok{(x))}
-\NormalTok{  \}}
-  \CommentTok{# create col name to pass to aggregate function }
-\NormalTok{  cerc_outs =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"Outs"}\NormalTok{ =}\StringTok{ }\NormalTok{cercs) }
-\NormalTok{  outs =}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(Outs }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data=}\NormalTok{cerc_outs,  }\DataTypeTok{FUN=}\NormalTok{fun)}
-\NormalTok{  cerc_se =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"SEs"}\NormalTok{ =}\StringTok{ }\NormalTok{cercs) }
-\NormalTok{  se =}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(SEs }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data=}\NormalTok{cerc_se, }\DataTypeTok{FUN=}\NormalTok{SEM)}
-  
-  \CommentTok{# save to df by creating new df cols }
-\NormalTok{  outs}\OperatorTok{$}\NormalTok{me <-}\StringTok{ }\NormalTok{me  }\CommentTok{# create new col with iteration}
-\NormalTok{  out_first[[me]] <-}\StringTok{ }\NormalTok{outs }\CommentTok{# add first output to list}
-\NormalTok{  out_second[[me]] <-}\StringTok{ }\NormalTok{se }\CommentTok{# add second output to list}
-\NormalTok{\} }\CommentTok{# end file read  }
+\ControlFlowTok{for}\NormalTok{ (me }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{    global_output_fh =}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\KeywordTok{getwd}\NormalTok{(), }\StringTok{"/"}\NormalTok{, me, }\StringTok{".R"}\NormalTok{)  }\CommentTok{# get file handle}
+\NormalTok{    output <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(global_output_fh)  }\CommentTok{# read in file }
+\NormalTok{    cercs <-}\StringTok{ }\NormalTok{output[[}\DecValTok{1}\NormalTok{]]  }\CommentTok{# get data }
+    \CommentTok{# define function}
+\NormalTok{    SEM =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+        \KeywordTok{sd}\NormalTok{(x)}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{length}\NormalTok{(x))}
+\NormalTok{    \}}
+    \CommentTok{# create col name to pass to aggregate function}
+\NormalTok{    cerc_outs =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{Outs =}\NormalTok{ cercs)}
+\NormalTok{    outs =}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(Outs }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ cerc_outs, }\DataTypeTok{FUN =}\NormalTok{ fun)}
+\NormalTok{    cerc_se =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{SEs =}\NormalTok{ cercs)}
+\NormalTok{    se =}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(SEs }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ cerc_se, }\DataTypeTok{FUN =}\NormalTok{ SEM)}
+    
+    \CommentTok{# save to df by creating new df cols}
+\NormalTok{    outs}\OperatorTok{$}\NormalTok{me <-}\StringTok{ }\NormalTok{me  }\CommentTok{# create new col with iteration}
+\NormalTok{    out_first[[me]] <-}\StringTok{ }\NormalTok{outs  }\CommentTok{# add first output to list}
+\NormalTok{    out_second[[me]] <-}\StringTok{ }\NormalTok{se  }\CommentTok{# add second output to list}
+\NormalTok{\}  }\CommentTok{# end file read  }
 
 \CommentTok{# option 1}
-\NormalTok{out_final =}\StringTok{ }\KeywordTok{do.call}\NormalTok{(rbind, out_first) }
-\CommentTok{# option 2 }
-\NormalTok{out_final <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(out_first) }\CommentTok{# make fresh df }
-\NormalTok{out_final}\OperatorTok{$}\NormalTok{Second <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(out_second) }\CommentTok{# add second col}
+\NormalTok{out_final =}\StringTok{ }\KeywordTok{do.call}\NormalTok{(rbind, out_first)}
+\CommentTok{# option 2}
+\NormalTok{out_final <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(out_first)  }\CommentTok{# make fresh df }
+\NormalTok{out_final}\OperatorTok{$}\NormalTok{Second <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(out_second)  }\CommentTok{# add second col}
 \end{Highlighting}
 \end{Shaded}
 
@@ -540,15 +408,16 @@ High res maps
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# https://hecate.hakai.org/rguide/mapping-in-r.html}
-\KeywordTok{require}\NormalTok{(maptools) }
-\NormalTok{d <-}\StringTok{ }\KeywordTok{map_data}\NormalTok{(}\StringTok{"worldHires"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"Colombia"}\NormalTok{,}\StringTok{"Ecuador"}\NormalTok{,}\StringTok{"Peru"}\NormalTok{,}\StringTok{"Panama"}\NormalTok{))}
+\KeywordTok{require}\NormalTok{(maptools)}
+\NormalTok{d <-}\StringTok{ }\KeywordTok{map_data}\NormalTok{(}\StringTok{"worldHires"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"Colombia"}\NormalTok{, }\StringTok{"Ecuador"}\NormalTok{, }
+    \StringTok{"Peru"}\NormalTok{, }\StringTok{"Panama"}\NormalTok{))}
 
-\CommentTok{# plot }
-\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_polygon}\NormalTok{(}\DataTypeTok{data=}\NormalTok{d,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{long, }\DataTypeTok{y=}\NormalTok{lat, }\DataTypeTok{group =}\NormalTok{ group), }\DataTypeTok{fill =} \StringTok{"black"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"pink"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\CommentTok{# theme_tufte(ticks=F) +}
-\StringTok{  }\KeywordTok{theme_nothing}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{coord_map}\NormalTok{(}\StringTok{"mercator"}\NormalTok{,}\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{75}\NormalTok{,}\OperatorTok{-}\DecValTok{81}\NormalTok{),}\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\NormalTok{,}\DecValTok{8}\NormalTok{))}
+\CommentTok{# plot}
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_polygon}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ d, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ long, }\DataTypeTok{y =}\NormalTok{ lat, }
+    \DataTypeTok{group =}\NormalTok{ group), }\DataTypeTok{fill =} \StringTok{"black"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"pink"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\CommentTok{# theme_tufte(ticks=F) +}
+\KeywordTok{theme_nothing}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{coord_map}\NormalTok{(}\StringTok{"mercator"}\NormalTok{, }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{75}\NormalTok{, }
+    \OperatorTok{-}\DecValTok{81}\NormalTok{), }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\NormalTok{, }\DecValTok{8}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -556,7 +425,7 @@ Read in KMZ/KML data (Google Maps data)
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{require}\NormalTok{(sf)  }
+\KeywordTok{require}\NormalTok{(sf)}
 \NormalTok{zp <-}\StringTok{ }\NormalTok{sf}\OperatorTok{::}\KeywordTok{st_read}\NormalTok{(}\StringTok{"ziggy_test.kml"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -567,14 +436,14 @@ Display status message of progress
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
-  \KeywordTok{Sys.sleep}\NormalTok{(}\FloatTok{0.2}\NormalTok{)}
-  \CommentTok{# Dirk says using cat() like this is naughty ;-)}
-  \CommentTok{#cat(i,"\textbackslash{}r")}
-  \CommentTok{# So you can use message() like this, thanks to Sharpie's}
-  \CommentTok{# comment to use appendLF=FALSE.}
-  \KeywordTok{message}\NormalTok{(i,}\StringTok{"}\CharTok{\textbackslash{}r}\StringTok{"}\NormalTok{,}\DataTypeTok{appendLF=}\OtherTok{FALSE}\NormalTok{) }\CommentTok{# appendLF = new line }
-  \KeywordTok{flush.console}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
+    \KeywordTok{Sys.sleep}\NormalTok{(}\FloatTok{0.2}\NormalTok{)}
+    \CommentTok{# Dirk says using cat() like this is naughty ;-)}
+    \CommentTok{# cat(i,'\textbackslash{}r') So you can use message() like this,}
+    \CommentTok{# thanks to Sharpie's comment to use}
+    \CommentTok{# appendLF=FALSE.}
+    \KeywordTok{message}\NormalTok{(i, }\StringTok{"}\CharTok{\textbackslash{}r}\StringTok{"}\NormalTok{, }\DataTypeTok{appendLF =} \OtherTok{FALSE}\NormalTok{)  }\CommentTok{# appendLF = new line }
+    \KeywordTok{flush.console}\NormalTok{()}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -584,14 +453,15 @@ Display popup progress bar
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{require}\NormalTok{(tcltk)}
-\NormalTok{pb <-}\StringTok{ }\KeywordTok{tkProgressBar}\NormalTok{(}\StringTok{"test progress bar"}\NormalTok{, }\StringTok{"Some information in %"}\NormalTok{,}
-        \DecValTok{0}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\NormalTok{pb <-}\StringTok{ }\KeywordTok{tkProgressBar}\NormalTok{(}\StringTok{"test progress bar"}\NormalTok{, }\StringTok{"Some information in %"}\NormalTok{, }
+    \DecValTok{0}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{50}\NormalTok{)}
 \KeywordTok{Sys.sleep}\NormalTok{(}\FloatTok{0.5}\NormalTok{)}
-\NormalTok{u <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\KeywordTok{sort}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{0}\NormalTok{ ,}\DecValTok{100}\NormalTok{)), }\DecValTok{100}\NormalTok{)}
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in}\NormalTok{ u) \{}
+\NormalTok{u <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\KeywordTok{sort}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{100}\NormalTok{)), }\DecValTok{100}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ u) \{}
     \KeywordTok{Sys.sleep}\NormalTok{(}\FloatTok{0.1}\NormalTok{)}
 \NormalTok{    info <-}\StringTok{ }\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%d%% done"}\NormalTok{, }\KeywordTok{round}\NormalTok{(i))}
-    \KeywordTok{setTkProgressBar}\NormalTok{(pb, i, }\KeywordTok{sprintf}\NormalTok{(}\StringTok{"test (%s)"}\NormalTok{, info), info)}
+    \KeywordTok{setTkProgressBar}\NormalTok{(pb, i, }\KeywordTok{sprintf}\NormalTok{(}\StringTok{"test (%s)"}\NormalTok{, info), }
+\NormalTok{        info)}
 \NormalTok{\}}
 \KeywordTok{Sys.sleep}\NormalTok{(}\DecValTok{5}\NormalTok{)}
 \KeywordTok{close}\NormalTok{(pb)}
@@ -606,7 +476,7 @@ Replace NAs and NaNs with 0's
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{df[}\KeywordTok{is.na}\NormalTok{(df)] <-}\StringTok{ }\DecValTok{0}
-\NormalTok{df[}\KeywordTok{is.nan}\NormalTok{(df)] <-}\StringTok{ }\DecValTok{0} \CommentTok{# good for matrices }
+\NormalTok{df[}\KeywordTok{is.nan}\NormalTok{(df)] <-}\StringTok{ }\DecValTok{0}  \CommentTok{# good for matrices }
 \end{Highlighting}
 \end{Shaded}
 
@@ -614,7 +484,7 @@ Replace X values less than given value (V) with 0
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df}\OperatorTok{$}\NormalTok{X[df}\OperatorTok{$}\NormalTok{X}\OperatorTok{<}\NormalTok{V] <-}\StringTok{ }\DecValTok{0} 
+\NormalTok{df}\OperatorTok{$}\NormalTok{X[df}\OperatorTok{$}\NormalTok{X }\OperatorTok{<}\StringTok{ }\NormalTok{V] <-}\StringTok{ }\DecValTok{0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -631,7 +501,7 @@ snail.update{[}is.nan(snail.update){]} \textless{}- 0 Replace
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df}\OperatorTok{$}\NormalTok{col1[}\KeywordTok{which}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.finite}\NormalTok{(df}\OperatorTok{$}\NormalTok{col1))] <-}\StringTok{  }\OtherTok{NA}
+\NormalTok{df}\OperatorTok{$}\NormalTok{col1[}\KeywordTok{which}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.finite}\NormalTok{(df}\OperatorTok{$}\NormalTok{col1))] <-}\StringTok{ }\OtherTok{NA}
 \end{Highlighting}
 \end{Shaded}
 
@@ -641,25 +511,24 @@ Fill in missing data values in sequence with \texttt{NA}
 \begin{Highlighting}[]
 \CommentTok{# /Users/malishev/Documents/Manuscripts/Chapter4/Sims/Chapter4_figs.R}
 \KeywordTok{library}\NormalTok{(zoo)}
-\NormalTok{data <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{index =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\DecValTok{6}\OperatorTok{:}\DecValTok{10}\NormalTok{),}
-  \DataTypeTok{data =} \KeywordTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{,}\FloatTok{4.3}\NormalTok{,}\FloatTok{5.6}\NormalTok{,}\FloatTok{6.7}\NormalTok{,}\FloatTok{7.1}\NormalTok{,}\FloatTok{12.5}\NormalTok{,}\FloatTok{14.5}\NormalTok{,}\FloatTok{16.8}\NormalTok{,}\FloatTok{3.4}\NormalTok{))}
-\CommentTok{#you can create a series}
+\NormalTok{data <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{index =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\DecValTok{6}\OperatorTok{:}\DecValTok{10}\NormalTok{), }\DataTypeTok{data =} \KeywordTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }
+    \FloatTok{4.3}\NormalTok{, }\FloatTok{5.6}\NormalTok{, }\FloatTok{6.7}\NormalTok{, }\FloatTok{7.1}\NormalTok{, }\FloatTok{12.5}\NormalTok{, }\FloatTok{14.5}\NormalTok{, }\FloatTok{16.8}\NormalTok{, }\FloatTok{3.4}\NormalTok{))}
+\CommentTok{# you can create a series}
 \NormalTok{z <-}\StringTok{ }\KeywordTok{zoo}\NormalTok{(data}\OperatorTok{$}\NormalTok{data, data}\OperatorTok{$}\NormalTok{index)}
-\CommentTok{#end extend it to the grid 1:10}
-\NormalTok{z <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\KeywordTok{zoo}\NormalTok{(,}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{), z)}
+\CommentTok{# end extend it to the grid 1:10}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\KeywordTok{zoo}\NormalTok{(, }\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{), z)}
 
-\CommentTok{#worked example}
-\CommentTok{# fill in missing Tb values }
-\NormalTok{minTb.d <-}\StringTok{ }\KeywordTok{zoo}\NormalTok{(minTb}\OperatorTok{$}\NormalTok{Tick,minTb}\OperatorTok{$}\NormalTok{Days)}
-\NormalTok{minTb.d <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\KeywordTok{zoo}\NormalTok{(}\OtherTok{NULL}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\NormalTok{days), minTb.d) }\CommentTok{# make the minTb series match the temp series (117 days)}
-\NormalTok{minTb.d <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(minTb.d) }\CommentTok{# = time individuals reached VTMIN in ticks}
-\NormalTok{minTb <-}\StringTok{ }\NormalTok{minTb.d }\OperatorTok{-}\StringTok{ }\NormalTok{temp}\OperatorTok{$}\NormalTok{Tick }\CommentTok{# get diff between starting time and time to reach VTMIN}
-\NormalTok{minTb <-}\StringTok{ }\NormalTok{minTb}\OperatorTok{/}\DecValTok{2} \CommentTok{# convert ticks to minutes}
-\NormalTok{minTb <-}\StringTok{ }\NormalTok{minTb}\OperatorTok{/}\DecValTok{60} \CommentTok{#convert to hours}
-\NormalTok{minTb <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"Days"}\NormalTok{=}\DecValTok{1}\OperatorTok{:}\NormalTok{days,}\StringTok{"Time"}\NormalTok{=minTb)}
+\CommentTok{# worked example fill in missing Tb values}
+\NormalTok{minTb.d <-}\StringTok{ }\KeywordTok{zoo}\NormalTok{(minTb}\OperatorTok{$}\NormalTok{Tick, minTb}\OperatorTok{$}\NormalTok{Days)}
+\NormalTok{minTb.d <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\KeywordTok{zoo}\NormalTok{(}\OtherTok{NULL}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\NormalTok{days), minTb.d)  }\CommentTok{# make the minTb series match the temp series (117 days)}
+\NormalTok{minTb.d <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(minTb.d)  }\CommentTok{# = time individuals reached VTMIN in ticks}
+\NormalTok{minTb <-}\StringTok{ }\NormalTok{minTb.d }\OperatorTok{-}\StringTok{ }\NormalTok{temp}\OperatorTok{$}\NormalTok{Tick  }\CommentTok{# get diff between starting time and time to reach VTMIN}
+\NormalTok{minTb <-}\StringTok{ }\NormalTok{minTb}\OperatorTok{/}\DecValTok{2}  \CommentTok{# convert ticks to minutes}
+\NormalTok{minTb <-}\StringTok{ }\NormalTok{minTb}\OperatorTok{/}\DecValTok{60}  \CommentTok{#convert to hours}
+\NormalTok{minTb <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Days =} \DecValTok{1}\OperatorTok{:}\NormalTok{days, }\DataTypeTok{Time =}\NormalTok{ minTb)}
 
 \CommentTok{# then fill in missing values}
-\KeywordTok{approx}\NormalTok{(minTb}\OperatorTok{$}\NormalTok{Time,}\DataTypeTok{method =} \StringTok{"linear"}\NormalTok{)}
+\KeywordTok{approx}\NormalTok{(minTb}\OperatorTok{$}\NormalTok{Time, }\DataTypeTok{method =} \StringTok{"linear"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -667,7 +536,7 @@ Remove rows with NA
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{data <-}\StringTok{ }\NormalTok{data[}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(data}\OperatorTok{$}\NormalTok{X),]}
+\NormalTok{data <-}\StringTok{ }\NormalTok{data[}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(data}\OperatorTok{$}\NormalTok{X), ]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -676,7 +545,8 @@ coerce double' error)
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{hl_list <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(hl_list, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(x }\OperatorTok{==}\StringTok{ "NULL"}\NormalTok{, }\OtherTok{NA}\NormalTok{, x))}
+\NormalTok{hl_list <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(hl_list, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(x }\OperatorTok{==}\StringTok{ }
+\StringTok{    "NULL"}\NormalTok{, }\OtherTok{NA}\NormalTok{, x))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -685,10 +555,12 @@ Turn NaN or NAs in list into 0s
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# NaN}
-\NormalTok{global_output <-}\StringTok{ }\KeywordTok{rapply}\NormalTok{(global_output, }\DataTypeTok{f=}\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.nan}\NormalTok{(x),}\DecValTok{0}\NormalTok{,x), }\DataTypeTok{how=}\StringTok{"replace"}\NormalTok{ )}
+\NormalTok{global_output <-}\StringTok{ }\KeywordTok{rapply}\NormalTok{(global_output, }\DataTypeTok{f =} \ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.nan}\NormalTok{(x), }
+    \DecValTok{0}\NormalTok{, x), }\DataTypeTok{how =} \StringTok{"replace"}\NormalTok{)}
 
 \CommentTok{# NA}
-\NormalTok{global_output <-}\StringTok{ }\KeywordTok{rapply}\NormalTok{(global_output, }\DataTypeTok{f=}\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(x),}\DecValTok{0}\NormalTok{,x), }\DataTypeTok{how=}\StringTok{"replace"}\NormalTok{ )}
+\NormalTok{global_output <-}\StringTok{ }\KeywordTok{rapply}\NormalTok{(global_output, }\DataTypeTok{f =} \ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(x), }
+    \DecValTok{0}\NormalTok{, x), }\DataTypeTok{how =} \StringTok{"replace"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -712,7 +584,7 @@ Plot one plot window above and two below
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{layout}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{), }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{))}
+\KeywordTok{layout}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -720,7 +592,7 @@ Bookend axis ticks for plot E.g. at 0 and 100 when data is 1:99
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{axis}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DataTypeTok{at=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\KeywordTok{length}\NormalTok{(loco}\OperatorTok{$}\NormalTok{X)),}\DataTypeTok{labels=}\KeywordTok{c}\NormalTok{(}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{))}\CommentTok{# bookending axis tick marks}
+\KeywordTok{axis}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{at =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\KeywordTok{length}\NormalTok{(loco}\OperatorTok{$}\NormalTok{X)), }\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\StringTok{""}\NormalTok{))  }\CommentTok{# bookending axis tick marks}
 \end{Highlighting}
 \end{Shaded}
 
@@ -728,10 +600,11 @@ Optimal legend formatting for base
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{legend}\NormalTok{(}\StringTok{"right"}\NormalTok{,}\DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"Small"}\NormalTok{,}\StringTok{"Intermediate"}\NormalTok{,}\StringTok{"Large"}\NormalTok{),}\DataTypeTok{col=}\KeywordTok{c}\NormalTok{(colfunc[colvec[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{]]),}
-       \DataTypeTok{bty=}\StringTok{"n"}\NormalTok{,}\DataTypeTok{pch=}\DecValTok{20}\NormalTok{,}\DataTypeTok{pt.cex=}\FloatTok{1.5}\NormalTok{,}\DataTypeTok{cex=}\FloatTok{0.7}\NormalTok{,}\DataTypeTok{y.intersp =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{xjust =} \FloatTok{0.5}\NormalTok{,}
-       \DataTypeTok{title=}\StringTok{"Size class"}\NormalTok{,}\DataTypeTok{title.adj =} \FloatTok{0.3}\NormalTok{,}\DataTypeTok{text.font=}\DecValTok{2}\NormalTok{,}
-       \DataTypeTok{trace=}\NormalTok{T,}\DataTypeTok{inset=}\FloatTok{0.1}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"right"}\NormalTok{, }\DataTypeTok{legend =} \KeywordTok{c}\NormalTok{(}\StringTok{"Small"}\NormalTok{, }\StringTok{"Intermediate"}\NormalTok{, }
+    \StringTok{"Large"}\NormalTok{), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(colfunc[colvec[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{]]), }\DataTypeTok{bty =} \StringTok{"n"}\NormalTok{, }
+    \DataTypeTok{pch =} \DecValTok{20}\NormalTok{, }\DataTypeTok{pt.cex =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{y.intersp =} \FloatTok{0.5}\NormalTok{, }
+    \DataTypeTok{xjust =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Size class"}\NormalTok{, }\DataTypeTok{title.adj =} \FloatTok{0.3}\NormalTok{, }
+    \DataTypeTok{text.font =} \DecValTok{2}\NormalTok{, }\DataTypeTok{trace =}\NormalTok{ T, }\DataTypeTok{inset =} \FloatTok{0.1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -741,20 +614,20 @@ Plot inset plot in current plot
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# calculate position of inset}
-\NormalTok{plotdim <-}\StringTok{ }\KeywordTok{par}\NormalTok{(}\StringTok{"plt"}\NormalTok{)}\CommentTok{# get plot window dims as fraction of current plot dims }
-\NormalTok{xleft    =}\StringTok{ }\NormalTok{plotdim[}\DecValTok{2}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{(plotdim[}\DecValTok{2}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{plotdim[}\DecValTok{1}\NormalTok{]) }\OperatorTok{*}\StringTok{ }\FloatTok{0.5}
-\NormalTok{xright   =}\StringTok{ }\NormalTok{plotdim[}\DecValTok{2}\NormalTok{]  }\CommentTok{#}
-\NormalTok{ybottom  =}\StringTok{ }\NormalTok{plotdim[}\DecValTok{4}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{(plotdim[}\DecValTok{4}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{plotdim[}\DecValTok{3}\NormalTok{]) }\OperatorTok{*}\StringTok{ }\FloatTok{0.5}  \CommentTok{#}
-\NormalTok{ytop     =}\StringTok{ }\NormalTok{plotdim[}\DecValTok{4}\NormalTok{]  }\CommentTok{#}
+\NormalTok{plotdim <-}\StringTok{ }\KeywordTok{par}\NormalTok{(}\StringTok{"plt"}\NormalTok{)  }\CommentTok{# get plot window dims as fraction of current plot dims }
+\NormalTok{xleft =}\StringTok{ }\NormalTok{plotdim[}\DecValTok{2}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{(plotdim[}\DecValTok{2}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{plotdim[}\DecValTok{1}\NormalTok{]) }\OperatorTok{*}\StringTok{ }\FloatTok{0.5}
+\NormalTok{xright =}\StringTok{ }\NormalTok{plotdim[}\DecValTok{2}\NormalTok{]  }\CommentTok{#}
+\NormalTok{ybottom =}\StringTok{ }\NormalTok{plotdim[}\DecValTok{4}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{(plotdim[}\DecValTok{4}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{plotdim[}\DecValTok{3}\NormalTok{]) }\OperatorTok{*}\StringTok{ }
+\StringTok{    }\FloatTok{0.5}  \CommentTok{#}
+\NormalTok{ytop =}\StringTok{ }\NormalTok{plotdim[}\DecValTok{4}\NormalTok{]  }\CommentTok{#}
 
 \CommentTok{# set position for plot inset}
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{fig =} \KeywordTok{c}\NormalTok{(xleft, xright, ybottom, ytop),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{),}\DataTypeTok{new=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{fig =} \KeywordTok{c}\NormalTok{(xleft, xright, ybottom, ytop), }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }
+    \DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\DataTypeTok{new =} \OtherTok{TRUE}\NormalTok{)}
 
-\KeywordTok{boxplot}\NormalTok{(Eggs}\OperatorTok{~}\NormalTok{Size,}\DataTypeTok{data=}\NormalTok{meso2,}
-                \DataTypeTok{col=}\KeywordTok{adjustcolor}\NormalTok{(colfunc[colvec[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{]],}\DataTypeTok{alpha=}\FloatTok{0.5}\NormalTok{),}
-                \DataTypeTok{notch =}\NormalTok{ T,}\DataTypeTok{xlab=}\StringTok{"Week"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Diameter (mm)"}\NormalTok{,}
-                \DataTypeTok{xaxs =} \StringTok{"i"}\NormalTok{, }\DataTypeTok{yaxs =} \StringTok{"i"}
-\NormalTok{                ) }
+\KeywordTok{boxplot}\NormalTok{(Eggs }\OperatorTok{~}\StringTok{ }\NormalTok{Size, }\DataTypeTok{data =}\NormalTok{ meso2, }\DataTypeTok{col =} \KeywordTok{adjustcolor}\NormalTok{(colfunc[colvec[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{]], }
+    \DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{), }\DataTypeTok{notch =}\NormalTok{ T, }\DataTypeTok{xlab =} \StringTok{"Week"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Diameter (mm)"}\NormalTok{, }
+    \DataTypeTok{xaxs =} \StringTok{"i"}\NormalTok{, }\DataTypeTok{yaxs =} \StringTok{"i"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -764,7 +637,7 @@ Interactive plots with rCharts (javascript and d3 viz)\\
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{require}\NormalTok{(devtools)}
-\KeywordTok{install_github}\NormalTok{(}\StringTok{'rCharts'}\NormalTok{, }\StringTok{'ramnathv'}\NormalTok{)}
+\KeywordTok{install_github}\NormalTok{(}\StringTok{"rCharts"}\NormalTok{, }\StringTok{"ramnathv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -779,35 +652,30 @@ Cluster plot\\
 \KeywordTok{library}\NormalTok{(ggraph)}
 \KeywordTok{library}\NormalTok{(ggforce)}
 
-\CommentTok{# This shared file contains the number of question that have each pair of tags}
-\CommentTok{# This counts only questions that are not deleted and have a positive score}
+\CommentTok{# This shared file contains the number of question}
+\CommentTok{# that have each pair of tags This counts only}
+\CommentTok{# questions that are not deleted and have a}
+\CommentTok{# positive score}
 \NormalTok{tag_pair_data <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"http://varianceexplained.org/files/tag_pairs.csv.gz"}\NormalTok{)}
 
-\NormalTok{relationships <-}\StringTok{ }\NormalTok{tag_pair_data }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Fraction =}\NormalTok{ Cooccur }\OperatorTok{/}\StringTok{ }\NormalTok{Tag1Total) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(Fraction }\OperatorTok{>=}\StringTok{ }\NormalTok{.}\DecValTok{35}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{distinct}\NormalTok{(Tag1)}
+\NormalTok{relationships <-}\StringTok{ }\NormalTok{tag_pair_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Fraction =}\NormalTok{ Cooccur}\OperatorTok{/}\NormalTok{Tag1Total) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(Fraction }\OperatorTok{>=}\StringTok{ }\FloatTok{0.35}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{distinct}\NormalTok{(Tag1)}
 
-\NormalTok{v <-}\StringTok{ }\NormalTok{tag_pair_data }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(Tag1, Tag1Total) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{distinct}\NormalTok{(Tag1) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(Tag1 }\OperatorTok{%in%}\StringTok{ }\NormalTok{relationships}\OperatorTok{$}\NormalTok{Tag1 }\OperatorTok{|}
-\StringTok{         }\NormalTok{Tag1 }\OperatorTok{%in%}\StringTok{ }\NormalTok{relationships}\OperatorTok{$}\NormalTok{Tag2) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Tag1Total))}
+\NormalTok{v <-}\StringTok{ }\NormalTok{tag_pair_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(Tag1, Tag1Total) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{distinct}\NormalTok{(Tag1) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(Tag1 }\OperatorTok{%in%}\StringTok{ }\NormalTok{relationships}\OperatorTok{$}\NormalTok{Tag1 }\OperatorTok{|}\StringTok{ }
+\StringTok{    }\NormalTok{Tag1 }\OperatorTok{%in%}\StringTok{ }\NormalTok{relationships}\OperatorTok{$}\NormalTok{Tag2) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(Tag1Total))}
 
-\NormalTok{a <-}\StringTok{ }\NormalTok{grid}\OperatorTok{::}\KeywordTok{arrow}\NormalTok{(}\DataTypeTok{length =}\NormalTok{ grid}\OperatorTok{::}\KeywordTok{unit}\NormalTok{(.}\DecValTok{08}\NormalTok{, }\StringTok{"inches"}\NormalTok{), }\DataTypeTok{ends =} \StringTok{"first"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"closed"}\NormalTok{)}
+\NormalTok{a <-}\StringTok{ }\NormalTok{grid}\OperatorTok{::}\KeywordTok{arrow}\NormalTok{(}\DataTypeTok{length =}\NormalTok{ grid}\OperatorTok{::}\KeywordTok{unit}\NormalTok{(}\FloatTok{0.08}\NormalTok{, }\StringTok{"inches"}\NormalTok{), }
+    \DataTypeTok{ends =} \StringTok{"first"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"closed"}\NormalTok{)}
 
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{2016}\NormalTok{)}
 
-\NormalTok{relationships }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{graph_from_data_frame}\NormalTok{(}\DataTypeTok{vertices =}\NormalTok{ v) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{ggraph}\NormalTok{(}\DataTypeTok{layout =} \StringTok{"fr"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_edge_link}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{alpha =}\NormalTok{ Fraction), }\DataTypeTok{arrow =}\NormalTok{ a) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_node_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{size =}\NormalTok{ Tag1Total), }\DataTypeTok{color =} \StringTok{"lightblue"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_node_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{size =}\NormalTok{ Tag1Total, }\DataTypeTok{label =}\NormalTok{ name), }\DataTypeTok{check_overlap =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_size_continuous}\NormalTok{(}\DataTypeTok{range =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{9}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\NormalTok{ggforce}\OperatorTok{::}\KeywordTok{theme_no_axes}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\NormalTok{relationships }\OperatorTok{%>%}\StringTok{ }\KeywordTok{graph_from_data_frame}\NormalTok{(}\DataTypeTok{vertices =}\NormalTok{ v) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{ggraph}\NormalTok{(}\DataTypeTok{layout =} \StringTok{"fr"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_edge_link}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{alpha =}\NormalTok{ Fraction), }
+    \DataTypeTok{arrow =}\NormalTok{ a) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_node_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{size =}\NormalTok{ Tag1Total), }
+    \DataTypeTok{color =} \StringTok{"lightblue"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_node_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{size =}\NormalTok{ Tag1Total, }
+    \DataTypeTok{label =}\NormalTok{ name), }\DataTypeTok{check_overlap =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_size_continuous}\NormalTok{(}\DataTypeTok{range =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }
+    \DecValTok{9}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\NormalTok{ggforce}\OperatorTok{::}\KeywordTok{theme_no_axes}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -821,57 +689,84 @@ Github page}.
 \begin{Highlighting}[]
 \KeywordTok{require}\NormalTok{(ggplot2)}
 \KeywordTok{require}\NormalTok{(ggthemes)}
-\NormalTok{### set plotting params   }
-\NormalTok{plot_it <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(manuscript,bg,cp1,cp2,alpha,family)\{ }\CommentTok{# plotting function (plot for MS or not, set bg color, set color palette from RColorBrewer, set alpha value for transperancy) }
-  \KeywordTok{graphics.off}\NormalTok{()}
-  \ControlFlowTok{if}\NormalTok{(manuscript}\OperatorTok{==}\DecValTok{0}\NormalTok{)\{}
-    \ControlFlowTok{if}\NormalTok{(bg}\OperatorTok{==}\StringTok{"black"}\NormalTok{)\{}
-\NormalTok{      colvec <<-}\StringTok{ }\KeywordTok{magma}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{1}\NormalTok{) }\CommentTok{# plot window bg # USES <<- OPERATOR}
-      \KeywordTok{par}\NormalTok{(}\DataTypeTok{bg =}\NormalTok{ colvec[}\DecValTok{1}\NormalTok{],}\DataTypeTok{col.axis=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{col.lab=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{col.main=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{fg=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{family=}\NormalTok{family) }\CommentTok{#mono}
-\NormalTok{      border=}\KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"purple"}\NormalTok{,}\DataTypeTok{alpha=}\FloatTok{0.5}\NormalTok{)}
-\NormalTok{    \}}\ControlFlowTok{else}\NormalTok{\{}
-\NormalTok{      colvec <<-}\StringTok{ }\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{200}\NormalTok{) }\CommentTok{# plot window bg # USES <<- OPERATOR}
-      \KeywordTok{par}\NormalTok{(}\DataTypeTok{bg =}\NormalTok{ colvec[}\DecValTok{1}\NormalTok{],}\DataTypeTok{col.axis=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{col.lab=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{col.main=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{fg=}\StringTok{"white"}\NormalTok{,}\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{family=}\NormalTok{family) }
-\NormalTok{      border=}\KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"blue"}\NormalTok{,}\DataTypeTok{alpha=}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{### set plotting params plotting function (plot for}
+\NormalTok{### MS or not, set bg color, set color palette from}
+\NormalTok{### RColorBrewer, set alpha value for transperancy)}
+\NormalTok{plot_it <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(manuscript, bg, cp1, cp2, alpha, }
+\NormalTok{    family) \{}
+    \KeywordTok{graphics.off}\NormalTok{()}
+    \ControlFlowTok{if}\NormalTok{ (manuscript }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
+        \ControlFlowTok{if}\NormalTok{ (bg }\OperatorTok{==}\StringTok{ "black"}\NormalTok{) \{}
+\NormalTok{            colvec <<-}\StringTok{ }\KeywordTok{magma}\NormalTok{(}\DecValTok{200}\NormalTok{, }\DecValTok{1}\NormalTok{)  }\CommentTok{# plot window bg # USES <<- OPERATOR}
+            \KeywordTok{par}\NormalTok{(}\DataTypeTok{bg =}\NormalTok{ colvec[}\DecValTok{1}\NormalTok{], }\DataTypeTok{col.axis =} \StringTok{"white"}\NormalTok{, }
+                \DataTypeTok{col.lab =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{col.main =} \StringTok{"white"}\NormalTok{, }
+                \DataTypeTok{fg =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{bty =} \StringTok{"n"}\NormalTok{, }\DataTypeTok{las =} \DecValTok{1}\NormalTok{, }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }
+                  \DecValTok{6}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{family =}\NormalTok{ family)  }\CommentTok{#mono}
+\NormalTok{            border =}\StringTok{ }\KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"purple"}\NormalTok{, }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{        \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{            colvec <<-}\StringTok{ }\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{200}\NormalTok{)  }\CommentTok{# plot window bg # USES <<- OPERATOR}
+            \KeywordTok{par}\NormalTok{(}\DataTypeTok{bg =}\NormalTok{ colvec[}\DecValTok{1}\NormalTok{], }\DataTypeTok{col.axis =} \StringTok{"white"}\NormalTok{, }
+                \DataTypeTok{col.lab =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{col.main =} \StringTok{"white"}\NormalTok{, }
+                \DataTypeTok{fg =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{bty =} \StringTok{"n"}\NormalTok{, }\DataTypeTok{las =} \DecValTok{1}\NormalTok{, }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }
+                  \DecValTok{6}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{family =}\NormalTok{ family)}
+\NormalTok{            border =}\StringTok{ }\KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"blue"}\NormalTok{, }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{        \}}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+        \CommentTok{# graphics.off()}
+        \KeywordTok{par}\NormalTok{(}\DataTypeTok{bty =} \StringTok{"n"}\NormalTok{, }\DataTypeTok{las =} \DecValTok{1}\NormalTok{, }\DataTypeTok{family =}\NormalTok{ family)}
+\NormalTok{        colv <-}\StringTok{ "white"}
 \NormalTok{    \}}
-\NormalTok{  \}}\ControlFlowTok{else}\NormalTok{\{}
-    \CommentTok{#    graphics.off()}
-    \KeywordTok{par}\NormalTok{(}\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}\DataTypeTok{family=}\NormalTok{family) }
-\NormalTok{    colv<-}\StringTok{"white"}
-\NormalTok{  \}}
-  \CommentTok{# color palettes}
-  \CommentTok{# ifelse(manuscript==1,colvec<-adjustcolor(brewer.pal(9,cp1)[9], alpha = alpha),colvec <- adjustcolor(brewer.pal(9,cp1)[5], alpha = alpha)) # fine tune plotting colors for plotting bg}
-  \CommentTok{# colfunc <<- colorRampPalette(brewer.pal(9,cp1),alpha=alpha)}
-\NormalTok{  cp1_info <-}\StringTok{ }\NormalTok{brewer.pal.info[cp1,]}\OperatorTok{$}\NormalTok{maxcolors}
-\NormalTok{  cp2_info <-}\StringTok{ }\NormalTok{brewer.pal.info[cp2,]}\OperatorTok{$}\NormalTok{maxcolors}
-\NormalTok{  colv <<-}\StringTok{ }\KeywordTok{brewer.pal}\NormalTok{(cp1_info,cp1) }\CommentTok{# USES <<- OPERATOR}
-\NormalTok{  colv2 <<-}\StringTok{ }\KeywordTok{brewer.pal}\NormalTok{(cp2_info,cp2) }\CommentTok{# USES <<- OPERATOR}
+    \CommentTok{# color palettes}
+    \CommentTok{# ifelse(manuscript==1,colvec<-adjustcolor(brewer.pal(9,cp1)[9],}
+    \CommentTok{# alpha = alpha),colvec <-}
+    \CommentTok{# adjustcolor(brewer.pal(9,cp1)[5], alpha = alpha))}
+    \CommentTok{# # fine tune plotting colors for plotting bg}
+    \CommentTok{# colfunc <<-}
+    \CommentTok{# colorRampPalette(brewer.pal(9,cp1),alpha=alpha)}
+\NormalTok{    cp1_info <-}\StringTok{ }\NormalTok{brewer.pal.info[cp1, ]}\OperatorTok{$}\NormalTok{maxcolors}
+\NormalTok{    cp2_info <-}\StringTok{ }\NormalTok{brewer.pal.info[cp2, ]}\OperatorTok{$}\NormalTok{maxcolors}
+\NormalTok{    colv <<-}\StringTok{ }\KeywordTok{brewer.pal}\NormalTok{(cp1_info, cp1)  }\CommentTok{# USES <<- OPERATOR}
+\NormalTok{    colv2 <<-}\StringTok{ }\KeywordTok{brewer.pal}\NormalTok{(cp2_info, cp2)  }\CommentTok{# USES <<- OPERATOR}
 \NormalTok{\}}
 
-\CommentTok{# Setting ggplot theme graphics}
-\NormalTok{plot_it_gg <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(bg)\{ }\CommentTok{# bg = colour to plot bg, family = font family}
-  \ControlFlowTok{if}\NormalTok{(bg}\OperatorTok{==}\StringTok{"white"}\NormalTok{)\{}
-\NormalTok{    bg <-}\StringTok{ "white"}
-\NormalTok{    fg <-}\StringTok{ "black"}
-    \KeywordTok{theme_tufte}\NormalTok{(}\DataTypeTok{base_family =} \StringTok{"HersheySans"}\NormalTok{) }\OperatorTok{+}
-\StringTok{      }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{panel.border =} \KeywordTok{element_blank}\NormalTok{(),}\DataTypeTok{panel.grid.major =} \KeywordTok{element_blank}\NormalTok{(),}\DataTypeTok{panel.grid.minor =} \KeywordTok{element_blank}\NormalTok{(),}\DataTypeTok{panel.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg,}\DataTypeTok{colour =}\NormalTok{ bg),}\DataTypeTok{plot.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{bg)) }\OperatorTok{+}
-\StringTok{      }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.line =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.ticks =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg)) }\OperatorTok{+}\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg), }\DataTypeTok{axis.title.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg),}\DataTypeTok{axis.text.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.key =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour=}\NormalTok{fg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour=}\NormalTok{fg))}
-\NormalTok{  \}}
-\NormalTok{\}}\CommentTok{# end gg}
+\CommentTok{# Setting ggplot theme graphics bg = colour to plot}
+\CommentTok{# bg, family = font family}
+\NormalTok{plot_it_gg <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(bg) \{}
+    \ControlFlowTok{if}\NormalTok{ (bg }\OperatorTok{==}\StringTok{ "white"}\NormalTok{) \{}
+\NormalTok{        bg <-}\StringTok{ "white"}
+\NormalTok{        fg <-}\StringTok{ "black"}
+        \KeywordTok{theme_tufte}\NormalTok{(}\DataTypeTok{base_family =} \StringTok{"HersheySans"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{panel.border =} \KeywordTok{element_blank}\NormalTok{(), }\DataTypeTok{panel.grid.major =} \KeywordTok{element_blank}\NormalTok{(), }
+                \DataTypeTok{panel.grid.minor =} \KeywordTok{element_blank}\NormalTok{(), }
+                \DataTypeTok{panel.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg, }
+                  \DataTypeTok{colour =}\NormalTok{ bg), }\DataTypeTok{plot.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg)) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.line =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.ticks =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg), }
+                \DataTypeTok{axis.title.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg), }
+                \DataTypeTok{axis.text.y =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.key =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ bg)) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg)) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ fg))}
+\NormalTok{    \}}
+\NormalTok{\}  }\CommentTok{# end gg}
 
-\NormalTok{### Set plotting function  }
+\NormalTok{### Set plotting function}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{require}\NormalTok{(}\StringTok{"RCurl"}\NormalTok{)}
-\NormalTok{script <-}\StringTok{ }\KeywordTok{getURL}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R"}\NormalTok{, }\DataTypeTok{ssl.verifypeer =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{script <-}\StringTok{ }\KeywordTok{getURL}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/darwinanddavis/plot_it/master/plot_it.R"}\NormalTok{, }
+    \DataTypeTok{ssl.verifypeer =} \OtherTok{FALSE}\NormalTok{)}
 \KeywordTok{eval}\NormalTok{(}\KeywordTok{parse}\NormalTok{(}\DataTypeTok{text =}\NormalTok{ script))}
 
 \KeywordTok{cat}\NormalTok{(}\StringTok{"plot_it( }\CharTok{\textbackslash{}n}\StringTok{0 for presentation, 1 for manuscript, }\CharTok{\textbackslash{}n}\StringTok{set colour for background, }\CharTok{\textbackslash{}n}\StringTok{set colour palette. use 'display.brewer.all()', }\CharTok{\textbackslash{}n}\StringTok{set alpha for colour transperancy, }\CharTok{\textbackslash{}n}\StringTok{set font style }\CharTok{\textbackslash{}n}\StringTok{)"}\NormalTok{)}
-\KeywordTok{plot_it}\NormalTok{(}\DecValTok{0}\NormalTok{,}\StringTok{"blue"}\NormalTok{,}\StringTok{"Spectral"}\NormalTok{,}\StringTok{"Greens"}\NormalTok{,}\DecValTok{1}\NormalTok{,}\StringTok{"mono"}\NormalTok{) }\CommentTok{# set col function params}
-\KeywordTok{plot_it_gg}\NormalTok{(}\StringTok{"white"}\NormalTok{) }\CommentTok{# same as above }
+\KeywordTok{plot_it}\NormalTok{(}\DecValTok{0}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"Spectral"}\NormalTok{, }\StringTok{"Greens"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\StringTok{"mono"}\NormalTok{)  }\CommentTok{# set col function params}
+\KeywordTok{plot_it_gg}\NormalTok{(}\StringTok{"white"}\NormalTok{)  }\CommentTok{# same as above }
 \end{Highlighting}
 \end{Shaded}
 
@@ -879,7 +774,7 @@ Make plot cycle on one page
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam,}\DataTypeTok{pages=}\DecValTok{1}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam, }\DataTypeTok{pages =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -887,9 +782,9 @@ Get plot summaries and values from plot
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot.gam}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam,}\DataTypeTok{shade=}\NormalTok{T,}\DataTypeTok{pages=}\DecValTok{1}\NormalTok{,}\DataTypeTok{seWithMean =}\NormalTok{ T)[}\DecValTok{1}\NormalTok{] }\CommentTok{# everything}
-\KeywordTok{plot.gam}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam,}\DataTypeTok{shade=}\NormalTok{T,}\DataTypeTok{pages=}\DecValTok{1}\NormalTok{,}\DataTypeTok{seWithMean =}\NormalTok{ T)[}\DecValTok{1}\NormalTok{][[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{x }\CommentTok{#subset x}
-\KeywordTok{plot.gam}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam,}\DataTypeTok{shade=}\NormalTok{T,}\DataTypeTok{pages=}\DecValTok{1}\NormalTok{,}\DataTypeTok{seWithMean =}\NormalTok{ T)[}\DecValTok{1}\NormalTok{][[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{fit }\CommentTok{#get values to produce fit curve }
+\KeywordTok{plot.gam}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam, }\DataTypeTok{shade =}\NormalTok{ T, }\DataTypeTok{pages =} \DecValTok{1}\NormalTok{, }\DataTypeTok{seWithMean =}\NormalTok{ T)[}\DecValTok{1}\NormalTok{]  }\CommentTok{# everything}
+\KeywordTok{plot.gam}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam, }\DataTypeTok{shade =}\NormalTok{ T, }\DataTypeTok{pages =} \DecValTok{1}\NormalTok{, }\DataTypeTok{seWithMean =}\NormalTok{ T)[}\DecValTok{1}\NormalTok{][[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{x  }\CommentTok{#subset x}
+\KeywordTok{plot.gam}\NormalTok{(m_abundance}\OperatorTok{$}\NormalTok{gam, }\DataTypeTok{shade =}\NormalTok{ T, }\DataTypeTok{pages =} \DecValTok{1}\NormalTok{, }\DataTypeTok{seWithMean =}\NormalTok{ T)[}\DecValTok{1}\NormalTok{][[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{fit  }\CommentTok{#get values to produce fit curve }
 \end{Highlighting}
 \end{Shaded}
 
@@ -897,7 +792,7 @@ Package for stock world maps
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#worldmap}
+\CommentTok{# worldmap}
 \KeywordTok{library}\NormalTok{(choroplethrMaps)}
 \end{Highlighting}
 \end{Shaded}
@@ -906,72 +801,69 @@ Circle packing, tree, dendogram, network plots
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# dendogram tree nested bubble circle packing network }
+\CommentTok{# dendogram tree nested bubble circle packing}
+\CommentTok{# network}
 \CommentTok{# https://www.r-graph-gallery.com/313-basic-circle-packing-with-several-levels/}
 
-\CommentTok{# circle packing plot  }
-\CommentTok{# Libraries}
-\NormalTok{p <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"ggraph"}\NormalTok{,}\StringTok{"igraph"}\NormalTok{,}\StringTok{"tidyverse"}\NormalTok{,}\StringTok{"DeducerSpatial"}\NormalTok{,}\StringTok{"Rcpp"}\NormalTok{,}\StringTok{"car"}\NormalTok{)}
-\KeywordTok{install.packages}\NormalTok{(p,}\DataTypeTok{dependencies =}\NormalTok{ T)}
-\KeywordTok{lapply}\NormalTok{(p,library,}\DataTypeTok{character.only=}\NormalTok{T)}
+\CommentTok{# circle packing plot Libraries}
+\NormalTok{p <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"ggraph"}\NormalTok{, }\StringTok{"igraph"}\NormalTok{, }\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"DeducerSpatial"}\NormalTok{, }
+    \StringTok{"Rcpp"}\NormalTok{, }\StringTok{"car"}\NormalTok{)}
+\KeywordTok{install.packages}\NormalTok{(p, }\DataTypeTok{dependencies =}\NormalTok{ T)}
+\KeywordTok{lapply}\NormalTok{(p, library, }\DataTypeTok{character.only =}\NormalTok{ T)}
 
-\CommentTok{# We need a data frame giving a hierarchical structure. Let's consider the flare dataset:}
-\NormalTok{edges=flare}\OperatorTok{$}\NormalTok{edges}
+\CommentTok{# We need a data frame giving a hierarchical}
+\CommentTok{# structure. Let's consider the flare dataset:}
+\NormalTok{edges =}\StringTok{ }\NormalTok{flare}\OperatorTok{$}\NormalTok{edges}
 \CommentTok{# edges cols = character}
 
-\CommentTok{# Usually we associate another dataset that give information about each node of the dataset:}
+\CommentTok{# Usually we associate another dataset that give}
+\CommentTok{# information about each node of the dataset:}
 \NormalTok{vertices =}\StringTok{ }\NormalTok{flare}\OperatorTok{$}\NormalTok{vertices}
 \CommentTok{# vertices cols = character, numeric, character}
 
 \CommentTok{# Create a subset of the dataset (I remove 1 level)}
 \NormalTok{edges =}\StringTok{ }\NormalTok{flare}\OperatorTok{$}\NormalTok{edges }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(to }\OperatorTok{%in%}\StringTok{ }\NormalTok{from) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{droplevels}\NormalTok{()}
-\NormalTok{vertices =}\StringTok{ }\NormalTok{flare}\OperatorTok{$}\NormalTok{vertices }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(name }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(edges}\OperatorTok{$}\NormalTok{from, edges}\OperatorTok{$}\NormalTok{to)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{droplevels}\NormalTok{()}
-\NormalTok{vertices}\OperatorTok{$}\NormalTok{size=}\KeywordTok{runif}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(vertices))}
+\NormalTok{vertices =}\StringTok{ }\NormalTok{flare}\OperatorTok{$}\NormalTok{vertices }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(name }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(edges}\OperatorTok{$}\NormalTok{from, }
+\NormalTok{    edges}\OperatorTok{$}\NormalTok{to)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{droplevels}\NormalTok{()}
+\NormalTok{vertices}\OperatorTok{$}\NormalTok{size =}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(vertices))}
 
-\CommentTok{# Then we have to make a 'graph' object using the igraph library:}
-\NormalTok{mygraph <-}\StringTok{ }\KeywordTok{graph_from_data_frame}\NormalTok{( edges, }\DataTypeTok{vertices=}\NormalTok{vertices )}
+\CommentTok{# Then we have to make a 'graph' object using the}
+\CommentTok{# igraph library:}
+\NormalTok{mygraph <-}\StringTok{ }\KeywordTok{graph_from_data_frame}\NormalTok{(edges, }\DataTypeTok{vertices =}\NormalTok{ vertices)}
 
 \CommentTok{# circle packing}
-\KeywordTok{ggraph}\NormalTok{(mygraph, }\DataTypeTok{layout =} \StringTok{'circlepack'}\NormalTok{, }\DataTypeTok{weight=}\StringTok{"size"}\NormalTok{,}\DataTypeTok{sort.by=}\OtherTok{NULL}\NormalTok{,}\DataTypeTok{direction=}\StringTok{"out"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_node_circle}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{depth)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_node_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\NormalTok{shortName, }\DataTypeTok{filter=}\NormalTok{leaf, }\DataTypeTok{fill=}\NormalTok{depth, }\DataTypeTok{size=}\NormalTok{size)) }\OperatorTok{+}\StringTok{ }\CommentTok{# add text}
-\StringTok{  }\CommentTok{# geom_node_label(aes(label=shortName, filter=leaf, size=size)) + # add text boxes}
-\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\CommentTok{# theme(legend.position="F") + #show legend}
-\StringTok{  }\KeywordTok{scale_fill_viridis}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.5}\NormalTok{,}\DataTypeTok{direction=}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DataTypeTok{option=}\StringTok{"magma"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\CommentTok{# scale_fill_distiller(palette = "Blues")}
+\KeywordTok{ggraph}\NormalTok{(mygraph, }\DataTypeTok{layout =} \StringTok{"circlepack"}\NormalTok{, }\DataTypeTok{weight =} \StringTok{"size"}\NormalTok{, }
+    \DataTypeTok{sort.by =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{direction =} \StringTok{"out"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_node_circle}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ depth)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_node_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ shortName, }\DataTypeTok{filter =}\NormalTok{ leaf, }
+        \DataTypeTok{fill =}\NormalTok{ depth, }\DataTypeTok{size =}\NormalTok{ size)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\CommentTok{# theme(legend.position='F') + #show legend}
+\KeywordTok{scale_fill_viridis}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{direction =} \OperatorTok{-}\DecValTok{1}\NormalTok{, }\DataTypeTok{option =} \StringTok{"magma"}\NormalTok{)}
 
-\CommentTok{#circular dendo}
+\CommentTok{# scale_fill_distiller(palette = 'Blues')}
+
+\CommentTok{# geom_node_label(aes(label=shortName, filter=leaf,}
+\CommentTok{# size=size)) + # add text boxes}
+
+\CommentTok{# circular dendo}
 \KeywordTok{str}\NormalTok{(mygraph)}
-\KeywordTok{ggraph}\NormalTok{(mygraph, }\DataTypeTok{layout=}\StringTok{'dendrogram'}\NormalTok{, }\DataTypeTok{circular=}\NormalTok{T) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_edge_diagonal}\NormalTok{(}\DataTypeTok{flipped=}\NormalTok{F,}
-                     \DataTypeTok{label_colour =} \StringTok{"black"}\NormalTok{,}
-                     \DataTypeTok{label_alpha =} \DecValTok{1}\NormalTok{,}
-                     \DataTypeTok{angle_calc =} \StringTok{"rot"}\NormalTok{,}
-                     \DataTypeTok{force_flip =} \OtherTok{TRUE}\NormalTok{,}\DataTypeTok{label_dodge =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{label_push =} \OtherTok{NULL}\NormalTok{, }
-                     \DataTypeTok{show.legend =} \OtherTok{NA}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\CommentTok{# theme(legend.position="none") +}
-\StringTok{  }\KeywordTok{scale_fill_distiller}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Blues"}\NormalTok{)}
+\KeywordTok{ggraph}\NormalTok{(mygraph, }\DataTypeTok{layout =} \StringTok{"dendrogram"}\NormalTok{, }\DataTypeTok{circular =}\NormalTok{ T) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_edge_diagonal}\NormalTok{(}\DataTypeTok{flipped =}\NormalTok{ F, }\DataTypeTok{label_colour =} \StringTok{"black"}\NormalTok{, }
+        \DataTypeTok{label_alpha =} \DecValTok{1}\NormalTok{, }\DataTypeTok{angle_calc =} \StringTok{"rot"}\NormalTok{, }\DataTypeTok{force_flip =} \OtherTok{TRUE}\NormalTok{, }
+        \DataTypeTok{label_dodge =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{label_push =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{show.legend =} \OtherTok{NA}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}\StringTok{ }\CommentTok{# theme(legend.position='none') +}
+\KeywordTok{scale_fill_distiller}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Blues"}\NormalTok{)}
 
 \CommentTok{# tree map}
-\KeywordTok{ggraph}\NormalTok{(mygraph, }\StringTok{'treemap'}\NormalTok{, }\DataTypeTok{weight =} \StringTok{'size'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_node_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ depth), }\DataTypeTok{size =} \FloatTok{0.25}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+\KeywordTok{ggraph}\NormalTok{(mygraph, }\StringTok{"treemap"}\NormalTok{, }\DataTypeTok{weight =} \StringTok{"size"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_node_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ depth), }
+    \DataTypeTok{size =} \FloatTok{0.25}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
 
 \CommentTok{# circular partition}
-\KeywordTok{ggraph}\NormalTok{(mygraph, }\StringTok{'partition'}\NormalTok{, }\DataTypeTok{circular =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_node_arc_bar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ depth), }\DataTypeTok{size =} \FloatTok{0.25}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+\KeywordTok{ggraph}\NormalTok{(mygraph, }\StringTok{"partition"}\NormalTok{, }\DataTypeTok{circular =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_node_arc_bar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ depth), }
+    \DataTypeTok{size =} \FloatTok{0.25}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
 
-\CommentTok{# node }
-\KeywordTok{ggraph}\NormalTok{(mygraph) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_edge_link}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_node_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+\CommentTok{# node}
+\KeywordTok{ggraph}\NormalTok{(mygraph) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_edge_link}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_node_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme_void}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -979,12 +871,12 @@ Insert an animal silhouette into a plot
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#1. Get image from http://www.phylopic.org  }
+\CommentTok{# 1. Get image from http://www.phylopic.org}
 \KeywordTok{library}\NormalTok{(png)}
 \NormalTok{ima <-}\StringTok{ }\KeywordTok{readPNG}\NormalTok{(}\StringTok{"thething.png"}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
-\KeywordTok{rasterImage}\NormalTok{(}\DataTypeTok{image=}\NormalTok{ima, }\DataTypeTok{xleft=}\DecValTok{2}\NormalTok{,}\DataTypeTok{ybottom=}\FloatTok{1.8}\NormalTok{,}
-            \DataTypeTok{xright=}\FloatTok{2.7}\NormalTok{,}\DataTypeTok{ytop=}\FloatTok{2.7}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
+\KeywordTok{rasterImage}\NormalTok{(}\DataTypeTok{image =}\NormalTok{ ima, }\DataTypeTok{xleft =} \DecValTok{2}\NormalTok{, }\DataTypeTok{ybottom =} \FloatTok{1.8}\NormalTok{, }
+    \DataTypeTok{xright =} \FloatTok{2.7}\NormalTok{, }\DataTypeTok{ytop =} \FloatTok{2.7}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -993,11 +885,12 @@ Create an empty plot window
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# 1}
-\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DataTypeTok{type=}\StringTok{'n'}\NormalTok{,}\DataTypeTok{axes=}\OtherTok{FALSE}\NormalTok{,}\DataTypeTok{ann=}\OtherTok{FALSE}\NormalTok{)  }
-\CommentTok{# 2  }
-\KeywordTok{plot}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{""}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{""}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{))  }
-\CommentTok{# 3  }
-\KeywordTok{plot.new}\NormalTok{()  }
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DataTypeTok{type =} \StringTok{"n"}\NormalTok{, }\DataTypeTok{axes =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ann =} \OtherTok{FALSE}\NormalTok{)}
+\CommentTok{# 2}
+\KeywordTok{plot}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{type =} \StringTok{"n"}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }
+    \DecValTok{10}\NormalTok{), }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+\CommentTok{# 3}
+\KeywordTok{plot.new}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1007,21 +900,23 @@ Set color gradient, palette for smoothing data points
 \begin{Highlighting}[]
 \KeywordTok{require}\NormalTok{(RColorBrewer)}
 
-\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.8} \CommentTok{# transparency (0 to 1 value)}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.8}  \CommentTok{# transparency (0 to 1 value)}
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{5000}\NormalTok{)}
 \NormalTok{rr <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{5000}\NormalTok{)}
 
 \CommentTok{# user defined gradient}
-\NormalTok{col<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"steelblue"}\NormalTok{,}\StringTok{"lightblue"}\NormalTok{,}\StringTok{"orange"}\NormalTok{,}\StringTok{"red"}\NormalTok{)) }\CommentTok{# set your own col gradient with as many colours as you want}
-\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{col}\NormalTok{(}\KeywordTok{length}\NormalTok{(rr))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(rr,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(rr)))] }\CommentTok{# define breaks in col gradient}
-\KeywordTok{plot}\NormalTok{(rr,}\DataTypeTok{col=}\NormalTok{colfunc,}\DataTypeTok{pch=}\DecValTok{20}\NormalTok{)}
+\NormalTok{col <-}\StringTok{ }\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"steelblue"}\NormalTok{, }\StringTok{"lightblue"}\NormalTok{, }
+    \StringTok{"orange"}\NormalTok{, }\StringTok{"red"}\NormalTok{))  }\CommentTok{# set your own col gradient with as many colours as you want}
+\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{col}\NormalTok{(}\KeywordTok{length}\NormalTok{(rr))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(rr, }\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(rr)))]  }\CommentTok{# define breaks in col gradient}
+\KeywordTok{plot}\NormalTok{(rr, }\DataTypeTok{col =}\NormalTok{ colfunc, }\DataTypeTok{pch =} \DecValTok{20}\NormalTok{)}
 
 \CommentTok{# gradient from palette}
 \KeywordTok{display.brewer.all}\NormalTok{()}
 \NormalTok{col <-}\StringTok{ "Greens"}
-\NormalTok{col<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(brewer.pal.info[col,]}\OperatorTok{$}\NormalTok{maxcolors,col)) }\CommentTok{# col gradient}
-\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{col}\NormalTok{(}\KeywordTok{length}\NormalTok{(rr))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(rr,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(rr)))] }\CommentTok{# define breaks in col gradient}
-\KeywordTok{plot}\NormalTok{(rr,}\DataTypeTok{col=}\NormalTok{colfunc,}\DataTypeTok{pch=}\DecValTok{20}\NormalTok{)}
+\NormalTok{col <-}\StringTok{ }\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(brewer.pal.info[col, }
+\NormalTok{    ]}\OperatorTok{$}\NormalTok{maxcolors, col))  }\CommentTok{# col gradient}
+\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{col}\NormalTok{(}\KeywordTok{length}\NormalTok{(rr))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(rr, }\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(rr)))]  }\CommentTok{# define breaks in col gradient}
+\KeywordTok{plot}\NormalTok{(rr, }\DataTypeTok{col =}\NormalTok{ colfunc, }\DataTypeTok{pch =} \DecValTok{20}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1030,7 +925,8 @@ Add plot point every nth element
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{n <-}\StringTok{ }\DecValTok{3}
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type =} \StringTok{"o"}\NormalTok{, }\DataTypeTok{pch =} \KeywordTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{, }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{, n)))}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type =} \StringTok{"o"}\NormalTok{, }\DataTypeTok{pch =} \KeywordTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{, }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{, }
+\NormalTok{    n)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1038,7 +934,7 @@ Create function to make line as default type in plot
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lplot <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(...) }\KeywordTok{plot}\NormalTok{(..., }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\NormalTok{lplot <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(...) }\KeywordTok{plot}\NormalTok{(..., }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
 \KeywordTok{lplot}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{200}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
@@ -1048,10 +944,10 @@ Stack dataframe columns automatically in plot
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{head}\NormalTok{(outplot)}
-  \CommentTok{# time          N        P        S        I}
-\CommentTok{# 1 0.00 200.000000 200.0000 20.00000 2.000000}
-\CommentTok{# 2 0.01  78.245140 177.1952 20.58217 2.067159}
-\CommentTok{# 3 0.02  34.785145 168.9650 21.12174 2.136073}
+\CommentTok{# time N P S I 1 0.00 200.000000 200.0000 20.00000}
+\CommentTok{# 2.000000 2 0.01 78.245140 177.1952 20.58217}
+\CommentTok{# 2.067159 3 0.02 34.785145 168.9650 21.12174}
+\CommentTok{# 2.136073}
 \NormalTok{dats <-}\StringTok{ }\KeywordTok{zoo}\NormalTok{(outplot)}
 \KeywordTok{plot}\NormalTok{(dats)}
 \end{Highlighting}
@@ -1064,58 +960,71 @@ Make 3D scatterplot
 \KeywordTok{require}\NormalTok{(scatterplot3d)}
 \NormalTok{xx <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
 \NormalTok{yy <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
-\NormalTok{dens <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\FloatTok{0.0001}\NormalTok{,}\DecValTok{500}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{500}\NormalTok{))}
+\NormalTok{dens <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\FloatTok{1e-04}\NormalTok{, }\DecValTok{500}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{500}\NormalTok{))}
 \NormalTok{controls <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{3}\NormalTok{)}
 \NormalTok{add.control <-}\StringTok{ }\DecValTok{1}
-\NormalTok{dens_val <-}\StringTok{ }\DecValTok{1}\OperatorTok{*}\DecValTok{10}\OperatorTok{^-}\DecValTok{10} \CommentTok{# 0 or 1*10^-10. value to knock out blanket of colour on plot surface }
-\CommentTok{#linear model of r/ship between coords}
+\NormalTok{dens_val <-}\StringTok{ }\DecValTok{1} \OperatorTok{*}\StringTok{ }\DecValTok{10}\OperatorTok{^-}\DecValTok{10}  \CommentTok{# 0 or 1*10^-10. value to knock out blanket of colour on plot surface }
+\CommentTok{# linear model of r/ship between coords}
 \NormalTok{dens_lm <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(dens }\OperatorTok{~}\StringTok{ }\NormalTok{xx }\OperatorTok{+}\StringTok{ }\NormalTok{yy)}
 
-\NormalTok{xlim <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(xx),}\KeywordTok{max}\NormalTok{(xx)); ylim <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(yy),}\KeywordTok{max}\NormalTok{(yy)); zlim=}\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(dens),}\KeywordTok{max}\NormalTok{(dens)) }\CommentTok{# set lims}
+\NormalTok{xlim <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(xx), }\KeywordTok{max}\NormalTok{(xx))}
+\NormalTok{ylim <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(yy), }\KeywordTok{max}\NormalTok{(yy))}
+\NormalTok{zlim =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(dens), }\KeywordTok{max}\NormalTok{(dens))  }\CommentTok{# set lims}
 \NormalTok{colv <-}\StringTok{ "Blues"}
-\NormalTok{colvv<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(brewer.pal.info[colv,]}\OperatorTok{$}\NormalTok{maxcolors,colv)) }\CommentTok{# col gradient}
-\NormalTok{colvv<-}\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"steelblue"}\NormalTok{,}\StringTok{"lightblue"}\NormalTok{,}\StringTok{"orange"}\NormalTok{,}\StringTok{"red"}\NormalTok{)) }\CommentTok{# set your own col gradient with as many colours as you want}
-\CommentTok{# colvv<-colorRampPalette(magma(length(dens))) # set your own col gradient with as many colours as you want}
+\NormalTok{colvv <-}\StringTok{ }\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{brewer.pal}\NormalTok{(brewer.pal.info[colv, }
+\NormalTok{    ]}\OperatorTok{$}\NormalTok{maxcolors, colv))  }\CommentTok{# col gradient}
+\NormalTok{colvv <-}\StringTok{ }\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"steelblue"}\NormalTok{, }\StringTok{"lightblue"}\NormalTok{, }
+    \StringTok{"orange"}\NormalTok{, }\StringTok{"red"}\NormalTok{))  }\CommentTok{# set your own col gradient with as many colours as you want}
+\CommentTok{# colvv<-colorRampPalette(magma(length(dens))) #}
+\CommentTok{# set your own col gradient with as many colours as}
+\CommentTok{# you want}
 
 \CommentTok{# set col palette}
-\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{colvv}\NormalTok{(}\KeywordTok{length}\NormalTok{(dens))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(dens,}\DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(dens)))] }\CommentTok{# define breaks in col gradient}
+\NormalTok{colfunc <-}\StringTok{ }\KeywordTok{colvv}\NormalTok{(}\KeywordTok{length}\NormalTok{(dens))[}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{cut}\NormalTok{(dens, }
+    \DataTypeTok{breaks =} \KeywordTok{length}\NormalTok{(dens)))]  }\CommentTok{# define breaks in col gradient}
 \NormalTok{bg <-}\StringTok{ }\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{alpha <-}\StringTok{ }\FloatTok{0.8}
 
-\CommentTok{# pdf(paste0(plot.dir,strat,"_",density,"_",stage,"_kudspdf.pdf"),width=8.27,height=11.69,paper="a4r")}
-\KeywordTok{scatterplot3d}\NormalTok{(}\DataTypeTok{x=}\NormalTok{xx,}\DataTypeTok{y=}\NormalTok{yy,}\DataTypeTok{z=}\NormalTok{dens,}
-              \CommentTok{# color=ifelse(col_heat==1, adjustcolor(colfunc, alpha=1),adjustcolor("lightgreen",alpha=0.2)),}
-              \DataTypeTok{color=}\KeywordTok{ifelse}\NormalTok{(dens}\OperatorTok{<=}\NormalTok{dens_val,}\KeywordTok{adjustcolor}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(bg}\OperatorTok{==}\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{),}\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{),}\StringTok{"white"}\NormalTok{),}\DataTypeTok{alpha=}\FloatTok{0.1}\NormalTok{),}\KeywordTok{adjustcolor}\NormalTok{(colfunc,}\DataTypeTok{alpha=}\NormalTok{alpha)),}
-              \CommentTok{# col.axis="light green",}
-              \DataTypeTok{las=}\DecValTok{1}\NormalTok{,}
-              \DataTypeTok{pch=}\DecValTok{15}\NormalTok{,}
-              \DataTypeTok{type=}\StringTok{"p"}\NormalTok{,}
-              \DataTypeTok{lty.hplot =} \DecValTok{1}\NormalTok{,}
-              \DataTypeTok{xlim=}\NormalTok{xlim,}
-              \DataTypeTok{ylim=}\NormalTok{ylim,}
-              \DataTypeTok{zlim=}\NormalTok{zlim,}
-              \DataTypeTok{xlab=}\StringTok{"X"}\NormalTok{,}
-              \DataTypeTok{ylab=}\StringTok{"Y"}\NormalTok{,}
-              \DataTypeTok{zlab=}\StringTok{"Density"}\NormalTok{,}
-              \DataTypeTok{main=}\StringTok{"Main"}\NormalTok{,}
-              \DataTypeTok{box=}\NormalTok{F,}
-              \DataTypeTok{lty.axis=}\KeywordTok{par}\NormalTok{(}\DecValTok{1}\NormalTok{),}
-              \DataTypeTok{grid=}\NormalTok{F,}
-              \DataTypeTok{col.grid =} \KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"gray"}\NormalTok{,}\DecValTok{1}\NormalTok{),}
-              \DataTypeTok{lty.grid=}\KeywordTok{par}\NormalTok{(}\DecValTok{3}\NormalTok{),}
-              \CommentTok{#cex.symbols=dens*3,}
-              \CommentTok{#cex.symbols = ifelse(z<=0,0,0.5),}
-              \CommentTok{# highlight.3d=T, # ignores color arg if T}
-              \CommentTok{# angle=70,}
-              \DataTypeTok{axis=}\NormalTok{T}
-              \CommentTok{# add below part to end of scatterplot3d plot}
-\NormalTok{)}\CommentTok{#$plane3d(dens_lm, # add 3d linear model plane. # ??plane3d(Intercept, x.coef = NULL, y.coef = NULL, lty = "dashed", lty.box = NULL, draw_lines = TRUE, draw_polygon = FALSE, polygon_args = list(border = NA, col = rgb(0,0,0,0.2))}
-\CommentTok{#            lty="dashed",}
-\CommentTok{#          lty.box = NULL,}
-\CommentTok{#          draw_lines = F, draw_polygon = T,}
-\CommentTok{#          polygon_args = list(border = NA, col = adjustcolor("light green",alpha=0.4)))}
+\CommentTok{# pdf(paste0(plot.dir,strat,'_',density,'_',stage,'_kudspdf.pdf'),width=8.27,height=11.69,paper='a4r')}
+
+\CommentTok{# color=ifelse(col_heat==1, adjustcolor(colfunc,}
+\CommentTok{# alpha=1),adjustcolor('lightgreen',alpha=0.2)),}
+\KeywordTok{scatterplot3d}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ xx, }\DataTypeTok{y =}\NormalTok{ yy, }\DataTypeTok{z =}\NormalTok{ dens, }\DataTypeTok{color =} \KeywordTok{ifelse}\NormalTok{(dens }\OperatorTok{<=}\StringTok{ }
+\StringTok{    }\NormalTok{dens_val, }\KeywordTok{adjustcolor}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(bg }\OperatorTok{==}\StringTok{ }\KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{), }
+    \KeywordTok{bpy.colors}\NormalTok{(}\DecValTok{1}\NormalTok{), }\StringTok{"white"}\NormalTok{), }\DataTypeTok{alpha =} \FloatTok{0.1}\NormalTok{), }\KeywordTok{adjustcolor}\NormalTok{(colfunc, }
+    \DataTypeTok{alpha =}\NormalTok{ alpha)), }\DataTypeTok{las =} \DecValTok{1}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{15}\NormalTok{, }\DataTypeTok{type =} \StringTok{"p"}\NormalTok{, }
+    \DataTypeTok{lty.hplot =} \DecValTok{1}\NormalTok{, }\DataTypeTok{xlim =}\NormalTok{ xlim, }\DataTypeTok{ylim =}\NormalTok{ ylim, }\DataTypeTok{zlim =}\NormalTok{ zlim, }
+    \DataTypeTok{xlab =} \StringTok{"X"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Y"}\NormalTok{, }\DataTypeTok{zlab =} \StringTok{"Density"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Main"}\NormalTok{, }
+    \DataTypeTok{box =}\NormalTok{ F, }\DataTypeTok{lty.axis =} \KeywordTok{par}\NormalTok{(}\DecValTok{1}\NormalTok{), }\DataTypeTok{grid =}\NormalTok{ F, }\DataTypeTok{col.grid =} \KeywordTok{adjustcolor}\NormalTok{(}\StringTok{"gray"}\NormalTok{, }
+        \DecValTok{1}\NormalTok{), }\DataTypeTok{lty.grid =} \KeywordTok{par}\NormalTok{(}\DecValTok{3}\NormalTok{), }\DataTypeTok{axis =}\NormalTok{ T)}
+
+\CommentTok{# other plot options cex.symbols=dens*3,}
+\CommentTok{# cex.symbols = ifelse(z<=0,0,0.5), highlight.3d=T,}
+\CommentTok{# angle=70,}
+
+
+\CommentTok{# append the below section starting at the '$' to}
+\CommentTok{# the above closing bracket}
+
+\CommentTok{# $plane3d(dens_lm, # add 3d linear model plane. #}
+\CommentTok{# ??plane3d(Intercept, x.coef = NULL, y.coef =}
+\CommentTok{# NULL, lty = 'dashed', lty.box = NULL, draw_lines}
+\CommentTok{# = TRUE, draw_polygon = FALSE, polygon_args =}
+\CommentTok{# list(border = NA, col = rgb(0,0,0,0.2))}
+\CommentTok{# lty='dashed', lty.box = NULL, draw_lines = F,}
+\CommentTok{# draw_polygon = T, polygon_args = list(border =}
+\CommentTok{# NA, col = adjustcolor('light green',alpha=0.4)))}
+
 \CommentTok{# add control dates}
-\ControlFlowTok{if}\NormalTok{(add.control}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}\KeywordTok{par}\NormalTok{(}\DataTypeTok{new=}\NormalTok{T); }\KeywordTok{scatterplot3d}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\KeywordTok{length}\NormalTok{(controls)),}\DataTypeTok{y=}\NormalTok{controls,}\DataTypeTok{z=}\KeywordTok{rep}\NormalTok{(}\KeywordTok{max}\NormalTok{(dens),}\KeywordTok{length}\NormalTok{(controls)),}\DataTypeTok{color=}\StringTok{"gray"}\NormalTok{,}\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}\DataTypeTok{pch=}\StringTok{""}\NormalTok{,}\DataTypeTok{lty.hplot =} \DecValTok{1}\NormalTok{,}\DataTypeTok{xlim=}\NormalTok{xlim,}\DataTypeTok{ylim=}\NormalTok{ylim,}\DataTypeTok{zlim=}\NormalTok{zlim,}\DataTypeTok{xlab=}\StringTok{""}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{""}\NormalTok{,}\DataTypeTok{zlab=}\StringTok{""}\NormalTok{,}\DataTypeTok{box=}\NormalTok{F,}\DataTypeTok{grid=}\NormalTok{F,}\DataTypeTok{cex.symbols=}\DecValTok{2}\NormalTok{,}\DataTypeTok{axis=}\NormalTok{F,}\DataTypeTok{type=}\StringTok{"h"}\NormalTok{)\}}
+\ControlFlowTok{if}\NormalTok{ (add.control }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) \{}
+    \KeywordTok{par}\NormalTok{(}\DataTypeTok{new =}\NormalTok{ T)}
+    \KeywordTok{scatterplot3d}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\KeywordTok{length}\NormalTok{(controls)), }\DataTypeTok{y =}\NormalTok{ controls, }
+        \DataTypeTok{z =} \KeywordTok{rep}\NormalTok{(}\KeywordTok{max}\NormalTok{(dens), }\KeywordTok{length}\NormalTok{(controls)), }\DataTypeTok{color =} \StringTok{"gray"}\NormalTok{, }
+        \DataTypeTok{las =} \DecValTok{1}\NormalTok{, }\DataTypeTok{pch =} \StringTok{""}\NormalTok{, }\DataTypeTok{lty.hplot =} \DecValTok{1}\NormalTok{, }\DataTypeTok{xlim =}\NormalTok{ xlim, }
+        \DataTypeTok{ylim =}\NormalTok{ ylim, }\DataTypeTok{zlim =}\NormalTok{ zlim, }\DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }
+        \DataTypeTok{zlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{box =}\NormalTok{ F, }\DataTypeTok{grid =}\NormalTok{ F, }\DataTypeTok{cex.symbols =} \DecValTok{2}\NormalTok{, }
+        \DataTypeTok{axis =}\NormalTok{ F, }\DataTypeTok{type =} \StringTok{"h"}\NormalTok{)}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1123,31 +1032,32 @@ Adding title from separate list to plot in loop (\texttt{ggplot})
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# plot all sim results in one window }
+\CommentTok{# plot all sim results in one window}
 \NormalTok{gspl <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\NormalTok{ttl_list <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"cerc"}\NormalTok{,}\StringTok{"food"}\NormalTok{, }\StringTok{"juv"}\NormalTok{, }\StringTok{"adult"}\NormalTok{, }\StringTok{"infec"}\NormalTok{, }\StringTok{"infec (shed)"}\NormalTok{, }\StringTok{"host L"}\NormalTok{, }\StringTok{"parasite mass"}\NormalTok{)}
+\NormalTok{ttl_list <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"cerc"}\NormalTok{, }\StringTok{"food"}\NormalTok{, }\StringTok{"juv"}\NormalTok{, }\StringTok{"adult"}\NormalTok{, }\StringTok{"infec"}\NormalTok{, }
+    \StringTok{"infec (shed)"}\NormalTok{, }\StringTok{"host L"}\NormalTok{, }\StringTok{"parasite mass"}\NormalTok{)}
 
 \CommentTok{# choose sim to plot}
 \NormalTok{global_sim_plot <-}\StringTok{ }\NormalTok{global_detritus}
 
-\ControlFlowTok{for}\NormalTok{(g }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)\{}
-\NormalTok{  gspl[[g]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ y_m, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{rep.int}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.ticks,}\KeywordTok{max}\NormalTok{(L1)) , }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{group =}\NormalTok{ L1, }\DataTypeTok{colour=}\KeywordTok{factor}\NormalTok{(L1)), ) }\OperatorTok{+}
-\StringTok{  }\CommentTok{# scale_color_manual(values = viridis(length(mm))) +}
-\StringTok{  }\CommentTok{#linetype=y_m$L1) +}
-\StringTok{  }\KeywordTok{theme_tufte}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=}\NormalTok{ttl_list[g],}\DataTypeTok{x=}\StringTok{""}\NormalTok{,}\DataTypeTok{y=}\StringTok{""}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\ControlFlowTok{if}\NormalTok{(g}\OperatorTok{==}\KeywordTok{length}\NormalTok{(global_sim_plot))\{}
-      \KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\FloatTok{0.2}\NormalTok{), }
-            \DataTypeTok{legend.text=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\FloatTok{0.2}\NormalTok{)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"top"}\NormalTok{)}
-      \KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Time"}\NormalTok{)}
-\NormalTok{    \}}\ControlFlowTok{else}\NormalTok{\{}
-      \KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (g }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{    gspl[[g]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ y_m, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{rep.int}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.ticks, }
+        \KeywordTok{max}\NormalTok{(L1)), }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{group =}\NormalTok{ L1, }\DataTypeTok{colour =} \KeywordTok{factor}\NormalTok{(L1)), }
+\NormalTok{        ) }\OperatorTok{+}\StringTok{ }\CommentTok{# scale_color_manual(values = viridis(length(mm)))}
+\StringTok{    }\CommentTok{# + linetype=y_m$L1) +}
+\StringTok{    }\KeywordTok{theme_tufte}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =}\NormalTok{ ttl_list[g], }\DataTypeTok{x =} \StringTok{""}\NormalTok{, }
+        \DataTypeTok{y =} \StringTok{""}\NormalTok{) }\OperatorTok{+}\StringTok{ }\ControlFlowTok{if}\NormalTok{ (g }\OperatorTok{==}\StringTok{ }\KeywordTok{length}\NormalTok{(global_sim_plot)) \{}
+        \KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \FloatTok{0.2}\NormalTok{), }
+            \DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \FloatTok{0.2}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"top"}\NormalTok{)}
+        \KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Time"}\NormalTok{)}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+        \KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
 \NormalTok{    \}}
-\NormalTok{    \}}
-\CommentTok{# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)}
-\KeywordTok{do.call}\NormalTok{(grid.arrange,gspl) }\CommentTok{# plot in one window }
+\NormalTok{\}}
+\CommentTok{# + geom_text(x=,y=,label =}
+\CommentTok{# max(value),check_overlap = TUE)}
+\KeywordTok{do.call}\NormalTok{(grid.arrange, gspl)  }\CommentTok{# plot in one window }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1155,10 +1065,8 @@ Using math expressions in plot labels
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{),}
-     \DataTypeTok{xlab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"X values"}\OperatorTok{^}\DecValTok{2}\NormalTok{)),}
-     \DataTypeTok{ylab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"Y values"}\OperatorTok{^}\DecValTok{3}\NormalTok{,}\KeywordTok{hat}\NormalTok{(beta)))}
-\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{), }\DataTypeTok{xlab =} \KeywordTok{expression}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"X values"}\OperatorTok{^}\DecValTok{2}\NormalTok{)), }
+    \DataTypeTok{ylab =} \KeywordTok{expression}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"Y values"}\OperatorTok{^}\DecValTok{3}\NormalTok{, }\KeywordTok{hat}\NormalTok{(beta))))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1167,7 +1075,7 @@ Adding faint gridlines to plot
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# add gridlines}
-\KeywordTok{grid}\NormalTok{(}\DataTypeTok{nx=}\OtherTok{NA}\NormalTok{,}\DataTypeTok{ny=}\OtherTok{NULL}\NormalTok{)}
+\KeywordTok{grid}\NormalTok{(}\DataTypeTok{nx =} \OtherTok{NA}\NormalTok{, }\DataTypeTok{ny =} \OtherTok{NULL}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1175,7 +1083,7 @@ Storing current \texttt{par} variables for plotting
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{og_pars <-}\StringTok{ }\KeywordTok{par}\NormalTok{(}\DataTypeTok{no.readonly =}\NormalTok{ T) }\CommentTok{# store current par values}
+\NormalTok{og_pars <-}\StringTok{ }\KeywordTok{par}\NormalTok{(}\DataTypeTok{no.readonly =}\NormalTok{ T)  }\CommentTok{# store current par values}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1183,7 +1091,7 @@ Clear graphics memory
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{dput}\NormalTok{(}\KeywordTok{par}\NormalTok{(}\DataTypeTok{no.readonly=}\OtherTok{TRUE}\NormalTok{)) }\CommentTok{# reset graphical params }
+\KeywordTok{dput}\NormalTok{(}\KeywordTok{par}\NormalTok{(}\DataTypeTok{no.readonly =} \OtherTok{TRUE}\NormalTok{))  }\CommentTok{# reset graphical params }
 \KeywordTok{par}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -1194,8 +1102,8 @@ Read in file manually
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{get.file.vol <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\KeywordTok{file.choose}\NormalTok{())}\CommentTok{#read file manually}
-\NormalTok{v.file <-}\StringTok{ }\NormalTok{get.file.vol[}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{,}\DecValTok{1}\NormalTok{]}\CommentTok{#get the volume}
+\NormalTok{get.file.vol <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\KeywordTok{file.choose}\NormalTok{())  }\CommentTok{#read file manually}
+\NormalTok{v.file <-}\StringTok{ }\NormalTok{get.file.vol[}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{, }\DecValTok{1}\NormalTok{]  }\CommentTok{#get the volume}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1203,36 +1111,42 @@ Loop through files from dir and append to list
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# option 1 }
-\CommentTok{# reading in spdf (hrpath) files from drive}
+\CommentTok{# option 1 reading in spdf (hrpath) files from}
+\CommentTok{# drive}
 \KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/camel/Desktop/Matt2016/Manuscripts/MalishevBullKearney/Resubmission/2016/barcoo sims/barcooresults/hrpath_75"}\NormalTok{)}
-\NormalTok{file.list<-}\KeywordTok{list.files}\NormalTok{()}
-\NormalTok{hrs75<-}\KeywordTok{as.list}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{100}\NormalTok{)) }\CommentTok{# empty list}
-\ControlFlowTok{for}\NormalTok{ (f }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{)\{}
-  \KeywordTok{load}\NormalTok{(file.list[f])}
-\NormalTok{  hrs75[f]<-hrpath}
+\NormalTok{file.list <-}\StringTok{ }\KeywordTok{list.files}\NormalTok{()}
+\NormalTok{hrs75 <-}\StringTok{ }\KeywordTok{as.list}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{100}\NormalTok{))  }\CommentTok{# empty list}
+\ControlFlowTok{for}\NormalTok{ (f }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{) \{}
+    \KeywordTok{load}\NormalTok{(file.list[f])}
+\NormalTok{    hrs75[f] <-}\StringTok{ }\NormalTok{hrpath}
 \NormalTok{\}}
 
-\CommentTok{# working version}
-\CommentTok{#converting spdf into mcp(spdf,100,unout="m2)}
-\NormalTok{ghr<-}\KeywordTok{list}\NormalTok{()}
+\CommentTok{# working version converting spdf into}
+\CommentTok{# mcp(spdf,100,unout='m2)}
+\NormalTok{ghr <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
 \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ hrs75[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{]) \{}
-\NormalTok{  m<-}\KeywordTok{mcp}\NormalTok{(i,}\DecValTok{100}\NormalTok{,}\DataTypeTok{unout=}\StringTok{'m2'}\NormalTok{)}
-\NormalTok{  ghr<-}\KeywordTok{c}\NormalTok{(ghr,m)}
-\NormalTok{\};ghr}
+\NormalTok{    m <-}\StringTok{ }\KeywordTok{mcp}\NormalTok{(i, }\DecValTok{100}\NormalTok{, }\DataTypeTok{unout =} \StringTok{"m2"}\NormalTok{)}
+\NormalTok{    ghr <-}\StringTok{ }\KeywordTok{c}\NormalTok{(ghr, m)}
+\NormalTok{\}}
+\NormalTok{ghr}
 
 \CommentTok{# option 2}
 \NormalTok{wd <-}\StringTok{ }\KeywordTok{getwd}\NormalTok{()}
-\NormalTok{me_list <-}\StringTok{ }\KeywordTok{list}\NormalTok{() }\CommentTok{# create list }
-\ControlFlowTok{for}\NormalTok{(me_day }\ControlFlowTok{in} \KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{,}\StringTok{"B"}\NormalTok{,}\StringTok{"C"}\NormalTok{))\{}
-  \ControlFlowTok{for}\NormalTok{(me_im }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)\{}
-\NormalTok{    mes <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(wd,resource_type,}\StringTok{"_meday_"}\NormalTok{,me_day,}\StringTok{"_meim"}\NormalTok{,me_im,}\StringTok{".R"}\NormalTok{)) }\CommentTok{# read .R files from dir  }
-    \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,}\KeywordTok{paste0}\NormalTok{(wd,resource_type,}\StringTok{"_meday_"}\NormalTok{,me_day,}\StringTok{"_meim"}\NormalTok{,me_im,}\StringTok{".R"}\NormalTok{))}
-    \KeywordTok{names}\NormalTok{(mes) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"cerc"}\NormalTok{, }\StringTok{"food"}\NormalTok{, }\StringTok{"juv"}\NormalTok{, }\StringTok{"adult"}\NormalTok{, }\StringTok{"infected"}\NormalTok{, }\StringTok{"infected shedding"}\NormalTok{, }\StringTok{"mean host length"}\NormalTok{, }\StringTok{"mean parasite mass"}\NormalTok{, }\StringTok{"summed host biomass"}\NormalTok{, }\StringTok{"summed host eggs"}\NormalTok{, }\StringTok{"mean host eggs"}\NormalTok{, }\StringTok{"infected host length"}\NormalTok{) }\CommentTok{# name all original R file list elements}
-\NormalTok{    mes <-}\StringTok{ }\NormalTok{mes}\OperatorTok{$}\StringTok{"cerc"} \CommentTok{# get cercs (as list) use mes$"cerc"[[1]] for numeric }
-    \KeywordTok{names}\NormalTok{(mes) <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(me_day,}\StringTok{"_"}\NormalTok{,me_im) }\CommentTok{# name list elements according to loop iterations }
-\NormalTok{    me_list <-}\StringTok{ }\KeywordTok{c}\NormalTok{(me_list,mes) }\CommentTok{# bind to master list }
-\NormalTok{  \}}
+\NormalTok{me_list <-}\StringTok{ }\KeywordTok{list}\NormalTok{()  }\CommentTok{# create list }
+\ControlFlowTok{for}\NormalTok{ (me_day }\ControlFlowTok{in} \KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{)) \{}
+    \ControlFlowTok{for}\NormalTok{ (me_im }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{) \{}
+\NormalTok{        mes <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(wd, resource_type, }\StringTok{"_meday_"}\NormalTok{, }
+\NormalTok{            me_day, }\StringTok{"_meim"}\NormalTok{, me_im, }\StringTok{".R"}\NormalTok{))  }\CommentTok{# read .R files from dir  }
+        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\KeywordTok{paste0}\NormalTok{(wd, resource_type, }\StringTok{"_meday_"}\NormalTok{, }
+\NormalTok{            me_day, }\StringTok{"_meim"}\NormalTok{, me_im, }\StringTok{".R"}\NormalTok{))}
+        \KeywordTok{names}\NormalTok{(mes) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"cerc"}\NormalTok{, }\StringTok{"food"}\NormalTok{, }\StringTok{"juv"}\NormalTok{, }\StringTok{"adult"}\NormalTok{, }
+            \StringTok{"infected"}\NormalTok{, }\StringTok{"infected shedding"}\NormalTok{, }\StringTok{"mean host length"}\NormalTok{, }
+            \StringTok{"mean parasite mass"}\NormalTok{, }\StringTok{"summed host biomass"}\NormalTok{, }
+            \StringTok{"summed host eggs"}\NormalTok{, }\StringTok{"mean host eggs"}\NormalTok{, }\StringTok{"infected host length"}\NormalTok{)  }\CommentTok{# name all original R file list elements}
+\NormalTok{        mes <-}\StringTok{ }\NormalTok{mes}\OperatorTok{$}\NormalTok{cerc  }\CommentTok{# get cercs (as list) use mes$'cerc'[[1]] for numeric }
+        \KeywordTok{names}\NormalTok{(mes) <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(me_day, }\StringTok{"_"}\NormalTok{, me_im)  }\CommentTok{# name list elements according to loop iterations }
+\NormalTok{        me_list <-}\StringTok{ }\KeywordTok{c}\NormalTok{(me_list, mes)  }\CommentTok{# bind to master list }
+\NormalTok{    \}}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -1246,18 +1160,18 @@ Read in PDF files from online source in R and save to drive.
 \KeywordTok{require}\NormalTok{(pdftools)}
 \NormalTok{url <-}\StringTok{ "https://raw.githubusercontent.com/darwinanddavis/499R/master/exp_pop_growth.pdf"}
 \NormalTok{dir <-}\StringTok{ "FOLDER ON YOUR COMPUTER WHERE YOU WANT THE FILE SAVED"}
-\NormalTok{f <-}\StringTok{ "NAME OF THE FILE"} 
-\NormalTok{f <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(f,}\StringTok{".pdf"}\NormalTok{) }
+\NormalTok{f <-}\StringTok{ "NAME OF THE FILE"}
+\NormalTok{f <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(f, }\StringTok{".pdf"}\NormalTok{)}
 
 \CommentTok{# run all this}
-\KeywordTok{download.file}\NormalTok{(url, }\KeywordTok{paste0}\NormalTok{(dir,}\StringTok{"/"}\NormalTok{,f), }\DataTypeTok{mode =} \StringTok{"wb"}\NormalTok{)}
-\NormalTok{txt <-}\StringTok{ }\KeywordTok{pdf_text}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(dir,}\StringTok{"/"}\NormalTok{,f))}
+\KeywordTok{download.file}\NormalTok{(url, }\KeywordTok{paste0}\NormalTok{(dir, }\StringTok{"/"}\NormalTok{, f), }\DataTypeTok{mode =} \StringTok{"wb"}\NormalTok{)}
+\NormalTok{txt <-}\StringTok{ }\KeywordTok{pdf_text}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(dir, }\StringTok{"/"}\NormalTok{, f))}
 
 \CommentTok{# first page text}
-\NormalTok{page <-}\StringTok{ }\DecValTok{1} \CommentTok{# enter the page number}
+\NormalTok{page <-}\StringTok{ }\DecValTok{1}  \CommentTok{# enter the page number}
 \KeywordTok{cat}\NormalTok{(txt[page])}
 
-\NormalTok{toc <-}\StringTok{ }\KeywordTok{pdf_toc}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(dir,}\StringTok{"/"}\NormalTok{,f))}
+\NormalTok{toc <-}\StringTok{ }\KeywordTok{pdf_toc}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(dir, }\StringTok{"/"}\NormalTok{, f))}
 
 \KeywordTok{require}\NormalTok{(jsonlite)}
 \CommentTok{# Show as JSON}
@@ -1289,8 +1203,8 @@ Load in data to avoid `magic number error'
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# avoid load()}
-\KeywordTok{readRDS}\NormalTok{(}\StringTok{"path to file .R"}\NormalTok{) }\CommentTok{# can use .R and .Rdata}
-\KeywordTok{source}\NormalTok{(}\StringTok{"path to file .R"}\NormalTok{)  }
+\KeywordTok{readRDS}\NormalTok{(}\StringTok{"path to file .R"}\NormalTok{)  }\CommentTok{# can use .R and .Rdata}
+\KeywordTok{source}\NormalTok{(}\StringTok{"path to file .R"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1301,11 +1215,11 @@ Access files anywhere without changing working dir
 \CommentTok{# https://github.com/jennybc/here_here}
 \KeywordTok{require}\NormalTok{(here)}
 \KeywordTok{getwd}\NormalTok{()}
-\CommentTok{# "/Users/malishev/Documents/Data/gggmap"}
+\CommentTok{# '/Users/malishev/Documents/Data/gggmap'}
 \NormalTok{here_loc <-}\StringTok{ }\KeywordTok{here}\NormalTok{(}\StringTok{"here_test"}\NormalTok{, }\StringTok{"here_test.txt"}\NormalTok{)}
 \NormalTok{here_loc}
-\CommentTok{# "/Users/malishev/Documents/Data/gggmap/here_test/here_test.txt"}
-\KeywordTok{readLines}\NormalTok{(here_loc) }\CommentTok{# access the file even though your working dir is up N levels from the file in your dir }
+\CommentTok{# '/Users/malishev/Documents/Data/gggmap/here_test/here_test.txt'}
+\KeywordTok{readLines}\NormalTok{(here_loc)  }\CommentTok{# access the file even though your working dir is up N levels from the file in your dir }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1317,15 +1231,19 @@ Get just numbers or characters
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{vec <-}\StringTok{ "16-Feb-2018 20:08:04 PM"}
-\NormalTok{vecN <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"[^[:digit:]]"}\NormalTok{, }\StringTok{""}\NormalTok{, vec); vec; }\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Just numbers: "}\NormalTok{,vecN)) }
-\NormalTok{vecC <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"[[:digit:]]"}\NormalTok{, }\StringTok{""}\NormalTok{, vec); vec; }\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Just characters: "}\NormalTok{, vecC))}
+\NormalTok{vecN <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"[^[:digit:]]"}\NormalTok{, }\StringTok{""}\NormalTok{, vec)}
+\NormalTok{vec}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Just numbers: "}\NormalTok{, vecN))}
+\NormalTok{vecC <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"[[:digit:]]"}\NormalTok{, }\StringTok{""}\NormalTok{, vec)}
+\NormalTok{vec}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Just characters: "}\NormalTok{, vecC))}
 
-\CommentTok{# with tidyr. requires data frame }
+\CommentTok{# with tidyr. requires data frame}
 \KeywordTok{require}\NormalTok{(tidyr)}
-\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{N1=}\KeywordTok{c}\NormalTok{(}\StringTok{"APPLE348744"}\NormalTok{, }\StringTok{"BANANA77845"}\NormalTok{, }\StringTok{"OATS2647892"}\NormalTok{, }\StringTok{"EGG98586456"}\NormalTok{))}
-\KeywordTok{print}\NormalTok{(}\StringTok{"tidyr doesn't work with strings separated by spaces"}\NormalTok{)  }
-\NormalTok{df }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{separate}\NormalTok{(N1, }\DataTypeTok{into =} \KeywordTok{c}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\StringTok{"num"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"(?<=[A-Za-z])(?=[0-9])"}\NormalTok{)}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{N1 =} \KeywordTok{c}\NormalTok{(}\StringTok{"APPLE348744"}\NormalTok{, }\StringTok{"BANANA77845"}\NormalTok{, }
+    \StringTok{"OATS2647892"}\NormalTok{, }\StringTok{"EGG98586456"}\NormalTok{))}
+\KeywordTok{print}\NormalTok{(}\StringTok{"tidyr doesn't work with strings separated by spaces"}\NormalTok{)}
+\NormalTok{df }\OperatorTok{%>%}\StringTok{ }\KeywordTok{separate}\NormalTok{(N1, }\DataTypeTok{into =} \KeywordTok{c}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\StringTok{"num"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"(?<=[A-Za-z])(?=[0-9])"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1335,16 +1253,30 @@ Insert or replace a character in a string at a specific location
 \begin{Highlighting}[]
 \KeywordTok{require}\NormalTok{(stringi)}
 \NormalTok{vec <-}\StringTok{ "ABCEF"}
-\KeywordTok{stri_sub}\NormalTok{(vec, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{) <-}\StringTok{ "d"} 
-\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Original: ABCEF"}\NormalTok{)); }\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"New: "}\NormalTok{,vec))}
+\KeywordTok{stri_sub}\NormalTok{(vec, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{) <-}\StringTok{ "d"}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Original: ABCEF"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## [1] "Original: ABCEF"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"New: "}\NormalTok{, vec))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "New: ABCdEF"
+\end{verbatim}
 
 Testing regex expressions and their output
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Testing regex expressions and their output   }
+\CommentTok{# Testing regex expressions and their output}
 
 \CommentTok{# https://regex101.com/r/ksY7HU/2}
 \end{Highlighting}
@@ -1354,19 +1286,20 @@ Removing multiple cols from df using grep
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{,}\StringTok{"purrr"}\NormalTok{) }
+\NormalTok{packages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{, }\StringTok{"purrr"}\NormalTok{)}
 
 \NormalTok{fh <-}\StringTok{ "LEC100testrecords.txt"}
-\NormalTok{tt <-}\StringTok{ }\KeywordTok{read.delim}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(wd,}\StringTok{"/"}\NormalTok{,fh),}\DataTypeTok{header=}\NormalTok{T,}\DataTypeTok{sep=}\StringTok{"}\CharTok{\textbackslash{}t}\StringTok{"}\NormalTok{)}
+\NormalTok{tt <-}\StringTok{ }\KeywordTok{read.delim}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(wd, }\StringTok{"/"}\NormalTok{, fh), }\DataTypeTok{header =}\NormalTok{ T, }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}t}\StringTok{"}\NormalTok{)}
 
-\CommentTok{# Enter data column you want to search  }
+\CommentTok{# Enter data column you want to search}
 \NormalTok{col2search <-}\StringTok{ "Title"}
 \NormalTok{keyterms <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"evidence"}\NormalTok{, }\StringTok{"human"}\NormalTok{, }\StringTok{"africa"}\NormalTok{)}
 
 \CommentTok{# 1. find key terms}
-\NormalTok{final <-}\StringTok{ }\NormalTok{tt[}\KeywordTok{grep}\NormalTok{(keyterms, tt[,col2search], }\DataTypeTok{ignore.case =}\NormalTok{ T),] }\CommentTok{#}
-\KeywordTok{length}\NormalTok{(final[,col2search]) }\CommentTok{# get number of results}
-\NormalTok{tt[final[,col2search],col2search] }\CommentTok{# show raw outputs }
+\NormalTok{final <-}\StringTok{ }\NormalTok{tt[}\KeywordTok{grep}\NormalTok{(keyterms, tt[, col2search], }\DataTypeTok{ignore.case =}\NormalTok{ T), }
+\NormalTok{    ]  }\CommentTok{#}
+\KeywordTok{length}\NormalTok{(final[, col2search])  }\CommentTok{# get number of results}
+\NormalTok{tt[final[, col2search], col2search]  }\CommentTok{# show raw outputs }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1376,87 +1309,80 @@ Hide unwanted code output, such as inherent examples for functions
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# ```\{r, cache = TRUE, tidy = TRUE, lazy = TRUE, results='markup'\}}
+\CommentTok{# ```\{r, cache = TRUE, tidy = TRUE, lazy = TRUE,}
+\CommentTok{# results='markup'\}}
 \end{Highlighting}
 \end{Shaded}
 
 Math notation in R Markdown
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x=y }\OperatorTok{$}\NormalTok{x =}\StringTok{ }\NormalTok{y}\OperatorTok{$}\StringTok{    }
-\NormalTok{x}\OperatorTok{<}\NormalTok{y }\OperatorTok{$}\NormalTok{x }\OperatorTok{<}\StringTok{ }\NormalTok{y}\OperatorTok{$}\StringTok{  }
-\NormalTok{x}\OperatorTok{>}\NormalTok{y }\OperatorTok{$}\NormalTok{x }\OperatorTok{>}\StringTok{ }\NormalTok{y}\OperatorTok{$}\StringTok{  }
-\NormalTok{x≤y }\OperatorTok{$}\NormalTok{x \textbackslash{}le y}\OperatorTok{$}\StringTok{  }
-\NormalTok{x≥y }\OperatorTok{$}\NormalTok{x \textbackslash{}ge y}\OperatorTok{$}\StringTok{  }
-\NormalTok{xn  }\OperatorTok{$}\NormalTok{x}\OperatorTok{^}\NormalTok{\{n\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{xn  }\OperatorTok{$}\NormalTok{x_\{n\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{x⎯⎯⎯    }\OperatorTok{$}\NormalTok{\textbackslash{}overline\{x\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{x̂  }\OperatorTok{$}\NormalTok{\textbackslash{}hat\{x\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{x̃  }\OperatorTok{$}\NormalTok{\textbackslash{}tilde\{x\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{ab  }\OperatorTok{$}\NormalTok{\textbackslash{}frac\{a\}\{b\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{∂f∂x    }\OperatorTok{$}\NormalTok{\textbackslash{}frac\{a\}\{b\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{∂f∂x    }\OperatorTok{$}\NormalTok{\textbackslash{}displaystyle \textbackslash{}frac\{a\}\{b\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{(nk)    }\OperatorTok{$}\NormalTok{\textbackslash{}binom\{n\}\{k\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{x1}\OperatorTok{+}\NormalTok{x2}\OperatorTok{+}\NormalTok{⋯}\OperatorTok{+}\NormalTok{xn  }\OperatorTok{$}\NormalTok{x_\{}\DecValTok{1}\NormalTok{\} }\OperatorTok{+}\StringTok{ }\NormalTok{x_\{}\DecValTok{2}\NormalTok{\} }\OperatorTok{+}\StringTok{ }\NormalTok{\textbackslash{}cdots }\OperatorTok{+}\StringTok{ }\NormalTok{x_\{n\}}\OperatorTok{$}\StringTok{   }
-\NormalTok{x1,x2,…,xn  }\OperatorTok{$}\NormalTok{x_\{}\DecValTok{1}\NormalTok{\}, x_\{}\DecValTok{2}\NormalTok{\}, \textbackslash{}dots, x_\{n\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{x=⟨x1,x2,…,xn }\OperatorTok{$}\NormalTok{\textbackslash{}mathbf\{x\} =}\StringTok{ }\NormalTok{\textbackslash{}langle x_\{}\DecValTok{1}\NormalTok{\}, x_\{}\DecValTok{2}\NormalTok{\}, \textbackslash{}dots, x_\{n\}\textbackslash{}rangle}\OperatorTok{$}\StringTok{    }
-\NormalTok{x∈A }\OperatorTok{$}\NormalTok{x \textbackslash{}}\ControlFlowTok{in}\NormalTok{ A}\OperatorTok{$}\StringTok{    }
-\ErrorTok{|}\NormalTok{A}\OperatorTok{|}\StringTok{ }\ErrorTok{$|}\NormalTok{A}\OperatorTok{|}\ErrorTok{$}\StringTok{  }
-\NormalTok{x∈A }\OperatorTok{$}\NormalTok{x \textbackslash{}}\ControlFlowTok{in}\NormalTok{ A}\OperatorTok{$}\StringTok{  }
-\NormalTok{A⊂B }\OperatorTok{$}\NormalTok{x \textbackslash{}subset B}\OperatorTok{$}\StringTok{  }
-\NormalTok{A⊆B }\OperatorTok{$}\NormalTok{x \textbackslash{}subseteq B}\OperatorTok{$}\StringTok{  }
-\NormalTok{A∪B }\OperatorTok{$}\NormalTok{A \textbackslash{}cup B}\OperatorTok{$}\StringTok{  }
-\NormalTok{A∩B }\OperatorTok{$}\NormalTok{A \textbackslash{}cap B}\OperatorTok{$}\StringTok{  }
-\NormalTok{X∼𝖡𝗂𝗇𝗈𝗆(n,π)    }\OperatorTok{$}\NormalTok{X \textbackslash{}sim \{\textbackslash{}sf Binom\}(n, \textbackslash{}pi)}\OperatorTok{$}
+x=y \(x = y\)\\
+xy \(x > y\)\\
+x≤y \(x \le y\)\\
+x≥y \(x \ge y\)\\
+xn \(x^{n}\)\\
+xn \(x_{n}\)\\
+x⎯⎯⎯ \(\overline{x}\)\\
+x̂ \(\hat{x}\)\\
+x̃ \(\tilde{x}\)\\
+ab \(\frac{a}{b}\)\\
+∂f∂x \(\frac{a}{b}\)\\
+∂f∂x \(\displaystyle \frac{a}{b}\)\\
+(nk) \(\binom{n}{k}\)\\
+x1+x2+⋯+xn \(x_{1} + x_{2} + \cdots + x_{n}\)\\
+x1,x2,\ldots{},xn \(x_{1}, x_{2}, \dots, x_{n}\)\\
+x=⟨x1,x2,\ldots{},xn
+\(\mathbf{x} = \langle x_{1}, x_{2}, \dots, x_{n}\rangle\)\\
+x∈A \(x \in A\)\\
+\textbar{}A\textbar{} \(|A|\)\\
+x∈A \(x \in A\)\\
+A⊂B \(x \subset B\)\\
+A⊆B \(x \subseteq B\)\\
+A∪B \(A \cup B\)\\
+A∩B \(A \cap B\)\\
+X∼𝖡𝗂𝗇𝗈𝗆(n,π) \(X \sim {\sf Binom}(n, \pi)\)
 
-\KeywordTok{P}\NormalTok{(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π)    }\OperatorTok{$}\NormalTok{\textbackslash{}mathrm\{P\}(X \textbackslash{}le x) =}\StringTok{ }\NormalTok{\{\textbackslash{}tt pbinom\}(x, n, \textbackslash{}pi)}\OperatorTok{$}\StringTok{   }
-\KeywordTok{P}\NormalTok{(A∣B)  }\OperatorTok{$}\KeywordTok{P}\NormalTok{(A \textbackslash{}mid B)}\OperatorTok{$}\StringTok{  }
-\KeywordTok{P}\NormalTok{(A∣B)  }\OperatorTok{$}\NormalTok{\textbackslash{}mathrm\{P\}(A \textbackslash{}mid B)}\OperatorTok{$}\StringTok{   }
-\NormalTok{\{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{\} }\OperatorTok{$}\NormalTok{\textbackslash{}\{}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{\textbackslash{}\}}\OperatorTok{$}\StringTok{  }
-\KeywordTok{sin}\NormalTok{(x)  }\OperatorTok{$}\NormalTok{\textbackslash{}}\KeywordTok{sin}\NormalTok{(x)}\OperatorTok{$}\StringTok{    }
-\KeywordTok{log}\NormalTok{(x)  }\OperatorTok{$}\NormalTok{\textbackslash{}}\KeywordTok{log}\NormalTok{(x)}\OperatorTok{$}\StringTok{  }
-\NormalTok{∫ba }\OperatorTok{$}\NormalTok{\textbackslash{}int_\{a\}}\OperatorTok{^}\NormalTok{\{b\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{(∫}\KeywordTok{baf}\NormalTok{(x)dx) }\OperatorTok{$}\NormalTok{\textbackslash{}}\KeywordTok{left}\NormalTok{(\textbackslash{}int_\{a\}}\OperatorTok{^}\NormalTok{\{b\} }\KeywordTok{f}\NormalTok{(x) \textbackslash{}; dx\textbackslash{}right)}\OperatorTok{$}\StringTok{  }
-\NormalTok{[∫∞−∞}\KeywordTok{f}\NormalTok{(x)dx]    }\OperatorTok{$}\NormalTok{\textbackslash{}left[\textbackslash{}int_\{\textbackslash{}}\OperatorTok{-}\NormalTok{infty\}}\OperatorTok{^}\NormalTok{\{\textbackslash{}infty\} }\KeywordTok{f}\NormalTok{(x) \textbackslash{}; dx\textbackslash{}right]}\OperatorTok{$}\StringTok{  }
-\KeywordTok{F}\NormalTok{(x)}\OperatorTok{|}\NormalTok{ba }\OperatorTok{$}\NormalTok{\textbackslash{}left. }\KeywordTok{F}\NormalTok{(x) \textbackslash{}right}\OperatorTok{|}\NormalTok{_\{a\}}\OperatorTok{^}\NormalTok{\{b\}}\OperatorTok{$}\StringTok{  }
-\NormalTok{∑bx=}\KeywordTok{af}\NormalTok{(x)   }\OperatorTok{$}\NormalTok{\textbackslash{}sum_\{x =}\StringTok{ }\NormalTok{a\}}\OperatorTok{^}\NormalTok{\{b\} }\KeywordTok{f}\NormalTok{(x)}\OperatorTok{$}\StringTok{  }
-\NormalTok{∏bx=}\KeywordTok{af}\NormalTok{(x)   }\OperatorTok{$}\NormalTok{\textbackslash{}prod_\{x =}\StringTok{ }\NormalTok{a\}}\OperatorTok{^}\NormalTok{\{b\} }\KeywordTok{f}\NormalTok{(x)}\OperatorTok{$}\StringTok{  }
-\NormalTok{limx→∞}\KeywordTok{f}\NormalTok{(x)  }\OperatorTok{$}\NormalTok{\textbackslash{}lim_\{x \textbackslash{}to \textbackslash{}infty\} }\KeywordTok{f}\NormalTok{(x)}\OperatorTok{$}\StringTok{  }
-\NormalTok{limx→∞}\KeywordTok{f}\NormalTok{(x)  }\OperatorTok{$}\NormalTok{\textbackslash{}displaystyle \textbackslash{}lim_\{x \textbackslash{}to \textbackslash{}infty\} }\KeywordTok{f}\NormalTok{(x)}\OperatorTok{$}\StringTok{    }
-\end{Highlighting}
-\end{Shaded}
+P(X≤x)=𝚙𝚋𝚒𝚗𝚘𝚖(x,n,π) \(\mathrm{P}(X \le x) = {\tt pbinom}(x, n, \pi)\)\\
+P(A∣B) \(P(A \mid B)\)\\
+P(A∣B) \(\mathrm{P}(A \mid B)\)\\
+\{1,2,3\} \(\{1, 2, 3\}\)\\
+sin(x) \(\sin(x)\)\\
+log(x) \(\log(x)\)\\
+∫ba \(\int_{a}^{b}\)\\
+(∫baf(x)dx) \(\left(\int_{a}^{b} f(x) \; dx\right)\)\\
+{[}∫∞−∞f(x)dx{]} \(\left[\int_{\-infty}^{\infty} f(x) \; dx\right]\)\\
+F(x)\textbar{}ba \(\left. F(x) \right|_{a}^{b}\)\\
+∑bx=af(x) \(\sum_{x = a}^{b} f(x)\)\\
+∏bx=af(x) \(\prod_{x = a}^{b} f(x)\)\\
+limx→∞f(x) \(\lim_{x \to \infty} f(x)\)\\
+limx→∞f(x) \(\displaystyle \lim_{x \to \infty} f(x)\)
 
 Greek Letters
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{αA  }\OperatorTok{$}\NormalTok{\textbackslash{}alpha A}\OperatorTok{$}\StringTok{      }
-\NormalTok{νN  }\OperatorTok{$}\NormalTok{\textbackslash{}nu N }\OperatorTok{$}\StringTok{  }
-\NormalTok{βB  }\OperatorTok{$}\NormalTok{\textbackslash{}beta B}\OperatorTok{$}\StringTok{   }
-\NormalTok{ξΞ  }\OperatorTok{$}\NormalTok{\textbackslash{}xi\textbackslash{}Xi}\OperatorTok{$}\StringTok{  }
-\NormalTok{γΓ  }\OperatorTok{$}\NormalTok{\textbackslash{}gamma \textbackslash{}Gamma}\OperatorTok{$}\StringTok{  }
-\NormalTok{oO  }\OperatorTok{$}\NormalTok{o O}\OperatorTok{$}\StringTok{ }\NormalTok{(omicron)  }
-\NormalTok{δΔ  }\OperatorTok{$}\NormalTok{\textbackslash{}delta \textbackslash{}Delta}\OperatorTok{$}\StringTok{   }
-\NormalTok{πΠ  }\OperatorTok{$}\NormalTok{\textbackslash{}pi \textbackslash{}Pi}\OperatorTok{$}\StringTok{  }
-\NormalTok{ϵεE }\OperatorTok{$}\NormalTok{\textbackslash{}epsilon \textbackslash{}varepsilon E}\OperatorTok{$}\StringTok{  }
-\NormalTok{ρϱP }\OperatorTok{$}\NormalTok{\textbackslash{}rho\textbackslash{}varrho P}\OperatorTok{$}\StringTok{  }
-\NormalTok{ζZ  }\OperatorTok{$}\NormalTok{\textbackslash{}zeta Z \textbackslash{}sigma \textbackslash{},\textbackslash{}}\OperatorTok{!}\ErrorTok{$}\StringTok{  }
-\NormalTok{Σ   }\OperatorTok{$}\NormalTok{\textbackslash{}sigma \textbackslash{}Sigma}\OperatorTok{$}\StringTok{  }
-\NormalTok{ηH  }\OperatorTok{$}\NormalTok{\textbackslash{}eta H}\OperatorTok{$}\StringTok{  }
-\NormalTok{τT  }\OperatorTok{$}\NormalTok{\textbackslash{}tau T}\OperatorTok{$}\StringTok{  }
-\NormalTok{θϑΘ }\OperatorTok{$}\NormalTok{\textbackslash{}theta \textbackslash{}vartheta \textbackslash{}Theta}\OperatorTok{$}\StringTok{  }
-\NormalTok{υΥ  }\OperatorTok{$}\NormalTok{\textbackslash{}upsilon \textbackslash{}Upsilon}\OperatorTok{$}\StringTok{  }
-\NormalTok{ιI  }\OperatorTok{$}\NormalTok{\textbackslash{}iota I}\OperatorTok{$}\StringTok{  }
-\NormalTok{ϕφΦ }\OperatorTok{$}\NormalTok{\textbackslash{}phi \textbackslash{}varphi \textbackslash{}Phi}\OperatorTok{$}\StringTok{    }
-\NormalTok{κK  }\OperatorTok{$}\NormalTok{\textbackslash{}kappa K}\OperatorTok{$}\StringTok{    }
-\NormalTok{χX  }\OperatorTok{$}\NormalTok{\textbackslash{}chi X}\OperatorTok{$}\StringTok{    }
-\NormalTok{λΛ  }\OperatorTok{$}\NormalTok{\textbackslash{}lambda \textbackslash{}Lambda}\OperatorTok{$}\StringTok{    }
-\NormalTok{ψΨ  }\OperatorTok{$}\NormalTok{\textbackslash{}psi \textbackslash{}Psi}\OperatorTok{$}\StringTok{    }
-\NormalTok{μM  }\OperatorTok{$}\NormalTok{\textbackslash{}mu M}\OperatorTok{$}\StringTok{     }
-\NormalTok{ω Ω}\OperatorTok{$}\NormalTok{\textbackslash{}omega \textbackslash{}Omega}\OperatorTok{$}\StringTok{    }
-\end{Highlighting}
-\end{Shaded}
+αA \(\alpha A\)\\
+νN \$\nu N \$\\
+βB \(\beta B\)\\
+ξΞ \(\xi\Xi\)\\
+γΓ \(\gamma \Gamma\)\\
+oO \(o O\) (omicron)\\
+δΔ \(\delta \Delta\)\\
+πΠ \(\pi \Pi\)\\
+ϵεE \(\epsilon \varepsilon E\)\\
+ρϱP \(\rho\varrho P\)\\
+ζZ \(\zeta Z \sigma \,\!\)\\
+Σ \(\sigma \Sigma\)\\
+ηH \(\eta H\)\\
+τT \(\tau T\)\\
+θϑΘ \(\theta \vartheta \Theta\)\\
+υΥ \(\upsilon \Upsilon\)\\
+ιI \(\iota I\)\\
+ϕφΦ \(\phi \varphi \Phi\)\\
+κK \(\kappa K\)\\
+χX \(\chi X\)\\
+λΛ \(\lambda \Lambda\)\\
+ψΨ \(\psi \Psi\)\\
+μM \(\mu M\)\\
+ω Ω\(\omega \Omega\)
 
 \subsubsection{Subsetting}\label{subsetting}
 
@@ -1465,11 +1391,12 @@ Select specific rows E.g. select rows of sfeed\_move not in foodh
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(sqldf)}
-\NormalTok{a1NotIna2_h  <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(}\StringTok{'SELECT * FROM sfeed_move EXCEPT SELECT * FROM foodh'}\NormalTok{)}
-\NormalTok{a1NotIna2_l  <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(}\StringTok{'SELECT * FROM sfeed_move EXCEPT SELECT * FROM foodl'}\NormalTok{)}
-\CommentTok{# select rows from sfeed_move that also appear in foodh}
-\NormalTok{a1Ina2_h  <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(}\StringTok{'SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodh'}\NormalTok{)}
-\NormalTok{a1Ina2_l  <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(}\StringTok{'SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodl'}\NormalTok{)}
+\NormalTok{a1NotIna2_h <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(}\StringTok{"SELECT * FROM sfeed_move EXCEPT SELECT * FROM foodh"}\NormalTok{)}
+\NormalTok{a1NotIna2_l <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(}\StringTok{"SELECT * FROM sfeed_move EXCEPT SELECT * FROM foodl"}\NormalTok{)}
+\CommentTok{# select rows from sfeed_move that also appear in}
+\CommentTok{# foodh}
+\NormalTok{a1Ina2_h <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(}\StringTok{"SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodh"}\NormalTok{)}
+\NormalTok{a1Ina2_l <-}\StringTok{ }\KeywordTok{sqldf}\NormalTok{(}\StringTok{"SELECT * FROM sfeed_move INTERSECT SELECT * FROM foodl"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
