@@ -237,6 +237,7 @@ b
 
 `lengths` for getting length of list indices  
 ```{r}
+require(dplyr)
 ls = list(rep(list(sample(50,replace=T)),5))
 ls %>% length
 ls %>% lengths
@@ -274,6 +275,43 @@ fillvec = function(x){
 lapply(ls,fillvec) # apply fillvec to list
 
 
+```
+  
+Access list elements in loop by name/string    
+```{r,list5}
+set.seed(12)
+
+# inputs
+time <- 5
+time_vec <- 1:10
+a_vec <- runif(10)
+beta1_vec <- 1:10
+beta2_vec <- 11:20
+param_vec <- list(a_vec,beta1_vec,beta2_vec)
+names(param_vec) <-c("alpha","beta1","beta2") 
+params <- sapply(rep(NA,length(param_vec)),list) # create empty final params vector
+names(params) <- names(param_vec)
+
+# select parameter to test 
+param_input <- "alpha" #beta1 #beta2
+
+# run from here -----------------------------------------------------------
+for(time in time_vec) {
+  p_in = param_vec[`param_input`][[1]][time] # get parameter value by name
+  # create new list of with updated param_input value
+  params <- c(param_vec[-which(names(param_vec)==param_input)], # everything but param_input
+              param_input = p_in # param_input
+              )
+  # get just the latest value
+  # remove this if you want all list elements
+  params <- sapply(params,function(x) x[1]) %>% as.numeric 
+  # rename this new list
+  names(params) <- c(names(param_vec)[-which(names(param_vec)==param_input)], # everything but param_input
+                     param_input
+                     )
+  print(params)
+} # end loop
+params # each list element changes depending on user input 
 ```
   
 ### Loading packages 
