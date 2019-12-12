@@ -330,6 +330,17 @@ for(time in time_vec) {
 params # each list element changes depending on user input 
 ```
 
+Apply function to nested lists  
+```{r,list6}
+ls = list(replicate(5, sample(1:100,10), simplify=FALSE))
+ls %>% glimpse
+lapply(ls, lapply, mean) 
+lapply(ls, sapply, mean)   # return as one list 
+rapply(ls, mean, how='unlist')  # unlist, replace, or list
+
+```
+
+
 ### Loading packages 
 `pacman`    
 ```{r,load1}
