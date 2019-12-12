@@ -253,6 +253,22 @@ u <- length(unique(names(la)))
 n <- length(la)/u
 split(la, rep(1:n, each=u))
 
+# for when list has two elements in the name that change 
+# create a list of 10 letters with 5 lists in each 
+big_list <- rep(list(1:10),5) %>% pmap(list) 
+names(big_list) <- LETTERS[1:10]
+# to index the upper list
+big_list["B"] # 1
+pluck(big_list,"B") # 2
+# to index the sublists
+map(big_list["B"],3) # 1
+bb_final <- list() # 2
+for(i in 1:10){ 
+  bb <- big_list["B"]
+  bb_final <- c(bb_final,bb)
+}; bb_final
+
+
 ```
 
 Fill list elements with NAs to match length of longest element
@@ -313,7 +329,7 @@ for(time in time_vec) {
 } # end loop
 params # each list element changes depending on user input 
 ```
-  
+
 ### Loading packages 
 `pacman`    
 ```{r,load1}
