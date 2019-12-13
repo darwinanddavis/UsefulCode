@@ -109,8 +109,8 @@ This document can be found at `r params$doi`
 
 Same deal as Useful Code 1 and 2 except just `gglot` because it's too difficult sifting through the other docs.  
 
-### `ggplot` functions  
-Remove annoying stock gridlines from plot window  
+## `ggplot` functions  
+### Remove annoying stock gridlines from plot window  
 ```{r, ggplot1, results='hide',eval=F}
 plot + theme_bw() + 
   theme(panel.border = element_blank(), panel.grid.major = element_blank(),
@@ -119,7 +119,7 @@ plot + theme_bw() +
 theme_ridges(grid=F,center_axis_labels = T)
 ```
 
-Setting global graphics theme for ggplot
+### Setting global graphics theme for ggplot
 ```{r, ggplot2, results='hide',eval=F}
 plot_it_gg <- function(bg,family){ # bg = colour to plot bg, family = font family
   theme_tufte(base_family = family) +
@@ -143,7 +143,7 @@ plot_it_gg <- function(bg,family){ # bg = colour to plot bg, family = font famil
 } 
 ```
 
-Put plot in function to take dynamic data inputs  
+### Put plot in function to take dynamic data inputs  
 Ref: http://jcborras.net/carpet/visualizing-political-divergences-2012-local-elections-in-helsinki.html
 ```{r, ggplot3, results='hide',eval=F}
 hr.mass.plot <- function(d) {
@@ -163,7 +163,7 @@ hr.mass.plot <- function(d) {
 hr.mass.plot(d)
 ```
 
-Using `ggplot` when looping through `for` loop and saving to dir   
+### Using `ggplot` when looping through `for` loop and saving to dir  
 ```{r, ggplot4,eval=F}
 pdf("mypdf.pdf",onefile = T)
 for(i in 1:3){ 
@@ -191,7 +191,7 @@ dev.off()
 
 ```
 
-Converting lists and dataframes to usable format for `ggplot` (`melt` package)
+### Converting lists and dataframes to usable format for `ggplot` (`melt` package)
 ```{r, ggplot5, results='hide',eval=F}
 # ------------------------- plot individual outputs -------------------------
 mm_ = readRDS(paste0(model.path,fh,".R"))
@@ -208,13 +208,13 @@ ggplot() +
 
 ```
 
-Insert math expression in legend title      
+### Insert math expression in legend title      
 ```{r, ggplot6, results='hide',eval=F}
 ggplot() + 
   labs(title = bquote("Hello" ~ r[xy] ~ "and" ~ B^2))
 ```
 
-Create double line break with expression in legend title (and labels)      
+### Create double line break with expression in legend title (and labels)      
 ```{r, ggplot7, results='hide',eval=F}
 ggplot() +
   scale_color_manual(
@@ -223,7 +223,7 @@ ggplot() +
     )
 ```
 
-Adding text lables to plots
+### Adding text lables to plots
 ```{r, gg8,eval=T}
 require(ggplot2)
 xx = sample(100, 100)
@@ -241,14 +241,14 @@ ggplot() +
   theme_classic()
 ```
 
-Calling data frame columns with weird formatting 
+### Calling data frame columns with weird formatting 
 ```{r,gg9}
 # use ticks, not apostrophes  
 ggplot(df, aes(X, `Y col with spaces`)) + 
   geom_line()
 ```
 
-Use POSIX format
+### Use POSIX format
 ```{r,gg10}
 # turn into posix month day year format
 # Date = factor
@@ -259,5 +259,25 @@ ggplot(df, aes(Date,Y)) + geom_line() +
   scale_x_datetime(date_breaks = "1 month", 
                    date_minor_breaks = "1 week", 
                    date_labels = "%B %Y")
+```
+
+### Plotting multiple plots per window (with different plot size ratios)  
+```{r,gg11}
+# 3 plots above, 1 below
+grid.arrange(
+  grobs = ggplot_list, # list with ggplots or grobs
+  widths = c(1, 1, 1),
+  layout_matrix = rbind(c(1, 2, 3),
+                        c(4, 4, 4))
+)
+
+# 3 plots above with first plot 2 plots wide 
+# 2 plots below with third plot 3 plots wide 
+grid.arrange(
+  grobs = ggplot_list, # list with ggplots or grobs
+  widths = c(2, 1, 1),
+  layout_matrix = rbind(c(1, 2, NA),
+                        c(3, 3, 4))
+)
 ```
 
