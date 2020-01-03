@@ -223,6 +223,30 @@ gapminder %>%
 
 ```
 
+### HTML code  
+
+```{r}
+code <- "<!DOCTYPE html>
+  <html>
+<body>
+
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+
+</body>
+</html>"
+
+code <- paste(as.character(code), collapse = "\n")
+
+write.table(code, 
+            file="/Users/code.html", 
+            quote = FALSE,
+            col.names = FALSE,
+            row.names = FALSE)
+```
+
+
 ### Interactive plots  
 Clickme, NVD3, Polychart, rCharts, Rickshaw, and xCharts in `R`.  
 [Link to collated Github page](https://github.com/darwinanddavis/rInteractive).    
