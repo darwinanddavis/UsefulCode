@@ -147,7 +147,7 @@ scales::show_col(c(neon1,neon2,neon3,neon4))
 D3 and leaflet  
 ```{r, d31, eval=T}
 
-devtools::install_github("jcheng5/d3scatter")
+# devtools::install_github("jcheng5/d3scatter")
 require(pacman)
 p_load(d3scatter,crosstalk,leaflet,tibble,httpuv)
 
@@ -226,6 +226,65 @@ gapminder %>%
 ### Interactive plots  
 Clickme, NVD3, Polychart, rCharts, Rickshaw, and xCharts in `R`.  
 [Link to collated Github page](https://github.com/darwinanddavis/rInteractive).    
+
+### Leaflet  
+
+```{r, eval=T, echo=F}
+require(leaflet)  
+require(dplyr)
+require(geosphere) # for flight arc paths 
+
+setview <- c(9.145000,40.489674)
+mp <- data.frame(
+  "name" = c("Melbourne","Amsterdam","Leipzig","Medellin","Atlanta"),
+  "lat" = c(-37.813629,52.370216,51.339695,6.244203,33.748997),
+  "lon" = c(144.963058,4.895168,12.373075,-75.581215,-84.387985)
+)
+# write.csv(mp,"/Users/malishev/Documents/Data/reveal_test/reveal_test/data/mp.csv")
+
+
+
+latlon_matrix <- matrix(c(mp[,"lon"],mp[,"lat"]),ncol=2)
+custom_tile <- "http://d.sm.mapstack.stamen.com/((darkmatter,$00ffff[hsl-color]),(mapbox-water,$00589c[hsl-color]),(parks,$ff9a30[source-in]))/{z}/{x}/{y}.png"
+
+
+par(bg="black")
+colv <- "orange"
+opac <- 0.5
+site_names <- mp$name
+map <- gcIntermediate(latlon_matrix[1,],
+                      latlon_matrix[5,],
+                      n=100, 
+                      addStartEnd=T,
+                      sp=T) %>%
+  leaflet() %>% 
+  setView(setview[2],setview[1],zoom=2) %>% 
+  addTiles(custom_tile) %>% 
+  addCircleMarkers(mp[,"lon"],
+                   mp[,"lat"],
+                   radius = 10,
+                   stroke = TRUE,
+                   weight = 3, 
+                   opacity = opac,
+                   color = colv,
+                   fillColor = colv,
+                   popup=paste0("<br>",mp$name,"<br>"),
+                   # popupOptions = 
+                   #   popupOptions(closeButton = T,autoPan = T),
+                   label=paste(site_names),
+                   labelOptions = 
+                     labelOptions(textsize = "20px",opacity = 0.5)
+  ) %>%
+  # addProviderTiles(
+  #   "CartoDB.DarkMatter"
+  #   # "Stamen.TonerLite"
+  #   ) %>%
+  addPolylines(
+    color = colv,
+    opacity = opac)
+map
+```
+
 
 ### Lists  
 Transpose list (flip list elements)     
@@ -454,4 +513,82 @@ bscols(
     )
 )
 ```
+
+Crosstalk example 2
+
+```{r,eval=T,echo=T}
+# time series plotly
+pacman::p_load(dplyr,lubridate,ggplot2,plotly,gridExtra,plyr,ggthemes)
+# install.packages("crosstalk")
+library(crosstalk)
+
+# load mock data
+df <- readr::read_csv("/Users/malishev/Documents/Data/time_series/call_activity/call_activity.csv")
+df %>% head
+xinter <- seq(min(df$Date),max(df$Date),length.out = length(df$Date))
+
+# plot data
+p <- ggplot() +
+  geom_vline(mapping=NULL, xintercept=xinter,colour='grey80',size=0.03) +
+  geom_point(data=df,aes(Date,Hour,color=Person,size=Calls)) +
+  scale_y_continuous(limits=c(1,23)) +
+  scale_x_datetime(date_breaks = "1 week", 
+                   date_minor_breaks = "1 day",
+                   date_labels = "%D") +
+  theme(axis.text.x = element_text(angle = 45)) +
+  labs(title = "Calls per hour of day",
+       x = "Date (M/D/Y)",
+       y = "Hour of day") +
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_line(color = "gray"), 
+        panel.grid.minor = element_line(color = "light gray"), 
+        axis.line = element_line(color = "gray"))
+p <- p + theme_hc()
+ggplotly(p)
+
+# plotly crosstalk
+calls_person <- highlight_key(df, ~Hour)
+person_person <- highlight_key(df)
+
+pp <- bscols(
+  widths = 12,
+  p1 <- plot_ly(df, 
+                x = ~Date,
+                y = ~Hour,
+                color = ~Person,
+                size = ~Calls, 
+                type = "scatter",
+                hoverinfo = "text",
+                text = ~paste0("Date: ", Date,
+                               "\nName: ", Person,
+                               "\nCalls: ", Calls)
+  ) %>%
+    layout(title = "Calls per hour of day",
+           xaxis = list(tickangle=45,showgrid=T),
+           yaxis = list(range=c(0,23), showgrid=T),
+           margin = list(l = 0.5)
+    ),
+  filter_select("id", "Select hour of day", calls_person, ~Hour, multiple = F),
+  p2 <- plot_ly(calls_person, 
+                x = ~Person, 
+                color = ~Person,
+                type = "histogram"
+  ) %>% 
+    layout(title = "Calls per person",
+           yaxis = list(showgrid = F)
+    )
+) 
+
+pp <- htmltools::tagList(list(p1, p2))
+??tagList
+
+Sys.setenv("plotly_username"="malishev")
+Sys.setenv("plotly_api_key"="uApW9Ar4GpjbEbagDeAn")
+
+ff <- plotly::api_create(p1,username="malishev")
+
+subplot(p1,p2,nrows=2)
+htmltools::knit_print.shiny.tag.list(pp)
+```
+
 
