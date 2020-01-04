@@ -310,6 +310,98 @@ map
 ```
 
 
+Interactive label options and custom tiles    
+
+```{r}
+require(leaflet)  
+require(dplyr)
+require(geosphere)
+require(htmltools)
+
+setview <- c(7.369722,12.354722)
+mp <- data.frame(
+  "name" = c("Melbourne","Atlanta"),
+  "lat" = c(-37.813629,33.748997),
+  "lon" = c(144.963058,-84.387985)
+)
+latlon_matrix <- matrix(c(mp[,"lon"],mp[,"lat"]),ncol=2)
+custom_tile <- "http://a.sm.mapstack.stamen.com/(positron,(mapbox-water,$776699[hsl-color]),(buildings,$002bff[hsl-color]),(parks,$6abb9d[hsl-color]))/{z}/{x}/{y}.png"
+colv <- "#4C3661"
+opac <- 0.5
+site_names <- mp$name
+ttl <- "Debunking Flat Earth theory 101"
+weblink <- "https://github.com/darwinanddavis" # weblink
+webname <- "My github"
+href <- paste0("<b><a href=",weblink,">",webname,"</a></b>")
+text_label <- paste(sep = "<br/>",
+                    href,
+                    "606 5th Ave. S",
+                    "Seattle, WA 98138"
+)
+# label options 
+marker_label_opt <- labelOptions(textsize = "20px",opacity = 0.5,offset = c(0,0))
+text_label_opt <- labelOptions(noHide = T, direction = 'top', textOnly = T, opacity = 1,offset = c(0,0))
+
+# title
+tag.map.title <- tags$style(
+  HTML(".leaflet-control.map-title { 
+       transform: translate(-50%,20%);
+       position: fixed !important;
+       left: 50%;
+       text-align: center;
+       padding-left: 10px; 
+       padding-right: 10px; 
+       background: white; opacity: 0.7;
+       font-weight: bold;
+       font-size: 25px;
+       }"
+       ))
+
+title <- tags$div(
+  tag.map.title, HTML(ttl)
+)  
+
+# map
+map <- gcIntermediate(latlon_matrix[1,],
+                      latlon_matrix[2,],
+                      n=100, 
+                      addStartEnd=T,
+                      sp=T) %>% 
+  leaflet() %>% 
+  setView(setview[2],setview[1],zoom=3) %>% 
+  addTiles(custom_tile) %>% 
+  addCircleMarkers(mp[,"lon"],
+                   mp[,"lat"],
+                   radius = 10,
+                   stroke = TRUE,
+                   weight = 3, 
+                   opacity = opac,
+                   color = colv,
+                   fillColor = colv,
+                   label=paste(site_names),
+                   labelOptions = marker_label_opt
+  ) %>%
+  addPolylines(
+    color = colv,
+    opacity = opac) %>% 
+  addPopups(-122.327298, 47.597131, text_label,
+            options = popupOptions(closeButton = FALSE, textOnly = T)
+  ) %>% 
+  addLabelOnlyMarkers(setview[2], setview[1], label = text_label, 
+                      labelOptions = text_label_opt) %>% 
+  addControl("@darwinanddavis", position = "topright") %>% 
+  addControl(title, position = "topleft", className="map-title")
+map
+
+
+
+
+# save_html(map,"flatearth_2.html")
+
+# 
+
+```
+
 ### Lists  
 Transpose list (flip list elements)     
 ```{r, list1}
