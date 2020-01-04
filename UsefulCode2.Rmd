@@ -276,8 +276,8 @@ par(bg="black")
 colv <- "orange"
 opac <- 0.5
 site_names <- mp$name
-map <- gcIntermediate(latlon_matrix[1,],
-                      latlon_matrix[5,],
+map <- gcIntermediate(latlon_matrix[2,],
+                      latlon_matrix,
                       n=100, 
                       addStartEnd=T,
                       sp=T) %>%
