@@ -333,8 +333,7 @@ href <- paste0("<b><a href=", weblink, ">", webname, "</a></b>")
 text_label <- paste(sep = "<br/>", href, "606 5th Ave. S", "Seattle, WA 98138")
 # label options
 marker_label_opt <- labelOptions(textsize = "20px", opacity = 0.5, offset = c(0, 0))
-text_label_opt <- labelOptions(noHide = T, direction = "top", textOnly = T, opacity = 1, offset = c(0, 
-                                                                                                    0))
+text_label_opt <- labelOptions(noHide = T, direction = "top", textOnly = T, opacity = 1, offset = c(0,0))
 
 # title
 tag.map.title <- tags$style(

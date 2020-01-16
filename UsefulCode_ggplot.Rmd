@@ -281,3 +281,42 @@ grid.arrange(
 )
 ```
 
+Setting legend to custom aes elements, e.g. color, shape, linetype
+```{r,gg12,eval=T}
+# set 'labs' arguments to same title as in 'scale_color_manual'
+# legend values automatically matches arguments passed to colvec
+# NB specifying the labels arg in scale_color_manual overrides labs  
+
+require(ggplot2)
+
+snack_df <- data.frame(
+  "X"=sample(100,10,replace=F),
+  "Y"=sample(100,10,replace=F),
+  "Sum"=runif(10),
+  "Size"=rep(LETTERS[1:5],each=2)
+)
+colvec <- colorspace::sequential_hcl(length(unique(snack_df$Size)), "SunsetDark")
+legend_ttl <- "This is your legend"
+legend_pars <- unique(snack_df$Size) # not run
+                       
+ggplot(snack_df,aes(X,Y)) +
+  geom_line(aes(group=Size,color=Size,linetype=Size),size=1) +
+  geom_point(aes(group=Size,color=Size,shape=Size),size=3) +
+  scale_color_manual(name=legend_ttl,
+                     # labels = legend_pars, # this overrides labs 
+                     values = colvec) +
+  geom_text(aes(X,Y,
+                label=c(Size)
+                ),
+            check_overlap = T,
+            size=5,vjust=-1,hjust=1.2) +
+  labs(title="Plot title",x="X",y="Y",
+       # ----- these are the legend key arguments
+       colour=legend_ttl,
+       fill=legend_ttl,
+       linetype=legend_ttl,
+       shape=legend_ttl) + # check shape 
+  theme_classic() 
+
+```
+
