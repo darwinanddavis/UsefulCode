@@ -221,6 +221,17 @@ ggplot() +
     expression(atop("text", 
     atop(textstyle(epsilon))))
     )
+
+
+ggplot() +
+  scale_color_manual(
+    name=expression(
+      atop("Productivity",
+           atop(textstyle(
+          (mg~C~L^{-1}~d^{-1}) # this is bracketed text
+          ))))
+  )
+
 ```
 
 ### Adding text lables to plots
