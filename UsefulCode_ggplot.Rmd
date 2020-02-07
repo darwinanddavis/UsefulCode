@@ -331,3 +331,20 @@ ggplot(snack_df,aes(X,Y)) +
 
 ```
 
+
+### Pass variables as user arguments to plotting function 
+```{r, gg13, eval =T}
+# http://www.rebeccabarter.com/blog/2020-02-05_rstudio_conf/
+require(tidyverse);require(dplyr)
+midwest %>% head
+plotMidwestTidy <- function(var1, var2) {
+  ggplot(midwest) +
+    geom_point(aes(
+      x = {{ var1 }}, y = {{ var2 }} # wrap vars in double curly braces  
+      )) 
+}
+
+plotMidwestTidy(popdensity, poptotal) +
+  theme_bw()
+```
+
