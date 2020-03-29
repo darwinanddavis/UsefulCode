@@ -79,7 +79,7 @@ vignette: >
 ```{r, set-options, echo = FALSE, cache = FALSE}
 options(width=100)
 knitr::opts_chunk$set(
- eval = F, # run all code
+ eval = T, # run all code
  results='hide',
  # echo = FALSE, # show code chunks in output 
  comment = "",
@@ -109,20 +109,30 @@ This document can be found at `r params$doi`
 
 Same deal as Useful Code 1 and 2 except just `gglot` because it's too difficult sifting through the other docs.  
 
-## `ggplot` functions  
-### Remove annoying stock gridlines from plot window  
+## `ggplot` functions    
+### Remove annoying stock gridlines from plot window    
 ```{r, ggplot1, results='hide',eval=F}
-plot + theme_bw() + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-                            panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+# option 1
+p1 <- p + labs(title="Option 1") +
+  theme_classic()
+p1
+
+# option 2 with inputs to toggle 
+p2 <- p + labs(title="Option 2") +
+  theme_bw() + 
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")
+        )
+p2
 # alternative (after loading ggridges library)
-theme_ridges(grid=F,center_axis_labels = T)
+# theme_ridges(grid=F,center_axis_labels = T)
 ```
 
 ### Setting global graphics theme for ggplot
 ```{r, ggplot2, results='hide',eval=F}
-plot_it_gg <- function(bg,family){ # bg = colour to plot bg, family = font family
-  theme_tufte(base_family = family) +
+plot_it_now <- function(bg){ # bg = colour to plot bg
   theme(panel.border = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -141,6 +151,7 @@ plot_it_gg <- function(bg,family){ # bg = colour to plot bg, family = font famil
     theme(legend.title = element_text(colour="white")) + 
     theme(legend.text = element_text(colour="white")) 
 } 
+plot_it_now("black")
 ```
 
 ### Put plot in function to take dynamic data inputs  
@@ -169,11 +180,8 @@ pdf("mypdf.pdf",onefile = T)
 for(i in 1:3){ 
 par(bty="n", las = 1)
   grid.arrange( 
-  ggplot(data, aes(x = X, y = Y, fill=..x..)) + 
-    geom_density_ridges_gradient(scale = 5, size=0.2,color="black", rel_min_height = 0.01,panel_scaling=T,alpha=0.2) +
-    geom_density_ridges(scale = 5, size=0.2,color="black", rel_min_height = 0.01,fill="white",alpha=0.2) +
-    scale_fill_viridis(name = "Diameter", alpha=0.1, option = "magma",direction=-1) + 
-    xlim(c(0,25)) +
+  ggplot(data, aes(x = X, y = Y, fill = ..x..)) + 
+    geom_point() +
     labs(title = paste0("Title_",i)) +
     xlab("X") +
     ylab("Y")
@@ -181,6 +189,7 @@ par(bty="n", las = 1)
 } 
 # end loop 
 dev.off()
+
 
 
 # geom_density_ridges() # scale = overlap
@@ -193,25 +202,28 @@ dev.off()
 
 ### Converting lists and dataframes to usable format for `ggplot` (`melt` package)
 ```{r, ggplot5, results='hide',eval=F}
-# ------------------------- plot individual outputs -------------------------
-mm_ = readRDS(paste0(model.path,fh,".R"))
-cat("order = cerc, food, juv, adult, infected, infected shedding, host length, parasite mass")
-# plot master
-mm <- mm_[[2]]
-y_m <- melt(mm);y_m
-ggplot() +
-  geom_point(data = y_m, aes(x = rep.int(1:n.ticks,max(L1)) , y = value, group = L1, colour=factor(L1)), ) +
-  geom_line(data = y_m, aes(x = rep.int(1:n.ticks,max(L1)) , y = value, group = L1, colour=factor(L1)), ) +
-  #linetype=y_m$L1) +
-  theme_tufte() 
-# +  geom_text(x=,y=,label = max(value),check_overlap = TUE)
+require(reshape2) # melt package  
+nn <- 10 # reps
+mm <- data.frame("X"=rep(LETTERS,nn),"Y"=sample(nn,replace = T),"Z"=rep(paste(LETTERS,"_",rnorm(1)),nn))
+# plot 
+y_m <- melt(mm); head(y_m)
+ggplot(data = y_m, aes(x = X, y = value, group = Z, colour=factor(value))) +
+  geom_point(aes(size=value)) + geom_line() + theme_classic() 
 
 ```
 
-### Insert math expression in legend title      
+### Insert math expression in plot or legend title
 ```{r, ggplot6, results='hide',eval=F}
+xx = sample(100, 100)
+yy = rnorm(100)
+
+title1 <- bquote("Density = " ~ r[xy] ~ "and" ~ B^2 ~ + beta ~ alpha)
 ggplot() + 
-  labs(title = bquote("Hello" ~ r[xy] ~ "and" ~ B^2))
+  geom_point(aes(x=xx,y=yy),color=xx) +
+  labs(title = title1, 
+       xlab = title1,
+       yab = title1,
+       colour=title1)
 ```
 
 ### Create double line break with expression in legend title (and labels)      
@@ -221,7 +233,6 @@ ggplot() +
     expression(atop("text", 
     atop(textstyle(epsilon))))
     )
-
 
 ggplot() +
   scale_color_manual(
@@ -239,8 +250,9 @@ ggplot() +
 require(ggplot2)
 xx = sample(100, 100)
 yy = rnorm(100)
+df <- data.frame("X"=xx,"Y"=yy)
 
-ggplot() +
+ggplot(df) +
   geom_point(aes(xx,yy,size=5),colour=xx,show.legend = F) +
   geom_text(aes(xx,yy,label=xx),check_overlap = T,size=yy+5) +
   theme_classic()
@@ -249,31 +261,89 @@ ggplot() +
 ggplot() +
   geom_line(aes(xx,yy,size=5),colour=xx,show.legend = F) +
   geom_label(aes(xx,yy,label=xx),size=yy+5,color = yy +5, fill=xx) +
-  theme_classic()
+  theme_classic() 
 ```
 
 ### Calling data frame columns with weird formatting 
 ```{r,gg9}
-# use ticks, not apostrophes  
-ggplot(df, aes(X, `Y col with spaces`)) + 
+# use ticks, not quotations
+
+require(ggplot2)
+df <- data.frame("X"=rnorm(1000),"Y col with spaces"=sample(1000,replace = T))
+
+# incorrect y col, but doesn't throw error
+ggplot(df, aes(X, "Y col with spaces")) + 
+  geom_line()
+
+# same issue even when matching col name
+ggplot(df, aes(X, "Y.col.with.spaces")) + 
+  geom_line()
+
+# usable y col
+ggplot(df, aes(X, `Y.col.with.spaces`)) + 
   geom_line()
 ```
 
 ### Use POSIX format
-```{r,gg10}
-# turn into posix month day year format
-# Date = factor
-require(lubridate)
-df$Date<- mdy_hms(df$Date, tz='GMT')
 
-ggplot(df, aes(Date,Y)) + geom_line() +
-  scale_x_datetime(date_breaks = "1 month", 
-                   date_minor_breaks = "1 week", 
-                   date_labels = "%B %Y")
+**Code	Meaning**    
+%a	Abbreviated weekday  
+%A	Full weekday  
+%b	Abbreviated month  
+%B	Full month  
+%c	Locale-specific date and time  
+%d	Decimal date  
+%H	Decimal hours (24 hour)  
+%I	Decimal hours (12 hour)  
+%j	Decimal day of the year  
+%m	Decimal month  
+%M	Decimal minute  
+%p	Locale-specific AM/PM  
+%S	Decimal second  
+%U	Decimal week of the year (starting on Sunday)  
+%w	Decimal Weekday (0=Sunday)  
+%W	Decimal week of the year (starting on Monday)  
+%x	Locale-specific Date  
+%X	Locale-specific Time  
+%y	2-digit year  
+%Y	4-digit year  
+%z	Offset from GMT  
+%Z	Time zone (character)  
+
+```{r,gg10}
+require(nycflights13);require(dplyr);require(ggplot2)
+flights %>% str
+flights$time_hour %>% class # already posix
+flights_mod <- flights$time_hour %>% as.character() # convert posix to character
+
+# turn into posix year month day hour minute second format
+require(lubridate)
+flights_mod <- flights_mod %>% ymd_hms()  
+flights_mod %>% class
+
+# make new df with fewer data 
+df <- data.frame("Date"=flights_mod[1:100000],
+                 "Delay"=flights$arr_delay[1:100000])
+
+ggplot(df, aes(Delay,Date)) + geom_tile() +
+  scale_y_datetime(date_breaks = "1 month", 
+                   date_minor_breaks = "1 week", # optional 
+                   date_labels = "%B %Y" # full month and year
+                  ) +
+  theme_classic()
+
 ```
 
-### Plotting multiple plots per window (with different plot size ratios)  
+### Plotting multiple plots per window (with different plot size ratios) with `gridExtra`    
 ```{r,gg11}
+require(gridExtra)
+
+nn <- 100 # create sample
+p <- ggplot()+geom_point(aes(sample(nn,replace=T),rnorm(nn),size=runif(nn),color=rainbow(nn)),show.legend = F)+theme_classic()
+
+# put plots into list 
+ggplot_list <- list(p,p,p,p)
+
 # 3 plots above, 1 below
 grid.arrange(
   grobs = ggplot_list, # list with ggplots or grobs
@@ -283,6 +353,13 @@ grid.arrange(
 )
 
 # 3 plots above with first plot 2 plots wide 
+grid.arrange(
+  grobs = ggplot_list, # list with ggplots or grobs
+  widths = c(2, 1, 1), # widths (2,1,1) of total plots for each row (3) 
+  layout_matrix = rbind(c(1, 2, 3), 
+                        c(4, 4, 4))
+)
+
 # 2 plots below with third plot 3 plots wide 
 grid.arrange(
   grobs = ggplot_list, # list with ggplots or grobs
@@ -290,9 +367,10 @@ grid.arrange(
   layout_matrix = rbind(c(1, 2, NA),
                         c(3, 3, 4))
 )
+
 ```
 
-Setting legend to custom aes elements, e.g. color, shape, linetype
+### Setting legend to custom aes elements, e.g. color, shape, linetype    
 ```{r,gg12,eval=T}
 # set 'labs' arguments to same title as in 'scale_color_manual'
 # legend values automatically matches arguments passed to colvec

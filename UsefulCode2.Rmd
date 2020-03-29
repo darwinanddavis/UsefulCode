@@ -179,10 +179,18 @@ require(tidyverse)
 df %>% map_df(rev)
 ```
 
+Visualise data structure as tree
+```{r, d2}
+#explore package
+library(DataExplorer)
+plot_str(x)
+```
+
+
 ### `dplyr` basics 
 ```{r,dplyr1}
 require(dplyr,gapminder)
-p_load(gapminder)
+pacman::p_load(gapminder)
 
 # mutate
 africa_ranked <- mutate(gapminder, 
@@ -497,6 +505,20 @@ p_load(dplyr,mapdeck)
 ```
 
 
+### Plotting 
+
+Hand drawn plotting using `roughViz.js`. [Link to package page](https://rdrr.io/github/XiangyunHuang/roughviz/).      
+
+```{r, plot1}
+# install.packages("remotes")
+# remotes::install_github("XiangyunHuang/roughviz")
+require(roughviz)
+  
+
+```
+
+
+
 ### Read in data    
 Read in csv data sources directly from web  
 ``` {r, read1, results='hide',eval=F}
@@ -613,7 +635,7 @@ plotbg <- tags$html(
   HTML("<body style=\"background-color: black;\"></body>"))
 
 resource_type <- "detritus"
-memi_df <- readr::read_csv("https://github.com/darwinanddavis/reveal_test/raw/master/data/memi_df.csv")
+memi_df <- readr::read_csv("https://raw.githubusercontent.com/darwinanddavis/mybio/master/data/memi_df.csv")
 memi_df <- data.frame(memi_df)
 memi_df %>% str
 # heatmap -----------------------------------------------------------------

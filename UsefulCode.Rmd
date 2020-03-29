@@ -388,7 +388,7 @@ Check for `NAs`
 sapply(df, function(x) sum(is.na(x)))
 ```
 
-snail.update[is.nan(snail.update)] <- 0 Replace `NaN` and `Inf` values with `NA` 
+Replace `NaN` and `Inf` values with `NA` 
 ```{r, NA4, results='hide',eval=F}
 df$col1[which(!is.finite(df$col1))] <-  NA
 ```
