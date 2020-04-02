@@ -1059,8 +1059,7 @@ x1+x2+⋯+xn	$x_{1} + x_{2} + \cdots + x_{n}$
 x1,x2,…,xn	$x_{1}, x_{2}, \dots, x_{n}$  
 x=⟨x1,x2,…,xn $\mathbf{x} = \langle x_{1}, x_{2}, \dots, x_{n}\rangle$    
 x∈A	$x \in A$    
-|A|	$|A|$  
-x∈A	$x \in A$  
+|A|	$|A|$    
 A⊂B	$x \subset B$  
 A⊆B	$x \subseteq B$  
 A∪B	$A \cup B$  

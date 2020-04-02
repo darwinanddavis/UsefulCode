@@ -591,6 +591,11 @@ Just from writing words with a pen
 ***
 <!-- ———————————————————————————————————————————————————————————————————————————— -->
 
+Inserting text within indented equations    
+$$
+p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1  
+$$
+
 # `plotly`   
 
 HTML widget with plotly and crosstalk
