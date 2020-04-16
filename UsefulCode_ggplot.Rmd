@@ -426,3 +426,21 @@ plotMidwestTidy(popdensity, poptotal) +
   theme_bw()
 ```
 
+
+### Use conditional statements in `ggplot` objects  
+```{r,gg14,eval=T}
+require(ggplot2)
+cond1 <- F
+cond2 <- T
+p <- ggplot(mtcars) +
+        geom_point(aes(mpg,hp,size=3),show.legend = F) +
+  theme_classic()
+p <- p + if(cond1==T){ # execute condition 1 and add to plot 
+        geom_line(aes(mpg,hp,size=3),color="red",show.legend = F)
+      }
+p <- p + if(cond2==T){ # execute condition 2 and add to plot 
+        geom_line(aes(mpg,hp,size=2),color="blue",show.legend = F)
+      }
+p
+```
+
