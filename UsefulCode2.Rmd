@@ -143,7 +143,14 @@ scales::show_col(c(neon1,neon2,neon3,neon4))
 ```
     
     
-### D3    
+### D3      
+
+Links    
+- [](https://github.com/d3/d3/wiki/Gallery)  
+- [](https://bl.ocks.org/mbostock)  
+- [](https://vida.io/explore)  
+
+
 D3 and leaflet  
 ```{r, d31, eval=T}
 
@@ -171,6 +178,23 @@ bscols(widths = c(12, 6, 6),
 )
 
 ```
+
+Convert R code to D3 
+https://rstudio.github.io/r2d3/articles/visualization_options.html  
+
+Create calendar plot   
+```{r, d32, eval=F}
+# https://rstudio.github.io/r2d3/articles/gallery/calendar/
+# install.packages("r2d3")
+require(r2d3)
+require(readr)
+cal <- read_csv("https://raw.githubusercontent.com/rstudio/r2d3/master/vignettes/gallery/calendar/dji-latest.csv")
+
+r2d3(data = cal, d3_version = 4, container = "div", options = list(start = 2006, end = 2011), script = "calendar.js")
+
+```
+![](img/d3_2.jpg)
+
 
 ### Data frames  
 Reversing order of rows in dataframe
