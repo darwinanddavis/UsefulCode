@@ -257,6 +257,19 @@ gapminder %>%
 
 ```
 
+### Generic functions 
+
+Convert character class to numeric (ideal when creating colour palettes to turn string cols in df to numeric)
+```{r}
+require(dplyr)
+set.seed(12)
+df <- data.frame("X"=LETTERS[sample(20)])
+int_vec <- df$X %>% unlist %>% as.factor %>% as.integer # converts to numbers 
+int_vec ; df$I <- int_vec
+df
+```
+
+
 ### HTML code  
 
 ```{r}
