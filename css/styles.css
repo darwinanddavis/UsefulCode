@@ -1,0 +1,147 @@
+@import "http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700";
+@import "http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700"; 
+
+.reveal .backgrounds {
+    z-index:1;
+}
+
+.reveal .slide-background.present {
+    z-index:1;
+}
+
+.reveal .small {
+  font-size: 50%;
+  text-align: center;
+}
+
+.blackbg {
+  background: black;
+  background-color: black; 
+}
+
+.reveal section h1 {
+  color: black;
+  text-align: center; 
+  font-family: Optima;
+  font-size: 3.5em; 
+}
+
+.reveal section h2 {
+  color: black;
+  vertical-align: center;
+  text-align: left; 
+ font-family: Optima;
+}
+
+.reveal section h3,
+.reveal section h4 {
+  color: #2a1a9d;
+  text-align: left;
+ }
+
+.reveal section h5 {
+  font-size: 1em;
+}
+
+.reveal section p {
+  text-align: left;
+  font-family: Optima;
+  color: black;
+}
+
+.imgincrement {
+	color: white;
+}
+
+.reveal section img { 
+  background:none; 
+  border:none; 
+  box-shadow:none; 
+  }
+
+/*blur background images */
+/*.backgrounds {
+     -webkit-filter: blur(5px);
+     -moz-filter: blur(50px);
+     -o-filter: blur(5px);
+     -ms-filter: blur(5px);
+     filter: blur(5px);
+ }*/
+
+.reveal .intro {
+  background-position: center;
+  background-size: 10%;
+}
+
+/*change title slide 
+<style>
+.slide-background:first-child {
+  background-color: #00FF00;
+}
+</style>*/
+
+/*.reveal .leaflet-container .leaflet-fade-anim .leaflet-tile, .reveal .leaflet-container .leaflet-fade-anim .leaflet-popup {
+    -webkit-transition: opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    -o-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
+}*/
+/*
+.reveal .leaflet-container {
+    font: 12px/1.5 "Roboto Condensed", Arial, Helvetica, sans-serif;
+}
+
+.reveal .leaflet-container img {
+    margin: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    max-height: inherit;
+}
+
+
+.reveal .leaflet-container .leaflet-label-content {
+    margin: 5px 5px;
+    line-height: 1.5;
+    color: orange;
+    padding: 5px;
+}
+
+
+.reveal .leaflet-container .leaflet-popup-tip-container {
+    margin: 0 auto;
+}
+
+.reveal .leaflet-container .leaflet-popup-content-wrapper {
+    padding: 1px;
+    margin: inherit;
+}
+
+.reveal .leaflet-container .leaflet-popup-content {
+    margin: 12px 12px;
+    line-height: 1.4;
+    font-size: 20px;
+}
+
+.reveal .leaflet-container .leaflet-popup-content h1,
+.reveal .leaflet-container .leaflet-popup-content h2,
+.reveal .leaflet-container .leaflet-popup-content h3,
+.reveal .leaflet-container .leaflet-popup-content h4,
+.reveal .leaflet-container .leaflet-popup-content p {
+    color: orange;
+}
+
+.reveal .leaflet-container .leaflet-popup-tip {
+    padding: 5px;
+    margin: -10px auto 0;
+}
+
+.reveal .leaflet-container .leaflet-popup-content, .reveal .leaflet-popup-content h2 {
+    color: #333;
+}
+
+.reveal .leaflet-container .leaflet-popup-content pre {
+    font-size: 14px;
+    width: 100%;
+    box-shadow: none;
+}*/

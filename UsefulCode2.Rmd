@@ -183,17 +183,39 @@ Convert R code to D3
 https://rstudio.github.io/r2d3/articles/visualization_options.html  
 
 Create calendar plot   
-```{r, d32, eval=F}
-# https://rstudio.github.io/r2d3/articles/gallery/calendar/
-# install.packages("r2d3")
+```{r, d32, eval=T}
+# https://rstudio.github.io/r2d3/articles/gallery/calendar/ install.packages('r2d3')
 require(r2d3)
 require(readr)
+require(dplyr)
+require(colorspace);require(scales);require(stringr)
+
+# col pal
+col <- "PuBuGn" # seq
+col2 <- "Tropic" # diverge
+
+# seq
+pal <- sequential_hcl(12, col) 
+# pal %>% show_col(borders = NA,labels=F)
+# pal %>% cat(sep=",")
+
+# diverge
+pal <- diverge_hcl(12, col2) 
+# pal %>% show_col(borders = NA,labels=F)
+# pal %>% cat(sep=",")
+
 cal <- read_csv("https://raw.githubusercontent.com/rstudio/r2d3/master/vignettes/gallery/calendar/dji-latest.csv")
 
-r2d3(data = cal, d3_version = 4, container = "div", options = list(start = 2006, end = 2011), script = "calendar.js")
+r2d3(data = cal,
+     d3_version = 4,
+     container = "div",
+     options = list(start = 2006, end = 2011),
+     script = "calendar.js"
+)
 
 ```
-![](img/d3_2.jpg)
+
+<!-- ![](img/d3_2.jpg) -->
 
 
 ### Data frames  
@@ -635,7 +657,7 @@ $$
 p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1  
 $$
 
-# `plotly`   
+### `plotly`     
 
 HTML widget with plotly and crosstalk
 ```{r, plotly1, eval=T, echo=T}
