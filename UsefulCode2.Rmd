@@ -197,12 +197,12 @@ col2 <- "Tropic" # diverge
 # seq
 pal <- sequential_hcl(12, col) 
 # pal %>% show_col(borders = NA,labels=F)
-# pal %>% cat(sep=",")
+paste0('"',pal,'"') %>% cat(sep=",")
 
 # diverge
 pal <- diverge_hcl(12, col2) 
 # pal %>% show_col(borders = NA,labels=F)
-# pal %>% cat(sep=",")
+# paste0('"',pal,'"') %>% cat(sep=",")
 
 cal <- read_csv("https://raw.githubusercontent.com/rstudio/r2d3/master/vignettes/gallery/calendar/dji-latest.csv")
 
@@ -232,7 +232,6 @@ Visualise data structure as tree
 library(DataExplorer)
 plot_str(x)
 ```
-
 
 ### `dplyr` basics 
 ```{r,dplyr1}
@@ -278,6 +277,16 @@ gapminder %>%
 
 
 ```
+
+Execute functions silently inline with pipes `%T>%`    
+```{r}
+require(palmerpenguins)
+require(dplyr)
+p <- penguins
+p %T>% glimpse %>% select(island) 
+```
+
+
 
 ### Generic functions 
 
