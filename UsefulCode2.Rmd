@@ -227,10 +227,12 @@ df %>% map_df(rev)
 ```
 
 Visualise data structure as tree
-```{r, d2}
+```{r, d2, eval = T}
 #explore package
-library(DataExplorer)
-plot_str(x)
+require(DataExplorer)
+require(palmerpenguins)
+p <- penguins
+plot_str(p)
 ```
 
 ### `dplyr` basics 
@@ -278,12 +280,25 @@ gapminder %>%
 
 ```
 
-Execute functions silently inline with pipes `%T>%`    
+Execute unfriendly pipe functions inline in pipes       
 ```{r}
 require(palmerpenguins)
 require(dplyr)
 p <- penguins
+
+# %T>%
 p %T>% glimpse %>% select(island) 
+
+# with()
+p %>% 
+    with(lm(body_mass_g ~ flipper_length_mm)) %>%
+    summary()
+
+# %$%  
+# when var on lhs is undefined     
+require(magrittr)
+data.frame(z = rnorm(100)) %$%
+  ts.plot(z)
 ```
 
 
@@ -857,6 +872,15 @@ sm <- as.data.frame(EuStockMarkets) %>%
   mutate(time=rep(EuStockMarkets %>% time(),4))
 
 sm %>% plot_ly(x=sm$time,y=sm$price,color=sm$index)
+
+```
+
+### Time  
+
+Get just HMS portion of POSIX class  
+```{r}
+require(dplyr)
+Sys.time() %>% format(format="%H:%M:%S")
 
 ```
 
