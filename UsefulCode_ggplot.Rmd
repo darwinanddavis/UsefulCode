@@ -444,3 +444,22 @@ p <- p + if(cond2==T){ # execute condition 2 and add to plot
 p
 ```
 
+Make calendar plot  
+```{r}
+require(sugrrants)
+require(nycflights13)
+ff <- flights 
+ff <- ff %>% mutate(date = flights$time_hour %>% as.Date())
+fdf <- frame_calendar(ff,
+                 x = distance, 
+                 y = arr_delay, 
+                 date = date,
+                 nrow = 4)
+p <- ggplot(fdf) +
+  geom_line(aes(x = .distance, 
+                y = .arr_delay, 
+                group = date)) + theme_void()
+p %>% prettify()
+```
+
+

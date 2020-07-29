@@ -315,6 +315,25 @@ int_vec ; df$I <- int_vec
 df
 ```
 
+Pipe vector to multiple arguments  
+```{r}
+require(dplyr)
+
+# as list
+Sys.time() %>% list(format(.,c(
+  "%y-%m",
+  "%Y-%m",
+  "%Y-%m"))) 
+
+# use curly braces to keep original class
+Sys.time() %>% {
+  format(.,c(
+  "%y-%m",
+  "%Y-%m",
+  "%Y-%m"))
+}
+```
+
 
 ### HTML code  
 
@@ -883,4 +902,5 @@ require(dplyr)
 Sys.time() %>% format(format="%H:%M:%S")
 
 ```
+
 
