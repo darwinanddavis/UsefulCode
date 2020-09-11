@@ -15,7 +15,7 @@ always_allow_html: yes
 output:
   html_document:
     highlight: tango
-    code_folding: hide
+    code_folding: show
     toc: yes
     toc_depth: 4
     number_sections: no
