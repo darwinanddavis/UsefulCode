@@ -141,7 +141,16 @@ neon3 <- c("#FEA0FE","#F85125","#02B8A2","#535EEB")
 neon4 <- c("#535EEB","#001437","#C6BDEA","#FFAA01")
 scales::show_col(c(neon1,neon2,neon3,neon4))
 ```
-    
+
+Hexadecimal color code for transparency  
+See https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4.  
+```{r,col3}
+require(colorspace)
+require(stringr)
+colv <- c("#004616",sequential_hcl(5,"Lajolla"))
+str_sub(colv,0,1) <- "#66" # add alpha opac to col vector
+```
+
     
 ### D3      
 
