@@ -343,7 +343,7 @@ Sys.time() %>% {
 }
 ```
 
-Merge two data frames based on value and retain original number of rows  
+Merge/combine/match/fill rows of two data frames based on value and retain original number of rows  
 ```{r}
 merge(a, b, by = "ID", sort = F) 
 ```

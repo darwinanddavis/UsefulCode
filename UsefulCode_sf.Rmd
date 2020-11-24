@@ -161,5 +161,88 @@ ggmap(gg, extent = "device", darken = c(0.9,"white")) +
   geom_point(data = df, aes(x,y))
 ```
 
+### North arrow and scale bars  
+https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html  
+```{r}
+library("ggspatial")
+ggplot(data = world) +
+    geom_sf() +
+    annotation_scale(location = "bl", width_hint = 0.5) +
+    annotation_north_arrow(location = "bl", which_north = "true", 
+        pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"),
+        style = north_arrow_fancy_orienteering) +
+    coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97))
 
+## Scale on map varies by more than 10%, scale bar may be inaccurate
+```
+
+
+
+```{r}
+
+# accessing coords in sf (complex)
+# shp <- here::here("worldmaps","data","day14.shp") %>% readOGR()
+# d <- shp@data # df vars
+# bb <- shp@bbox #bbox
+# ply <- shp@polygons # polygons 
+# plyl <- ply %>% purrr::map(ggplot2::fortify)  # melt polygon class
+# names(plyl) <- d$VARNAME_3 # get district name  
+# ggplot() + 
+#   geom_polygon(data = ply_df[[600]],
+#                aes(long, lat)) 
+
+# ply[[1]]@Polygons[[1]]@coords # works
+# ply[[1]] %>% attr(which="Polygons") %>% purrr::map("coords") # works
+
+```
+
+### Changing fonts in ggplot
+https://stackoverflow.com/questions/34522732/changing-fonts-in-ggplot2
+
+
+### Projections  
+
+```{r}
+
+#list of proj 
+# https://proj.org/operations/projections/patterson.html
+# https://spatialreference.org/ref/?search=albers&srtext=Search
+
+
+require(mapdata,rnaturalworld)
+### 
+d <- ne_countries(scale = "large",
+             type = "countries",
+             country = "Japan",
+             returnclass = "sf")
+bb <- d$geometry %>% st_bbox()
+
+# get current proj 
+d %>% st_crs() # /sf
+d %>% crs() # /raster
+
+# transform proj options 
+crsn <- 3995 # 3995 3033
+plat <- 50
+plon <- 0
+prj <- paste0("+lat_0=",plat," +lon_0=",plon," +init=epsg:",crsn) # opt1
+prj <- "+init=epsg:4326" # opt2
+
+# transforming for diff data types
+ras@crs@projargs <- prj # raster
+dl %>% st_transform(prj) # shp
+
+
+dt <- d %>% st_transform("+proj=utm +zone=19 +ellps=GRS80 +datum=NAD83")
+dt <- d %>% st_transform(crsn)
+
+# quartz()
+p <- ggplot(data = d) +
+  geom_sf() +
+  coord_sf(crs = prj) # option 1 
+  coord_sf(crs = st_crs(crsn)) # option 2
+
+
+
+```
 

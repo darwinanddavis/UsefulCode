@@ -462,4 +462,59 @@ p <- ggplot(fdf) +
 p %>% prettify()
 ```
 
+### Plot benchmark results  
+https://stackoverflow.com/questions/29803253/r-extracting-coordinates-from-spatialpolygonsdataframe
+```{r,eval=F}
+res <- microbenchmark(raster::geom(atf_sp),
+                      ggplot2::fortify(atf_sp),
+                      spbabel::sptable(atf_sp),
+                      as.data.frame(as(as(atf_sp, "SpatialLinesDataFrame"),
+                                       "SpatialPointsDataFrame")))
+ggplot2::autoplot(res)
+```
+
+
+### Customise ggplot text with colours
+```{r}
+require(ggtext)
+ttl <- paste0("<span style='font-family: Avenir;'>Climate risk in Vietnam <br>
+<span style='font-size: 30pt'> Exposure of 
+  <span style='color:",colv1,";'>Coffee</span>, 
+  <span style='color:",colv2,";'>Cashew</span>, and 
+  <span style='color:",colv3,";'>Cassava</span>  
+  </span></span>") %>% purrr::map(htmltools::HTML)
+
+p + theme(plot.title = element_markdown(lineheight = 1)) + # add custom ggtext
+  labs(title = ttl) 
+
+# vlist <- c(coff,cash,cass)
+# lapply(vlist,function(x) {colnames(x) = rep(c('Index',"geometry"),times = vlist %>% length/2)})
+
+```
+
+### Flip and rotate plots
+```{r}
+# rotate 
+print(p, vp=viewport(angle=-30))
+p + coord_flip()
+p + scale_y_reverse()
+graphics.off()
+
+```
+
+### Fill plot view with image   
+```{r}
+require(png)
+require(jpeg)
+imgr <- img %>% readPNG()
+ggplot() +
+  annotation_raster(imgr, -Inf, Inf, -Inf, Inf)
+
+```
+
+### Fill geom with patterns/images 
+https://coolbutuseless.github.io/package/ggpattern/index.html  
+```{r}
+
+```
 
