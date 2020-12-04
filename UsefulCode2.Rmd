@@ -373,6 +373,15 @@ write.table(code,
 ```
 
 
+Extracting multiple nodes/range of nodes at once  
+```{r}
+# require(dplyr,rvest,xml2,readr,magrittr)
+url <- "https://www.postholer.com/databook/Appalachian-Trail/3"
+url %>% read_html() %>% html_nodes("table") %>% .[1:3]  # get range (node)
+url %>% read_html() %>% html_nodes("table") %>% .[[1]] # get individual (nodeset)
+```
+
+
 ### Interactive plots  
 Clickme, NVD3, Polychart, rCharts, Rickshaw, and xCharts in `R`.  
 [Link to collated Github page](https://github.com/darwinanddavis/rInteractive).    
