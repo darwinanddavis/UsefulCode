@@ -348,6 +348,18 @@ Merge/combine/match/fill rows of two data frames based on value and retain origi
 merge(a, b, by = "ID", sort = F) 
 ```
 
+### Google drive  
+
+Access files on Google Drive   
+Common commands: find, ls, mv, cp, mkdir, rm  
+http://googledrive.tidyverse.org/  
+```{r, eval=F}
+require(googledrive)
+drive_find(n_max=10) # set output limits
+drive_find(type = "folder")
+drive_get("~/Data/eli/feb.csv")
+```
+
 
 ### HTML code  
 
