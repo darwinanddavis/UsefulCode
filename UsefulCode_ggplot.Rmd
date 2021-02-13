@@ -445,7 +445,7 @@ p
 ```
 
 Make calendar plot  
-```{r}
+```{r, gg15}
 require(sugrrants)
 require(nycflights13)
 ff <- flights 
@@ -464,7 +464,7 @@ p %>% prettify()
 
 ### Plot benchmark results  
 https://stackoverflow.com/questions/29803253/r-extracting-coordinates-from-spatialpolygonsdataframe
-```{r,eval=F}
+```{r, gg16, eval=F}
 res <- microbenchmark(raster::geom(atf_sp),
                       ggplot2::fortify(atf_sp),
                       spbabel::sptable(atf_sp),
@@ -475,7 +475,7 @@ ggplot2::autoplot(res)
 
 
 ### Customise ggplot text with colours
-```{r}
+```{r, gg17, eval=F}
 require(ggtext)
 ttl <- paste0("<span style='font-family: Avenir;'>Climate risk in Vietnam <br>
 <span style='font-size: 30pt'> Exposure of 
@@ -493,7 +493,7 @@ p + theme(plot.title = element_markdown(lineheight = 1)) + # add custom ggtext
 ```
 
 ### Flip and rotate plots
-```{r}
+```{r, gg18, eval=F}
 # rotate 
 print(p, vp=viewport(angle=-30))
 p + coord_flip()
@@ -503,7 +503,7 @@ graphics.off()
 ```
 
 ### Fill plot view with image   
-```{r}
+```{r, gg19, eval=F}
 require(png)
 require(jpeg)
 imgr <- img %>% readPNG()
@@ -514,7 +514,31 @@ ggplot() +
 
 ### Fill geom with patterns/images 
 https://coolbutuseless.github.io/package/ggpattern/index.html  
-```{r}
+```{r, gg20, eval=F}
 
+```
+
+### Create custom geom
+
+```{r, gg21, eval=F}
+library(ggplot2)
+x <- 1:100
+
+my_geom_y <- function(yy, colour = "black"){
+  list(
+    geom_line(mapping = aes(y= yy), 
+              col = colour), 
+              data = data.frame(x, yy),
+    geom_point(mapping = aes(y = yy), 
+               col = colour, 
+               data = data.frame(x, yy))
+  )
+ }
+
+ggplot(mapping = aes(x))  + 
+  my_geom_y(x, "red") + 
+  my_geom_y(dlnorm(x), "blue") +
+  my_geom_y((x^1.1), "black") +
+  my_geom_y(x/2, "yellow")
 ```
 
