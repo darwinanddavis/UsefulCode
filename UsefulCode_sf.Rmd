@@ -112,7 +112,7 @@ Accessing sf, sp, geos,a nd geojson objects, such as attributes, accessing lower
 <!-- https://r-spatial.github.io/sf/articles/sf1.html -->
 <!-- https://nceas.github.io/oss-lessons/spatial-data-gis-law/3-mon-intro-gis-in-r.html -->
 
-## sf simple features  
+### sf simple features  
 Get bbox coords      
 ```{r,collapse=T}
 require(sf)
@@ -162,7 +162,7 @@ ggmap(gg, extent = "device", darken = c(0.9,"white")) +
 ```
 
 ### North arrow and scale bars  
-https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html  
+<!-- https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html   -->
 ```{r}
 library("ggspatial")
 ggplot(data = world) +
@@ -196,8 +196,8 @@ ggplot(data = world) +
 
 ```
 
-### Changing fonts in ggplot
-https://stackoverflow.com/questions/34522732/changing-fonts-in-ggplot2
+<!-- ### Changing fonts in ggplot -->
+<!-- https://stackoverflow.com/questions/34522732/changing-fonts-in-ggplot2 -->
 
 
 ### Projections  
@@ -245,4 +245,14 @@ p <- ggplot(data = d) +
 
 
 ```
+
+### KML/KMZ data  
+<!-- https://mitchellgritts.com/posts/load-kml-and-kmz-files-into-r/ -->
+```{r}
+require(sf)
+path <- "/data.kml" %>% sf::st_read() # single layer kml
+path <- "/data.kml" %>% sf::st_layers() # multi layer kml
+
+```
+
 

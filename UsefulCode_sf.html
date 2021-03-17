@@ -331,7 +331,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2020-11-13<br />
+<p>Date: 2021-03-17<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -342,9 +342,8 @@ This document can be found at <a href="https://github.com/darwinanddavis/UsefulC
 <!-- ideas -->
 <!-- https://r-spatial.github.io/sf/articles/sf1.html -->
 <!-- https://nceas.github.io/oss-lessons/spatial-data-gis-law/3-mon-intro-gis-in-r.html -->
-</div>
-<div id="sf-simple-features" class="section level2">
-<h2>sf simple features</h2>
+<div id="sf-simple-features" class="section level3">
+<h3>sf simple features</h3>
 <p>Get bbox coords</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(sf)
 <span class="kw">methods</span>(<span class="dt">class =</span> <span class="st">&quot;sf&quot;</span>)
@@ -355,6 +354,7 @@ obj<span class="op">$</span>geometry[<span class="dv">1</span>] <span class="op"
 obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_coordinates</span>() <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]  <span class="co"># coord range    </span></code></pre></div>
 <p>Get polygons (and range) in geometry layer</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]  <span class="co"># polygon range  </span></code></pre></div>
+</div>
 <div id="shp-files" class="section level3">
 <h3>.shp files</h3>
 <p>Read in .shp file</p>
@@ -372,6 +372,68 @@ shp &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class="s
 gg &lt;-<span class="st"> </span><span class="kw">get_map</span>(location, <span class="dt">source =</span> <span class="st">&quot;osm&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;bw&quot;</span>)
 
 <span class="kw">ggmap</span>(gg, <span class="dt">extent =</span> <span class="st">&quot;device&quot;</span>, <span class="dt">darken =</span> <span class="kw">c</span>(<span class="fl">0.9</span>, <span class="st">&quot;white&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(x, y))</code></pre></div>
+</div>
+<div id="north-arrow-and-scale-bars" class="section level3">
+<h3>North arrow and scale bars</h3>
+<!-- https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html   -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ggspatial&quot;</span>)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> world) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>() <span class="op">+</span><span class="st"> </span><span class="kw">annotation_scale</span>(<span class="dt">location =</span> <span class="st">&quot;bl&quot;</span>, <span class="dt">width_hint =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">annotation_north_arrow</span>(<span class="dt">location =</span> <span class="st">&quot;bl&quot;</span>, 
+    <span class="dt">which_north =</span> <span class="st">&quot;true&quot;</span>, <span class="dt">pad_x =</span> <span class="kw">unit</span>(<span class="fl">0.75</span>, <span class="st">&quot;in&quot;</span>), <span class="dt">pad_y =</span> <span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;in&quot;</span>), <span class="dt">style =</span> north_arrow_fancy_orienteering) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">coord_sf</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">102.15</span>, <span class="op">-</span><span class="fl">74.12</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">7.65</span>, <span class="fl">33.97</span>))
+
+## Scale on map varies by more than 10%, scale bar may be inaccurate</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># accessing coords in sf (complex) shp &lt;- here::here('worldmaps','data','day14.shp') %&gt;% readOGR() d</span>
+<span class="co"># &lt;- shp@data # df vars bb &lt;- shp@bbox #bbox ply &lt;- shp@polygons # polygons plyl &lt;- ply %&gt;%</span>
+<span class="co"># purrr::map(ggplot2::fortify) # melt polygon class names(plyl) &lt;- d$VARNAME_3 # get district name</span>
+<span class="co"># ggplot() + geom_polygon(data = ply_df[[600]], aes(long, lat))</span>
+
+<span class="co"># ply[[1]]@Polygons[[1]]@coords # works ply[[1]] %&gt;% attr(which='Polygons') %&gt;% purrr::map('coords')</span>
+<span class="co"># # works</span></code></pre></div>
+<!-- ### Changing fonts in ggplot -->
+<!-- https://stackoverflow.com/questions/34522732/changing-fonts-in-ggplot2 -->
+</div>
+<div id="projections" class="section level3">
+<h3>Projections</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># list of proj https://proj.org/operations/projections/patterson.html</span>
+<span class="co"># https://spatialreference.org/ref/?search=albers&amp;srtext=Search</span>
+
+
+<span class="kw">require</span>(mapdata, rnaturalworld)
+### 
+d &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">scale =</span> <span class="st">&quot;large&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;countries&quot;</span>, <span class="dt">country =</span> <span class="st">&quot;Japan&quot;</span>, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)
+bb &lt;-<span class="st"> </span>d<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_bbox</span>()
+
+<span class="co"># get current proj</span>
+d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_crs</span>()  <span class="co"># /sf</span>
+d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crs</span>()  <span class="co"># /raster</span>
+
+<span class="co"># transform proj options</span>
+crsn &lt;-<span class="st"> </span><span class="dv">3995</span>  <span class="co"># 3995 3033</span>
+plat &lt;-<span class="st"> </span><span class="dv">50</span>
+plon &lt;-<span class="st"> </span><span class="dv">0</span>
+prj &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;+lat_0=&quot;</span>, plat, <span class="st">&quot; +lon_0=&quot;</span>, plon, <span class="st">&quot; +init=epsg:&quot;</span>, crsn)  <span class="co"># opt1</span>
+prj &lt;-<span class="st"> &quot;+init=epsg:4326&quot;</span>  <span class="co"># opt2</span>
+
+<span class="co"># transforming for diff data types</span>
+ras<span class="op">@</span>crs<span class="op">@</span>projargs &lt;-<span class="st"> </span>prj  <span class="co"># raster</span>
+dl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(prj)  <span class="co"># shp</span>
+
+
+dt &lt;-<span class="st"> </span>d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(<span class="st">&quot;+proj=utm +zone=19 +ellps=GRS80 +datum=NAD83&quot;</span>)
+dt &lt;-<span class="st"> </span>d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(crsn)
+
+<span class="co"># quartz()</span>
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> d) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> prj)  <span class="co"># option 1 </span>
+<span class="kw">coord_sf</span>(<span class="dt">crs =</span> <span class="kw">st_crs</span>(crsn))  <span class="co"># option 2</span></code></pre></div>
+</div>
+<div id="kmlkmz-data" class="section level3">
+<h3>KML/KMZ data</h3>
+<!-- https://mitchellgritts.com/posts/load-kml-and-kmz-files-into-r/ -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(sf)
+path &lt;-<span class="st"> &quot;/data.kml&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>sf<span class="op">::</span><span class="kw">st_read</span>()  <span class="co"># single layer kml</span>
+path &lt;-<span class="st"> &quot;/data.kml&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>sf<span class="op">::</span><span class="kw">st_layers</span>()  <span class="co"># multi layer kml</span></code></pre></div>
 </div>
 </div>
 
