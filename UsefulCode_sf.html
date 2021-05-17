@@ -331,7 +331,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-04-19<br />
+<p>Date: 2021-05-17<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -488,6 +488,17 @@ polyg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fi
 <span class="kw">st_covered_by</span>()
 <span class="kw">st_equals_exact</span>()
 <span class="kw">st_is_within_distance</span>()</code></pre></div>
+</div>
+<div id="convert-dfnumericmatrix-to-geometry" class="section level3">
+<h3>Convert df/numeric/matrix to geometry</h3>
+<p>Convert points to linestring</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df1,df2,df3) <span class="op">%&gt;%</span><span class="st">   </span>
+<span class="st">    </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">st_linestring</span>(<span class="dt">dim =</span> <span class="st">&quot;XY&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert points to single linestring</span>
+<span class="st">    </span><span class="kw">st_sfc</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># convert sfg object to geometry </span></code></pre></div>
+<p>Convert each row in df to linestring</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df1, df2, df3) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">st_cast</span>(<span class="st">&quot;LINESTRING&quot;</span>)</code></pre></div>
 </div>
 </div>
 

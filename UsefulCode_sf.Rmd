@@ -316,4 +316,21 @@ st_equals_exact()
 st_is_within_distance()
 ```
 
+### Convert df/numeric/matrix to geometry
+
+Convert points to linestring
+```{r}
+inter_df <- rbind(df1,df2,df3) %>%   
+    as.matrix() %>%
+    st_linestring(dim = "XY") %>% # convert points to single linestring
+    st_sfc(crs = 4326) # convert sfg object to geometry 
+```
+
+Convert each row in df to linestring
+```{r}
+inter_df <- rbind(df1,df2,df3) %>%
+    st_as_sf(coords = c("lon","lat"), crs = 4326) %>% 
+    st_geometry() %>% 
+    st_cast("LINESTRING")
+```
 
