@@ -385,7 +385,9 @@ df$X[df$X<V] <- 0
 
 Check for `NAs`
 ```{r, NA3, results='hide',eval=F}
+df %>% sapply(is.na) %>% unique # check where NAs exist
 sapply(df, function(x) sum(is.na(x)))
+df %>% sapply(is.na) %>% sum # get total NAs
 ```
 
 Replace `NaN` and `Inf` values with `NA` 

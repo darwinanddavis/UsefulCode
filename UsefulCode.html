@@ -333,7 +333,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2020-09-11<br />
+<p>Date: 2021-05-21<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -556,7 +556,9 @@ df[<span class="kw">is.nan</span>(df)] &lt;-<span class="st"> </span><span class
 <p>Replace X values less than given value (V) with 0</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>X[df<span class="op">$</span>X <span class="op">&lt;</span><span class="st"> </span>V] &lt;-<span class="st"> </span><span class="dv">0</span></code></pre></div>
 <p>Check for <code>NAs</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(df, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sapply</span>(is.na) <span class="op">%&gt;%</span><span class="st"> </span>unique  <span class="co"># check where NAs exist</span>
+<span class="kw">sapply</span>(df, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))
+df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sapply</span>(is.na) <span class="op">%&gt;%</span><span class="st"> </span>sum  <span class="co"># get total NAs</span></code></pre></div>
 <p>Replace <code>NaN</code> and <code>Inf</code> values with <code>NA</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>col1[<span class="kw">which</span>(<span class="op">!</span><span class="kw">is.finite</span>(df<span class="op">$</span>col1))] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
 <p>Fill in missing data values in sequence with <code>NA</code></p>
