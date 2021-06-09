@@ -246,6 +246,13 @@ p <- ggplot(data = d) +
 
 ```
 
+Get projection info 
+```{r}
+crs_codes = rgdal::make_EPSG()[1:2] # get all espg code and info
+dplyr::filter(crs_codes, code == 27700) # pull espg name and code 
+```
+
+
 ### KML/KMZ data  
 <!-- https://mitchellgritts.com/posts/load-kml-and-kmz-files-into-r/ -->
 ```{r}

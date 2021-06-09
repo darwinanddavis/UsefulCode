@@ -328,6 +328,7 @@ Pipe vector to multiple arguments
 ```{r}
 require(dplyr)
 
+
 # as list
 Sys.time() %>% list(format(.,c(
   "%y-%m",
@@ -958,5 +959,16 @@ Convert character to hms format, esp for erraneous timedate data
 pacman::p_load(lubridate,hms)
 
 df %>% pull(var1) %>% as.factor %>% lubridate::hms() %>% period_to_seconds() %>% hms::as_hms() 
+```
+
+Timezone converter 
+```{r}
+# get local tz
+require(dplyr)
+require(lubridate)
+require(stringr)
+itz <- "2021-02-01T02:22:59.000Z"
+lubridate::ymd_hms(itz) %>% 
+  with_tz(OlsonNames()[OlsonNames() %>% str_which("Melb")])
 ```
 
