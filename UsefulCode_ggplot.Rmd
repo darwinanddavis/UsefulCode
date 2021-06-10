@@ -542,3 +542,16 @@ ggplot(mapping = aes(x))  +
   my_geom_y(x/2, "yellow")
 ```
 
+Highlight variables in plot 
+
+```{r}
+library(ggplot2)
+library(gghighlight)
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point(color = "red",
+             size=2) +
+  gghighlight(class == "midsize")
+```
+
+
+

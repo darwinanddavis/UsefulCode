@@ -642,6 +642,16 @@ rapply(ls, mean, how='unlist')  # unlist, replace, or list
 
 ```
 
+Apply function to list (without lapply)
+```{r, list7}
+require(lubridate)
+ft <- c(now(), now() %>% rollback(), now() %>%  rollback(roll_to_first = T))
+ftl <- ft %>% list(isoyear(.), epiyear(.), wday(.), wday(., label = T), qday(.), week(.), semester(.), 
+    am(.), pm(.))
+names(ftl) <- c("data", "international standard date-time code (ISO 8601)", "epidemiological year", "weekday", 
+    "weekday as label", "day into yearly quarter", "week of year", "semester", "AM?", "PM?")
+```
+
 
 ### Loading packages 
 `pacman`    
