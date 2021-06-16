@@ -333,7 +333,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-05-21<br />
+<p>Date: 2021-06-15<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -595,6 +595,10 @@ global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(globa
 <span class="co"># NA</span>
 global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(global_output, <span class="dt">f =</span> <span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.na</span>(x), 
     <span class="dv">0</span>, x), <span class="dt">how =</span> <span class="st">&quot;replace&quot;</span>)</code></pre></div>
+<p>Replace NaN with 0 using <code>dplyr</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">site<span class="op">$</span>layer <span class="op">%&gt;%</span><span class="st"> </span>head
+site &lt;-<span class="st"> &quot;day9_raster.Rda&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>readRDS <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_at</span>(<span class="st">&quot;layer&quot;</span>, 
+    <span class="op">~</span><span class="kw">replace</span>(., <span class="kw">is.nan</span>(.), <span class="dv">0</span>))</code></pre></div>
 </div>
 <div id="packages" class="section level3">
 <h3>Packages</h3>

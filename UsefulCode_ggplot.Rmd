@@ -553,5 +553,49 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
   gghighlight(class == "midsize")
 ```
 
+Set inner circle width for circular barplot
+```{r, eval = F}
+ylim <- 40
+ggplot() +
+  geom_histogram(data = d, 
+                 aes(xx,id,fill = yy), size = 0, position = "stack", stat = "identity", show.legend = F) + 
+  scale_fill_manual(values = adjustcolor(colv,1),aesthetics = c("col","fill")) + 
+  facet_wrap(~zz) +
+  theme_classic() +
+  coord_polar(start = 0.25) +
+  scale_x_continuous(breaks = 1:12, labels = xtick) +
+   # option 1
+  scale_y_continuous(expand = c(0.2,0)) +
+  # option 2
+  scale_y_continuous(limits = c(-10,NA), breaks = seq(0,ylim,ylim/4), labels = seq(0,ylim,ylim/4)) 
+  
+```
+
+Add histogram dist to boxplots (from Eli data)  
+```{r, eval = F}
+limits <- d$yy %>% unique
+colv <-  colorspace::sequential_hcl(limits, "Blues")
+require(ggdist)
+ggplot(data = d, aes(x = xx, y = yy, 
+                     col = yy, fill = yy
+                     )) +
+  geom_boxplot(outlier.color = NA) + # boxplot
+  geom_jitter(height = 0.2) + # jitter points
+  ggdist::stat_dots(binwidth = 0.2, # opt 1: dot plot
+                    side = "left", 
+                    justification = 1.1,
+                    col = NA) + 
+  ggdist::stat_halfeye(slab_type = "pdf",
+                       limits = c(1, NA), # rm data < 1
+                       adjust = 0.5, # opt 2: point dist
+                       width = 0.5, 
+                       .width = 0, # decrease iqr line width
+                       justification = -0.5, # move dist above box
+                       point_colour = NA) +
+  scale_y_discrete(limits=limits) + # reorder xaxis
+  scale_colour_manual(values = colv,aesthetics = "col", limits = limits, labels = limits) + # keep solid col for boxplot
+  scale_fill_manual(values = adjustcolor(colv,0.7), aesthetics = "fill",limits = limits, labels = limits) + # add alpha to boxplot fill
+  theme_classic()
+```
 
 

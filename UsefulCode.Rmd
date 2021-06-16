@@ -439,6 +439,15 @@ global_output <- rapply(global_output, f=function(x) ifelse(is.nan(x),0,x), how=
 global_output <- rapply(global_output, f=function(x) ifelse(is.na(x),0,x), how="replace" )
 ```
 
+Replace NaN with 0 using `dplyr`
+```{r, NA9, results='hide', eval=F}
+site$layer %>% head
+site <- "day9_raster.Rda" %>% 
+  readRDS %>% 
+  mutate_at("layer", ~replace(.,is.nan(.), 0))
+```
+
+
 ### Packages  
 [`rLandsat`](https://blog.socialcops.com/technology/data-science/announcing-rlandsat-landsat-8-data/)    
 Sourcing, requesting, and downloading NASA Landsat 8 satellite data.    

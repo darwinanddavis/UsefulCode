@@ -310,6 +310,17 @@ data.frame(z = rnorm(100)) %$%
   ts.plot(z)
 ```
 
+Apply function easily using `mutate_at`
+```{r}
+# eg 1
+df %>% 
+  mutate_at("var1", ~str_replace_all(.," ","<br>"))
+
+# eg 2
+df %>% 
+  mutate_at("layer", ~replace(.,is.nan(.), 0))
+```
+
 
 
 ### Generic functions 

@@ -242,7 +242,14 @@ p <- ggplot(data = d) +
   coord_sf(crs = prj) # option 1 
   coord_sf(crs = st_crs(crsn)) # option 2
 
-
+# proj in string format
+prj <- projection(pathm) # get proj in string format
+# site2 <- elevatr::get_elev_raster(city_df,
+#                                   z = zoom,
+#                                   prj = prj,
+#                                   expand = 3) %>%  # get elev raster
+#   rasterToPoints() %>% # convert to df
+#   as.data.frame  
 
 ```
 
