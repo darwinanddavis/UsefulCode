@@ -993,3 +993,20 @@ lubridate::ymd_hms(itz) %>%
   with_tz(OlsonNames()[OlsonNames() %>% str_which("Melb")])
 ```
 
+### Tables
+
+Summary tables  
+http://www.danieldsjoberg.com/gtsummary/
+```{r, eval = F}
+remotes::install_github("ddsjoberg/gtsummary")
+tbl_summary(
+    trial2,
+    by = trt, # split table by group
+    missing = "no" # don't list missing data separately
+  ) %>%
+  add_n() %>% # add column with total number of non-missing observations
+  add_p() %>% # test for a difference between groups
+  modify_header(label = "**Variable**") %>% # update the column header
+  bold_labels() 
+```
+
