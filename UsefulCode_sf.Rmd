@@ -255,8 +255,11 @@ prj <- projection(pathm) # get proj in string format
 
 Get projection info 
 ```{r}
-crs_codes = rgdal::make_EPSG()[1:2] # get all espg code and info
-dplyr::filter(crs_codes, code == 27700) # pull espg name and code 
+# find proj
+crs_codes = rgdal::make_EPSG() # get all espg code and info
+crs_codes %>% filter(code == 27700) %>% pull # pull espg name and code 
+crs_codes[crs_codes$note %>% str_which("Austra"),"code"]
+
 ```
 
 
