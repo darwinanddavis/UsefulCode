@@ -1,10 +1,8 @@
 ---
 title: Useful R code in `ggplot`
 author: |
- | Matthew Malishev^1^*
- |  
- | _^1^ Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322_
-#bibliography:/Users/malishev/Documents/Melbourne Uni/Thesis_2016/library.bib
+ | Matthew Malishev
+ | @darwinanddavis 
 fontsize: 10
 geometry: margin=1in
 documentclass: article
@@ -409,7 +407,6 @@ ggplot(snack_df,aes(X,Y)) +
 
 ```
 
-
 ### Pass variables as user arguments to plotting function 
 ```{r, gg13, eval =T}
 # http://www.rebeccabarter.com/blog/2020-02-05_rstudio_conf/
@@ -544,7 +541,7 @@ ggplot(mapping = aes(x))  +
 
 Highlight variables in plot 
 
-```{r}
+```{r, gg22, eval=T}
 library(ggplot2)
 library(gghighlight)
 ggplot(mpg, aes(x = cty, y = hwy)) +
@@ -554,7 +551,7 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
 ```
 
 Set inner circle width for circular barplot
-```{r, eval = F}
+```{r, gg23, eval=F}
 ylim <- 40
 ggplot() +
   geom_histogram(data = d, 
@@ -572,7 +569,7 @@ ggplot() +
 ```
 
 Add histogram dist to boxplots (from Eli data)  
-```{r, eval = F}
+```{r, gg24, eval = F}
 limits <- d$yy %>% unique
 colv <-  colorspace::sequential_hcl(limits, "Blues")
 require(ggdist)
@@ -597,5 +594,27 @@ ggplot(data = d, aes(x = xx, y = yy,
   scale_fill_manual(values = adjustcolor(colv,0.7), aesthetics = "fill",limits = limits, labels = limits) + # add alpha to boxplot fill
   theme_classic()
 ```
+
+
+### Custom shape for legend
+```{r, gg25, eval=T}
+# ?draw_key # see available glyphs 
+require(ggplot2)
+require(dplyr)
+require(colorspace)
+
+glyph <- "pointrange"
+df <- data.frame(xx = rep(1:5,each=3),
+                 yy = 1:15,
+                 group = rep(c("A","B","C"),each=5))
+ggplot(data=df,aes(xx,yy,col = group, fill = group)) + 
+  geom_line(key_glyph = "pointrange") + # set shape for legend
+  scale_fill_discrete_sequential(name = paste0(glyph, " legend"), "Reds", aesthetics = "col") +
+  theme_bw() +
+  guides(col = guide_legend(
+    override.aes = list(size = 1)  # set custom legend size 
+    ))
+```
+
 
 

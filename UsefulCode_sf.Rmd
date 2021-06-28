@@ -1,7 +1,8 @@
 ---
 title: Useful R code - sf and geodata  
 author: |
- | Matthew Malishev^1^*  
+ | Matthew Malishev
+ | @darwinanddavis 
 fontsize: 10
 geometry: margin=1in
 documentclass: article

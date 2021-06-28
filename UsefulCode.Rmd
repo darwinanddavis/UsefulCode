@@ -1,9 +1,8 @@
 ---
 title: Useful R code
 author: |
- | Matthew Malishev^1^*
- |  
- | _^1^ Department of Biology, Emory University, 1510 Clifton Road NE, Atlanta, GA, USA, 30322_
+ | Matthew Malishev
+ | @darwinanddavis  
 #bibliography:/Users/malishev/Documents/Melbourne Uni/Thesis_2016/library.bib
 fontsize: 10
 geometry: margin=1in
