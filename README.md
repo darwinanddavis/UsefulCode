@@ -9,15 +9,15 @@ Links to HTML versions
 
  
 
-### [Useful Code 2](htmlpreview.github.io/?https://github.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)
+### [Useful Code 2](https://darwinanddavis.github.io/UsefulCode/UsefulCode2.html)
 
  
 
-### [Useful Code in `ggplot`](htmlpreview.github.io/?https://github.com/darwinanddavis/UsefulCode/master/UsefulCode_ggplot.html)
+### [Useful Code in `ggplot`](https://darwinanddavis.github.io/UsefulCode/UsefulCode_ggplot.html)
 
  
 
-### [Useful Code - sf and geos](htmlpreview.github.io/?https://github.com/darwinanddavis/UsefulCode/master/UsefulCode_sf.html)
+### [Useful Code - sf and geos](https://darwinanddavis.github.io/UsefulCode/UsefulCode_sf.html)
 
  
 
