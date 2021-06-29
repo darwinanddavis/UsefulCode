@@ -68,17 +68,17 @@ vignette: >
 
 ## Links to HTML versions    
 
-### [Useful Code 1](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode.html)    
+### [Useful Code](htmlpreview.github.io/?https://github.com/darwinanddavis/UsefulCode/master/UsefulCode.html)    
 \  
 
-### [Useful Code 2](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)  
+### [Useful Code 2](htmlpreview.github.io/?https://github.com/darwinanddavis/UsefulCode/master/UsefulCode2.html)  
 \  
 
-### [Useful Code in `ggplot`](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode_ggplot.html)  
+### [Useful Code in `ggplot`](htmlpreview.github.io/?https://github.com/darwinanddavis/UsefulCode/master/UsefulCode_ggplot.html)  
 \    
 
-### [Useful Code - sf and geos](http://htmlpreview.github.com/?https://raw.githubusercontent.com/darwinanddavis/UsefulCode/master/UsefulCode_sf.html)  
-\  
+### [Useful Code - sf and geos](htmlpreview.github.io/?https://github.com/darwinanddavis/UsefulCode/master/UsefulCode_sf.html)  
+\    
 
 <!-- <script type="text/x-mathjax-config"> -->
 <!--   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } }); -->

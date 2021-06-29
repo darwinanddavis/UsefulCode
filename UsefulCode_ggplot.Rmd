@@ -616,5 +616,22 @@ ggplot(data=df,aes(xx,yy,col = group, fill = group)) +
     ))
 ```
 
+### Fine tune legend features e.g. text, padding, vertical/horizontal spacing       
+<!-- https://stackoverflow.com/questions/11366964/is-there-a-way-to-change-the-spacing-between-legend-items-in-ggplot2 -->
+```{r, gg26, eval=T}
+df <- data.frame(xx = sample(100, 100),
+                 yy = rnorm(100))
+ggplot(data=df,aes(xx,yy,col = yy, fill = yy)) +
+  geom_point() +
+  theme_classic() +
+  theme(legend.position = "bottom") +
+  # legend guide for colourbar
+  guides(fill = guide_colorbar(title = "Continuous",
+                               label.position ="left")) + 
+  # legend guid for categorical
+  guides(fill = guide_legend(title = "Categorical",
+                               label.position ="right"))
+  
+```
 
 
