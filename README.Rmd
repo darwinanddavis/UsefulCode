@@ -68,7 +68,7 @@ vignette: >
 
 ## Links to HTML versions    
 
-### [Useful Code](htmlpreview.github.io/?https://github.com/darwinanddavis/UsefulCode/master/UsefulCode.html)    
+### [Useful Code](https://darwinanddavis.github.io/UsefulCode/UsefulCode.html)    
 \  
 
 ### [Useful Code 2](https://darwinanddavis.github.io/UsefulCode/UsefulCode2.html)  

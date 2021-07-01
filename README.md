@@ -5,7 +5,7 @@ Useful `R` Code
 Links to HTML versions
 ----------------------
 
-### [Useful Code](htmlpreview.github.io/?https://github.com/darwinanddavis/UsefulCode/master/UsefulCode.html)
+### [Useful Code](https://darwinanddavis.github.io/UsefulCode/UsefulCode.html)
 
  
 
@@ -24,7 +24,7 @@ Links to HTML versions
 <!-- <script type="text/x-mathjax-config"> -->
 <!--   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } }); -->
 <!-- </script> -->
-Date: 2021-06-29
+Date: 2021-07-01
 
 `R` version: 3.5.0
 

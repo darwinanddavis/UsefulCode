@@ -263,7 +263,7 @@ ggplot() +
 ```
 
 ### Calling data frame columns with weird formatting 
-```{r,gg9}
+```{r,gg9, eval = F}
 # use ticks, not quotations
 
 require(ggplot2)

@@ -994,7 +994,7 @@ lubridate::ymd_hms(itz) %>%
 
 ### Tables
 
-Summary tables  
+Summary tables    
 http://www.danieldsjoberg.com/gtsummary/
 ```{r, eval = F}
 remotes::install_github("ddsjoberg/gtsummary")
@@ -1009,3 +1009,5 @@ tbl_summary(
   bold_labels() 
 ```
 
+
+<!-- possible solution for creating curved text (for polar plots)  - ?circos.text() -->
