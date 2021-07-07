@@ -115,7 +115,7 @@ Accessing sf, sp, geos,a nd geojson objects, such as attributes, accessing lower
 
 ### sf simple features  
 Get bbox coords      
-```{r,collapse=T}
+```{r, sf1, collapse=T}
 require(sf)
 methods(class="sf")
 obj$geometry %>% attr(which = "bbox")
@@ -123,14 +123,14 @@ obj$geometry %>% attr(which = "bbox")
 ```
 
 Get first element or range of sf  
-```{r}
+```{r, sf2}
 obj$geometry
 obj$geometry[1] %>% unlist %>% .[1] # first element
 obj %>% st_coordinates() %>% .[1:3] # coord range    
 ```
 
 Get polygons (and range) in geometry layer       
-```{r}
+```{r, sf3}
 obj %>% st_geometry() %>% .[1:10] # polygon range  
 ```
 
@@ -138,13 +138,13 @@ obj %>% st_geometry() %>% .[1:10] # polygon range
 ### .shp files    
 
 Read in .shp file    
-```{r, collapse=T}
+```{r, sf4, collapse=T}
 require(rgdal)# \ rgdal 
 shp <- readOGR(".shp", layer="X") # layer = name of geometry element
 ```
 
 Get and transform projection  
-```{r}
+```{r, sf5}
 require(rgdal)# \ rgdal 
 proj4string(shp) # get projection 
 spTransform(shp, CRS("+proj=longlat +datum=WGS84")) # transform projection 
@@ -152,7 +152,7 @@ spTransform(shp, CRS("+proj=longlat +datum=WGS84")) # transform projection
 
 ### Base maps       
 Base map from OSM    
-```{r}
+```{r, sf6}
 # osm 
 gg <- get_map(location,
               source="osm", 
@@ -164,7 +164,7 @@ ggmap(gg, extent = "device", darken = c(0.9,"white")) +
 
 ### North arrow and scale bars  
 <!-- https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html   -->
-```{r}
+```{r, sf7}
 library("ggspatial")
 ggplot(data = world) +
     geom_sf() +
@@ -179,7 +179,7 @@ ggplot(data = world) +
 
 
 
-```{r}
+```{r, sf8}
 
 # accessing coords in sf (complex)
 # shp <- here::here("worldmaps","data","day14.shp") %>% readOGR()
@@ -203,7 +203,7 @@ ggplot(data = world) +
 
 ### Projections  
 
-```{r}
+```{r, sf9}
 
 #list of proj 
 # https://proj.org/operations/projections/patterson.html
@@ -255,7 +255,7 @@ prj <- projection(pathm) # get proj in string format
 ```
 
 Get projection info 
-```{r}
+```{r, sf10}
 # find proj
 crs_codes = rgdal::make_EPSG() # get all espg code and info
 crs_codes %>% filter(code == 27700) %>% pull # pull espg name and code 
@@ -266,7 +266,7 @@ crs_codes[crs_codes$note %>% str_which("Austra"),"code"]
 
 ### KML/KMZ data  
 <!-- https://mitchellgritts.com/posts/load-kml-and-kmz-files-into-r/ -->
-```{r}
+```{r, sf11}
 require(sf)
 path <- "/data.kml" %>% sf::st_read() # single layer kml
 path <- "/data.kml" %>% sf::st_layers() # multi layer kml
@@ -275,7 +275,7 @@ path <- "/data.kml" %>% sf::st_layers() # multi layer kml
 
 
 ### Convert sp/sf/spdf data to data frame (fortify)  
-```{r}
+```{r, sf12}
 require(rworldmap)
 require(broom)
 d <- getMap(resolution = "high") # get world data
@@ -283,7 +283,7 @@ d_fort <- tidy(d, region = "NAME") # fortify
 ```
 
 ### Find intersecting geo points within sf objects
-```{r}
+```{r, sf13}
 require(osmdata)
 require(sf)
 get_osm_feature <- function(loc,key,value,geo){
@@ -318,7 +318,7 @@ ggplot() +
 ```
 
 Other predicate funcs for sf pairs
-```{r, eval = F}
+```{r, sf14, eval = F}
 st_intersects()
 st_disjoint()
 st_touches()
@@ -337,7 +337,7 @@ st_is_within_distance()
 ### Convert df/numeric/matrix to geometry
 
 Convert points to linestring
-```{r}
+```{r, sf15}
 inter_df <- rbind(df1,df2,df3) %>%   
     as.matrix() %>%
     st_linestring(dim = "XY") %>% # convert points to single linestring
@@ -345,7 +345,7 @@ inter_df <- rbind(df1,df2,df3) %>%
 ```
 
 Convert each row in df to linestring
-```{r}
+```{r, sf16}
 inter_df <- rbind(df1,df2,df3) %>%
     st_as_sf(coords = c("lon","lat"), crs = 4326) %>% 
     st_geometry() %>% 
