@@ -314,7 +314,7 @@ Apply function easily using `mutate_at`
 # eg 1
 df %>% 
   mutate_at("var1", ~str_replace_all(.," ","<br>"))
-
+  
 # eg 2
 df %>% 
   mutate_at("layer", ~replace(.,is.nan(.), 0))
