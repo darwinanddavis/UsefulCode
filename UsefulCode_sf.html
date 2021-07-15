@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-07-07<br />
+<p>Date: 2021-07-15<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -397,42 +397,55 @@ gg &lt;-<span class="st"> </span><span class="kw">get_map</span>(location, <span
 <div id="projections" class="section level3">
 <h3>Projections</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># list of proj https://proj.org/operations/projections/patterson.html</span>
+<span class="co">#list of proj </span>
+<span class="co"># https://proj.org/operations/projections/patterson.html</span>
 <span class="co"># https://spatialreference.org/ref/?search=albers&amp;srtext=Search</span>
 
-
-<span class="kw">require</span>(mapdata, rnaturalworld)
+<span class="kw">require</span>(mapdata,rnaturalworld)
 ### 
-d &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">scale =</span> <span class="st">&quot;large&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;countries&quot;</span>, <span class="dt">country =</span> <span class="st">&quot;Japan&quot;</span>, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)
+d &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">scale =</span> <span class="st">&quot;large&quot;</span>,
+             <span class="dt">type =</span> <span class="st">&quot;countries&quot;</span>,
+             <span class="dt">country =</span> <span class="st">&quot;Japan&quot;</span>,
+             <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)
 bb &lt;-<span class="st"> </span>d<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_bbox</span>()
 
-<span class="co"># get current proj</span>
-d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_crs</span>()  <span class="co"># /sf</span>
-d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crs</span>()  <span class="co"># /raster</span>
+<span class="co"># get current proj </span>
+d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_crs</span>() <span class="co"># /sf</span>
+d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crs</span>() <span class="co"># /raster</span>
 
-<span class="co"># transform proj options</span>
-crsn &lt;-<span class="st"> </span><span class="dv">3995</span>  <span class="co"># 3995 3033</span>
+<span class="co"># transform proj options </span>
+crsn &lt;-<span class="st"> </span><span class="dv">3995</span> <span class="co"># 3995 3033</span>
 plat &lt;-<span class="st"> </span><span class="dv">50</span>
 plon &lt;-<span class="st"> </span><span class="dv">0</span>
-prj &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;+lat_0=&quot;</span>, plat, <span class="st">&quot; +lon_0=&quot;</span>, plon, <span class="st">&quot; +init=epsg:&quot;</span>, crsn)  <span class="co"># opt1</span>
-prj &lt;-<span class="st"> &quot;+init=epsg:4326&quot;</span>  <span class="co"># opt2</span>
+prj &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;+lat_0=&quot;</span>,plat,<span class="st">&quot; +lon_0=&quot;</span>,plon,<span class="st">&quot; +init=epsg:&quot;</span>,crsn) <span class="co"># opt1</span>
+prj &lt;-<span class="st"> &quot;+init=epsg:4326&quot;</span> <span class="co"># opt2</span>
 
 <span class="co"># transforming for diff data types</span>
-ras<span class="op">@</span>crs<span class="op">@</span>projargs &lt;-<span class="st"> </span>prj  <span class="co"># raster</span>
-dl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(prj)  <span class="co"># shp</span>
+<span class="co"># raster</span>
+ras<span class="op">@</span>crs<span class="op">@</span>projargs &lt;-<span class="st"> </span>prj 
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert city_df to sp. NB need to set initial crs to one compatible with latlon coords, e.g. 4326  </span>
+<span class="st">    </span>sf<span class="op">::</span><span class="kw">st_transform</span>(<span class="dt">crs =</span> prj) <span class="co"># now transform proj</span>
+
+dl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(prj) <span class="co"># shp</span>
 
 
 dt &lt;-<span class="st"> </span>d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(<span class="st">&quot;+proj=utm +zone=19 +ellps=GRS80 +datum=NAD83&quot;</span>)
 dt &lt;-<span class="st"> </span>d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(crsn)
 
 <span class="co"># quartz()</span>
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> d) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> prj)  <span class="co"># option 1 </span>
-<span class="kw">coord_sf</span>(<span class="dt">crs =</span> <span class="kw">st_crs</span>(crsn))  <span class="co"># option 2</span>
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> d) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> prj) <span class="co"># option 1 </span>
+  <span class="kw">coord_sf</span>(<span class="dt">crs =</span> <span class="kw">st_crs</span>(crsn)) <span class="co"># option 2</span>
 
 <span class="co"># proj in string format</span>
-prj &lt;-<span class="st"> </span><span class="kw">projection</span>(pathm)  <span class="co"># get proj in string format</span>
-<span class="co"># site2 &lt;- elevatr::get_elev_raster(city_df, z = zoom, prj = prj, expand = 3) %&gt;% # get elev raster</span>
-<span class="co"># rasterToPoints() %&gt;% # convert to df as.data.frame</span></code></pre></div>
+prj &lt;-<span class="st"> </span><span class="kw">projection</span>(pathm) <span class="co"># get proj in string format</span>
+<span class="co"># site2 &lt;- elevatr::get_elev_raster(city_df,</span>
+<span class="co">#                                   z = zoom,</span>
+<span class="co">#                                   prj = prj,</span>
+<span class="co">#                                   expand = 3) %&gt;%  # get elev raster</span>
+<span class="co">#   rasterToPoints() %&gt;% # convert to df</span>
+<span class="co">#   as.data.frame  </span></code></pre></div>
 <p>Get projection info</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># find proj</span>
 crs_codes =<span class="st"> </span>rgdal<span class="op">::</span><span class="kw">make_EPSG</span>()  <span class="co"># get all espg code and info</span>
