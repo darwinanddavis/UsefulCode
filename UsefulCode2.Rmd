@@ -325,7 +325,7 @@ df %>%
 ### Generic functions 
 
 Convert character class to numeric (ideal when creating colour palettes to turn string cols in df to numeric)
-```{r}
+```{r, g1}
 require(dplyr)
 set.seed(12)
 df <- data.frame("X"=LETTERS[sample(20)])
@@ -335,9 +335,8 @@ df
 ```
 
 Pipe vector to multiple arguments  
-```{r}
+```{r, g2}
 require(dplyr)
-
 
 # as list
 Sys.time() %>% list(format(.,c(
@@ -355,15 +354,24 @@ Sys.time() %>% {
 ```
 
 Merge/combine/match/fill rows of two data frames based on value and retain original number of rows  
-```{r}
+```{r, g3}
 merge(a, b, by = "ID", sort = F) 
 ```
 
 Access vars in df/tibble that failed to load eg. time series that return NA 
-```{r}
+```{r, g4}
 # as tibble
 df %>% attr("problems")
 ```
+
+Search available methods for package
+```{r, g5}
+showMethods("coerce", classes = "sf")
+methods(st_as_sf)
+?methods 
+
+```
+
 
 ### Google drive  
 
@@ -661,15 +669,6 @@ ftl <- ft %>% list(isoyear(.), epiyear(.), wday(.), wday(., label = T), qday(.),
 names(ftl) <- c("data", "international standard date-time code (ISO 8601)", "epidemiological year", "weekday", 
     "weekday as label", "day into yearly quarter", "week of year", "semester", "AM?", "PM?")
 ```
-
-
-### Loading packages 
-`pacman`    
-```{r,load1}
-require(pacman)
-p_load(dplyr,mapdeck)
-```
-
 
 ### Plotting 
 
