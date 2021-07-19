@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-07-15<br />
+<p>Date: 2021-07-19<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -523,6 +523,56 @@ polyg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fi
 <p>Convert each row in df to linestring</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df1, df2, df3) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">st_cast</span>(<span class="st">&quot;LINESTRING&quot;</span>)</code></pre></div>
+</div>
+<div id="raster" class="section level3">
+<h3>Raster</h3>
+<p>Convert raster to various data stuctures</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame  <span class="co"># raster to df </span>
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>)  <span class="co"># raster to sp</span></code></pre></div>
+<p>Elevation profiles <!-- https://rdrr.io/cran/topoDistance/man/topoProfile.html --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pacman<span class="op">::</span><span class="kw">p_load</span>(topoDistance,elevatr)
+
+<span class="co"># elevation raster (country tiles) </span>
+elevp &lt;-<span class="st"> </span><span class="kw">getData</span>(<span class="st">'alt'</span>, <span class="dt">country=</span><span class="st">'FRA'</span>, <span class="dt">mask =</span> T)
+elevp<span class="op">$</span>FRA_msk_alt<span class="op">@</span>crs <span class="co"># crs</span>
+elevp<span class="op">$</span>FRA_msk_alt<span class="op">@</span>extent <span class="co"># bbox</span>
+
+<span class="co"># elevation raster</span>
+elevp2 &lt;-<span class="st"> </span>elevatr<span class="op">::</span><span class="kw">get_elev_raster</span>(city_df[,<span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>)], <span class="co"># get elev raster</span>
+                                   <span class="dt">z =</span> <span class="dv">3</span>,
+                                   prj &lt;-<span class="st"> &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>
+                                   <span class="co"># expand = 3</span>
+                                   ) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame 
+elevp2sf &lt;-<span class="st"> </span>elevp2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>,<span class="st">&quot;y&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># df to sf</span>
+
+<span class="co"># elevation points (usa only)</span>
+elevp3 &lt;-<span class="st"> </span>elevatr<span class="op">::</span><span class="kw">get_elev_point</span>(df,
+                        prj &lt;-<span class="st"> &quot;+init=epsg:4326&quot;</span>)
+elevp3_fort &lt;-<span class="st"> </span><span class="kw">tidy</span>(elevp3<span class="op">$</span>elevation, <span class="dt">region =</span> <span class="st">&quot;elevation&quot;</span>) <span class="co"># fortify </span>
+
+<span class="co"># convert raster to diff classes</span>
+elevdf &lt;-<span class="st"> </span>elevp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame <span class="co"># raster to df </span>
+elevdf &lt;-<span class="st"> </span>elevp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>,<span class="st">&quot;y&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># raster to sp</span>
+
+<span class="co"># convert lines to elev profile</span>
+pts &lt;-<span class="st"> </span>df[,<span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">SpatialPoints</span>() <span class="co"># df to points</span>
+elevpath &lt;-<span class="st"> </span><span class="kw">topoDist</span>(elevp,pts)
+<span class="kw">topoProfile</span>(elevp,sl,<span class="dt">pts =</span> <span class="dv">100</span>, <span class="dt">type =</span> <span class="st">&quot;base&quot;</span>) <span class="co"># generic elev profile plot</span>
+
+<span class="co"># plot</span>
+<span class="kw">qplot</span>(<span class="dt">data =</span> elevp2[<span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>,],x,layer,<span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)</code></pre></div>
+</div>
+<div id="spatial-class" class="section level3">
+<h3>Spatial class</h3>
+<p>Convert sf to spatiallines obj</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lns &lt;-<span class="st"> </span>df[, <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">Line</span>()  <span class="co"># df to lines</span>
+pts &lt;-<span class="st"> </span>df[, <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">SpatialPoints</span>()  <span class="co"># df to points</span>
+
+<span class="co"># sf to spatiallines</span>
+sl &lt;-<span class="st"> </span>sf<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_zm</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_Spatial</span>()  <span class="co"># opt 1</span>
+sl &lt;-<span class="st"> </span>sf<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_zm</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as</span>(<span class="st">&quot;Spatial&quot;</span>)  <span class="co"># opt 2</span></code></pre></div>
 </div>
 </div>
 

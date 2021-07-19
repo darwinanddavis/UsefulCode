@@ -355,3 +355,62 @@ inter_df <- rbind(df1,df2,df3) %>%
     st_cast("LINESTRING")
 ```
 
+### Raster
+
+Convert raster to various data stuctures  
+```{r, r1}
+ras %>% rasterToPoints() %>% as.data.frame # raster to df 
+ras %>% rasterToPoints() %>% as.data.frame %>% 
+  st_as_sf(coords = c("x","y"), crs = 4326) # raster to sp
+```
+
+
+Elevation profiles
+<!-- https://rdrr.io/cran/topoDistance/man/topoProfile.html -->
+```{r, r2}
+pacman::p_load(topoDistance,elevatr)
+
+# elevation raster (country tiles) 
+elevp <- getData('alt', country='FRA', mask = T)
+elevp$FRA_msk_alt@crs # crs
+elevp$FRA_msk_alt@extent # bbox
+
+# elevation raster
+elevp2 <- elevatr::get_elev_raster(city_df[,c("lon","lat")], # get elev raster
+                                   z = 3,
+                                   prj <- "+proj=longlat +datum=WGS84 +no_defs"
+                                   # expand = 3
+                                   ) %>%  
+  rasterToPoints() %>% as.data.frame 
+elevp2sf <- elevp2 %>% st_as_sf(coords = c("x","y"), crs = 4326) # df to sf
+
+# elevation points (usa only)
+elevp3 <- elevatr::get_elev_point(df,
+                        prj <- "+init=epsg:4326")
+elevp3_fort <- tidy(elevp3$elevation, region = "elevation") # fortify 
+
+# convert raster to diff classes
+elevdf <- elevp %>% rasterToPoints() %>% as.data.frame # raster to df 
+elevdf <- elevp %>% rasterToPoints() %>% as.data.frame %>% 
+  st_as_sf(coords = c("x","y"), crs = 4326) # raster to sp
+
+# convert lines to elev profile
+pts <- df[,c("lon","lat")] %>% as.matrix() %>% SpatialPoints() # df to points
+elevpath <- topoDist(elevp,pts)
+topoProfile(elevp,sl,pts = 100, type = "base") # generic elev profile plot
+
+# plot
+qplot(data = elevp2[1:10000,],x,layer,geom = "line")
+```
+
+### Spatial class
+Convert sf to spatiallines obj  
+```{r, sp1}
+lns <- df[,c("lon","lat")] %>% as.matrix() %>% Line() # df to lines
+pts <- df[,c("lon","lat")] %>% as.matrix() %>% SpatialPoints() # df to points
+
+# sf to spatiallines 
+sl <- sf$geometry %>% .[1] %>% st_zm() %>% as_Spatial() # opt 1
+sl <- sf$geometry %>% .[1] %>% st_zm() %>% as("Spatial") # opt 2
+```
+
