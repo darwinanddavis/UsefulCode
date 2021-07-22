@@ -608,7 +608,7 @@ df <- data.frame(xx = rep(1:5,each=3),
                  yy = 1:15,
                  group = rep(c("A","B","C"),each=5))
 ggplot(data=df,aes(xx,yy,col = group, fill = group)) + 
-  geom_line(key_glyph = "pointrange") + # set shape for legend
+  geom_line(key_glyph = glyph) + # set shape for legend
   scale_fill_discrete_sequential(name = paste0(glyph, " legend"), "Reds", aesthetics = "col") +
   theme_bw() +
   guides(col = guide_legend(
