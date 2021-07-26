@@ -994,7 +994,7 @@ lubridate::ymd_hms(itz) %>%
 ### Tables
 
 Summary tables    
-http://www.danieldsjoberg.com/gtsummary/
+<!-- http://www.danieldsjoberg.com/gtsummary/ -->
 ```{r, eval = F}
 remotes::install_github("ddsjoberg/gtsummary")
 tbl_summary(
