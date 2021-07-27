@@ -995,7 +995,7 @@ lubridate::ymd_hms(itz) %>%
 
 Summary tables    
 <!-- http://www.danieldsjoberg.com/gtsummary/ -->
-```{r, eval = F}
+```{r, table1, eval = F}
 remotes::install_github("ddsjoberg/gtsummary")
 tbl_summary(
     trial2,
