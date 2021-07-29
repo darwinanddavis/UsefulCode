@@ -753,8 +753,9 @@ Just from writing words with a pen
 <!-- close div -->
 </div> 
 
-***
 <!-- ———————————————————————————————————————————————————————————————————————————— -->
+\  
+\  
 
 Inserting text within indented equations    
 $$
@@ -769,27 +770,28 @@ HTML widget with plotly and crosstalk
 require(pacman)
 p_load(plotly,tidyr,crosstalk)
 
-m <- gather(mpg, variable, value, -c(year,cyl))
-msd <- highlight_key(m, ~variable)
-gg <- ggplot(m, aes(factor(year), value)) + 
+m <- gather(mpg, variable, value, -c(year,cyl)) # data source
+msd <- highlight_key(m, ~variable) # var to highlight 
+gg <- ggplot(m, aes(factor(year), value)) + # ggplot obj 
   geom_jitter(alpha = 0.3) +
   labs(x = "Year") +
   theme_classic()
 
+# create layout 
 bscols(
-  widths = c(11, rep(5,2)),
-  filter_select("id", "Select a variable", msd, ~variable, multiple = F),
+  widths = c(11, rep(5,2)), # max = 12
+  filter_select("id", "Select a variable", msd, ~variable, multiple = F), # dropdown menu
   ggplotly(gg, dynamicTicks = "y") %>% 
     layout(margin = list(l = 30)),
-  plot_ly(msd, x = ~jitter(cyl), y = ~value, alpha = ~cyl, linetype = NULL,
+  plot_ly(msd, x = ~jitter(cyl), y = ~value, alpha = ~cyl, linetype = NULL, 
           mode = "markers",
           hoverinfo = "text", 
           text = ~paste0("Cyl: ", round(cyl),
                         "\n",variable,": ", value,
                         "\nYear: ", year)
-          ) %>% 
+          ) %>% # interactive vars
     add_markers(alpha = 0.3) %>%
-    layout(xaxis = list(showgrid = F,
+    layout(xaxis = list(showgrid = F, # general plot params 
                         title = "Cylinder"),
            yaxis = list(showgrid = F)
     )
