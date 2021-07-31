@@ -878,7 +878,6 @@ library(crosstalk)
 
 # load mock data
 df <- readr::read_csv("/Users/malishev/Documents/Data/time_series/call_activity/call_activity.csv")
-df %>% head
 xinter <- seq(min(df$Date),max(df$Date),length.out = length(df$Date))
 
 # plot data
