@@ -209,6 +209,7 @@ ggplot(data = world) +
 # https://proj.org/operations/projections/patterson.html
 # https://spatialreference.org/ref/?search=albers&srtext=Search
 
+
 require(mapdata,rnaturalworld)
 ### 
 d <- ne_countries(scale = "large",
