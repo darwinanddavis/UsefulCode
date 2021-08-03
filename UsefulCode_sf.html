@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-08-02<br />
+<p>Date: 2021-08-03<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -574,6 +574,31 @@ pts &lt;-<span class="st"> </span>df[, <span class="kw">c</span>(<span class="st
 <span class="co"># sf to spatiallines</span>
 sl &lt;-<span class="st"> </span>sf<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_zm</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_Spatial</span>()  <span class="co"># opt 1</span>
 sl &lt;-<span class="st"> </span>sf<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_zm</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as</span>(<span class="st">&quot;Spatial&quot;</span>)  <span class="co"># opt 2</span></code></pre></div>
+</div>
+<div id="globe-maps" class="section level3">
+<h3>Globe maps</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pacman<span class="op">::</span><span class="kw">p_load</span>(rnaturalearth,dplyr,sf)
+
+inset_globe &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="st">&quot;medium&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;sovereignty&quot;</span>, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>) <span class="co"># %&gt;% </span>
+  <span class="co"># filter(!continent %in% c(&quot;Africa&quot;,&quot;Europe&quot;))</span>
+inset_countries &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="st">&quot;medium&quot;</span>, <span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;United States of America&quot;</span>,<span class="st">&quot;Australia&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;sovereignty&quot;</span>, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>) 
+crsn &lt;-<span class="st"> </span><span class="dv">2163</span>  
+plat &lt;-<span class="st"> </span><span class="dv">5</span>
+plon &lt;-<span class="st"> </span><span class="dv">180</span>
+inset_prj &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;+lat_0=&quot;</span>,plat,<span class="st">&quot; +lon_0=&quot;</span>,plon,<span class="st">&quot; +init=epsg:&quot;</span>,crsn) <span class="co"># set centered projection</span>
+
+inset_globe &lt;-<span class="st"> </span>inset_globe <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(inset_prj)
+inset_countries &lt;-<span class="st"> </span>inset_countries <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(inset_prj)
+inset_flight &lt;-<span class="st"> </span>inter_df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(inset_prj) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>() <span class="co"># convert into sf  </span>
+
+gp &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> inset_globe, <span class="dt">fill =</span> <span class="kw">adjustcolor</span>(fg,<span class="fl">0.7</span>), <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> inset_countries, <span class="dt">fill =</span> <span class="kw">adjustcolor</span>(flight_col,<span class="fl">0.7</span>), <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_my_sf</span>(inset_flight,flight_col,<span class="fl">0.5</span>,<span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="co"># melb to la flight</span>
+<span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> inset_prj) <span class="op">+</span>
+<span class="st">  </span><span class="co"># theme(plot.background = element_rect(fill = &quot;transparent&quot;)) +</span>
+<span class="st">  </span><span class="kw">theme_nothing</span>()
+gp</code></pre></div>
 </div>
 </div>
 

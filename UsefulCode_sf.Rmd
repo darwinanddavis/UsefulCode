@@ -415,3 +415,31 @@ sl <- sf$geometry %>% .[1] %>% st_zm() %>% as_Spatial() # opt 1
 sl <- sf$geometry %>% .[1] %>% st_zm() %>% as("Spatial") # opt 2
 ```
 
+
+### Globe maps
+
+```{r, globe1}
+pacman::p_load(rnaturalearth,dplyr,sf)
+
+inset_globe <- ne_countries("medium", type = "sovereignty", returnclass = "sf") # %>% 
+  # filter(!continent %in% c("Africa","Europe"))
+inset_countries <- ne_countries("medium", country = c("United States of America","Australia"), type = "sovereignty", returnclass = "sf") 
+crsn <- 2163  
+plat <- 5
+plon <- 180
+inset_prj <- paste0("+lat_0=",plat," +lon_0=",plon," +init=epsg:",crsn) # set centered projection
+
+inset_globe <- inset_globe %>% st_transform(inset_prj)
+inset_countries <- inset_countries %>% st_transform(inset_prj)
+inset_flight <- inter_df1 %>% st_transform(inset_prj) %>% st_as_sf() # convert into sf  
+
+gp <- ggplot() +
+  geom_sf(data = inset_globe, fill = adjustcolor(fg,0.7), col = NA, size = 0.1) + 
+  geom_sf(data = inset_countries, fill = adjustcolor(flight_col,0.7), col = NA, size = 0.1) +
+  geom_my_sf(inset_flight,flight_col,0.5,3) + # melb to la flight
+  coord_sf(crs = inset_prj) +
+  # theme(plot.background = element_rect(fill = "transparent")) +
+  theme_nothing()
+gp
+```
+
