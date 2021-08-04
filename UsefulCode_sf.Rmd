@@ -134,17 +134,23 @@ Get polygons (and range) in geometry layer
 obj %>% st_geometry() %>% .[1:10] # polygon range  
 ```
 
+Remove specific sf types from sf obj
+```{r, sf4}
+obj %>% st_collection_extract("POINT") # get just points
+obj %>% st_geometry %>% st_collection_extract("POINT") # get geometry of just points
+```
+
 
 ### .shp files    
 
 Read in .shp file    
-```{r, sf4, collapse=T}
+```{r, s1, collapse=T}
 require(rgdal)# \ rgdal 
 shp <- readOGR(".shp", layer="X") # layer = name of geometry element
 ```
 
 Get and transform projection  
-```{r, sf5}
+```{r, s2}
 require(rgdal)# \ rgdal 
 proj4string(shp) # get projection 
 spTransform(shp, CRS("+proj=longlat +datum=WGS84")) # transform projection 

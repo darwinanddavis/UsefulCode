@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-08-03<br />
+<p>Date: 2021-08-04<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -355,6 +355,9 @@ obj<span class="op">$</span>geometry[<span class="dv">1</span>] <span class="op"
 obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_coordinates</span>() <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]  <span class="co"># coord range    </span></code></pre></div>
 <p>Get polygons (and range) in geometry layer</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]  <span class="co"># polygon range  </span></code></pre></div>
+<p>Remove specific sf types from sf obj</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_collection_extract</span>(<span class="st">&quot;POINT&quot;</span>)  <span class="co"># get just points</span>
+obj <span class="op">%&gt;%</span><span class="st"> </span>st_geometry <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_collection_extract</span>(<span class="st">&quot;POINT&quot;</span>)  <span class="co"># get geometry of just points</span></code></pre></div>
 </div>
 <div id="shp-files" class="section level3">
 <h3>.shp files</h3>
