@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-08-04<br />
+<p>Date: 2021-08-06<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -365,7 +365,7 @@ obj <span class="op">%&gt;%</span><span class="st"> </span>st_geometry <span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(rgdal)  <span class="co"># \ rgdal </span>
 shp &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class="st">&quot;.shp&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;X&quot;</span>)  <span class="co"># layer = name of geometry element</span></code></pre></div>
 <p>Get and transform projection</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(rgdal)  <span class="co"># \ rgdal </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(rgdal)  <span class="co"># \ rgdal   </span>
 <span class="kw">proj4string</span>(shp)  <span class="co"># get projection </span>
 <span class="kw">spTransform</span>(shp, <span class="kw">CRS</span>(<span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>))  <span class="co"># transform projection </span></code></pre></div>
 </div>

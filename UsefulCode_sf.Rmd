@@ -151,7 +151,7 @@ shp <- readOGR(".shp", layer="X") # layer = name of geometry element
 
 Get and transform projection  
 ```{r, s2}
-require(rgdal)# \ rgdal 
+require(rgdal)# \ rgdal   
 proj4string(shp) # get projection 
 spTransform(shp, CRS("+proj=longlat +datum=WGS84")) # transform projection 
 ```
@@ -179,11 +179,9 @@ ggplot(data = world) +
         pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"),
         style = north_arrow_fancy_orienteering) +
     coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97))
-
+  
 ## Scale on map varies by more than 10%, scale bar may be inaccurate
 ```
-
-
 
 ```{r, sf8}
 
@@ -206,7 +204,6 @@ ggplot(data = world) +
 <!-- ### Changing fonts in ggplot -->
 <!-- https://stackoverflow.com/questions/34522732/changing-fonts-in-ggplot2 -->
 
-
 ### Projections  
 
 ```{r, sf9}
@@ -214,7 +211,6 @@ ggplot(data = world) +
 #list of proj 
 # https://proj.org/operations/projections/patterson.html
 # https://spatialreference.org/ref/?search=albers&srtext=Search
-
 
 require(mapdata,rnaturalworld)
 ### 
