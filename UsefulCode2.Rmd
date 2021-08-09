@@ -285,6 +285,21 @@ gapminder %>%
   filter(year == 1992) %>% 
   summarise(LifeExpect = median(lifeExp)) -> life_cont_1992
 
+# rename specific cols
+df %>% 
+  rename(.cols = 2:5, # only rename these cols
+         "Country" = 2,
+         "Gold" = 3,
+         "Silver" = 4,
+         "Bronze" = 5)
+
+# replace case when values based on numeric range
+df %>% 
+  mutate(var1 = case_when(
+      between(var2, 1, 5) ~ "A",
+      between(var2, 6, 10) ~ "B",
+      T ~ var1)
+      )
 
 ```
 
@@ -761,6 +776,12 @@ Inserting text within indented equations
 $$
 p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1  
 $$
+
+Remove white space around imgs using `fig.asp`
+```{r,fig.asp=0.50}
+
+```
+
 
 ### `plotly`     
 
