@@ -779,7 +779,7 @@ $$
 
 Remove white space around imgs using `fig.asp`
 ```{r,fig.asp=0.50}
-
+  
 ```
 
 
