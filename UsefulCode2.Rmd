@@ -387,6 +387,11 @@ methods(st_as_sf)
 
 ```
 
+Get object size
+```{r}
+df %>% object.size()
+```
+
 
 ### Google drive  
 
@@ -983,6 +988,13 @@ Detect strings in data frame or vector based on partial pattern. Useful when you
 ```{r}
 df_names <- df %>% pull(var1) %>% unique
 df %>% filter(var1 == df_names[str_detect(df_names,"va")]) # use partial string to pull df col
+
+# dplyr version
+iris %>% select(starts_with("Sepal"),
+                contain("Sepal"),
+                matches("Sepal")
+                )
+
 ```
 
 
