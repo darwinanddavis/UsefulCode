@@ -140,9 +140,7 @@ obj %>% st_collection_extract("POINT") # get just points
 obj %>% st_geometry %>% st_collection_extract("POINT") # get geometry of just points
 ```
 
-
 ### .shp files    
-
 Read in .shp file    
 ```{r, s1, collapse=T}
 require(rgdal)# \ rgdal 
@@ -419,7 +417,7 @@ sl <- sf$geometry %>% .[1] %>% st_zm() %>% as("Spatial") # opt 2
 
 
 ### Globe maps
-
+Hi-res globe map
 ```{r, globe1}
 pacman::p_load(rnaturalearth,dplyr,sf)
 
