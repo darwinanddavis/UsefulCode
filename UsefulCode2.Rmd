@@ -336,7 +336,7 @@ df %>%
 ```
 
 Expand/fill df by number of repeat instances 
-<!-- https://stackoverflow.com/questions/2894775/repeat-each-row-of-data-frame-the-number-of-times-specified-in-a-column -->
+<!-- https://stackoverflow.com/questions/2894775/repeat-each-row-of-data-frame-the-number-of-times-specified-in-a-column -->  
 ```{r, dplyr4}
 require(tidyr)
 df %>% select(v1,v2,v3) %>% 
