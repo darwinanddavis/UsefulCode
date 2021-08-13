@@ -304,7 +304,7 @@ df %>%
 ```
 
 Execute unfriendly pipe functions inline in pipes       
-```{r}
+```{r, dplyr2}
 require(palmerpenguins)
 require(dplyr)
 p <- penguins
@@ -325,7 +325,7 @@ data.frame(z = rnorm(100)) %$%
 ```
 
 Apply function easily using `mutate_at`
-```{r}
+```{r, dplyr3}
 # eg 1
 df %>% 
   mutate_at("var1", ~str_replace_all(.," ","<br>"))
@@ -335,6 +335,15 @@ df %>%
   mutate_at("layer", ~replace(.,is.nan(.), 0))
 ```
 
+Expand/fill df by number of repeat instances 
+<!-- https://stackoverflow.com/questions/2894775/repeat-each-row-of-data-frame-the-number-of-times-specified-in-a-column -->
+```{r, dplyr4}
+require(tidyr)
+df %>% select(v1,v2,v3) %>% 
+  melt() %>%
+  tidyr::uncount(value) %>% # expand df by no. of instances (value from melted table)
+  select(variable,v1) # reorder for colpal
+```
 
 
 ### Generic functions 

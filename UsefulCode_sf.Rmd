@@ -134,7 +134,7 @@ Get polygons (and range) in geometry layer
 obj %>% st_geometry() %>% .[1:10] # polygon range  
 ```
 
-Remove specific sf types from sf obj
+Remove or keep/select specific sf types from sf obj
 ```{r, sf4}
 obj %>% st_collection_extract("POINT") # get just points
 obj %>% st_geometry %>% st_collection_extract("POINT") # get geometry of just points
