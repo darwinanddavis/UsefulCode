@@ -345,9 +345,6 @@ Display status message of progress
 ```{r, message1, results='hide',eval=F}
 for(i in 1:10) {
   Sys.sleep(0.2)
-  # Dirk says using cat() like this is naughty ;-)
-  #cat(i,"\r")
-  # So you can use message() like this, thanks to Sharpie's
   # comment to use appendLF=FALSE.
   message(i,"\r",appendLF=FALSE) # appendLF = new line 
   flush.console()

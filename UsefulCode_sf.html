@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-08-11<br />
+<p>Date: 2021-08-16<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -355,7 +355,7 @@ obj<span class="op">$</span>geometry[<span class="dv">1</span>] <span class="op"
 obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_coordinates</span>() <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]  <span class="co"># coord range    </span></code></pre></div>
 <p>Get polygons (and range) in geometry layer</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]  <span class="co"># polygon range  </span></code></pre></div>
-<p>Remove specific sf types from sf obj</p>
+<p>Remove or keep/select specific sf types from sf obj</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_collection_extract</span>(<span class="st">&quot;POINT&quot;</span>)  <span class="co"># get just points</span>
 obj <span class="op">%&gt;%</span><span class="st"> </span>st_geometry <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_collection_extract</span>(<span class="st">&quot;POINT&quot;</span>)  <span class="co"># get geometry of just points</span></code></pre></div>
 </div>
@@ -563,7 +563,7 @@ elevdf &lt;-<span class="st"> </span>elevp <span class="op">%&gt;%</span><span c
 pts &lt;-<span class="st"> </span>df[,<span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">SpatialPoints</span>() <span class="co"># df to points</span>
 elevpath &lt;-<span class="st"> </span><span class="kw">topoDist</span>(elevp,pts)
 <span class="kw">topoProfile</span>(elevp,sl,<span class="dt">pts =</span> <span class="dv">100</span>, <span class="dt">type =</span> <span class="st">&quot;base&quot;</span>) <span class="co"># generic elev profile plot</span>
-
+   
 <span class="co"># plot</span>
 <span class="kw">qplot</span>(<span class="dt">data =</span> elevp2[<span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>,],x,layer,<span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)</code></pre></div>
 </div>

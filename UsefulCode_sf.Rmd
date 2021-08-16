@@ -399,7 +399,7 @@ elevdf <- elevp %>% rasterToPoints() %>% as.data.frame %>%
 pts <- df[,c("lon","lat")] %>% as.matrix() %>% SpatialPoints() # df to points
 elevpath <- topoDist(elevp,pts)
 topoProfile(elevp,sl,pts = 100, type = "base") # generic elev profile plot
-
+   
 # plot
 qplot(data = elevp2[1:10000,],x,layer,geom = "line")
 ```
