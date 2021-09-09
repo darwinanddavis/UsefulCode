@@ -150,7 +150,108 @@ colv <- c("#004616",sequential_hcl(5,"Lajolla"))
 str_sub(colv,0,1) <- "#66" # add alpha opac to col vector
 ```
 
-    
+### Chord diagrams
+<!-- from olympics.R data viz eg -->
+```{r, chord1}
+require(circlize,reshape2,tidyr)
+
+# use either melted df or table
+dtab <- df %>% # opt1
+    dcast(var1~var2, fill = 0) %>% 
+    melt() %>%
+    uncount(value)
+dtab <- df %>% table() # opt2
+
+# plot pars
+  par(mar = rep(2, 4),mfrow = c(1, 1))
+  circos.clear()
+  circos.par(start.degree = -180, # chord setup 
+             gap.degree = 2, track.margin = c(-0.1, 0.1), 
+             points.overflow.warning = F,
+             track.height = 0.2)
+  circos.par(cell.padding =c(0.02, 0, 0.02, 0))
+  
+  # plot 
+  chordDiagram(dtab,
+               grid.col = colpal,
+               transparency = 0.3,
+               directional = 1, # 1 = link origin is from sectors
+               diffHeight  = -0.05,
+               # link.border = "#FFFFFF",
+               annotationTrack = c("grid"
+                                   # ,"name" # to check name placment
+               ),
+               annotationTrackHeight = c(0.05, 0.1),
+               big.gap = 5, small.gap = 2, # gaps between sectors
+               link.sort = F, # order links are drawn
+               link.decreasing = T, # define link overlap
+               link.largest.ontop = T,
+               preAllocateTracks = list(track.height = 0.1)
+               # symmetric = F
+               # scale = F # weight links equally
+  )
+
+```
+
+Add custom labels
+```{r, chord2}
+
+# after initiating plot (see above)
+  ylim <- 0.85
+  im <- 0.6
+  circos.track(track.index = 1,  
+               panel.fun = function(x,y){ # add text labels
+                 sector_index = get.cell.meta.data("sector.numeric.index")
+                 circos.text(x = CELL_META$xcenter, 
+                             y = ylim, 
+                             # remove medal labels
+                             labels = CELL_META$sector.index,
+                             facing = "clockwise", niceFacing = T, cex = im, col = col_lab
+                 )}
+               , bg.border = NA) # set bg to NA
+```
+
+
+Use custom raster images as sector labels    
+```{r, chord3}
+require(magick)
+
+# create img labels
+img <- "img.png"
+img_convert <- function(img){
+  imgr <- img %>% magick::image_read() %>% as.raster() # convert img to raster layer
+  imgr[imgr == "#002163ff"] <- col_lab # change main img color
+  imgr %>% return()
+}
+
+imgl <- c(as.list(rep(img,dtab$var1 %>% unique %>% length))) # match imgs to no of chord sectors
+imglist <- lapply(imgl,img_convert) # apply convert to raster func
+imgtab <- c(as.list(rep(NA,n)),imglist) # optional: rm first n images from sectors   
+names(imgtab) <- get.all.sector.index() # get names from plot sector indices 
+
+ylim <- 3
+im <- "7mm"
+circos.track(track.index = 1, 
+             for(si in seq_along(get.all.sector.index())){ # apply event img to each sector index
+               circos.raster(x = CELL_META$xcenter, #0.5,
+                             y = ylim,
+                             sector.index = get.all.sector.index()[si],
+                             image = imgtab[[si]], # add image
+                             width = im, height = im,
+                             facing = "downward")
+             },
+             panel.fun = function(x,y){ # add text labels
+               circos.text(x = CELL_META$xcenter, # center label
+                           y = ylim/3,
+                           labels =  CELL_META$sector.index,
+                           facing = "clockwise", niceFacing = T,
+                           cex = 0.5, col = col_lab,
+                           adj = c(0, 0.5) # nudge xy position
+               )}
+             , bg.border = NA) # set bg to NA
+
+```
+
 ### D3      
 
 Links    
@@ -243,6 +344,20 @@ p <- penguins
 plot_str(p)
 ```
 
+Convert df row values to columns and lengthen df (ideal for tables/matrix inputs)
+<!-- from olympics dataviz -->
+```{r, d3}
+# convert each distinct value in var2 into new column while maintaining var1
+require(reshape2)
+require(tidyr)
+d1 <- df %>% dcast(var1~var2, fill = 0) # fill NAs with 0
+
+d1 %>%
+  melt() %>%
+  tidyr::uncount(value) %>% # lengthen df by each row value
+```
+
+
 ### `dplyr` basics 
 ```{r,dplyr1}
 require(dplyr,gapminder)
@@ -253,9 +368,6 @@ africa_ranked <- mutate(gapminder,
        "African" = continent == "Africa",
        "RankPop" = rank(desc(pop))
        ) 
-
-africa_ranked %>% glimpse() # visualise the data
-africa_ranked %>% filter(continent=="Africa") %>% glimpse # visualise just africa
 
 # summarise data into one line  
 gapminder %>% 
@@ -268,16 +380,10 @@ gapminder %>%
 gapminder %>%  
   summarise(median(lifeExp))
 
-# filter
-require(gapminder)
-gapminder %>% 
-  filter(continent == "Africa") 
-
 # group by 
 gapminder %>%  
   group_by(continent) %>% 
   summarise(median(lifeExp))
-
 
 # group by continent and filter by year
 gapminder %>% 
@@ -300,6 +406,12 @@ df %>%
       between(var2, 6, 10) ~ "B",
       T ~ var1)
       )
+# classic case when
+df %>% 
+  mutate_at("var1",funs(
+    case_when(var1 == 1 ~ "alt1",
+              var1 == 2 ~ "alt2",
+              T ~ "alt3")))
 
 ```
 
@@ -343,6 +455,14 @@ df %>% select(v1,v2,v3) %>%
   melt() %>%
   tidyr::uncount(value) %>% # expand df by no. of instances (value from melted table)
   select(variable,v1) # reorder for colpal
+```
+
+Arrange df col by custom order
+```{r}
+var_levels <- c("A","C","B") # custom order
+df %>% 
+  mutate("var1" = factor(var1, levels = var_levels)) %>% 
+  arrange(var1) 
 ```
 
 
