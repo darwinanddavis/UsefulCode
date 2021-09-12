@@ -432,7 +432,7 @@ inset_globe <- ne_countries("medium", type = "sovereignty", returnclass = "sf") 
   # filter(!continent %in% c("Africa","Europe"))
 inset_countries <- ne_countries("medium", country = c("United States of America","Australia"), type = "sovereignty", returnclass = "sf") 
 crsn <- 2163  
-plat <- 5
+plat <- 5   
 plon <- 180
 inset_prj <- paste0("+lat_0=",plat," +lon_0=",plon," +init=epsg:",crsn) # set centered projection
 
