@@ -458,13 +458,19 @@ df %>% select(v1,v2,v3) %>%
 ```
 
 Arrange df col by custom order
-```{r}
+```{r, dplyr5}
 var_levels <- c("A","C","B") # custom order
+
+# opt 1
+df %>% 
+  filter(var1 %in% var_levels) %>% 
+  arrange(var1 = factor(var1,levels = var_levels))
+
+# with mutate
 df %>% 
   mutate("var1" = factor(var1, levels = var_levels)) %>% 
   arrange(var1) 
 ```
-
 
 ### Generic functions 
 
