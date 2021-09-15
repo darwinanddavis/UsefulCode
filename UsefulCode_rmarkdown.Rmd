@@ -1,0 +1,191 @@
+---
+title: Useful R code — `RMarkdown`  
+author: |
+ | Matthew Malishev
+ | @darwinanddavis 
+fontsize: 10
+geometry: margin=1in
+documentclass: article
+linkcolor: pink
+urlcolor: blue
+citecolor: red
+always_allow_html: yes
+output:
+  html_document:
+    highlight: tango
+    code_folding: show
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
+  md_document: 
+    variant: markdown_github
+  pdf_document:
+    includes:
+      in_header: # add .tex file with header content
+    highlight: tango
+    template: null
+    toc: yes
+    toc_depth: 4
+    number_sections: false
+    fig_width: 4
+    fig_height: 5
+    fig_caption: true
+    df_print: tibble 
+    citation_package: biblatex # natbib
+    latex_engine: xelatex #pdflatex # lualatex
+    keep_tex: true # keep .tex file in dir 
+  word_document:
+    highlight: tango
+    keep_md: yes
+    pandoc_args: --smart
+    #reference: mystyles.docx
+    toc: yes
+    toc_depth: 4
+inludes:
+  before_body: before_body.tex
+subtitle: 
+tags:
+- nothing
+- nothingness
+params: 
+  dir: "/Users/malishev/Documents/Melbourne Uni/Programs/R code/UsefulCode"
+  date: !r Sys.Date()
+  version: !r getRversion()
+  email: "matthew.malishev@gmail.com"
+  doi: https://github.com/darwinanddavis/UsefulCode
+classoption: portrait
+# ^['https://github.com/darwinanddavis/UsefulCode'] # footnote
+vignette: >
+  %\VignetteIndexEntry{Useful R code}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
+</script>
+
+```{r echo = FALSE}
+ library(rmarkdown)
+# setwd("")
+# f <- list.files()[1]
+# render(f, output_format='pdf_document')
+# render(f, output_format='pdf_document')
+```
+
+```{r, set-options, echo = F, cache = FALSE}
+options(width=100)
+knitr::opts_chunk$set(
+ eval = F, # run all code
+ results='hide',
+ echo = T, # show code chunks in output
+ comment = "",
+ tidy.opts=list(width.cutoff=100), # set width of code chunks in output
+ tidy=TRUE, # make output as tidy
+ message = FALSE,  # mask all messages
+ warning = FALSE, # mask all warnings 
+ size="small" # set code chunk size
+)
+
+# https://github.com/ucb-stat133/stat133-fall-2016/blob/master/hws/hw02-tables-ggplot.Rmd
+knitr::opts_knit$set(root.dir=paste0(params$dir,"/")) # set working dir
+
+setwd(paste0(params$dir,"/")) # for running just in R not knitr
+```
+
+\  
+
+Date: `r params$date`  
+`R` version: `r params$version`  
+*Corresponding author: `r params$email`  
+This document can be found at `r params$doi`
+
+\newpage  
+
+## Overview
+
+Useful functions and code snippets for building `RMarkdown` docs. _All `R` code is in Rmd file._       
+
+
+<!-- ———————————————————————————————————————————————————————————————————————————— -->
+***  
+### Split page into three columns (displays best in browser).  
+_`R` code is in Rmd file._    
+
+<!-- #https://holtzy.github.io/Pimp-my-rmd/ -->
+<div class = "row">
+
+<div class = "col-md-4">
+```{r, rmarkdown1, message=F, echo=T, eval=T}
+# r plot code
+require(ggplot2)
+ggplot(mtcars, aes(x=mpg)) + 
+  geom_histogram(fill="skyblue", alpha=0.5) + 
+  theme_classic()
+```
+</div>
+  
+<div class = "col-md-4">
+<br><br>  
+
+>Praise the lord, I was born to travel  
+>Feeling like Slash in front of the chapel  
+>I'm leaned back with the Les Paul  
+>Shit I smoke is like cholesterol  
+>Spilled dressin' on the vest at the festival  
+>The best of all, had a midget Puerto Rican at my beckon call
+
+</div>
+  
+<div class = "col-md-4">
+<br><br>
+Pump the bass in the trunk  
+It rattled like a baby hand  
+Except this toy cost 80 grand  
+And I'm crazy tan, from all the places that I've been  
+Just from writing words with a pen  
+
+</div>
+<!-- close div -->
+</div> 
+
+<!-- ———————————————————————————————————————————————————————————————————————————— -->
+\  
+\  
+
+### Inserting text within indented equations    
+$$
+p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1  
+$$
+
+### Remove white space around imgs using `fig.asp`
+`{r,fig.asp=0.50}`  
+
+### Read external Rmd chunks   
+<!-- https://stackoverflow.com/questions/52397430/include-code-from-an-external-r-script-run-in-display-both-code-and-output -->
+
+**Option 1**  
+Add this to code chunk: `{r, code = readLines("file.R")}`  
+
+**Option 2**
+<!-- live example in 'olympics.Rmd' -->
+```{r, eval = F, message=F}
+# load r datasets and code chunks 
+require(dplyr)
+paste0(params$here) %>% 
+  list.files("r",full.names = T) %>%
+  sapply(knitr::read_chunk)
+
+# or 
+knitr::read_chunk('external.R')
+```
+
+Then in 'external.R' file, add the following header line:   
+`# @knitr external`    
+Then use add this line to the code chunk in the main Rmd file:   
+`<<external>>`  
+
+
+### Knit an .R file script    
+<!-- https://twitter.com/jamespwr/status/1389916296171724803 -->
