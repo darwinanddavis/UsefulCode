@@ -408,6 +408,8 @@ ggplot(snack_df,aes(X,Y)) +
 ```
 
 ### Pass variables as user arguments to plotting function 
+
+Option 1  
 ```{r, gg13, eval =T}
 # http://www.rebeccabarter.com/blog/2020-02-05_rstudio_conf/
 require(tidyverse);require(dplyr)
@@ -423,6 +425,30 @@ plotMidwestTidy(popdensity, poptotal) +
   theme_bw()
 ```
 
+Option 2
+Can't use character class as user argument   
+```{r,gg13b, eval=F, echo = T}
+require(ggplot2)
+my_theme <- theme_classic()
+colour_var <- "class"
+facet_var <- "drv"
+
+ggplot(mpg) +
+  geom_point(aes(displ, hwy, colour = colour_var)) +
+  facet_wrap(vars(facet_var)) + my_theme
+```
+
+Placing `.data` in front of your variables and wrapping them with double square braces '[[]]' solves this.    
+```{r, eval = T}
+require(ggplot2)
+my_theme <- theme_classic()
+colour_var <- "class"
+facet_var <- "drv"
+
+ggplot(mpg) +
+  geom_point(aes(displ, hwy, colour = .data[[colour_var]])) +
+  facet_wrap(vars(.data[[facet_var]])) + my_theme
+```
 
 ### Use conditional statements in `ggplot` objects  
 ```{r,gg14,eval=T}

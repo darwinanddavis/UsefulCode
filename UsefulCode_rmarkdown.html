@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-09-15<br />
+<p>Date: 2021-09-16<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -406,6 +406,13 @@ Then use add this line to the code chunk in the main Rmd file:<br />
 <div id="knit-an-.r-file-script" class="section level3">
 <h3>Knit an .R file script</h3>
 <!-- https://twitter.com/jamespwr/status/1389916296171724803 -->
+</div>
+<div id="execute-r-code-in-yaml" class="section level3">
+<h3>Execute R code in yaml</h3>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">params:</span>
+  <span class="fu">date:</span><span class="at"> !r Sys.Date()</span>
+  <span class="fu">email:</span><span class="at"> Your email here</span>
+  <span class="fu">version:</span><span class="at"> !r getRversion()</span></code></pre></div>
 </div>
 </div>
 

@@ -189,3 +189,13 @@ Then use add this line to the code chunk in the main Rmd file:
 
 ### Knit an .R file script    
 <!-- https://twitter.com/jamespwr/status/1389916296171724803 -->
+
+### Execute R code in yaml
+
+```{yaml}
+params:
+  date: !r Sys.Date()
+  email: Your email here
+  version: !r getRversion()
+```
+
