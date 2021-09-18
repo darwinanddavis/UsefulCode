@@ -199,3 +199,78 @@ params:
   version: !r getRversion()
 ```
 
+
+### Execute `R` code using yaml parameteres
+Execute R code from yaml within HTML body   
+```{yaml}
+params:
+  imgdir: "data/plots"
+```
+
+```{html}
+# add to rmd
+<img src=`r sample(list.files(params$imgdir, full.names = T),1)`>
+```
+
+### Change colour of tabs (pills)  
+
+```{html}
+<!-- css for tabs -->
+<style type="text/css">
+
+.nav>li>a{
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.nav-pills>li>a:hover{
+  background: `r params$primary`;
+  color: `r params$secondary`;
+  opacity:0.7;
+}
+
+.nav-pills>li>a:focus, .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+  background: `r params$primary`;
+  background-color: `r params$primary`;
+}
+
+</style>
+```
+
+```{markdown}
+# add to rmd
+# Your title {.tabset .tabset-fade .tabset-pills}  
+
+```
+
+
+
+## Icons  
+
+### Feather icons 
+
+Add feather icons to Rmd
+<!-- (see footer.html in Olympics example) -->
+```{html}
+# add to rmd or external html e.g. 'footer.html' 
+<!-- feather icons -->
+<script src="https://unpkg.com/feather-icons"></script>
+
+<p style="text-align: center;">
+    	<i data-feather="github"></i> 
+  </p>
+
+<!-- feather icons -->
+<script>
+feather.replace()
+</script>
+```
+
+```{html}
+# add to rmd
+<center><i data-feather="chevron-down" class="arrow"></i></center>
+```
+
+
+

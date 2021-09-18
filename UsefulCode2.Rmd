@@ -258,6 +258,7 @@ Links
 - [](https://github.com/d3/d3/wiki/Gallery)  
 - [](https://bl.ocks.org/mbostock)  
 - [](https://vida.io/explore)  
+- [](https://daranzolin.github.io/software/)   
 
 
 D3 and leaflet  
@@ -325,6 +326,24 @@ r2d3(data = cal,
 ```
 
 <!-- ![](img/d3_2.jpg) -->
+
+Raindrop D3 animate chart 
+<!-- https://daranzolin.github.io/software/ -->
+```{r, d33, eval = F}
+# library(d3rain)
+
+df %>% 
+  d3rain(var_category, var_numeric, 
+         toolTip = var_colour) %>% 
+  drip_settings(dripSequence = 'iterate',
+                ease = 'bounce',
+                jitterWidth = 20,
+                dripSpeed = 1000,
+                dripFill = colpal) %>% 
+  chart_settings(fontFamily = font,
+                 yAxisTickLocation = 'left')
+```
+
 
 
 ### Data frames  
