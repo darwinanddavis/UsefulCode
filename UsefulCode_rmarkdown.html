@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-09-16<br />
+<p>Date: 2021-09-19<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -445,7 +445,7 @@ Then use add this line to the code chunk in the main Rmd file:<br />
 <span class="kw">}</span>
 
 <span class="kw">&lt;/style&gt;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode md"><code class="sourceCode markdown"><span class="fu"># add to rmd</span>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu"># add to rmd</span>
 <span class="fu"># Your title {.tabset .tabset-fade .tabset-pills}  </span></code></pre></div>
 </div>
 </div>
@@ -454,19 +454,21 @@ Then use add this line to the code chunk in the main Rmd file:<br />
 <div id="feather-icons" class="section level3">
 <h3>Feather icons</h3>
 <p>Add feather icons to Rmd <!-- (see footer.html in Olympics example) --></p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"># add to rmd or external html e.g. 'footer.html' 
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="co">&lt;!-- for external html e.g. 'footer.html' --&gt;</span>
 <span class="co">&lt;!-- feather icons --&gt;</span>
 <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://unpkg.com/feather-icons&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
 
+<span class="co">&lt;!-- plot icon --&gt;</span>
 <span class="kw">&lt;p</span><span class="ot"> style=</span><span class="st">&quot;text-align: center;&quot;</span><span class="kw">&gt;</span>
         <span class="kw">&lt;i</span><span class="ot"> data-feather=</span><span class="st">&quot;github&quot;</span><span class="kw">&gt;&lt;/i&gt;</span> 
   <span class="kw">&lt;/p&gt;</span>
 
+<span class="co">&lt;!-- append to end of html file  --&gt;</span>  
 <span class="co">&lt;!-- feather icons --&gt;</span>
 <span class="kw">&lt;script&gt;</span>
 <span class="va">feather</span>.<span class="at">replace</span>()
 <span class="kw">&lt;/script&gt;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"># add to rmd
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="co">&lt;!-- add to rmd --&gt;</span>
 <span class="kw">&lt;center&gt;&lt;i</span><span class="ot"> data-feather=</span><span class="st">&quot;chevron-down&quot;</span><span class="ot"> class=</span><span class="st">&quot;arrow&quot;</span><span class="kw">&gt;&lt;/i&gt;&lt;/center&gt;</span></code></pre></div>
 </div>
 </div>
