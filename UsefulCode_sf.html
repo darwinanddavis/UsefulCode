@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-09-12<br />
+<p>Date: 2021-09-20<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -463,7 +463,8 @@ crs_codes[crs_codes<span class="op">$</span>note <span class="op">%&gt;%</span><
 <!-- https://mitchellgritts.com/posts/load-kml-and-kmz-files-into-r/ -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(sf)
 path &lt;-<span class="st"> &quot;/data.kml&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>sf<span class="op">::</span><span class="kw">st_read</span>()  <span class="co"># single layer kml</span>
-path &lt;-<span class="st"> &quot;/data.kml&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>sf<span class="op">::</span><span class="kw">st_layers</span>()  <span class="co"># multi layer kml</span></code></pre></div>
+path &lt;-<span class="st"> &quot;/data.kml&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>sf<span class="op">::</span><span class="kw">st_layers</span>()  <span class="co"># multi layer kml</span>
+<span class="co"># for kmz, change .kmz to .zip, then unzip and read as kml</span></code></pre></div>
 </div>
 <div id="convert-spsfspdf-data-to-data-frame-fortify" class="section level3">
 <h3>Convert sp/sf/spdf data to data frame (fortify)</h3>

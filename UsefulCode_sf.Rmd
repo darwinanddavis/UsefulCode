@@ -281,7 +281,7 @@ crs_codes[crs_codes$note %>% str_which("Austra"),"code"]
 require(sf)
 path <- "/data.kml" %>% sf::st_read() # single layer kml
 path <- "/data.kml" %>% sf::st_layers() # multi layer kml
-
+# for kmz, change .kmz to .zip, then unzip and read as kml
 ```
 
 

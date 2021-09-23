@@ -660,3 +660,10 @@ ggplot(data=df,aes(xx,yy,col = yy, fill = yy)) +
   
 ```
 
+Toggle legend when using `scale_*_()` functions
+```{r, gg27, eval=F}
+ggplot() + 
+  geom_point(data = df, aes(fill = var1)) + 
+scale_fill_manual(values = colpal, aesthetics = "fill", guide = F) # T/F to toggle show legend 
+```
+
