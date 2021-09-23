@@ -243,9 +243,7 @@ params:
 # Your title {.tabset .tabset-fade .tabset-pills}  
 
 ```
-
-
-
+  
 ## Icons  
 
 ### Feather icons 
@@ -272,6 +270,23 @@ feather.replace()
 ```{html}
 <!-- add to rmd -->
 <center><i data-feather="chevron-down" class="arrow"></i></center>
+```
+
+## Pimping  
+### Add star ratings to HTML    
+<!-- https://tanho63.github.io/fivestars/ -->
+```{r, stars, eval = T}
+# install.packages("fivestars", repos = "https://tanho63.r-universe.dev")
+library(fivestars)
+# set css params
+use_fivestars(
+  star_size = "15px", # default is "larger"
+  star_color = "#001785", # default
+  star_background = "#999" # default
+)
+
+# example 1
+fivestars(rating = 3.5)
 ```
 
 

@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-09-19<br />
+<p>Date: 2021-09-24<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -470,6 +470,24 @@ Then use add this line to the code chunk in the main Rmd file:<br />
 <span class="kw">&lt;/script&gt;</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="co">&lt;!-- add to rmd --&gt;</span>
 <span class="kw">&lt;center&gt;&lt;i</span><span class="ot"> data-feather=</span><span class="st">&quot;chevron-down&quot;</span><span class="ot"> class=</span><span class="st">&quot;arrow&quot;</span><span class="kw">&gt;&lt;/i&gt;&lt;/center&gt;</span></code></pre></div>
+</div>
+</div>
+<div id="pimping" class="section level2">
+<h2>Pimping</h2>
+<div id="add-star-ratings-to-html" class="section level3">
+<h3>Add star ratings to HTML</h3>
+<!-- https://tanho63.github.io/fivestars/ -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;fivestars&quot;, repos = &quot;https://tanho63.r-universe.dev&quot;)</span>
+<span class="kw">library</span>(fivestars)
+<span class="co"># set css params</span>
+<span class="kw">use_fivestars</span>(
+  <span class="dt">star_size =</span> <span class="st">&quot;15px&quot;</span>, <span class="co"># default is &quot;larger&quot;</span>
+  <span class="dt">star_color =</span> <span class="st">&quot;#001785&quot;</span>, <span class="co"># default</span>
+  <span class="dt">star_background =</span> <span class="st">&quot;#999&quot;</span> <span class="co"># default</span>
+)
+
+<span class="co"># example 1</span>
+<span class="kw">fivestars</span>(<span class="dt">rating =</span> <span class="fl">3.5</span>)</code></pre></div>
 </div>
 </div>
 
