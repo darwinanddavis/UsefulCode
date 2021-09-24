@@ -882,6 +882,15 @@ list.files(pattern=
 "algae_0_15_hostpop50_predpop150_rep5.R"
 ```
 
+GUI for regex (2021)    
+`RegExplain`  
+https://www.garrickadenbuie.com/project/regexplain/  
+```{r, reg2}
+devtools::install_github("gadenbuie/regexplain")
+source("https://install-github.me/gadenbuie/regexplain")
+```
+
+
 ### `plotly`     
 
 HTML widget with plotly and crosstalk
