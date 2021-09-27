@@ -411,6 +411,12 @@ topoProfile(elevp,sl,pts = 100, type = "base") # generic elev profile plot
 qplot(data = elevp2[1:10000,],x,layer,geom = "line")
 ```
 
+Summarise raster layers
+```{r}
+cellStats(raster,stat = "min",na.rm = T) # summarise raster layers
+```
+
+
 ### Spatial class
 Convert sf to spatiallines obj  
 ```{r, sp1}

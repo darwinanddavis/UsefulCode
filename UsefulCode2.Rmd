@@ -1032,7 +1032,7 @@ ggplotly(p)
 calls_person <- highlight_key(df, ~Hour)
 person_person <- highlight_key(df)
 
-pp <- bscols(
+pp <- bscols(  
   widths = 12,
   p1 <- plot_ly(df, 
                 x = ~Date,
