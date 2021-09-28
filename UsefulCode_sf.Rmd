@@ -456,3 +456,38 @@ gp <- ggplot() +
 gp
 ```
 
+### Read .gpx files (GPS track software/apps)  
+```{r}
+pacman::p_load(XML,lubridate)
+fd <- "/Volumes/Matt_timemachine/maptracks/2021/sep/sam/gpx/"
+fh <- "day182.gpx"
+gpx1 <- paste0(fd,fh) %>%  # parse gpx file
+  htmlTreeParse(error = function(...) {}, useInternalNodes = T)
+elev <- as.numeric(xpathSApply(gpx1, path = "//trkpt/ele", xmlValue))
+times <- xpathSApply(gpx1, path = "//trkpt/time", xmlValue)
+coord <- xpathSApply(gpx1, path = "//trkpt", xmlAttrs)
+
+city_df <- tibble(lat = coord["lat",] %>% as.numeric(), 
+                  lon = coord["lon",] %>% as.numeric(),
+                  elev = elev, 
+                  time = times %>% ymd_hms()  
+                  )
+
+# elev profile 
+ggplot(data = city_df) +
+  geom_line(aes(time,elev)) +
+  scale_x_datetime(date_breaks = "6 hours"
+                   # date_minor_breaks = "1 hour", # optional
+                   # date_labels = "%M%D" # full month and year
+  )
+
+
+# convert gpx coords to linestring
+pathgpx <- city_df %>% 
+  dplyr::select(lat,lon) %>% 
+  st_as_sf(coords = c("lon","lat"), crs = 4326) %>%
+  st_geometry() %>%
+  st_cast("LINESTRING")
+
+```
+
