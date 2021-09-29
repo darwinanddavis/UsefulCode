@@ -353,6 +353,14 @@ inter_df <- rbind(df1,df2,df3) %>%
     as.matrix() %>%
     st_linestring(dim = "XY") %>% # convert points to single linestring
     st_sfc(crs = 4326) # convert sfg object to geometry 
+
+# option 2
+pathm <- city_df %>% 
+  dplyr::select(lat,lon) %>% 
+  as.matrix() %>% # convert points to linestring
+  st_linestring(dim = "XY") %>% 
+  st_sfc(crs = 4326) %>% # convert sfg object to geometry 
+
 ```
 
 Convert each row in df to linestring
@@ -485,9 +493,23 @@ ggplot(data = city_df) +
 # convert gpx coords to linestring
 pathgpx <- city_df %>% 
   dplyr::select(lat,lon) %>% 
-  st_as_sf(coords = c("lon","lat"), crs = 4326) %>%
-  st_geometry() %>%
-  st_cast("LINESTRING")
+  as.matrix() %>% # convert points to linestring
+  st_linestring(dim = "XY") %>% 
+  st_sfc(crs = 4326) %>% # convert sfg object to geometry 
+  st_transform(crs = 4326) # then convert projection
 
+
+```
+
+### Combine, join, union sf objects  
+
+Combine multiple sf/sfc geometries into one  
+```{r}
+pathm <- c()
+for(pid in multipath){
+  path <- kmldata %>% st_read(layer = multipath[pid])
+  pathm <- rbind(pathm,path)
+}
+patht <- st_combine(pathm) # combine separated geometries into one geometry 
 ```
 

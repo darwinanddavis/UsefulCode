@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-09-28<br />
+<p>Date: 2021-09-29<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -526,7 +526,14 @@ polyg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fi
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df1,df2,df3) <span class="op">%&gt;%</span><span class="st">   </span>
 <span class="st">    </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">st_linestring</span>(<span class="dt">dim =</span> <span class="st">&quot;XY&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert points to single linestring</span>
-<span class="st">    </span><span class="kw">st_sfc</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># convert sfg object to geometry </span></code></pre></div>
+<span class="st">    </span><span class="kw">st_sfc</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># convert sfg object to geometry </span>
+
+<span class="co"># option 2</span>
+pathm &lt;-<span class="st"> </span>city_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(lat,lon) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert points to linestring</span>
+<span class="st">  </span><span class="kw">st_linestring</span>(<span class="dt">dim =</span> <span class="st">&quot;XY&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">st_sfc</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert sfg object to geometry </span></code></pre></div>
 <p>Convert each row in df to linestring</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df1, df2, df3) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">st_cast</span>(<span class="st">&quot;LINESTRING&quot;</span>)</code></pre></div>
@@ -629,7 +636,6 @@ city_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class
 <span class="co"># elev profile </span>
 <span class="kw">ggplot</span>(<span class="dt">data =</span> city_df) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(time,elev)) <span class="op">+</span>
-<span class="st">  </span><span class="co"># geom_point(aes(time,lon)) +</span>
 <span class="st">  </span><span class="kw">scale_x_datetime</span>(<span class="dt">date_breaks =</span> <span class="st">&quot;6 hours&quot;</span>
                    <span class="co"># date_minor_breaks = &quot;1 hour&quot;, # optional</span>
                    <span class="co"># date_labels = &quot;%M%D&quot; # full month and year</span>
@@ -639,9 +645,20 @@ city_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class
 <span class="co"># convert gpx coords to linestring</span>
 pathgpx &lt;-<span class="st"> </span>city_df <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(lat,lon) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">st_cast</span>(<span class="st">&quot;LINESTRING&quot;</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert points to linestring</span>
+<span class="st">  </span><span class="kw">st_linestring</span>(<span class="dt">dim =</span> <span class="st">&quot;XY&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">st_sfc</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert sfg object to geometry </span>
+<span class="st">  </span><span class="kw">st_transform</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># then convert projection</span></code></pre></div>
+</div>
+<div id="combine-join-union-sf-objects" class="section level3">
+<h3>Combine, join, union sf objects</h3>
+<p>Combine multiple sf/sfc geometries into one</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pathm &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (pid <span class="cf">in</span> multipath) {
+    path &lt;-<span class="st"> </span>kmldata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_read</span>(<span class="dt">layer =</span> multipath[pid])
+    pathm &lt;-<span class="st"> </span><span class="kw">rbind</span>(pathm, path)
+}
+patht &lt;-<span class="st"> </span><span class="kw">st_combine</span>(pathm)  <span class="co"># combine separated geometries into one geometry </span></code></pre></div>
 </div>
 </div>
 
