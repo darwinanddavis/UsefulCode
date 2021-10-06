@@ -465,7 +465,7 @@ gp
 ```
 
 ### Read .gpx files (GPS track software/apps)  
-```{r}
+```{r, gpx1}
 pacman::p_load(XML,lubridate)
 fd <- "/Volumes/Matt_timemachine/maptracks/2021/sep/sam/gpx/"
 fh <- "day182.gpx"
@@ -497,14 +497,14 @@ pathgpx <- city_df %>%
   st_linestring(dim = "XY") %>% 
   st_sfc(crs = 4326) %>% # convert sfg object to geometry 
   st_transform(crs = 4326) # then convert projection
-
+  
 
 ```
 
 ### Combine, join, union sf objects  
 
 Combine multiple sf/sfc geometries into one  
-```{r}
+```{r, join1}
 pathm <- c()
 for(pid in multipath){
   path <- kmldata %>% st_read(layer = multipath[pid])
