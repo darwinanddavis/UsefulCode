@@ -114,11 +114,6 @@ require(colorspace)
 hcl_palettes(plot = TRUE) # show all palettes
 ```
 
-```{r,echo=F}
-require(dplyr)
-```
-
-
 ```{r, col1_}
 # https://cran.r-project.org/web/packages/colorspace/vignettes/colorspace.html
 require(colorspace)
@@ -149,6 +144,15 @@ require(stringr)
 colv <- c("#004616",sequential_hcl(5,"Lajolla"))
 str_sub(colv,0,1) <- "#66" # add alpha opac to col vector
 ```
+
+Lighten/darken colours  
+<!-- https://colorspace.r-forge.r-project.org/articles/manipulation_utilities.html -->
+```{r, col4}
+require(colorspace)  
+"#EFEFEF" %>% lighten(0.2)
+"#EFEFEF" %>% darken(0.2)
+```
+
 
 ### Chord diagrams
 <!-- from olympics.R data viz eg -->
@@ -490,6 +494,13 @@ df %>%
   mutate("var1" = factor(var1, levels = var_levels)) %>% 
   arrange(var1) 
 ```
+
+Remove unwanted df row using string arg  
+```{r, dplyr6}
+df %>% 
+  slice(-str_which(var1,"Unwanted point")) 
+```
+
 
 ### Generic functions 
 
