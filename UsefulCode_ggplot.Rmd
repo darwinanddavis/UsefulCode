@@ -447,7 +447,8 @@ facet_var <- "drv"
 
 ggplot(mpg) +
   geom_point(aes(displ, hwy, colour = .data[[colour_var]])) +
-  facet_wrap(vars(.data[[facet_var]])) + my_theme
+  facet_wrap(vars(.data[[facet_var]])) + my_theme +
+  ggtitle(paste0(colour_var, " vs ", facet_var))
 ```
 
 ### Use conditional statements in `ggplot` objects  
@@ -677,5 +678,22 @@ ggplot() +
   coord_flex_cart(bottom = brackets_horizontal(tick.length=0))
 ```
 
+Extract variable name as character  
+```{r}
+require(ggplot2)
+require(palmerpenguins)
+my_theme <- theme_classic()
+plot_penguin <- function(v1,v2,v3){
+  var1 <- ensym(v1) # turn var into character 
+  var2 <- ensym(v2)
+  var3 <- ensym(v3)
+  ggplot(penguins) +
+  geom_point(aes({{var1}}, {{var2}}, colour = {{var3}})) +
+  my_theme +
+  ggtitle(paste0(var1, " vs ", var2, " by ", var3))
+}
+plot_penguin(bill_depth_mm,bill_length_mm,species)
+
+```
 
 

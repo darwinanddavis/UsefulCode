@@ -513,4 +513,8 @@ for(pid in multipath){
 patht <- st_combine(pathm) # combine separated geometries into one geometry 
 ```
 
+### Deck.gl widget for map   
+Create interactive HTML knitted from Rmd    
+[{rdeck}](https://github.com/anthonynorth/rdeck)       
+<!-- https://twitter.com/MilesMcBain/status/1448076055651053569   -->  
 
