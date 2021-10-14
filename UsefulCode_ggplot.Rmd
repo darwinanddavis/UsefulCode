@@ -667,3 +667,15 @@ ggplot() +
 scale_fill_manual(values = colpal, aesthetics = "fill", guide = F) # T/F to toggle show legend 
 ```
 
+### Axes    
+Add brackets to axes 
+```{r}
+# install.packages("lemon")
+require(lemon)  
+ggplot() +  
+  geom_jitter(data = mpg, aes(cyl,hwy, colour = class), width = 0.2) +
+  coord_flex_cart(bottom = brackets_horizontal(tick.length=0))
+```
+
+
+
