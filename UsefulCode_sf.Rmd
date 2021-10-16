@@ -501,6 +501,27 @@ pathgpx <- city_df %>%
 
 ```
 
+Parse gpx data within kml    
+First manually convert file from '.kml' to '.gpx'    
+```{r, gpx2}
+require(XML)
+require(dplyr)
+require(tidyr)
+coord_id <- "//coord" # tag where lat/lon/elev data are located in file 
+gpx2 <- "data/full.gpx" %>%  
+  htmlTreeParse(error = function(...) {}, useInternalNodes = T)
+pathgpx <- xpathSApply(gpx2, path = coord_id, xmlValue) %>% # read coords (lon,lat,elev)
+  as.data.frame() %>% 
+  tidyr::separate(col = ".",into = c("lon", "lat", "elev"), sep = " ", remove = T) %>% # separate char into individual values
+  mutate_all(as.numeric) 
+
+# timestamp  
+time_id <- "//when" # may vary with data  
+gpx2 <- "data/full.gpx" %>%
+  xpathSApply(gpx2, path = time_id, xmlValue) # get timestamp  
+```
+
+
 ### Combine, join, union sf objects  
 
 Combine multiple sf/sfc geometries into one  

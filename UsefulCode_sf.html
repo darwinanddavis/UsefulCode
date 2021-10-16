@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-10-15<br />
+<p>Date: 2021-10-16<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -650,6 +650,23 @@ pathgpx &lt;-<span class="st"> </span>city_df <span class="op">%&gt;%</span><spa
 <span class="st">  </span><span class="kw">st_sfc</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert sfg object to geometry </span>
 <span class="st">  </span><span class="kw">st_transform</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># then convert projection</span>
   </code></pre></div>
+<p>Parse gpx data within kml<br />
+First manually convert file from '.kml' to '.gpx'</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(XML)
+<span class="kw">require</span>(dplyr)
+<span class="kw">require</span>(tidyr)
+coord_id &lt;-<span class="st"> &quot;//coord&quot;</span> <span class="co"># tag where lat/lon/elev data are located in file </span>
+gpx2 &lt;-<span class="st"> &quot;data/full.gpx&quot;</span> <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">htmlTreeParse</span>(<span class="dt">error =</span> <span class="cf">function</span>(...) {}, <span class="dt">useInternalNodes =</span> T)
+pathgpx &lt;-<span class="st"> </span><span class="kw">xpathSApply</span>(gpx2, <span class="dt">path =</span> coord_id, xmlValue) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># read coords (lon,lat,elev)</span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">separate</span>(<span class="dt">col =</span> <span class="st">&quot;.&quot;</span>,<span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;elev&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>, <span class="dt">remove =</span> T) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># separate char into individual values</span>
+<span class="st">  </span><span class="kw">mutate_all</span>(as.numeric) 
+
+<span class="co"># timestamp  </span>
+time_id &lt;-<span class="st"> &quot;//when&quot;</span> <span class="co"># may vary with data  </span>
+gpx2 &lt;-<span class="st"> &quot;data/full.gpx&quot;</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">xpathSApply</span>(gpx2, <span class="dt">path =</span> time_id, xmlValue) <span class="co"># get timestamp  </span></code></pre></div>
 </div>
 <div id="combine-join-union-sf-objects" class="section level3">
 <h3>Combine, join, union sf objects</h3>

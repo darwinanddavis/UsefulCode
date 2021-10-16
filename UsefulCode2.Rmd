@@ -1099,7 +1099,7 @@ sm %>% plot_ly(x=sm$time,y=sm$price,color=sm$index)
 ### Strings
 
 Detect strings in data frame or vector based on partial pattern. Useful when you don't know the complete name of data frame col.    
-```{r}
+```{r,string1}
 df_names <- df %>% pull(var1) %>% unique
 df %>% filter(var1 == df_names[str_detect(df_names,"va")]) # use partial string to pull df col
 
@@ -1108,6 +1108,17 @@ iris %>% select(starts_with("Sepal"),
                 contain("Sepal"),
                 matches("Sepal")
                 )
+
+```
+
+Convert multiple strings per vectors into separate numeric vectors or df cols  
+```{r, strings2, eval = T}
+str1 <- c("-123.233786 49.553438 41.41", "-123.233715 49.553847 42.5", "-123.233645 49.55426 43.8") 
+
+str1 %>% 
+  as.data.frame() %>% 
+  tidyr::separate(col = ".",into = c("lon", "lat", "elev"), sep = " ", remove = T) %>% # separate char into individual values
+  mutate_all(as.numeric) 
 
 ```
 
