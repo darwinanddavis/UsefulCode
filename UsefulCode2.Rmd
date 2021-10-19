@@ -262,7 +262,8 @@ Links
 - [](https://github.com/d3/d3/wiki/Gallery)  
 - [](https://bl.ocks.org/mbostock)  
 - [](https://vida.io/explore)  
-- [](https://daranzolin.github.io/software/)   
+- [](https://daranzolin.github.io/software/)    
+
 
 
 D3 and leaflet  
@@ -347,6 +348,7 @@ df %>%
   chart_settings(fontFamily = font,
                  yAxisTickLocation = 'left')
 ```
+
 
 
 
@@ -571,8 +573,9 @@ drive_get("~/Data/eli/feb.csv")
 ```
 
 
-### HTML code  
+### HTML/XML
 
+Write html code to dir   
 ```{r}
 code <- "<!DOCTYPE html>
   <html>
@@ -603,9 +606,29 @@ url %>% read_html() %>% html_nodes("table") %>% .[1:3]  # get range (node)
 url %>% read_html() %>% html_nodes("table") %>% .[[1]] # get individual (nodeset)
 ```
 
+Extract values within nested nodes   
+<!-- https://stackoverflow.com/questions/53198713/extracting-nested-xml-data-using-r-and-xml2-library -->
+```{r}
+require(purrr)
+require(dplyr)
+require(XML)
+doc <- doc # gpx, xml, or XMLInternalDocument class
+getNodeSet(doc,path = "//parentnode") %>%
+    purrr::map(xpathSApply,path = "child1/child2/child3", xmlValue) # extract values within child 3 node (three nodes deep) and separate into individual lists
+  
+# option 2
+getNodeSet(gpx2,path = "//folder") %>%
+  lapply(function(x) {
+    list(
+      NODE1=x %>% xpathSApply(path = "placemark/track/coord", xmlValue)
+    )
+  }) %>% bind_rows()
+  
+```
+
 
 ### Interactive plots  
-Clickme, NVD3, Polychart, rCharts, Rickshaw, and xCharts in `R`.  
+Clickme, NVD3, Polychart, rCharts, Rickshaw, and xCharts in `R`.    
 [Link to collated Github page](https://github.com/darwinanddavis/rInteractive).    
 
 ### Leaflet  
