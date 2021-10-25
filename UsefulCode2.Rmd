@@ -503,6 +503,15 @@ df %>%
   slice(-str_which(var1,"Unwanted point")) 
 ```
 
+Separate char values within df row into separate columns   
+```{r, dplyr7}
+df %>% 
+  tidyr::separate(col = "ColumnA",
+                  into = c("lon", "lat", "elev"), sep = " ", remove = T) %>% # separate char into individual columns 
+  mutate_all(as.numeric) 
+```
+
+
 
 ### Generic functions 
 
