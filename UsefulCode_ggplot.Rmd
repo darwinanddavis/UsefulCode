@@ -623,7 +623,8 @@ ggplot(data = d, aes(x = xx, y = yy,
 ```
 
 
-### Custom shape for legend
+### Legends    
+Custom shape for legend  
 ```{r, gg25, eval=T}
 # ?draw_key # see available glyphs 
 require(ggplot2)
@@ -643,7 +644,7 @@ ggplot(data=df,aes(xx,yy,col = group, fill = group)) +
     ))
 ```
 
-### Fine tune legend features e.g. text, padding, vertical/horizontal spacing       
+Fine tune legend features e.g. text, padding, vertical/horizontal spacing       
 <!-- https://stackoverflow.com/questions/11366964/is-there-a-way-to-change-the-spacing-between-legend-items-in-ggplot2 -->
 ```{r, gg26, eval=T}
 df <- data.frame(xx = sample(100, 100),
@@ -667,6 +668,24 @@ ggplot() +
   geom_point(data = df, aes(fill = var1)) + 
 scale_fill_manual(values = colpal, aesthetics = "fill", guide = F) # T/F to toggle show legend 
 ```
+
+Customise attributes of two separate legends e.g. size and colour bar  
+```{r, legend4, eval = F}
+# set colourbar for var1 (color gradient) but also change colour/fill of legend for var2 (size)
+
+ggplot() +
+  geom_sf(data = df,aes(col=var1,fill=var1,size=var2)) +
+  # var 1 attributes (colour/fill gradient)
+  scale_fill_gradientn(name = title1, colours = adjustcolor(colpal,0.5),aesthetics = c("col","fill"), na.value = "#EFEFEF") +
+  # var 2 attributes (size)
+  guides(size = guide_legend(title = title2,
+    override.aes = list(fill = col_var2, alpha = 0.5, col = col_var2)  # change colour for size legend (var2)
+  ))
+
+
+
+```
+
 
 ### Axes    
 Add brackets to axes 
