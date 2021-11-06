@@ -543,15 +543,31 @@ Create interactive HTML knitted from Rmd
 
 Change spatial polygons into hexagon tiles
 <!-- https://stackoverflow.com/questions/29374004/how-do-i-generate-a-hexagonal-grid-in-r -->
-```{r, eval = F}
-# need to check 
+
+<!-- https://rstudio-pubs-static.s3.amazonaws.com/299247_d1ffbb1fce0d4cef8c68d0ec0ab1c2f5.html -->
+```{r, aes1, eval = F}
+
 dd <- rnaturalearth::ne_states(c("New Zealand"), returnclass = "sf") 
 
-# change sf to sp 
-ddsp <- dd$geometry %>% .[1] %>% st_zm() %>% as("Spatial")
+# opt 1
+# convert sf files using st_make_grid (with x = st_as_sf(sf_obj))
+st_make_grid(st_as_sf(dd), 
+                      square=FALSE,
+                      cellsize = 1,
+                      n = 200,
+                      # crs = prj,
+                      flat_topped = T)[st_as_sf(dd)]
 
-ddhex <- sp::spsample(x = ddsp, type = "hexagonal", cellsize = 30000000) %>% # create spatial sample of points around sp obj
-  HexPoints2SpatialPolygons() %>% # convert to hexagons 
+
+# opt 2
+# change sf to sp 
+ddsp <- day4t$geometry %>% .[1] %>%
+  st_buffer(5000) %>% # need to create buffer around obj
+  st_zm() %>% as_Spatial()  
+
+# if error, try not using pipe 
+ddhex <- HexPoints2SpatialPolygons(sp::spsample(x = ddsp, type = "hexagonal", cellsize = 30000000)) %>% # create spatial sample of points around sp obj and  # convert to hexagons 
   st_as_sf(coords = c("lon","lat"), crs = 4326) # revert back to sf to use in geom_sf() and to transform 
+
 ```
 

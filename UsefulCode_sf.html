@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-11-05<br />
+<p>Date: 2021-11-06<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -687,14 +687,28 @@ patht &lt;-<span class="st"> </span><span class="kw">st_combine</span>(pathm)  <
 <div id="setting-aesthetics-for-geom_sf" class="section level3">
 <h3>Setting aesthetics for geom_sf()</h3>
 <p>Change spatial polygons into hexagon tiles <!-- https://stackoverflow.com/questions/29374004/how-do-i-generate-a-hexagonal-grid-in-r --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># need to check </span>
+<!-- https://rstudio-pubs-static.s3.amazonaws.com/299247_d1ffbb1fce0d4cef8c68d0ec0ab1c2f5.html -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 dd &lt;-<span class="st"> </span>rnaturalearth<span class="op">::</span><span class="kw">ne_states</span>(<span class="kw">c</span>(<span class="st">&quot;New Zealand&quot;</span>), <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>) 
 
-<span class="co"># change sf to sp </span>
-ddsp &lt;-<span class="st"> </span>dd<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_zm</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as</span>(<span class="st">&quot;Spatial&quot;</span>)
+<span class="co"># opt 1</span>
+<span class="co"># convert sf files using st_make_grid (with x = st_as_sf(sf_obj))</span>
+<span class="kw">st_make_grid</span>(<span class="kw">st_as_sf</span>(dd), 
+                      <span class="dt">square=</span><span class="ot">FALSE</span>,
+                      <span class="dt">cellsize =</span> <span class="dv">1</span>,
+                      <span class="dt">n =</span> <span class="dv">200</span>,
+                      <span class="co"># crs = prj,</span>
+                      <span class="dt">flat_topped =</span> T)[<span class="kw">st_as_sf</span>(dd)]
 
-ddhex &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">spsample</span>(<span class="dt">x =</span> ddsp, <span class="dt">type =</span> <span class="st">&quot;hexagonal&quot;</span>, <span class="dt">cellsize =</span> <span class="dv">30000000</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># create spatial sample of points around sp obj</span>
-<span class="st">  </span><span class="kw">HexPoints2SpatialPolygons</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert to hexagons </span>
+
+<span class="co"># opt 2</span>
+<span class="co"># change sf to sp </span>
+ddsp &lt;-<span class="st"> </span>day4t<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span>] <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">st_buffer</span>(<span class="dv">5000</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># need to create buffer around obj</span>
+<span class="st">  </span><span class="kw">st_zm</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_Spatial</span>()  
+
+<span class="co"># if error, try not using pipe </span>
+ddhex &lt;-<span class="st"> </span><span class="kw">HexPoints2SpatialPolygons</span>(sp<span class="op">::</span><span class="kw">spsample</span>(<span class="dt">x =</span> ddsp, <span class="dt">type =</span> <span class="st">&quot;hexagonal&quot;</span>, <span class="dt">cellsize =</span> <span class="dv">30000000</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># create spatial sample of points around sp obj and  # convert to hexagons </span>
 <span class="st">  </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># revert back to sf to use in geom_sf() and to transform </span></code></pre></div>
 </div>
 </div>

@@ -382,6 +382,14 @@ d1 %>%
   tidyr::uncount(value) %>% # lengthen df by each row value
 ```
 
+Create custom df from existing data
+```{r, d4}
+# no need to rename  
+latlon_data <- with(world.cities, data.frame( # //maps
+  "city" = name,"country" = country.etc,"lat" = lat,"lon" = long,"population" = pop)
+)
+```
+
 
 ### `dplyr` basics 
 ```{r,dplyr1}
