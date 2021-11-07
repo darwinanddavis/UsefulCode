@@ -1162,6 +1162,15 @@ str1 %>%
 
 ```
 
+### SVG
+
+Read in svg  
+```{r, svg1, eval =F}
+require(XML)
+imgr <- "img1.svg" %>% 
+  xmlParse()
+```
+
 
 ### Time  
 
