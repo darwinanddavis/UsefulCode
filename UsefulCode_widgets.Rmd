@@ -1,0 +1,149 @@
+---
+title: Useful R code - Widgets/animations  
+author: |
+ | Matthew Malishev
+ | @darwinanddavis 
+fontsize: 10
+geometry: margin=1in
+documentclass: article
+linkcolor: pink
+urlcolor: blue
+citecolor: red
+always_allow_html: yes
+output:
+  html_document:
+    highlight: tango
+    code_folding: show
+    toc: yes
+    toc_depth: 4
+    number_sections: no
+    toc_float: yes
+  md_document: 
+    variant: markdown_github
+  pdf_document:
+    includes:
+      in_header: # add .tex file with header content
+    highlight: tango
+    template: null
+    toc: yes
+    toc_depth: 4
+    number_sections: false
+    fig_width: 4
+    fig_height: 5
+    fig_caption: true
+    df_print: tibble 
+    citation_package: biblatex # natbib
+    latex_engine: xelatex #pdflatex # lualatex
+    keep_tex: true # keep .tex file in dir 
+  word_document:
+    highlight: tango
+    keep_md: yes
+    pandoc_args: --smart
+    #reference: mystyles.docx
+    toc: yes
+    toc_depth: 4
+inludes:
+  before_body: before_body.tex
+subtitle: 
+tags:
+- nothing
+- nothingness
+params: 
+  dir: "/Users/malishev/Documents/Melbourne Uni/Programs/R code/UsefulCode"
+  date: !r Sys.Date()
+  version: !r getRversion()
+  email: "matthew.malishev [at] gmail.com"
+  doi: https://github.com/darwinanddavis/UsefulCode
+classoption: portrait
+# ^['https://github.com/darwinanddavis/UsefulCode'] # footnote
+vignette: >
+  %\VignetteIndexEntry{Useful R code}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
+</script>
+
+```{r echo = FALSE}
+ library(rmarkdown)
+# setwd("")
+# f <- list.files()[1]
+# render(f, output_format='pdf_document')
+# render(f, output_format='pdf_document')
+```
+
+```{r, set-options, echo = FALSE, cache = FALSE}
+options(width=100)
+knitr::opts_chunk$set(
+ eval = F, # run all code
+ results='hide',
+ echo = T, # show code chunks in output
+ comment = "",
+ tidy.opts=list(width.cutoff=100), # set width of code chunks in output
+ tidy = T, # make output as tidy
+ message = F,  # mask all messages
+ warning = F, # mask all warnings 
+ collapse = T,
+ size="small" # set code chunk size
+)
+
+# https://github.com/ucb-stat133/stat133-fall-2016/blob/master/hws/hw02-tables-ggplot.Rmd
+knitr::opts_knit$set(root.dir=paste0(params$dir,"/")) # set working dir
+
+setwd(paste0(params$dir,"/")) # for running just in R not knitr
+pacman::p_load(dplyr,readr,rvest,xml2,magrittr,sp,sf,rgdal,ggmap,ggplot2,stringr,ggthemes,ggnetwork,colorspace,ggtext,ggsn,ggspatial,showtext,here)
+```
+
+\  
+
+Date: `r params$date`  
+`R` version: `r params$version`  
+*Corresponding author: `r params$email`  
+This document can be found at `r params$doi`
+
+\newpage  
+
+## Overview
+
+WIdgets, UI, animations, RMarkdown/Shiny widgets, and anything website/app/frontend from the R environment      
+
+## Useful links    
+- [`rObservable` notebooks](https://juba.github.io/robservable/articles/gallery.html)    
+- [Awesome open source](https://awesomeopensource.com/project/nanxstats/awesome-shiny-extensions)  
+
+
+### rObservable notebook widgets    
+
+Bivariate cloropleth map legend      
+https://juba.github.io/robservable/articles/gallery.html  
+```{r}
+load(url("https://raw.githubusercontent.com/Deleetdk/USA.county.data/master/data/USA_county_data.RData"))
+
+d <- USA_county_data
+d <- d[d$State == "California",]
+d <- d[, c("name_16", "Graduate.Degree", "Less.Than.High.School")]
+names(d) <- c("name_16", "Graduate", "<High.School")
+
+
+robservable(
+  "@juba/reusable-bivariate-choropleth",
+  include = c("chart", "draw"),
+  hide = "draw",
+  input = list(
+    data = d,
+    data_id = "name_16",
+    data_name = "name_16",
+    data_var1 = "Graduate",
+    data_var2 = "<High.School",
+    map = "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/california-counties.geojson",
+    map_object = "geometry",
+    map_id_property = "name",
+    legend_position = "bottomleft"
+  ),
+  width = 800,
+  height = 500
+)
+```
+
