@@ -404,7 +404,7 @@ elevp2sf <- elevp2 %>% st_as_sf(coords = c("x","y"), crs = 4326) # df to sf
 elevp3 <- elevatr::get_elev_point(df,
                         prj <- "+init=epsg:4326")
 elevp3_fort <- tidy(elevp3$elevation, region = "elevation") # fortify 
-
+ 
 # convert raster to diff classes
 elevdf <- elevp %>% rasterToPoints() %>% as.data.frame # raster to df 
 elevdf <- elevp %>% rasterToPoints() %>% as.data.frame %>% 
