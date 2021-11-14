@@ -460,6 +460,9 @@ df %>%
               var1 == 2 ~ "alt2",
               T ~ "alt3")))
 
+# get distinct count per grouped var
+df %>% group_by(var1) %>% 
+  summarise(n = n_distinct(var2))
 ```
 
 Execute unfriendly pipe functions inline in pipes       

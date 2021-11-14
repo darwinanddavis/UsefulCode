@@ -569,5 +569,12 @@ ddsp <- day4t$geometry %>% .[1] %>%
 ddhex <- HexPoints2SpatialPolygons(sp::spsample(x = ddsp, type = "hexagonal", cellsize = 30000000)) %>% # create spatial sample of points around sp obj and  # convert to hexagons 
   st_as_sf(coords = c("lon","lat"), crs = 4326) # revert back to sf to use in geom_sf() and to transform 
 
+ggplot() + 
+  geom_sf(data = ddhex, size = 0.2) +
+  geom_hex(data = df, aes(Longitude, Latitude), bins = 500) +
+  coord_sf(xlim = c(bbox[1],bbox[3]), ylim = c(bbox[2],bbox[4]))
+
+
+
 ```
 
