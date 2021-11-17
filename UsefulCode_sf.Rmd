@@ -573,7 +573,7 @@ ggplot() +
   geom_sf(data = ddhex, size = 0.2) +
   geom_hex(data = df, aes(Longitude, Latitude), bins = 500) +
   coord_sf(xlim = c(bbox[1],bbox[3]), ylim = c(bbox[2],bbox[4]))
-
+ 
 
 
 ```
