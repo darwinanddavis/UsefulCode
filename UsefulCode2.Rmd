@@ -1133,7 +1133,7 @@ pp <- htmltools::tagList(list(p1, p2))
 ??tagList
 
 Sys.setenv("plotly_username"="malishev")
-Sys.setenv("plotly_api_key"="uApW9Ar4GpjbEbagDeAn")
+Sys.setenv("plotly_api_key"="apikey")
 
 ff <- plotly::api_create(p1,username="malishev")
 

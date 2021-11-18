@@ -113,6 +113,24 @@ Accessing sf, sp, geos,a nd geojson objects, such as attributes, accessing lower
 <!-- https://r-spatial.github.io/sf/articles/sf1.html -->
 <!-- https://nceas.github.io/oss-lessons/spatial-data-gis-law/3-mon-intro-gis-in-r.html -->
 
+### json  
+
+Read and convert json to df
+```{r}
+
+# opt 1
+require(jsonlite)
+data <- fromJSON("data.json",simplifyDataFrame=T,flatten=T) %>% 
+  as.data.frame(data)
+
+# opt 2
+file <- "my_geo_data.json" %>% 
+  readr::read_lines
+
+
+```
+
+
 ### sf simple features  
 Get bbox coords      
 ```{r, sf1, collapse=T}
@@ -539,7 +557,7 @@ Create interactive HTML knitted from Rmd
 [{rdeck}](https://github.com/anthonynorth/rdeck)       
 <!-- https://twitter.com/MilesMcBain/status/1448076055651053569   -->  
 
-### Setting aesthetics for geom_sf()  
+### Plotting aesthetics for geom_sf()  
 
 Change spatial polygons into hexagon tiles
 <!-- https://stackoverflow.com/questions/29374004/how-do-i-generate-a-hexagonal-grid-in-r -->
@@ -576,5 +594,12 @@ ggplot() +
  
 
 
+```
+
+Crop plot region to country border   
+```{r,aes2, eval = F}
+ggplot() +
+  borders(regions = "Germany") +
+  geom_tile()
 ```
 

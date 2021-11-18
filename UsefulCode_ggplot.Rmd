@@ -551,16 +551,16 @@ x <- 1:100
 
 my_geom_y <- function(yy, colour = "black"){
   list(
-    geom_line(mapping = aes(y= yy), 
+    geom_line(aes(y= yy), 
               col = colour), 
               data = data.frame(x, yy),
-    geom_point(mapping = aes(y = yy), 
+    geom_point(aes(y = yy), 
                col = colour, 
                data = data.frame(x, yy))
   )
  }
 
-ggplot(mapping = aes(x))  + 
+ggplot(aes(x))  + 
   my_geom_y(x, "red") + 
   my_geom_y(dlnorm(x), "blue") +
   my_geom_y((x^1.1), "black") +
@@ -626,6 +626,7 @@ ggplot(data = d, aes(x = xx, y = yy,
 ### Insert plot inset within main plot    
 ```{r, inset1, eval = F}
 
+### opt 1
 # first create and save plot inset to local dir
 plot_inset <- ggplot() +
   geom_point(data = inset_data)
@@ -640,6 +641,12 @@ ggplot() +
   annotation_raster(plot_inset,xmin = xmin, xmax = xmax, ymin = ymin ,ymax = ymax) +
   # themes
   theme_nothing()
+
+### opt 2
+ggdraw() +
+  draw_plot(main1, 0, 0, 1, 1) +
+  draw_plot(legend1, 0.15, 0.7, 0.18, 0.18)
+
 ```
 
 
@@ -715,6 +722,29 @@ theme(legend.position=c(0.2,0.2), #xy from bottom left
         legend.title = element_text(family = family,colour = col_font),
         legend.text = element_text(family = family,colour = col_font)
   ) 
+```
+
+Biscale legend 
+<!-- https://github.com/richardvogg/30DayMapChallenge21/blob/master/day17_land/day17_land.R -->
+```{r, legend6}
+require(biscale)
+
+data <- bi_class(df, sf1, sf2, dim = 3)
+legend <- bi_legend(pal = "GrPink",
+                    dim = 3,
+                    xlab = "More sf1",
+                    ylab = "More sf2",
+                    size = 12)
+map <- ggplot() +
+  geom_tile(data = data , aes(x = x, y = y, fill = bi_class), show.legend = F) +
+  bi_scale_fill(pal = "GrPink", dim = 3) + # create biscale
+  bi_theme()
+  
+# combine legend and map 
+ggdraw() +
+  draw_plot(map, 0, 0, 1, 1) +
+  draw_plot(legend, 0.15, 0.7, 0.18, 0.18)
+
 ```
 
 
