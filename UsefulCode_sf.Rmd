@@ -116,7 +116,7 @@ Accessing sf, sp, geos,a nd geojson objects, such as attributes, accessing lower
 ### json  
 
 Read and convert json to df
-```{r}
+```{r, eval = F}
 
 # opt 1
 require(jsonlite)
@@ -162,6 +162,28 @@ Get boundary/outlines
 ```{r}
 # good for plotting US state border lines over other sf files 
 obj %>% st_geometry() %>% st_boundary %>% ggplot() + geom_sf()
+```
+
+Break up multipolygon into separate polygons/pull specific polygon e.g. main France polygon and rm islands
+```{r}
+french_guiana <- ne_countries("large",type = "countries",returnclass = "sf") %>% 
+  filter(name %in% c("France")) %>% # add french guiana 
+  st_cast("POLYGON") %>% slice(1) # get just french guiana 
+```
+
+Get areas of individual polygons within multipolygon  
+```{r}
+dd %>% filter(name == "Netherlands") %>% 
+  st_cast("POLYGON") %>% st_geometry %>% st_area()
+```
+
+
+
+### ZM features  
+
+Return Z range for sf obj 
+```{r,zm1}
+sf %>% st_z_range()
 ```
 
 
