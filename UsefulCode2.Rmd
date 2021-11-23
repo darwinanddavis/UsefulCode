@@ -789,6 +789,45 @@ map
 
 ```
 
+Add multiple layers at once (uses loop)
+<!-- https://stackoverflow.com/questions/38701359/grouped-layer-control-in-leaflet-r -->
+```{r}
+# see full code https://stackoverflow.com/questions/38701359/grouped-layer-control-in-leaflet-r
+
+#function to plot a map with layer selection 
+map_layers <- function() {
+
+  #number of groups
+  k <- n_distinct(quakes$groups)
+
+  #base map
+  map <- leaflet() %>%
+    addProviderTiles(providers$CartoDB.Positron)
+
+  #loop through all groups and add a layer one at a time
+  for (i in 1:k) {
+    map <- map %>% 
+      addCircleMarkers(
+        data = quakes %>% filter(groups == i), group = as.character(i),
+        lng = ~long, lat = ~lat, radius = 1
+      )
+  }
+
+  #create layer control
+  map %>% 
+    addLayersControl(
+      overlayGroups = c(1:k),
+      options = layersControlOptions(collapsed = FALSE)) %>% 
+    hideGroup(as.character(c(2:k))) #hide all groups except the 1st one
+
+}
+
+#plot the map
+map_layers()
+
+```
+
+
 ### Lists  
 Transpose list (flip list elements)     
 ```{r, list1}
