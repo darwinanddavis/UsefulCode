@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-11-19<br />
+<p>Date: 2021-11-24<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -699,6 +699,12 @@ gpx2 &lt;-<span class="st"> &quot;data/full.gpx&quot;</span> <span class="op">%&
     pathm &lt;-<span class="st"> </span><span class="kw">rbind</span>(pathm, path)
 }
 patht &lt;-<span class="st"> </span><span class="kw">st_combine</span>(pathm)  <span class="co"># combine separated geometries into one geometry </span></code></pre></div>
+<p>Join/merge df vars with sf obj (ideal for heatmap/chloropleth)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">countries1 &lt;-<span class="st"> </span>df<span class="op">$</span>country_name <span class="op">%&gt;%</span><span class="st"> </span>unique <span class="co"># identify country names</span>
+mp &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">scale =</span> <span class="st">&quot;medium&quot;</span>, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(name <span class="op">%in%</span><span class="st"> </span>countries1) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="st">&quot;country_name&quot;</span> =<span class="st"> </span>name) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># match var names between df and sp obj</span>
+<span class="st">  </span><span class="kw">left_join</span>(df,<span class="dt">by =</span> <span class="st">&quot;country_name&quot;</span>) <span class="co"># join by matched var name</span></code></pre></div>
 </div>
 <div id="deck.gl-widget-for-map" class="section level3">
 <h3>Deck.gl widget for map</h3>

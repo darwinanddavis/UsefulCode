@@ -574,6 +574,17 @@ for(pid in multipath){
 patht <- st_combine(pathm) # combine separated geometries into one geometry 
 ```
 
+Join/merge df vars with sf obj (ideal for heatmap/chloropleth)   
+```{r, join2}
+countries1 <- df$country_name %>% unique # identify country names
+mp <- ne_countries(scale = "medium", returnclass = "sf") %>% 
+  filter(name %in% countries1) %>% 
+  rename("country_name" = name) %>% # match var names between df and sp obj
+  left_join(df,by = "country_name") # join by matched var name
+
+```
+
+
 ### Deck.gl widget for map   
 Create interactive HTML knitted from Rmd    
 [{rdeck}](https://github.com/anthonynorth/rdeck)       
