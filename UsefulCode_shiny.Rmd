@@ -105,7 +105,7 @@ This document can be found at `r params$doi`
 
 \newpage  
 
-## Overview
+## Overview  
 
 Add-ons and things to make Shiny app life easier  
 
