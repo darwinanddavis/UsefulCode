@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-11-24<br />
+<p>Date: 2021-12-03<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -705,6 +705,11 @@ mp &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span clas
 <span class="st">  </span><span class="kw">filter</span>(name <span class="op">%in%</span><span class="st"> </span>countries1) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">rename</span>(<span class="st">&quot;country_name&quot;</span> =<span class="st"> </span>name) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># match var names between df and sp obj</span>
 <span class="st">  </span><span class="kw">left_join</span>(df,<span class="dt">by =</span> <span class="st">&quot;country_name&quot;</span>) <span class="co"># join by matched var name</span></code></pre></div>
+<p>Merge/dissolve overlapping polygon/sf boundaries into one<br />
+<!-- https://gis.stackexchange.com/questions/206893/dissolve-only-overlapping-polygons-in-r/321259?noredirect=1#comment522831_321259 --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dd &lt;-<span class="st"> </span>rnaturalearth<span class="op">::</span><span class="kw">ne_states</span>(countries, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)
+dd2 &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="st">&quot;large&quot;</span>, <span class="st">&quot;sovereignty&quot;</span>, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)
+<span class="kw">plot</span>(<span class="kw">gUnion</span>(dd, dd2[dd, ]))</code></pre></div>
 </div>
 <div id="deck.gl-widget-for-map" class="section level3">
 <h3>Deck.gl widget for map</h3>

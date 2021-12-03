@@ -585,6 +585,16 @@ mp <- ne_countries(scale = "medium", returnclass = "sf") %>%
 ```
 
 
+Merge/dissolve overlapping polygon/sf boundaries into one  
+<!-- https://gis.stackexchange.com/questions/206893/dissolve-only-overlapping-polygons-in-r/321259?noredirect=1#comment522831_321259 -->
+```{r,join3}
+dd <- rnaturalearth::ne_states(countries, returnclass = "sf")
+dd2 <- ne_countries("large","sovereignty",
+                    returnclass = "sf")
+plot(gUnion(dd, dd2[dd, ]))
+```
+
+
 ### Deck.gl widget for map   
 Create interactive HTML knitted from Rmd    
 [{rdeck}](https://github.com/anthonynorth/rdeck)       
