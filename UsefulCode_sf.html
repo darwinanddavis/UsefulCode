@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-12-03<br />
+<p>Date: 2021-12-11<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -449,7 +449,7 @@ prj &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st
 prj &lt;-<span class="st"> &quot;+init=epsg:4326&quot;</span> <span class="co"># opt2</span>
 
 <span class="co"># transforming for diff data types</span>
-<span class="co"># raster</span>
+<span class="co"># da</span>
 ras<span class="op">@</span>crs<span class="op">@</span>projargs &lt;-<span class="st"> </span>prj 
 ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert city_df to sp. NB need to set initial crs to one compatible with latlon coords, e.g. 4326  </span>
 <span class="st">    </span>sf<span class="op">::</span><span class="kw">st_transform</span>(<span class="dt">crs =</span> prj) <span class="co"># now transform proj</span>
@@ -601,6 +601,9 @@ elevpath &lt;-<span class="st"> </span><span class="kw">topoDist</span>(elevp,pt
 <span class="kw">qplot</span>(<span class="dt">data =</span> elevp2[<span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>,],x,layer,<span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)</code></pre></div>
 <p>Summarise raster layers</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cellStats</span>(raster, <span class="dt">stat =</span> <span class="st">&quot;min&quot;</span>, <span class="dt">na.rm =</span> T)  <span class="co"># summarise raster layers</span></code></pre></div>
+<p>Read .tiff</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
+dem1 &lt;-<span class="st"> &quot;srtm_20_05.tif&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster</span>()</code></pre></div>
 </div>
 <div id="spatial-class" class="section level3">
 <h3>Spatial class</h3>
@@ -751,6 +754,32 @@ ddhex &lt;-<span class="st"> </span><span class="kw">HexPoints2SpatialPolygons</
  </code></pre></div>
 <p>Crop plot region to country border</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">borders</span>(<span class="dt">regions =</span> <span class="st">&quot;Germany&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</code></pre></div>
+</div>
+<div id="hillshade" class="section level3">
+<h3>Hillshade</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
+dem1 &lt;-<span class="st"> </span><span class="kw">getData</span>(<span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;USA&quot;</span>), <span class="dt">level =</span> <span class="dv">1</span>)  <span class="co"># download data</span>
+dem1 &lt;-<span class="st"> </span><span class="kw">getData</span>(<span class="st">&quot;SRTM&quot;</span>, <span class="dt">lat =</span> <span class="fl">37.83</span>, <span class="dt">lon =</span> <span class="op">-</span><span class="fl">83.68</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">aggregate</span>(<span class="dt">fact =</span> <span class="dv">3</span>)  <span class="co"># get srtm and reduce res </span>
+dem1 &lt;-<span class="st"> &quot;srtm_20_05.tif&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster</span>()  <span class="co"># or read from file  </span>
+angle_zen &lt;-<span class="st"> </span><span class="dv">40</span>
+angle_dir &lt;-<span class="st"> </span><span class="dv">270</span>
+quant &lt;-<span class="st"> </span><span class="fl">0.3</span>  <span class="co"># quantile to filter elev data </span>
+
+dems &lt;-<span class="st"> </span>dem1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">terrain</span>(<span class="dt">opt =</span> <span class="st">&quot;slope&quot;</span>)
+demr &lt;-<span class="st"> </span>dem1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">terrain</span>(<span class="dt">opt =</span> <span class="st">&quot;aspect&quot;</span>)
+demh &lt;-<span class="st"> </span><span class="kw">hillShade</span>(dems, demr, angle_zen, angle_dir)
+
+<span class="co"># conver to df</span>
+dem_df &lt;-<span class="st"> </span><span class="kw">rasterToPoints</span>(demh) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()
+<span class="kw">colnames</span>(dem_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;hill&quot;</span>)
+<span class="co"># take only upper quantile</span>
+dem_df &lt;-<span class="st"> </span>dem_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(hill <span class="op">&gt;</span><span class="st"> </span>hill <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">quantile</span>(quant), hill <span class="op">&lt;</span><span class="st"> </span>hill <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">quantile</span>(quant <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>))  <span class="co"># get elev &gt; given quantile</span>
+
+<span class="co"># colpal</span>
+colpal &lt;-<span class="st"> </span><span class="kw">c</span>(border_col, fg, <span class="st">&quot;#FFFFFF&quot;</span>)
+cc &lt;-<span class="st"> </span>colpal <span class="op">%&gt;%</span><span class="st"> </span>length  <span class="co"># number of colour hues </span>
+
+<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> dem_df, <span class="kw">aes</span>(lon, lat, <span class="dt">fill =</span> hill), <span class="dt">show.legend =</span> F)</code></pre></div>
 </div>
 </div>
 
