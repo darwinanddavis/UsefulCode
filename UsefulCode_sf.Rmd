@@ -177,6 +177,10 @@ dd %>% filter(name == "Netherlands") %>%
   st_cast("POLYGON") %>% st_geometry %>% st_area()
 ```
 
+Crop multipolyon boundary to surround sf obj boundary and combine into one polygon    
+```{r}
+dd %>% st_intersection(boundary_osm %>% st_boundary()) %>% st_cast("POLYGON")
+```
 
 
 ### ZM features  
