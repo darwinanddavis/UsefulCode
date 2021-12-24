@@ -572,11 +572,11 @@ gpx2 <- "data/full.gpx" %>%
 ```
 
 
-### Combine, join, union sf objects  
+### Combine, join, union sf objects     
 
 Combine multiple sf/sfc geometries into one  
 ```{r, join1}
-pathm <- c()
+pathm <- c()  
 for(pid in multipath){
   path <- kmldata %>% st_read(layer = multipath[pid])
   pathm <- rbind(pathm,path)
