@@ -120,7 +120,7 @@ _`R` code is in Rmd file._
 ```{r, rmarkdown1, message=F, echo=T, eval=T}
 # r plot code
 require(ggplot2)
-ggplot(mtcars, aes(x=mpg)) + 
+ggplot(mtcars, aes(x=mpg)) +   
   geom_histogram(fill="skyblue", alpha=0.5) + 
   theme_classic()
 ```
@@ -183,7 +183,7 @@ knitr::read_chunk('external.R')
 
 Then in 'external.R' file, add the following header line:   
 `# @knitr external`    
-Then use add this line to the code chunk in the main Rmd file:   
+Then add this line to the code chunk in the main Rmd file:   
 `<<external>>`  
 
 
