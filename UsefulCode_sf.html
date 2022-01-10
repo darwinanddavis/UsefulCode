@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-12-24<br />
+<p>Date: 2022-01-10<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -606,6 +606,16 @@ elevpath &lt;-<span class="st"> </span><span class="kw">topoDist</span>(elevp,pt
 <p>Read .tiff</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
 dem1 &lt;-<span class="st"> &quot;srtm_20_05.tif&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster</span>()</code></pre></div>
+<p>Crop raster/tiff to bbox <!-- https://gis.stackexchange.com/questions/229356/crop-a-raster-file-in-r --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span>pathm  <span class="co"># sf object</span>
+ras &lt;-<span class="st"> &quot;raster.tiff&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>raster  <span class="co"># load raster</span>
+e &lt;-<span class="st"> </span><span class="kw">as</span>(obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">extent</span>(), <span class="st">&quot;SpatialPolygons&quot;</span>)  <span class="co"># get bbox/extent as Sp</span>
+<span class="kw">crs</span>(e) &lt;-<span class="st"> &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>  <span class="co"># add prj</span>
+r &lt;-<span class="st"> </span><span class="kw">crop</span>(ras, e)  <span class="co"># crop raster to this bbox</span>
+r &lt;-<span class="st"> </span>r <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame  <span class="co"># convert to df for plotting </span>
+<span class="kw">colnames</span>(r) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)</code></pre></div>
+<p>Mask/crop raster data<br />
+<!-- https://geocompr.robinlovelace.net/raster-vector.html --></p>
 </div>
 <div id="spatial-class" class="section level3">
 <h3>Spatial class</h3>

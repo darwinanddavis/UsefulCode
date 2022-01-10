@@ -474,6 +474,20 @@ require(raster)
 dem1 <- "srtm_20_05.tif" %>% raster()
 ```
 
+Crop raster/tiff to bbox
+<!-- https://gis.stackexchange.com/questions/229356/crop-a-raster-file-in-r -->
+```{r}
+obj <- pathm # sf object
+ras <- "raster.tiff" %>% raster # load raster
+e <- as(obj %>% extent(), 'SpatialPolygons') # get bbox/extent as Sp
+crs(e) <- "+proj=longlat +datum=WGS84 +no_defs" # add prj
+r <- crop(ras, e) # crop raster to this bbox
+r <- r %>% rasterToPoints() %>% as.data.frame # convert to df for plotting 
+colnames(r) <- c("x","y","z")
+```
+
+Mask/crop raster data  
+<!-- https://geocompr.robinlovelace.net/raster-vector.html -->
 
 ### Spatial class
 Convert sf to spatiallines obj  
