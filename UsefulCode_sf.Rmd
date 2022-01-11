@@ -182,6 +182,11 @@ Crop multipolyon boundary to surround sf obj boundary and combine into one polyg
 dd %>% st_intersection(boundary_osm %>% st_boundary()) %>% st_cast("POLYGON")
 ```
 
+Filter sf geometry only   
+```{r}
+dat %>% 
+  filter(st_geometry_type(.) == "LINESTRING")
+```
 
 ### ZM features  
 
@@ -608,7 +613,6 @@ mp <- ne_countries(scale = "medium", returnclass = "sf") %>%
 
 ```
 
-
 Merge/dissolve overlapping polygon/sf boundaries into one  
 <!-- https://gis.stackexchange.com/questions/206893/dissolve-only-overlapping-polygons-in-r/321259?noredirect=1#comment522831_321259 -->
 ```{r,join3}
@@ -616,6 +620,16 @@ dd <- rnaturalearth::ne_states(countries, returnclass = "sf")
 dd2 <- ne_countries("large","sovereignty",
                     returnclass = "sf")
 plot(gUnion(dd, dd2[dd, ]))
+```
+
+Snap sf objects based on proximity  
+```{r}
+library(units)
+library(sfnetworks)
+sf <- sf %>% 
+  st_snap(.,., tolerance = 10000) %>%  # coerces the snapping using a big tolerance value
+  as_sfnetwork() # convert to network obj  
+autoplot(sf)
 ```
 
 
