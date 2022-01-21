@@ -589,9 +589,20 @@ methods(st_as_sf)
 ```
 
 Get object size
-```{r}
+```{r, g6}
 df %>% object.size()
 ```
+
+Assign multiple values to multiple LHS objects   
+```{r, g7}
+require(zeallot)
+
+values <- c(1, 2, 3, 4) 
+c(a, b) %<-% values[c(2, 4)]  # assign `a` and `b`
+c(a, b) %<-% c(1,"A") # returns both as char 
+
+```
+
 
 
 ### Google drive  
@@ -1169,12 +1180,12 @@ pp <- bscols(
 ) 
 
 pp <- htmltools::tagList(list(p1, p2))
-??tagList
 
-Sys.setenv("plotly_username"="malishev")
-Sys.setenv("plotly_api_key"="apikey")
-
-ff <- plotly::api_create(p1,username="malishev")
+# register plotly user 
+# Sys.setenv("plotly_username"="malishev")
+# Sys.setenv("plotly_api_key"="apikey")
+# 
+# ff <- plotly::api_create(p1,username="malishev")
 
 subplot(p1,p2,nrows=2)
 htmltools::knit_print.shiny.tag.list(pp)

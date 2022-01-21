@@ -195,6 +195,11 @@ Return Z range for sf obj
 sf %>% st_z_range()
 ```
 
+Drop zm components 
+```{r}
+sf %>% st_zm()
+```
+
 
 ### .shp files    
 Read in .shp file    
@@ -341,6 +346,14 @@ require(broom)
 d <- getMap(resolution = "high") # get world data
 d_fort <- tidy(d, region = "NAME") # fortify 
 ```
+
+
+Convert sf geometry to df  
+```{r}
+require(sfheaders)
+sf %>% sf_to_df
+```
+
 
 ### Find intersecting geo points within sf objects
 ```{r, sf13}
@@ -623,7 +636,7 @@ plot(gUnion(dd, dd2[dd, ]))
 ```
 
 Snap sf objects based on proximity  
-```{r}
+```{r, join4}
 library(units)
 library(sfnetworks)
 sf <- sf %>% 
