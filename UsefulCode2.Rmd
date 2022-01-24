@@ -53,7 +53,7 @@ params:
   dir: "/Users/malishev/Documents/Melbourne Uni/Programs/R code/UsefulCode"
   date: !r Sys.Date()
   version: !r getRversion()
-  email: "matthew.malishev@gmail.com"
+  email: "matthew.malishev [at] gmail.com"
   doi: https://github.com/darwinanddavis/UsefulCode
 classoption: portrait
 # ^['https://github.com/darwinanddavis/UsefulCode'] # footnote
@@ -960,6 +960,13 @@ ftl <- ft %>% list(isoyear(.), epiyear(.), wday(.), wday(., label = T), qday(.),
     am(.), pm(.))
 names(ftl) <- c("data", "international standard date-time code (ISO 8601)", "epidemiological year", "weekday", 
     "weekday as label", "day into yearly quarter", "week of year", "semester", "AM?", "PM?")
+```
+
+Unlist and bind list elements together  
+```{r, l8}
+ll %>% # list of sf objects   
+  purrr::map(st_collection_extract,"LINESTRING") %>% # get just linestring 
+  rlist::list.rbind() # unlist these and bind together 
 ```
 
 ### Plotting 
