@@ -729,3 +729,14 @@ ggplot() +
 
 ```
 
+### OSM  
+New osm data method  
+```{r}
+ -------------------------------
+# https://www.urbandemographics.org/post/mapping-walking-time-osm-r5r/
+osmextract::oe_download(provider = 'openstreetmap_fr',
+                        file_url = osmextract::oe_match("Rio De Janeiro")[[1]],
+                        download_directory = here::here("data"), force_download = T)
+
+```
+

@@ -117,7 +117,7 @@ WIdgets, UI, animations, RMarkdown/Shiny widgets, and anything website/app/front
 ### rObservable notebook widgets    
 
 Bivariate cloropleth map legend      
-https://juba.github.io/robservable/articles/gallery.html  
+<!-- https://juba.github.io/robservable/articles/gallery.html   -->
 ```{r}
 load(url("https://raw.githubusercontent.com/Deleetdk/USA.county.data/master/data/USA_county_data.RData"))
 

@@ -1236,6 +1236,12 @@ str1 %>%
 
 ```
 
+Replace all spaces with breaks (ideal for adding ggrichtext labels) 
+```{r}
+df %>% 
+  mutate_at("city", ~str_replace_all(.," ","<br>"))
+```
+
 ### SVG
 
 Read in svg  
