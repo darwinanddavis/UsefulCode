@@ -167,6 +167,29 @@ require(colorspace)
 "#EFEFEF" %>% darken(0.2)
 ```
 
+Colour gradient palettes for multi coloured lines/paths/routes   
+```{r, col5, eval =T}
+require(colorspace)
+require(ggplot2)
+require(dplyr)
+
+# data
+nn <- 200
+df <- data.frame("x" = 1:nn, "var1" = sample(200,nn,replace=T))
+
+# option 1
+colp <- "#f4d29f"
+colv <- colorRampPalette(colors = c(colp,colp %>% lighten(0.3),"#000000"))
+colpal <- colv(df$var1 %>% unique %>% length)
+# option 2
+colpal <- sequential_hcl(df$var1 %>% unique %>% length,"Purple-Blue",power = 0, l = 50)
+
+# plot
+ggplot() +
+  geom_line(data = df, aes(1:nrow(df),var1, color = var1), size = 1, show.legend = F,lineend = "round",linejoin = "round") + 
+  scale_color_gradientn(colours = colpal, aesthetics = "col") 
+```
+
 
 ### Chord diagrams
 <!-- from olympics.R data viz eg -->
