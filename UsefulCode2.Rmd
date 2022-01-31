@@ -760,7 +760,7 @@ map
 
 Interactive label options and custom tiles    
 
-```{r}
+```{r, leaflet2}
 require(leaflet)
 require(dplyr)
 require(geosphere)
@@ -825,7 +825,7 @@ map
 
 Add multiple layers at once (uses loop)
 <!-- https://stackoverflow.com/questions/38701359/grouped-layer-control-in-leaflet-r -->
-```{r}
+```{r, leaflet3}
 # https://stackoverflow.com/questions/38701359/grouped-layer-control-in-leaflet-r
 
 #function to plot a map with layer selection 
@@ -859,6 +859,31 @@ map_layers <- function() {
 #plot the map
 map_layers()
 
+```
+
+
+Continuous colour legend  
+```{r, leaflet4, eval =F}
+
+# set colpal
+colpal <- sequential_hcl(6,"ag_GrnYl")
+colv <- colpal[1]
+scales::show_col(colpal)
+
+pal <- colorNumeric(
+  palette = colpal,
+  domain = df$var1
+)
+
+map <- leaflet() %>% 
+  setView(setview[1],setview[2],zoom=2) %>% 
+  addTiles(custom_tile) %>% 
+  addPolygons() %>% 
+  addLegend(pal = pal,
+            values  = df$var1,
+            position = "bottomright",
+            title = "Legend title",
+            opacity = opac) 
 ```
 
 
