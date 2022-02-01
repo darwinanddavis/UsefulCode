@@ -300,6 +300,7 @@ Links
 - [](https://bl.ocks.org/mbostock)  
 - [](https://vida.io/explore)  
 - [](https://daranzolin.github.io/software/)    
+- [](https://cran.r-project.org/web/packages/scatterD3/vignettes/introduction.html) 
 
 
 
@@ -385,9 +386,6 @@ df %>%
   chart_settings(fontFamily = font,
                  yAxisTickLocation = 'left')
 ```
-
-
-
 
 ### Data frames  
 Reversing order of rows in dataframe
@@ -697,7 +695,11 @@ getNodeSet(gpx2,path = "//folder") %>%
 
 ### Interactive plots  
 Clickme, NVD3, Polychart, rCharts, Rickshaw, and xCharts in `R`.    
-[Link to collated Github page](https://github.com/darwinanddavis/rInteractive).    
+[Link to collated Github page](https://github.com/darwinanddavis/rInteractive). 
+### Javascript in R  
+
+Crosstalk, plotly, setting up widgets, customing JS in R, mapping with JS, d3, etc    
+https://book.javascript-for-r.com/widgets-intro-intro.html#widgets-intro-crosstalk
 
 ### Leaflet  
 
