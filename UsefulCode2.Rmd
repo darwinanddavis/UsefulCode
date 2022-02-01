@@ -174,13 +174,14 @@ require(ggplot2)
 require(dplyr)
 
 # data
-nn <- 200
+nn <- 100
 df <- data.frame("x" = 1:nn, "var1" = sample(200,nn,replace=T))
 
 # option 1
 colp <- "#f4d29f"
-colv <- colorRampPalette(colors = c(colp,colp %>% lighten(0.3),"#000000"))
+colv <- colorRampPalette(colors = c(colp %>% darken(0.2), colp, colp %>% lighten(0.2)))
 colpal <- colv(df$var1 %>% unique %>% length)
+
 # option 2
 colpal <- sequential_hcl(df$var1 %>% unique %>% length,"Purple-Blue",power = 0, l = 50)
 
