@@ -388,6 +388,26 @@ df %>%
                  yAxisTickLocation = 'left')
 ```
 
+[rCharts](https://www.rpubs.com/dnchari/rcharts)    
+* Bubble  
+* Scatter  
+* + more 
+```{r, d34}
+pacman::p_load(rCharts)
+h4 = hPlot(Pulse ~ Height, data = MASS::survey, type = 'bubble', group = 'Sex', size =  'Age', radius = 6, group.na = "Not Available")
+h4$chart(zoomType = "xy")
+h4$exporting(enabled = F)
+# h4$print(include_assets=T) # print d3js output 
+
+h4
+```
+
+
+![](img/d3_4.jpg)  
+
+
+
+
 ### Data frames  
 Reversing order of rows in dataframe
 ```{r,d1}
@@ -873,6 +893,7 @@ colpal <- sequential_hcl(6,"ag_GrnYl")
 colv <- colpal[1]
 scales::show_col(colpal)
 
+# match data to colpal   
 pal <- colorNumeric(
   palette = colpal,
   domain = df$var1
