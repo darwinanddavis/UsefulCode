@@ -332,9 +332,9 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-01-09<br />
+<p>Date: 2022-02-04<br />
 <code>R</code> version: 3.5.0<br />
-*Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
+*Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
 
 <div id="overview" class="section level2">
@@ -489,6 +489,18 @@ Then add this line to the code chunk in the main Rmd file:<br />
 <span class="co"># example 1</span>
 <span class="kw">fivestars</span>(<span class="dt">rating =</span> <span class="fl">3.5</span>)</code></pre></div>
 </div>
+</div>
+<div id="linking-external-filescode" class="section level2">
+<h2>Linking external files/code</h2>
+<p>Insert external HTML file within body</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">htmltools<span class="op">::</span><span class="kw">includeHTML</span>(<span class="st">&quot;index_external.html&quot;</span>)</code></pre></div>
+<p>Insert external HTML file in header, before body, and footer</p>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">output:</span>
+  <span class="fu">html_document:</span>
+    <span class="fu">includes:</span>
+      <span class="fu">in_header:</span><span class="at"> header.html</span>
+      <span class="fu">before_body:</span><span class="at"> before.html</span>
+      <span class="fu">after_body:</span><span class="at"> after.html</span></code></pre></div>
 </div>
 
 

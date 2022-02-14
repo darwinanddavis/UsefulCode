@@ -289,5 +289,40 @@ use_fivestars(
 fivestars(rating = 3.5)
 ```
 
+## Linking external files/code  
+
+Insert external HTML file within body  
+```{r}
+htmltools::includeHTML("index_external.html")
+```
+
+Insert external HTML file in header, before body, and footer  
+```{yaml}
+output:
+  html_document:
+    includes:
+      in_header: header.html
+      before_body: before.html
+      after_body: after.html
+```
+
+## CSS and custom styling
+* Put in either 'styles.css' or in .Rmd file body    
+
+Change colour/style of crosstalk slider (`crosstalk::filter_slider()`)   
+```{css}
+/* crosstalk style ---------------- */
+.crosstalk-input-slider, .irs-grid-text .irs-text{
+  color: #5B3794;
+  font-family: Avernir;
+}
+.js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge, .js-irs-0 .irs-bar {
+  color: #5B3794;
+  background: #5B3794;
+  border-top: 1px solid #5B3794;
+  border-bottom: 1px solid #5B3794;
+  background-color: #5B3794; 
+}
+```
 
 
