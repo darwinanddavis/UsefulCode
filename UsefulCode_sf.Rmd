@@ -697,6 +697,13 @@ ggplot() +
   geom_tile()
 ```
 
+Add sequential colpal to flight paths/geometry/sf 
+```{r, aes3}
+inter_df %>% 
+    mutate(colpal = path_col %>% rep(7) %>% lighten(seq(0.1,0.5,0.1)))
+```
+
+
 ### Hillshade  
 
 ```{r, hill1}
