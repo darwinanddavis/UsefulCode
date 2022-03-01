@@ -112,6 +112,7 @@ Useful functions and code snippets for building `RMarkdown` docs. _All `R` code 
 ***  
 ### Split page into three columns (displays best in browser).  
 _`R` code is in Rmd file._    
+_Check [Tokyo 2020 Olympics medal analysis](https://darwinanddavis.github.io/misc/olympics/olympics.html) for live example_
 
 <!-- #https://holtzy.github.io/Pimp-my-rmd/ -->
 <div class = "row">

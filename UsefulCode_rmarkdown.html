@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-02-04<br />
+<p>Date: 2022-03-01<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -344,7 +344,8 @@ This document can be found at <a href="https://github.com/darwinanddavis/UsefulC
 <hr />
 <div id="split-page-into-three-columns-displays-best-in-browser." class="section level3">
 <h3>Split page into three columns (displays best in browser).</h3>
-<p><em><code>R</code> code is in Rmd file.</em></p>
+<p><em><code>R</code> code is in Rmd file.</em><br />
+<em>Check <a href="https://darwinanddavis.github.io/misc/olympics/olympics.html">Tokyo 2020 Olympics medal analysis</a> for live example</em></p>
 <!-- #https://holtzy.github.io/Pimp-my-rmd/ -->
 <div class="row">
 <div class="col-md-4">
@@ -501,6 +502,25 @@ Then add this line to the code chunk in the main Rmd file:<br />
       <span class="fu">in_header:</span><span class="at"> header.html</span>
       <span class="fu">before_body:</span><span class="at"> before.html</span>
       <span class="fu">after_body:</span><span class="at"> after.html</span></code></pre></div>
+</div>
+<div id="css-and-custom-styling" class="section level2">
+<h2>CSS and custom styling</h2>
+<ul>
+<li>Put in either 'styles.css' or in .Rmd file body</li>
+</ul>
+<p>Change colour/style of crosstalk slider (<code>crosstalk::filter_slider()</code>)</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="co">/* crosstalk style ---------------- */</span>
+<span class="fl">.crosstalk-input-slider</span>, <span class="fl">.irs-grid-text</span> <span class="fl">.irs-text</span><span class="kw">{</span>
+  <span class="kw">color:</span> <span class="dt">#5B3794</span><span class="kw">;</span>
+  <span class="kw">font-family:</span> Avernir<span class="kw">;</span>
+<span class="kw">}</span>
+<span class="fl">.js-irs-0</span> <span class="fl">.irs-single</span>, <span class="fl">.js-irs-0</span> <span class="fl">.irs-bar-edge</span>, <span class="fl">.js-irs-0</span> <span class="fl">.irs-bar</span> <span class="kw">{</span>
+  <span class="kw">color:</span> <span class="dt">#5B3794</span><span class="kw">;</span>
+  <span class="kw">background:</span> <span class="dt">#5B3794</span><span class="kw">;</span>
+  <span class="kw">border-top:</span> <span class="dt">1px</span> <span class="dt">solid</span> <span class="dt">#5B3794</span><span class="kw">;</span>
+  <span class="kw">border-bottom:</span> <span class="dt">1px</span> <span class="dt">solid</span> <span class="dt">#5B3794</span><span class="kw">;</span>
+  <span class="kw">background-color:</span> <span class="dt">#5B3794</span><span class="kw">;</span> 
+<span class="kw">}</span></code></pre></div>
 </div>
 
 
