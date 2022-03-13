@@ -104,7 +104,7 @@ This document can be found at `r params$doi`
 \newpage  
 
 ## Overview
-
+  
 Useful functions and code snippets for building `RMarkdown` docs. _All `R` code is in Rmd file._       
 
 

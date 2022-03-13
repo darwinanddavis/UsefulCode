@@ -200,7 +200,7 @@ dev.off()
 
 ### Converting lists and dataframes to usable format for `ggplot` (`melt` package)
 ```{r, ggplot5, results='hide',eval=F}
-require(reshape2) # melt package  
+require(reshape2) # melt package   
 nn <- 10 # reps
 mm <- data.frame("X"=rep(LETTERS,nn),"Y"=sample(nn,replace = T),"Z"=rep(paste(LETTERS,"_",rnorm(1)),nn))
 # plot 
@@ -726,7 +726,7 @@ theme(legend.position=c(0.2,0.2), #xy from bottom left
 
 Biscale legend 
 <!-- https://github.com/richardvogg/30DayMapChallenge21/blob/master/day17_land/day17_land.R -->
-```{r, legend6}
+```{r, legend6, eval = F}
 require(biscale)
 
 data <- bi_class(df, sf1, sf2, dim = 3)
