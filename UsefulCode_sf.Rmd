@@ -546,6 +546,23 @@ gp <- ggplot() +
 gp
 ```
 
+Getting gc flight path from sf obj
+```{r, globe2}
+library(geosphere)
+  require(sf)
+get_inter_func <- function(sc1,sc2){
+    gcIntermediate(
+      sites_flight[sites_flight$city %in% sc1,] %>% st_geometry() %>% unlist,
+      sites_flight[sites_flight$city %in% sc2,] %>% st_geometry() %>% unlist,
+      n=100, addStartEnd=T, breakAtDateLine=F) %>% 
+      as.data.frame()
+  } %>% 
+    as.matrix() %>% # convert points to linestring
+    st_linestring(dim = "XY") %>% 
+    st_sfc(crs = 4326) # convert sfg object to geometry 
+```
+
+
 ### Read .gpx files (GPS track software/apps)  
 ```{r, gpx1}
 pacman::p_load(XML,lubridate)
