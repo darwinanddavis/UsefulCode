@@ -162,6 +162,10 @@ Get boundary/outlines
 ```{r}
 # good for plotting US state border lines over other sf files 
 obj %>% st_geometry() %>% st_boundary %>% ggplot() + geom_sf()
+
+# boundary of bbox
+mp %>% st_bbox() %>% st_as_sfc() %>% 
+  ggplot() + geom_sf()
 ```
 
 Break up multipolygon into separate polygons/pull specific polygon e.g. main France polygon and rm islands
