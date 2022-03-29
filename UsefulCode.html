@@ -332,9 +332,9 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-06-29<br />
+<p>Date: 2022-03-29<br />
 <code>R</code> version: 3.5.0<br />
-*Corresponding author: <a href="mailto:matthew.malishev@gmail.com">matthew.malishev@gmail.com</a><br />
+*Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
 
 <div id="overview" class="section level2">
@@ -525,10 +525,7 @@ zp &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">st
 <p>Display status message of progress</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
     <span class="kw">Sys.sleep</span>(<span class="fl">0.2</span>)
-    <span class="co"># Dirk says using cat() like this is naughty ;-)</span>
-    <span class="co"># cat(i,'\r') So you can use message() like this,</span>
-    <span class="co"># thanks to Sharpie's comment to use</span>
-    <span class="co"># appendLF=FALSE.</span>
+    <span class="co"># comment to use appendLF=FALSE.</span>
     <span class="kw">message</span>(i, <span class="st">&quot;</span><span class="ch">\r</span><span class="st">&quot;</span>, <span class="dt">appendLF =</span> <span class="ot">FALSE</span>)  <span class="co"># appendLF = new line </span>
     <span class="kw">flush.console</span>()
 }</code></pre></div>
@@ -598,6 +595,13 @@ global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(globa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">site<span class="op">$</span>layer <span class="op">%&gt;%</span><span class="st"> </span>head
 site &lt;-<span class="st"> &quot;day9_raster.Rda&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>readRDS <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_at</span>(<span class="st">&quot;layer&quot;</span>, 
     <span class="op">~</span><span class="kw">replace</span>(., <span class="kw">is.nan</span>(.), <span class="dv">0</span>))</code></pre></div>
+<p>Good NA exploration</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(df, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))
+df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sapply</span>(is.na) <span class="op">%&gt;%</span><span class="st"> </span>sum
+df<span class="op">$</span>col1[<span class="kw">which</span>(<span class="op">!</span><span class="kw">is.finite</span>(df<span class="op">$</span>col1))] &lt;-<span class="st"> </span><span class="ot">NA</span>  <span class="co"># Replace `NaN` and `Inf` values with `NA` </span>
+data &lt;-<span class="st"> </span>data[<span class="op">!</span><span class="kw">is.na</span>(data<span class="op">$</span>X), ]  <span class="co"># rm all rows with nas</span>
+global_output &lt;-<span class="st"> </span><span class="kw">rapply</span>(global_output, <span class="dt">f =</span> <span class="cf">function</span>(x) <span class="kw">ifelse</span>(<span class="kw">is.na</span>(x), 
+    <span class="dv">0</span>, x), <span class="dt">how =</span> <span class="st">&quot;replace&quot;</span>)  <span class="co"># Turn NaN or NAs in list into 0s  </span></code></pre></div>
 </div>
 <div id="packages" class="section level3">
 <h3>Packages</h3>

@@ -443,6 +443,17 @@ site <- "day9_raster.Rda" %>%
   mutate_at("layer", ~replace(.,is.nan(.), 0))
 ```
 
+Good NA exploration 
+```{r, NA10, eval = F}
+sapply(df, function(x) sum(is.na(x)))
+df %>% sapply(is.na) %>% sum 
+df$col1[which(!is.finite(df$col1))] <-  NA # Replace `NaN` and `Inf` values with `NA` 
+data <- data[!is.na(data$X),] # rm all rows with nas
+global_output <- rapply(global_output, f=function(x) ifelse(is.na(x),0,x), how="replace")  # Turn NaN or NAs in list into 0s  
+
+```
+
+
 
 ### Packages  
 [`rLandsat`](https://blog.socialcops.com/technology/data-science/announcing-rlandsat-landsat-8-data/)    
