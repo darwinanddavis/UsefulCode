@@ -421,7 +421,7 @@ h4
 
 
 ### Data frames  
-Reversing order of rows in dataframe
+Reversing order of rows in dataframe/entire df
 ```{r,d1}
 # df = data.frame
 require(tidyverse)
@@ -1074,6 +1074,12 @@ ll %>% # list of sf objects
   rlist::list.rbind() # unlist these and bind together 
 ```
 
+Convert list to df
+```{r, l9}
+require(plyr)
+ls %>% plyr::ldply(tibble) # convert list to df
+```
+
 ### Plotting 
 
 Hand drawn plotting using `roughViz.js`. [Link to package page](https://rdrr.io/github/XiangyunHuang/roughviz/).      
@@ -1383,6 +1389,13 @@ itz <- "2021-02-01T02:22:59.000Z"
 lubridate::ymd_hms(itz) %>% 
   with_tz(OlsonNames()[OlsonNames() %>% str_which("Melb")])
 ```
+
+Set time to 12 hour with AM/PM
+```{r}
+require(lubridate)
+df$time %>% as_datetime() %>% format("%d/%m %I:%M %p") # set time to 12 hour with AM/PM
+```
+
 
 ### Tables
 

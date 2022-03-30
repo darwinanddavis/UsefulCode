@@ -205,6 +205,12 @@ df %>%
 Change `df` column names    
 ```{r, df3, results='hide',eval=F}
 colnames(data)[c(1,2,3)] <- c("TimeStamp","Lat","Long")
+
+# tidyr
+df %>% rename("Updated_col" = "Current_col")
+df %>% rename(.cols = 1:2, # specify columns 
+              "Updated_col" = "Current_col",
+              "Updated_col2" = 2)
 ```
 
 Remove multiple columns from df     
@@ -266,6 +272,7 @@ listvec <- sapply(rep(NA,7),list) # list with 7 empty elements
 listvec_final <- c(listvec,list(rv)) # append rv
 listvec_final <- c(listvec,rv) # to append rv contents as separate elements, remove internal list 
 ```
+
 
 ### Loops  
 Save loop output in master list  

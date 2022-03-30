@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-03-29<br />
+<p>Date: 2022-03-30<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -413,8 +413,13 @@ Energy &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span cla
 df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">b =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>))
 df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>), <span class="dt">b =</span> b <span class="op">*</span><span class="st"> </span><span class="dv">67</span>)</code></pre></div>
 <p>Change <code>df</code> column names</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(data)[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;TimeStamp&quot;</span>, <span class="st">&quot;Lat&quot;</span>, 
-    <span class="st">&quot;Long&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(data)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;TimeStamp&quot;</span>,<span class="st">&quot;Lat&quot;</span>,<span class="st">&quot;Long&quot;</span>)
+
+<span class="co"># tidyr</span>
+df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="st">&quot;Updated_col&quot;</span> =<span class="st"> &quot;Current_col&quot;</span>)
+df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">.cols =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="co"># specify columns </span>
+              <span class="st">&quot;Updated_col&quot;</span> =<span class="st"> &quot;Current_col&quot;</span>,
+              <span class="st">&quot;Updated_col2&quot;</span> =<span class="st"> </span><span class="dv">2</span>)</code></pre></div>
 <p>Remove multiple columns from df</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Remove multiple NA columns
 rm_cols &lt;-<span class="st"> </span><span class="kw">grep</span>(<span class="st">&quot;NA&quot;</span>, <span class="kw">names</span>(tt), <span class="dt">ignore.case =</span> F)
