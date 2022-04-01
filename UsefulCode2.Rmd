@@ -1403,6 +1403,19 @@ require(lubridate)
 df$time %>% as_datetime() %>% format("%d/%m %I:%M %p") # set time to 12 hour with AM/PM
 ```
 
+Convert character string to just year/month
+```{r}
+# adds ambiguous day to vector, which can be ignored or removed
+
+require(anytime)
+require(lubridate)
+# "1982-04" "1982-05" "1982-06" "1982-07"
+df$Time %>% anytime::anydate() # opt 1
+df$Time %>% lubridate::parse_date_time("ym") # opt 2
+as.POSIXct(df$Time,format = "%Y-%M") # opt 3
+
+```
+
 
 ### Tables
 
