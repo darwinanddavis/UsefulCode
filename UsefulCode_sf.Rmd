@@ -192,6 +192,15 @@ dat %>%
   filter(st_geometry_type(.) == "LINESTRING")
 ```
 
+Convert matrix directly to sf
+```{r}
+require(sfheaders)
+m %>% sf_point()
+m %>% sf_multipolygon()
+m %>% sf_multilinestring()
+m %>% sf_linestring()
+```
+
 ### ZM features  
 
 Return Z range for sf obj 

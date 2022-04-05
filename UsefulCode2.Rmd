@@ -1207,7 +1207,7 @@ p <- p + facet_wrap(~ ControlDay_names,nrow=length(me_day_names), ncol=1, drop= 
 p <- p + scale_y_continuous(breaks = unique(yy), labels = me_im_names, trans = "reverse")
 p <- p + scale_x_continuous(breaks = seq(0,max(xx),30), expand =c(0,2)) 
 p <- p + geom_segment(aes(x = 152, xend = 152, y= 4, yend= 4),
-                      arrow=arrow(length=unit(0.2,"cm")))
+                      arrow=arrow(length=unit(0.2,"cm")))   
 p <- p + theme_calc() + 
   theme(text = element_text(size=18)) +
   # labs(title= paste0("Density of ",ttl, " by ",subttl), y=ylab, x=xlab) +
@@ -1415,7 +1415,6 @@ df$Time %>% lubridate::parse_date_time("ym") # opt 2
 as.POSIXct(df$Time,format = "%Y-%M") # opt 3
 
 ```
-
 
 ### Tables
 

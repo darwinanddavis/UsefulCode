@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-03-29<br />
+<p>Date: 2022-04-05<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -385,6 +385,12 @@ mp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_bb
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_intersection</span>(boundary_osm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_boundary</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_cast</span>(<span class="st">&quot;POLYGON&quot;</span>)</code></pre></div>
 <p>Filter sf geometry only</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">st_geometry_type</span>(.) <span class="op">==</span><span class="st"> &quot;LINESTRING&quot;</span>)</code></pre></div>
+<p>Convert matrix directly to sf</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(sfheaders)
+m <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sf_point</span>()
+m <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sf_multipolygon</span>()
+m <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sf_multilinestring</span>()
+m <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sf_linestring</span>()</code></pre></div>
 </div>
 <div id="zm-features" class="section level3">
 <h3>ZM features</h3>
