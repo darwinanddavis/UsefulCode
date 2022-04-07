@@ -1087,6 +1087,30 @@ require(plyr)
 ls %>% plyr::ldply(tibble) # convert list to df
 ```
 
+Conditional rules for lists
+```{r, l10}
+require(purrr)
+cond <- ls %>% map(class) == "list" # check if elements are class list
+cond %>% unique()
+ls %>% keep(cond) # retain just these entries
+ls %>% vec_depth # check how far list indexes 
+```
+
+Rename list/matrices with pipe/dplyr
+```{r, l11}
+require(purrr)
+require(magrittr)
+# option 1
+ls %>% map(matrix, ncol=2) %>%  # turn elements into matrices
+  map(`colnames <-`, c("X","Y"))
+
+# option 2
+ls %>% map(matrix, ncol=2) %>%  # turn elements into
+  map(magrittr::set_colnames, c("X","Y"))
+
+```
+
+
 ### Plotting 
 
 Hand drawn plotting using `roughViz.js`. [Link to package page](https://rdrr.io/github/XiangyunHuang/roughviz/).      
