@@ -159,7 +159,7 @@ obj %>% st_geometry %>% st_collection_extract("POINT") # get geometry of just po
 ```
 
 Get boundary/outlines
-```{r}
+```{r, sf5}
 # good for plotting US state border lines over other sf files 
 obj %>% st_geometry() %>% st_boundary %>% ggplot() + geom_sf()
 
@@ -169,36 +169,49 @@ mp %>% st_bbox() %>% st_as_sfc() %>%
 ```
 
 Break up multipolygon into separate polygons/pull specific polygon e.g. main France polygon and rm islands
-```{r}
+```{r, sf6, eval = F}
 french_guiana <- ne_countries("large",type = "countries",returnclass = "sf") %>% 
   filter(name %in% c("France")) %>% # add french guiana 
   st_cast("POLYGON") %>% slice(1) # get just french guiana 
 ```
 
 Get areas of individual polygons within multipolygon  
-```{r}
+```{r, sf7}
 dd %>% filter(name == "Netherlands") %>% 
   st_cast("POLYGON") %>% st_geometry %>% st_area()
 ```
 
 Crop multipolyon boundary to surround sf obj boundary and combine into one polygon    
-```{r}
+```{r, sf8}
 dd %>% st_intersection(boundary_osm %>% st_boundary()) %>% st_cast("POLYGON")
 ```
 
 Filter sf geometry only   
-```{r}
+```{r, sf9}
 dat %>% 
   filter(st_geometry_type(.) == "LINESTRING")
 ```
 
 Convert matrix directly to sf
-```{r}
+```{r, sf10}
 require(sfheaders)
 m %>% sf_point()
 m %>% sf_multipolygon()
 m %>% sf_multilinestring()
 m %>% sf_linestring()
+
+# convert list of matrices/arrays into sf
+require(purrr)
+require(magrittr)
+require(rlist)
+
+ls %>% 
+  map(matrix, ncol = 2) %>% 
+  map(magrittr::set_colnames, c("lon","lat")) %>% # rename cols
+  compact() %>% # drop empty lists
+  map(sfheaders::sf_multipolygon, multipolygon_id = NULL) %>%  # convert to sf
+  rlist::list.rbind() # bind sfs 
+  
 ```
 
 ### ZM features  
@@ -230,7 +243,7 @@ spTransform(shp, CRS("+proj=longlat +datum=WGS84")) # transform projection
 
 ### Base maps       
 Base map from OSM    
-```{r, sf6}
+```{r, m1}
 # osm 
 gg <- get_map(location,
               source="osm", 
@@ -242,7 +255,7 @@ ggmap(gg, extent = "device", darken = c(0.9,"white")) +
 
 ### North arrow and scale bars  
 <!-- https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html   -->
-```{r, sf7}
+```{r, m2}
 library("ggspatial")
 ggplot(data = world) +
     geom_sf() +
@@ -255,7 +268,7 @@ ggplot(data = world) +
 ## Scale on map varies by more than 10%, scale bar may be inaccurate
 ```
 
-```{r, sf8}
+```{r, m3}
 
 # accessing coords in sf (complex)
 # shp <- here::here("worldmaps","data","day14.shp") %>% readOGR()
@@ -278,7 +291,7 @@ ggplot(data = world) +
 
 ### Projections  
 
-```{r, sf9}
+```{r, p1}
 
 #list of proj 
 # https://proj.org/operations/projections/patterson.html
@@ -333,7 +346,7 @@ prj <- projection(pathm) # get proj in string format
 ```
 
 Get projection info 
-```{r, sf10}
+```{r, p2}
 # find proj
 crs_codes = rgdal::make_EPSG() # get all espg code and info
 crs_codes %>% filter(code == 27700) %>% pull # pull espg name and code 
@@ -344,7 +357,7 @@ crs_codes[crs_codes$note %>% str_which("Austra"),"code"]
 
 ### KML/KMZ data  
 <!-- https://mitchellgritts.com/posts/load-kml-and-kmz-files-into-r/ -->
-```{r, sf11}
+```{r, k1}
 require(sf)
 path <- "/data.kml" %>% sf::st_read() # single layer kml
 path <- "/data.kml" %>% sf::st_layers() # multi layer kml
