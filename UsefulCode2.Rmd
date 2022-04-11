@@ -1110,6 +1110,22 @@ ls %>% map(matrix, ncol=2) %>%  # turn elements into
 
 ```
 
+Filter lists by values using pipe/map  
+```{r, l12}
+require(purrr)
+require(magrittr)
+
+df <- ls %>% purrr::map(matrix,ncol=2) %>% purrr::map(magrittr::set_colnames,c("X", "Y"))  # convert list to matrix
+
+df %>% purrr::map(~.[,"Y"] > 150) # return logical numeric 
+
+df %>% purrr::map(~. > 150) # return logical matrix
+
+df %>% purrr::map(~.[.[,"X"] < 30], drop=T) # return numeric 
+
+```
+
+
 
 ### Plotting 
 
