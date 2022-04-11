@@ -688,6 +688,11 @@ sf <- sf %>%
 autoplot(sf)
 ```
 
+Validate sfs (useful when trying combining sfs and connecting lines make weird shapes)
+```{r, join5}
+sf %>% st_is_valid()
+sf[!st_is_valid(sf),] %>% st_make_valid()
+```
 
 ### Deck.gl widget for map   
 Create interactive HTML knitted from Rmd    

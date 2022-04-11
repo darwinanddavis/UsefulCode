@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-04-08<br />
+<p>Date: 2022-04-11<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -774,6 +774,9 @@ sf &lt;-<span class="st"> </span>sf <span class="op">%&gt;%</span><span class="s
 <span class="st">  </span><span class="kw">st_snap</span>(.,., <span class="dt">tolerance =</span> <span class="dv">10000</span>) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># coerces the snapping using a big tolerance value</span>
 <span class="st">  </span><span class="kw">as_sfnetwork</span>() <span class="co"># convert to network obj  </span>
 <span class="kw">autoplot</span>(sf)</code></pre></div>
+<p>Validate sfs (useful when trying combining sfs and connecting lines make weird shapes)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_is_valid</span>()
+sf[<span class="op">!</span><span class="kw">st_is_valid</span>(sf), ] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_make_valid</span>()</code></pre></div>
 </div>
 <div id="deck.gl-widget-for-map" class="section level3">
 <h3>Deck.gl widget for map</h3>
