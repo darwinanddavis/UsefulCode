@@ -1125,6 +1125,11 @@ df %>% purrr::map(~.[.[,"X"] < 30], drop=T) # return numeric
 
 ```
 
+Find/detect list elements  
+```{r, l13}
+ls %>%  detect(is.matrix) 
+ls %>% every(is.matrix)
+```
 
 
 ### Plotting 
