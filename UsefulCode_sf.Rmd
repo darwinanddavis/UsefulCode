@@ -795,3 +795,10 @@ osmextract::oe_download(provider = 'openstreetmap_fr',
 
 ```
 
+### sf structure    
+
+Access levels within sf variable (e.g. Name) using attributes   
+```{r, str1}
+sf$Name %>% attr(which = "levels")
+```
+

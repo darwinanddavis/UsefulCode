@@ -519,7 +519,7 @@ df %>% group_by(var1) %>%
   summarise(n = n_distinct(var2))
 ```
 
-Execute unfriendly pipe functions inline in pipes       
+Execute unfriendly pipe functions inline in pipes   
 ```{r, dplyr2}
 require(palmerpenguins)
 require(dplyr)
@@ -1129,6 +1129,13 @@ Find/detect list elements
 ```{r, l13}
 ls %>%  detect(is.matrix) 
 ls %>% every(is.matrix)
+```
+
+Find common terms among vectors/lists 
+```{r, l14}
+intersect(intersect(l1$var1,l2$var1),l3$var1) %>% unique 
+Reduce(intersect, list(l1$var1,l2$var1,l3$var1)) %>% unique
+
 ```
 
 
