@@ -244,7 +244,7 @@ ggplot() +
 ```
 
 ### Adding text lables to plots
-```{r, gg8,eval=T}
+```{r, t1,eval=T}
 require(ggplot2)
 xx = sample(100, 100)
 yy = rnorm(100)
@@ -261,6 +261,26 @@ ggplot() +
   geom_label(aes(xx,yy,label=xx),size=yy+5,color = yy +5, fill=xx) +
   theme_classic() 
 ```
+
+Add text to end of lines (plus other methods)  
+```{r, t2, eval=F}
+require(directlabels)
+df <- tibble("x" = sample(10,5),
+             "y" = sample(10,5),
+             "label" = LETTERS[1:5])
+
+ggplot() +
+  geom_point(data = df, aes(x,y)) +
+  geom_dl(aes(label = label), 
+          method = list(
+            dl.trans(x = x + 0.3, y = y + 0), # expand x/y axis to fit in labels  
+            list(dl.combine("first.points","last.points")), cex = 0.5 # add labels to first and last points
+            )
+          ) +
+  scale_x_continuous( ..., expand = c(0, 1.5))
+
+```
+
 
 ### Calling data frame columns with weird formatting 
 ```{r,gg9, eval = F}
