@@ -364,79 +364,23 @@ path <- "/data.kml" %>% sf::st_layers() # multi layer kml
 # for kmz, change .kmz to .zip, then unzip and read as kml
 ```
 
-
-### Convert sp/sf/spdf data to data frame (fortify)  
-```{r, sf12}
+### Conversions   
+Convert sp/sf/spdf data to data frame (fortify)   
+```{r, c1}
 require(rworldmap)
 require(broom)
 d <- getMap(resolution = "high") # get world data
 d_fort <- tidy(d, region = "NAME") # fortify 
 ```
 
-
 Convert sf geometry to df  
-```{r}
+```{r,c2}
 require(sfheaders)
 sf %>% sf_to_df
 ```
 
-
-### Find intersecting geo points within sf objects
-```{r, sf13}
-require(osmdata)
-require(sf)
-get_osm_feature <- function(loc,key,value,geo){
-  oo <- opq(loc) %>% # find location
-    add_osm_feature(key = key, value = value) %>% # source key-value pair
-    osmdata_sf() %>% # get sf obj
-    unname_osmdata_sf() # combat sf error
-  oo[[geo]] # %>% # pull geometry
-}
-
-# location, key, value 
-location1 <- "melbourne australia" 
-polyg <- get_osm_feature(location1, "leisure","park|natu","osm_polygons") # get osm features
-
-# check if point intersects with polygon 
-pts_inter = c(144.7695,-38.2724) %>% 
-  st_point() %>% # convert into sf point
-  st_sfc(crs = 4326) %>% # set prj
-  st_as_sf() # convert into sf  
-polyg  <- polyg %>% st_transform(4326) # match proj to above sf coords
-polyg_inter <- st_intersection(polyg,pts_inter) # find intersecting point within polygon 
-
-# plot intersecting polygon and point
-st_intersection(pts_inter,polyg) %>% st_geometry()
-polyg %>% filter(osm_id == "234385754") 
-ggplot() +
-  geom_sf(data = polyg %>% filter(osm_id == polyg_inter$osm_id)) + # plot polygon w intersecting point
-  geom_sf(data = pts_inter, col = "red") + # add intersecting point
-  geom_sf_text(data = pts_inter, label = "Intersecting\npoint") +
-  theme_bw()
-
-```
-
-Other predicate funcs for sf pairs
-```{r, sf14, eval = F}
-st_intersects()
-st_disjoint()
-st_touches()
-st_crosses()
-st_within()
-st_contains()
-st_contains_properly()
-st_overlaps()
-st_equals()
-st_covers()
-st_covered_by()
-st_equals_exact()
-st_is_within_distance()
-```
-
-### Convert df/numeric/matrix to geometry
-
 Convert points to linestring
-```{r, sf15}
+```{r, c3}
 inter_df <- rbind(df1,df2,df3) %>%   
     as.matrix() %>%
     st_linestring(dim = "XY") %>% # convert points to single linestring
@@ -452,7 +396,7 @@ pathm <- city_df %>%
 ```
 
 Convert each row in df to linestring
-```{r, sf16}
+```{r, c4}
 inter_df <- rbind(df1,df2,df3) %>%
     st_as_sf(coords = c("lon","lat"), crs = 4326) %>% 
     st_geometry() %>% 
@@ -693,6 +637,73 @@ Validate sfs (useful when trying combining sfs and connecting lines make weird s
 sf %>% st_is_valid()
 sf[!st_is_valid(sf),] %>% st_make_valid()
 ```
+
+Find intersecting geo points within sf objects
+```{r,join6}
+require(osmdata)
+require(sf)
+get_osm_feature <- function(loc,key,value,geo){
+  oo <- opq(loc) %>% # find location
+    add_osm_feature(key = key, value = value) %>% # source key-value pair
+    osmdata_sf() %>% # get sf obj
+    unname_osmdata_sf() # combat sf error
+  oo[[geo]] # %>% # pull geometry
+}
+
+# location, key, value 
+location1 <- "melbourne australia" 
+polyg <- get_osm_feature(location1, "leisure","park|natu","osm_polygons") # get osm features
+
+# check if point intersects with polygon 
+pts_inter = c(144.7695,-38.2724) %>% 
+  st_point() %>% # convert into sf point
+  st_sfc(crs = 4326) %>% # set prj
+  st_as_sf() # convert into sf  
+polyg  <- polyg %>% st_transform(4326) # match proj to above sf coords
+polyg_inter <- st_intersection(polyg,pts_inter) # find intersecting point within polygon 
+
+# plot intersecting polygon and point
+st_intersection(pts_inter,polyg) %>% st_geometry()
+polyg %>% filter(osm_id == "234385754") 
+ggplot() +
+  geom_sf(data = polyg %>% filter(osm_id == polyg_inter$osm_id)) + # plot polygon w intersecting point
+  geom_sf(data = pts_inter, col = "red") + # add intersecting point
+  geom_sf_text(data = pts_inter, label = "Intersecting\npoint") +
+  theme_bw()
+
+```
+
+Fixing intersecting sf objs (self/non-coding intersection error)
+<!-- https://gis.stackexchange.com/questions/307423/st-intersection-failing-for-overlapping-multipolygons-in-sf -->
+```{r, join7}
+require(sf)
+require(lwgeom)
+
+# various options  
+sf %>% st_make_valid # validate obj
+sf %>% st_buffer(0) %>% st_intersection(polys) # add 0 buffer
+sf %>% st_snap(polys, tolerance = 0.09) # snap to polygon edge 
+sf %>% lwgeom::st_snap_to_grid(10) # snap to grid 
+sf[5:1] %>% st_intersection() # try reversing order of obj 
+```
+
+Other predicate funcs for sf pairs
+```{r, sf14, eval = F}
+st_intersects()
+st_disjoint()
+st_touches()
+st_crosses()
+st_within()
+st_contains()
+st_contains_properly()
+st_overlaps()
+st_equals()
+st_covers()
+st_covered_by()
+st_equals_exact()
+st_is_within_distance()
+```
+
 
 ### Deck.gl widget for map   
 Create interactive HTML knitted from Rmd    

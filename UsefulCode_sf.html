@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-04-11<br />
+<p>Date: 2022-04-19<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -516,8 +516,9 @@ path &lt;-<span class="st"> &quot;/data.kml&quot;</span> <span class="op">%&gt;%
 path &lt;-<span class="st"> &quot;/data.kml&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>sf<span class="op">::</span><span class="kw">st_layers</span>()  <span class="co"># multi layer kml</span>
 <span class="co"># for kmz, change .kmz to .zip, then unzip and read as kml</span></code></pre></div>
 </div>
-<div id="convert-spsfspdf-data-to-data-frame-fortify" class="section level3">
-<h3>Convert sp/sf/spdf data to data frame (fortify)</h3>
+<div id="conversions" class="section level3">
+<h3>Conversions</h3>
+<p>Convert sp/sf/spdf data to data frame (fortify)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(rworldmap)
 <span class="kw">require</span>(broom)
 d &lt;-<span class="st"> </span><span class="kw">getMap</span>(<span class="dt">resolution =</span> <span class="st">&quot;high&quot;</span>)  <span class="co"># get world data</span>
@@ -525,56 +526,6 @@ d_fort &lt;-<span class="st"> </span><span class="kw">tidy</span>(d, <span class
 <p>Convert sf geometry to df</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(sfheaders)
 sf <span class="op">%&gt;%</span><span class="st"> </span>sf_to_df</code></pre></div>
-</div>
-<div id="find-intersecting-geo-points-within-sf-objects" class="section level3">
-<h3>Find intersecting geo points within sf objects</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(osmdata)
-<span class="kw">require</span>(sf)
-get_osm_feature &lt;-<span class="st"> </span><span class="cf">function</span>(loc,key,value,geo){
-  oo &lt;-<span class="st"> </span><span class="kw">opq</span>(loc) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># find location</span>
-<span class="st">    </span><span class="kw">add_osm_feature</span>(<span class="dt">key =</span> key, <span class="dt">value =</span> value) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># source key-value pair</span>
-<span class="st">    </span><span class="kw">osmdata_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># get sf obj</span>
-<span class="st">    </span><span class="kw">unname_osmdata_sf</span>() <span class="co"># combat sf error</span>
-  oo[[geo]] <span class="co"># %&gt;% # pull geometry</span>
-}
-
-<span class="co"># location, key, value </span>
-location1 &lt;-<span class="st"> &quot;melbourne australia&quot;</span> 
-polyg &lt;-<span class="st"> </span><span class="kw">get_osm_feature</span>(location1, <span class="st">&quot;leisure&quot;</span>,<span class="st">&quot;park|natu&quot;</span>,<span class="st">&quot;osm_polygons&quot;</span>) <span class="co"># get osm features</span>
-
-<span class="co"># check if point intersects with polygon </span>
-pts_inter =<span class="st"> </span><span class="kw">c</span>(<span class="fl">144.7695</span>,<span class="op">-</span><span class="fl">38.2724</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">st_point</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert into sf point</span>
-<span class="st">  </span><span class="kw">st_sfc</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># set prj</span>
-<span class="st">  </span><span class="kw">st_as_sf</span>() <span class="co"># convert into sf  </span>
-polyg  &lt;-<span class="st"> </span>polyg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(<span class="dv">4326</span>) <span class="co"># match proj to above sf coords</span>
-polyg_inter &lt;-<span class="st"> </span><span class="kw">st_intersection</span>(polyg,pts_inter) <span class="co"># find intersecting point within polygon </span>
-
-<span class="co"># plot intersecting polygon and point</span>
-<span class="kw">st_intersection</span>(pts_inter,polyg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>()
-polyg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(osm_id <span class="op">==</span><span class="st"> &quot;234385754&quot;</span>) 
-<span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> polyg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(osm_id <span class="op">==</span><span class="st"> </span>polyg_inter<span class="op">$</span>osm_id)) <span class="op">+</span><span class="st"> </span><span class="co"># plot polygon w intersecting point</span>
-<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> pts_inter, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># add intersecting point</span>
-<span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> pts_inter, <span class="dt">label =</span> <span class="st">&quot;Intersecting</span><span class="ch">\n</span><span class="st">point&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p>Other predicate funcs for sf pairs</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>()
-<span class="kw">st_disjoint</span>()
-<span class="kw">st_touches</span>()
-<span class="kw">st_crosses</span>()
-<span class="kw">st_within</span>()
-<span class="kw">st_contains</span>()
-<span class="kw">st_contains_properly</span>()
-<span class="kw">st_overlaps</span>()
-<span class="kw">st_equals</span>()
-<span class="kw">st_covers</span>()
-<span class="kw">st_covered_by</span>()
-<span class="kw">st_equals_exact</span>()
-<span class="kw">st_is_within_distance</span>()</code></pre></div>
-</div>
-<div id="convert-dfnumericmatrix-to-geometry" class="section level3">
-<h3>Convert df/numeric/matrix to geometry</h3>
 <p>Convert points to linestring</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df1,df2,df3) <span class="op">%&gt;%</span><span class="st">   </span>
 <span class="st">    </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span>
@@ -777,6 +728,61 @@ sf &lt;-<span class="st"> </span>sf <span class="op">%&gt;%</span><span class="s
 <p>Validate sfs (useful when trying combining sfs and connecting lines make weird shapes)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_is_valid</span>()
 sf[<span class="op">!</span><span class="kw">st_is_valid</span>(sf), ] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_make_valid</span>()</code></pre></div>
+<p>Find intersecting geo points within sf objects</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(osmdata)
+<span class="kw">require</span>(sf)
+get_osm_feature &lt;-<span class="st"> </span><span class="cf">function</span>(loc,key,value,geo){
+  oo &lt;-<span class="st"> </span><span class="kw">opq</span>(loc) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># find location</span>
+<span class="st">    </span><span class="kw">add_osm_feature</span>(<span class="dt">key =</span> key, <span class="dt">value =</span> value) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># source key-value pair</span>
+<span class="st">    </span><span class="kw">osmdata_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># get sf obj</span>
+<span class="st">    </span><span class="kw">unname_osmdata_sf</span>() <span class="co"># combat sf error</span>
+  oo[[geo]] <span class="co"># %&gt;% # pull geometry</span>
+}
+
+<span class="co"># location, key, value </span>
+location1 &lt;-<span class="st"> &quot;melbourne australia&quot;</span> 
+polyg &lt;-<span class="st"> </span><span class="kw">get_osm_feature</span>(location1, <span class="st">&quot;leisure&quot;</span>,<span class="st">&quot;park|natu&quot;</span>,<span class="st">&quot;osm_polygons&quot;</span>) <span class="co"># get osm features</span>
+
+<span class="co"># check if point intersects with polygon </span>
+pts_inter =<span class="st"> </span><span class="kw">c</span>(<span class="fl">144.7695</span>,<span class="op">-</span><span class="fl">38.2724</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">st_point</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert into sf point</span>
+<span class="st">  </span><span class="kw">st_sfc</span>(<span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># set prj</span>
+<span class="st">  </span><span class="kw">st_as_sf</span>() <span class="co"># convert into sf  </span>
+polyg  &lt;-<span class="st"> </span>polyg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(<span class="dv">4326</span>) <span class="co"># match proj to above sf coords</span>
+polyg_inter &lt;-<span class="st"> </span><span class="kw">st_intersection</span>(polyg,pts_inter) <span class="co"># find intersecting point within polygon </span>
+
+<span class="co"># plot intersecting polygon and point</span>
+<span class="kw">st_intersection</span>(pts_inter,polyg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>()
+polyg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(osm_id <span class="op">==</span><span class="st"> &quot;234385754&quot;</span>) 
+<span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> polyg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(osm_id <span class="op">==</span><span class="st"> </span>polyg_inter<span class="op">$</span>osm_id)) <span class="op">+</span><span class="st"> </span><span class="co"># plot polygon w intersecting point</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> pts_inter, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># add intersecting point</span>
+<span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> pts_inter, <span class="dt">label =</span> <span class="st">&quot;Intersecting</span><span class="ch">\n</span><span class="st">point&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p>Fixing intersecting sf objs (self/non-coding intersection error) <!-- https://gis.stackexchange.com/questions/307423/st-intersection-failing-for-overlapping-multipolygons-in-sf --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(sf)
+<span class="kw">require</span>(lwgeom)
+
+<span class="co"># various options</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span>st_make_valid  <span class="co"># validate obj</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_buffer</span>(<span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_intersection</span>(polys)  <span class="co"># add 0 buffer</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_snap</span>(polys, <span class="dt">tolerance =</span> <span class="fl">0.09</span>)  <span class="co"># snap to polygon edge </span>
+sf <span class="op">%&gt;%</span><span class="st"> </span>lwgeom<span class="op">::</span><span class="kw">st_snap_to_grid</span>(<span class="dv">10</span>)  <span class="co"># snap to grid </span>
+sf[<span class="dv">5</span><span class="op">:</span><span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_intersection</span>()  <span class="co"># try reversing order of obj </span></code></pre></div>
+<p>Other predicate funcs for sf pairs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>()
+<span class="kw">st_disjoint</span>()
+<span class="kw">st_touches</span>()
+<span class="kw">st_crosses</span>()
+<span class="kw">st_within</span>()
+<span class="kw">st_contains</span>()
+<span class="kw">st_contains_properly</span>()
+<span class="kw">st_overlaps</span>()
+<span class="kw">st_equals</span>()
+<span class="kw">st_covers</span>()
+<span class="kw">st_covered_by</span>()
+<span class="kw">st_equals_exact</span>()
+<span class="kw">st_is_within_distance</span>()</code></pre></div>
 </div>
 <div id="deck.gl-widget-for-map" class="section level3">
 <h3>Deck.gl widget for map</h3>
@@ -853,6 +859,11 @@ cc &lt;-<span class="st"> </span>colpal <span class="op">%&gt;%</span><span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-------------------------------</span><span class="co"># https://www.urbandemographics.org/post/mapping-walking-time-osm-r5r/</span>
 osmextract<span class="op">::</span><span class="kw">oe_download</span>(<span class="dt">provider =</span> <span class="st">&quot;openstreetmap_fr&quot;</span>, <span class="dt">file_url =</span> osmextract<span class="op">::</span><span class="kw">oe_match</span>(<span class="st">&quot;Rio De Janeiro&quot;</span>)[[<span class="dv">1</span>]], 
     <span class="dt">download_directory =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>), <span class="dt">force_download =</span> T)</code></pre></div>
+</div>
+<div id="sf-structure" class="section level3">
+<h3>sf structure</h3>
+<p>Access levels within sf variable (e.g. Name) using attributes</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf<span class="op">$</span>Name <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">attr</span>(<span class="dt">which =</span> <span class="st">&quot;levels&quot;</span>)</code></pre></div>
 </div>
 </div>
 
