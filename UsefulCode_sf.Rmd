@@ -114,9 +114,8 @@ Accessing sf, sp, geos,a nd geojson objects, such as attributes, accessing lower
 <!-- https://nceas.github.io/oss-lessons/spatial-data-gis-law/3-mon-intro-gis-in-r.html -->
 
 ### json  
-
 Read and convert json to df
-```{r, eval = F}
+```{r, json1, eval = F}
 
 # opt 1
 require(jsonlite)
@@ -126,10 +125,19 @@ data <- fromJSON("data.json",simplifyDataFrame=T,flatten=T) %>%
 # opt 2
 file <- "my_geo_data.json" %>% 
   readr::read_lines
-
-
 ```
 
+Convert sf to geojson  
+```{r, json2}
+require(geojsonio)
+sf %>% geojsonio::geojson_list()
+```
+
+Save R obj as geojson    
+```{r, json3}
+# save R obj as geojson 
+sfjson %>% geojson_write(file = here::here("data”,”new.json"))
+```
 
 ### sf simple features  
 Get bbox coords      
@@ -590,9 +598,7 @@ gpx2 <- "data/full.gpx" %>%
   xpathSApply(gpx2, path = time_id, xmlValue) # get timestamp  
 ```
 
-
 ### Combine, join, union sf objects     
-
 Combine multiple sf/sfc geometries into one  
 ```{r, join1}
 pathm <- c()  
