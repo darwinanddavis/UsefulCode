@@ -456,6 +456,13 @@ Create custom df from existing data
 latlon_data <- with(world.cities, data.frame( # //maps
   "city" = name,"country" = country.etc,"lat" = lat,"lon" = long,"population" = pop)
 )
+
+```
+
+Convert df rows to cols and rename
+```{r, d5}
+df %>% as_tibble(rownames = "row_names") %>%  # convert cols to rows 
+  rename("year" = 1,"percent" = 2) %>% na.omit()
 ```
 
 
