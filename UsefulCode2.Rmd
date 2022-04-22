@@ -465,6 +465,13 @@ df %>% as_tibble(rownames = "row_names") %>%  # convert cols to rows
   rename("year" = 1,"percent" = 2) %>% na.omit()
 ```
 
+Select df cols based on string 
+```{r, d6}
+df %>% select(contains("Lat"))
+df %>% select(starts_with("Lat"))
+```
+
+
 
 ### `dplyr` basics 
 ```{r,dplyr1}
@@ -758,6 +765,16 @@ getNodeSet(gpx2,path = "//folder") %>%
     )
   }) %>% bind_rows()
   
+```
+
+Extract css class/id using `xpath`   
+```{r, html3}
+require(rvest)
+nid <- "\"class_large\"" # use css class (note quote escape)
+
+url %>% read_html %>% 
+  html_nodes(xpath = paste0('//*[@id=',nid,']'))
+
 ```
 
 
