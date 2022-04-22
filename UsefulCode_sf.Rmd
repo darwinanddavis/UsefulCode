@@ -125,6 +125,7 @@ data <- fromJSON("data.json",simplifyDataFrame=T,flatten=T) %>%
 # opt 2
 file <- "my_geo_data.json" %>% 
   readr::read_lines
+
 ```
 
 Convert sf to geojson  
@@ -137,6 +138,16 @@ Save R obj as geojson
 ```{r, json3}
 # save R obj as geojson 
 sfjson %>% geojson_write(file = here::here("data”,”new.json"))
+```
+
+Loop through sf and convert and save as geojson
+```{r, json4}
+require(geojsonio)
+
+for(i in sf$name){
+  sf %>% filter(name %in% i) %>% geojson_list() %>% 
+    geojson_write(here::here("data",paste0("newfile",i,".json")))
+}
 ```
 
 ### sf simple features  
