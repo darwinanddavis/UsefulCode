@@ -777,6 +777,15 @@ url %>% read_html %>%
 
 ```
 
+### Images  
+
+Recolor png/svg
+```{r, img1}
+require(magick)
+png %>% image_colorize(color = "#EFEFEF", opacity = 70) 
+  
+```
+
 
 ### Interactive plots  
 Clickme, NVD3, Polychart, rCharts, Rickshaw, and xCharts in `R`.    
