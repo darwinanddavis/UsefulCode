@@ -1440,9 +1440,20 @@ str1 %>%
 ```
 
 Replace all spaces with breaks (ideal for adding ggrichtext labels) 
-```{r}
+```{r, string3}
 df %>% 
   mutate_at("city", ~str_replace_all(.," ","<br>"))
+```
+
+Insert characters/string to larger string   
+```{r, string4}
+require(stringi)
+"In the beginning" %>% 
+  stri_sub_replace(1,2,value = "TEXT") # set first and second char order to replace 
+
+"In the beginning" %>% 
+  stri_sub_replace(2,1,value = "TEXT") # set second and first char order to insert    
+
 ```
 
 ### SVG
