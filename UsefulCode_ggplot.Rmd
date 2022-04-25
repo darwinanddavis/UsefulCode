@@ -262,7 +262,7 @@ ggplot() +
   theme_classic() 
 ```
 
-Add text to end of lines (plus other methods)  
+Add text only to final point (plus other methods)  
 ```{r, t2, eval=F}
 require(directlabels)
 df <- tibble("x" = sample(10,5),
@@ -517,24 +517,6 @@ res <- microbenchmark(raster::geom(atf_sp),
 ggplot2::autoplot(res)
 ```
 
-
-### Customise ggplot text with colours
-```{r, gg17, eval=F}
-require(ggtext)
-ttl <- paste0("<span style='font-family: Avenir;'>Climate risk in Vietnam <br>
-<span style='font-size: 30pt'> Exposure of 
-  <span style='color:",colv1,";'>Coffee</span>, 
-  <span style='color:",colv2,";'>Cashew</span>, and 
-  <span style='color:",colv3,";'>Cassava</span>  
-  </span></span>") %>% purrr::map(htmltools::HTML)
-
-p + theme(plot.title = element_markdown(lineheight = 1)) + # add custom ggtext
-  labs(title = ttl) 
-
-# vlist <- c(coff,cash,cass)
-# lapply(vlist,function(x) {colnames(x) = rep(c('Index',"geometry"),times = vlist %>% length/2)})
-
-```
 
 ### Flip and rotate plots
 ```{r, gg18, eval=F}
@@ -814,5 +796,41 @@ ggplot() +
         axis.ticks.length=unit(0, "null"),
         plot.margin=unit(c(0.1,0.1,0.1,0.1),"mm"),
         panel.ontop = F)  
+```
+
+
+Customise ggplot text with colours  
+```{r, text2, eval=F}
+require(ggtext)
+ttl <- paste0("<span style='font-family: Avenir;'>Climate risk in Vietnam <br>
+<span style='font-size: 30pt'> Exposure of 
+  <span style='color:",colv1,";'>Coffee</span>, 
+  <span style='color:",colv2,";'>Cashew</span>, and 
+  <span style='color:",colv3,";'>Cassava</span>  
+  </span></span>") %>% purrr::map(htmltools::HTML)
+
+p + theme(plot.title = element_markdown(lineheight = 1)) + # add custom ggtext
+  labs(title = ttl) 
+
+# vlist <- c(coff,cash,cass)
+# lapply(vlist,function(x) {colnames(x) = rep(c('Index',"geometry"),times = vlist %>% length/2)})
+
+```
+
+Add curved arrows/points to text labels, unicode chars, math expressions, etc  
+```{r, text3}
+require(ggrepel)
+require(ggplot2)
+set.seed(42)
+ggplot(mtcars, aes(wt, mpg, label = carb)) +
+  geom_point(color = "red") +
+  geom_text_repel(
+    nudge_x = .15,
+    box.padding = 0.5,
+    nudge_y = 1,
+    segment.curvature = -0.1,
+    segment.ncp = 3,
+    segment.angle = 20
+  )
 ```
 
