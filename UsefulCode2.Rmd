@@ -633,6 +633,20 @@ df %>%
   mutate_at(c("Year","Month"),as.numeric) 
 ```
 
+Apply multiple `mutate_at` functions    
+```{r, dplyr10}
+# use list for multiple functions of either one or multiple cols
+df %>% mutate_at(5:7, list(
+  ~str_remove_all(., "string1|string2|"), # func1
+  ~str_split_fixed(., "/", n = 2) # func2
+))
+
+# Apply multiple `mutate` functions using select or contains
+df %>% select(contains("string1")) %>% # select var 
+  mutate_all(~str_remove_all(., "string1|string2|") %>% as.numeric) # apply funcs 
+```
+
+
 
 ### Generic functions 
 
