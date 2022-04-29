@@ -713,6 +713,11 @@ c(a, b) %<-% c(1,"A") # returns both as char
 
 ```
 
+Repeat vector n times (each)
+```{r}
+rep(c("A","B","C"), 10)
+rep(c("A","B","C"), each = 10) # repeat each instance 
+```
 
 
 ### Google drive  
