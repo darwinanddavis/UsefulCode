@@ -468,9 +468,8 @@ df %>% as_tibble(rownames = "row_names") %>%  # convert cols to rows
 Select df cols based on string 
 ```{r, d6}
 df %>% select(contains("Lat"))
-df %>% select(starts_with("Lat"))
+df %>% select(starts_with("Lat"))  
 ```
-
 
 
 ### `dplyr` basics 
@@ -498,7 +497,7 @@ gapminder %>%
 # group by 
 gapminder %>%  
   group_by(continent) %>% 
-  summarise(median(lifeExp))
+  summarise(median(lifeExp))  
 
 # group by continent and filter by year
 gapminder %>% 
