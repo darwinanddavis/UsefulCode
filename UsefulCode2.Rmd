@@ -447,7 +447,7 @@ d1 <- df %>% dcast(var1~var2, fill = 0) # fill NAs with 0
 
 d1 %>%
   melt() %>%
-  tidyr::uncount(value) %>% # lengthen df by each row value
+  tidyr::uncount(value) # lengthen df by each row value
 ```
 
 Create custom df from existing data
@@ -645,6 +645,18 @@ df %>% select(contains("string1")) %>% # select var
   mutate_all(~str_remove_all(., "string1|string2|") %>% as.numeric) # apply funcs 
 ```
 
+Mutate multiple vars
+```{r, dplyr11, eval = F}
+require(lubridate)
+df %>% 
+  mutate(AM = timevar %>% am,
+         Hour = timevar %>% hour,
+         Day = timevar %>% day,
+         Month = timevar %>% month,
+         Meridian = timevar %>% 
+           round_date(unit = "hour") %>% # round off hour
+           format("%I") %>% as.numeric) # get 12 hour time
+```
 
 
 ### Generic functions 
@@ -1515,6 +1527,7 @@ Set time to 12 hour with AM/PM
 ```{r}
 require(lubridate)
 df$time %>% as_datetime() %>% format("%d/%m %I:%M %p") # set time to 12 hour with AM/PM
+
 ```
 
 Convert character string to just year/month
@@ -1527,6 +1540,16 @@ require(lubridate)
 df$Time %>% anytime::anydate() # opt 1
 df$Time %>% lubridate::parse_date_time("ym") # opt 2
 as.POSIXct(df$Time,format = "%Y-%M") # opt 3
+
+```
+
+
+Round off datetime  
+```{r, t4, eval = F}
+require(lubridate)
+df %>% mutate(Meridian = timevar %>% 
+           round_date(unit = "hour") %>% # round off hour
+           format("%I") %>% as.numeric) # get 12 hour time
 
 ```
 
