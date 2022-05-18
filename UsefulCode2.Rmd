@@ -1486,6 +1486,21 @@ require(stringi)
 
 ```
 
+
+Extract text from between characters, esp special characters 
+<!-- https://stackoverflow.com/questions/39086400/extracting-a-string-between-other-two-strings-in-r -->
+```{r}
+require(qdapRegex)
+# works for multiple instances
+txt <- "${ extract only this text } and also ${ get this text }"
+qdapRegex::ex_between(txt, "${", "}") 
+
+# define left and right boundaries to extract multiple instances 
+txt <- "${ extract only this text } and also $[ get this text ]"
+qdapRegex::ex_between(txt, c("${", "$["),c("}","]"))
+```
+
+
 ### SVG
 
 Read in svg  
