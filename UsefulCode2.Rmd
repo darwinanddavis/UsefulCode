@@ -1494,7 +1494,7 @@ require(stringi)
 
 Extract text from between characters, esp special characters 
 <!-- https://stackoverflow.com/questions/39086400/extracting-a-string-between-other-two-strings-in-r -->
-```{r}
+```{r,string5}
 require(qdapRegex)
 # works for multiple instances
 txt <- "${ extract only this text } and also ${ get this text }"
@@ -1504,6 +1504,14 @@ qdapRegex::ex_between(txt, "${", "}")
 txt <- "${ extract only this text } and also $[ get this text ]"
 qdapRegex::ex_between(txt, c("${", "$["),c("}","]"))
 ```
+
+Check for numeric elements in a string 
+<!-- https://stackoverflow.com/questions/13638377/test-for-numeric-elements-in-a-character-string -->
+```{r, string6}
+pacman::p_load(varhandle)
+df$Value %>% check.numeric()
+```
+
 
 
 ### SVG
