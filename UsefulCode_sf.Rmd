@@ -496,6 +496,12 @@ colnames(r) <- c("x","y","z")
 Mask/crop raster data  
 <!-- https://geocompr.robinlovelace.net/raster-vector.html -->
 
+Get inverse mask (hole within sf obj)  
+```{r}
+require(raster)
+mask(sf1, sf2, inverse = T)
+```
+
 ### Spatial class
 Convert sf to spatiallines obj  
 ```{r, sp1}
