@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-05-24<br />
+<p>Date: 2022-05-26<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -394,8 +394,6 @@ mp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_bb
 <span class="st">  </span><span class="kw">st_cast</span>(<span class="st">&quot;POLYGON&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span>) <span class="co"># get just french guiana </span></code></pre></div>
 <p>Get areas of individual polygons within multipolygon</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &quot;Netherlands&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_cast</span>(<span class="st">&quot;POLYGON&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>st_geometry <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_area</span>()</code></pre></div>
-<p>Crop multipolyon boundary to surround sf obj boundary and combine into one polygon</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_intersection</span>(boundary_osm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_boundary</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_cast</span>(<span class="st">&quot;POLYGON&quot;</span>)</code></pre></div>
 <p>Filter sf geometry only</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">st_geometry_type</span>(.) <span class="op">==</span><span class="st"> &quot;LINESTRING&quot;</span>)</code></pre></div>
 <p>Convert matrix directly to sf</p>
@@ -442,6 +440,26 @@ shp &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class="s
 gg &lt;-<span class="st"> </span><span class="kw">get_map</span>(location, <span class="dt">source =</span> <span class="st">&quot;osm&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;bw&quot;</span>)
 
 <span class="kw">ggmap</span>(gg, <span class="dt">extent =</span> <span class="st">&quot;device&quot;</span>, <span class="dt">darken =</span> <span class="kw">c</span>(<span class="fl">0.9</span>, <span class="st">&quot;white&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(x, y))</code></pre></div>
+</div>
+<div id="cropping" class="section level3">
+<h3>Cropping</h3>
+<p>Crop plot region to country border</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">borders</span>(<span class="dt">regions =</span> <span class="st">&quot;Germany&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</code></pre></div>
+<p>Mask/crop raster data<br />
+<!-- https://geocompr.robinlovelace.net/raster-vector.html --></p>
+<p>Crop raster/tiff to bbox <!-- https://gis.stackexchange.com/questions/229356/crop-a-raster-file-in-r --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span>pathm  <span class="co"># sf object</span>
+ras &lt;-<span class="st"> &quot;raster.tiff&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>raster  <span class="co"># load raster</span>
+e &lt;-<span class="st"> </span><span class="kw">as</span>(obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">extent</span>(), <span class="st">&quot;SpatialPolygons&quot;</span>)  <span class="co"># get bbox/extent as Sp</span>
+<span class="kw">crs</span>(e) &lt;-<span class="st"> &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>  <span class="co"># add prj</span>
+r &lt;-<span class="st"> </span><span class="kw">crop</span>(ras, e)  <span class="co"># crop raster to this bbox</span>
+r &lt;-<span class="st"> </span>r <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame  <span class="co"># convert to df for plotting </span>
+<span class="kw">colnames</span>(r) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)</code></pre></div>
+<p>Get inverse mask (hole within sf obj)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
+<span class="kw">mask</span>(sf1, sf2, <span class="dt">inverse =</span> T)</code></pre></div>
+<p>Crop multipolyon boundary to surround sf obj boundary and combine into one polygon</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_intersection</span>(boundary_osm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_boundary</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_cast</span>(<span class="st">&quot;POLYGON&quot;</span>)</code></pre></div>
 </div>
 <div id="north-arrow-and-scale-bars" class="section level3">
 <h3>North arrow and scale bars</h3>
@@ -599,19 +617,6 @@ elevpath &lt;-<span class="st"> </span><span class="kw">topoDist</span>(elevp,pt
 <p>Read .tiff</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
 dem1 &lt;-<span class="st"> &quot;srtm_20_05.tif&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster</span>()</code></pre></div>
-<p>Crop raster/tiff to bbox <!-- https://gis.stackexchange.com/questions/229356/crop-a-raster-file-in-r --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span>pathm  <span class="co"># sf object</span>
-ras &lt;-<span class="st"> &quot;raster.tiff&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>raster  <span class="co"># load raster</span>
-e &lt;-<span class="st"> </span><span class="kw">as</span>(obj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">extent</span>(), <span class="st">&quot;SpatialPolygons&quot;</span>)  <span class="co"># get bbox/extent as Sp</span>
-<span class="kw">crs</span>(e) &lt;-<span class="st"> &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>  <span class="co"># add prj</span>
-r &lt;-<span class="st"> </span><span class="kw">crop</span>(ras, e)  <span class="co"># crop raster to this bbox</span>
-r &lt;-<span class="st"> </span>r <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame  <span class="co"># convert to df for plotting </span>
-<span class="kw">colnames</span>(r) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)</code></pre></div>
-<p>Mask/crop raster data<br />
-<!-- https://geocompr.robinlovelace.net/raster-vector.html --></p>
-<p>Get inverse mask (hole within sf obj)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
-<span class="kw">mask</span>(sf1, sf2, <span class="dt">inverse =</span> T)</code></pre></div>
 </div>
 <div id="spatial-class" class="section level3">
 <h3>Spatial class</h3>
@@ -838,8 +843,6 @@ ddhex &lt;-<span class="st"> </span><span class="kw">HexPoints2SpatialPolygons</
 <span class="st">  </span><span class="kw">geom_hex</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(Longitude, Latitude), <span class="dt">bins =</span> <span class="dv">500</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(bbox[<span class="dv">1</span>],bbox[<span class="dv">3</span>]), <span class="dt">ylim =</span> <span class="kw">c</span>(bbox[<span class="dv">2</span>],bbox[<span class="dv">4</span>]))
  </code></pre></div>
-<p>Crop plot region to country border</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">borders</span>(<span class="dt">regions =</span> <span class="st">&quot;Germany&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</code></pre></div>
 <p>Add sequential colpal to flight paths/geometry/sf</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">colpal =</span> path_col <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rep</span>(<span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lighten</span>(<span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>)))</code></pre></div>
 </div>

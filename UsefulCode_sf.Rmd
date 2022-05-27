@@ -200,11 +200,6 @@ dd %>% filter(name == "Netherlands") %>%
   st_cast("POLYGON") %>% st_geometry %>% st_area()
 ```
 
-Crop multipolyon boundary to surround sf obj boundary and combine into one polygon    
-```{r, sf8}
-dd %>% st_intersection(boundary_osm %>% st_boundary()) %>% st_cast("POLYGON")
-```
-
 Filter sf geometry only   
 ```{r, sf9}
 dat %>% 
@@ -270,6 +265,41 @@ gg <- get_map(location,
 
 ggmap(gg, extent = "device", darken = c(0.9,"white")) +
   geom_point(data = df, aes(x,y))
+```
+
+### Cropping 
+
+Crop plot region to country border   
+```{r,aes2, eval = F}
+ggplot() +
+  borders(regions = "Germany") +
+  geom_tile()
+```
+
+Mask/crop raster data  
+<!-- https://geocompr.robinlovelace.net/raster-vector.html -->
+
+Crop raster/tiff to bbox
+<!-- https://gis.stackexchange.com/questions/229356/crop-a-raster-file-in-r -->
+```{r}
+obj <- pathm # sf object
+ras <- "raster.tiff" %>% raster # load raster
+e <- as(obj %>% extent(), 'SpatialPolygons') # get bbox/extent as Sp
+crs(e) <- "+proj=longlat +datum=WGS84 +no_defs" # add prj
+r <- crop(ras, e) # crop raster to this bbox
+r <- r %>% rasterToPoints() %>% as.data.frame # convert to df for plotting 
+colnames(r) <- c("x","y","z")
+```
+
+Get inverse mask (hole within sf obj)  
+```{r}
+require(raster)
+mask(sf1, sf2, inverse = T)
+```
+
+Crop multipolyon boundary to surround sf obj boundary and combine into one polygon    
+```{r, sf8}
+dd %>% st_intersection(boundary_osm %>% st_boundary()) %>% st_cast("POLYGON")
 ```
 
 ### North arrow and scale bars  
@@ -481,26 +511,6 @@ require(raster)
 dem1 <- "srtm_20_05.tif" %>% raster()
 ```
 
-Crop raster/tiff to bbox
-<!-- https://gis.stackexchange.com/questions/229356/crop-a-raster-file-in-r -->
-```{r}
-obj <- pathm # sf object
-ras <- "raster.tiff" %>% raster # load raster
-e <- as(obj %>% extent(), 'SpatialPolygons') # get bbox/extent as Sp
-crs(e) <- "+proj=longlat +datum=WGS84 +no_defs" # add prj
-r <- crop(ras, e) # crop raster to this bbox
-r <- r %>% rasterToPoints() %>% as.data.frame # convert to df for plotting 
-colnames(r) <- c("x","y","z")
-```
-
-Mask/crop raster data  
-<!-- https://geocompr.robinlovelace.net/raster-vector.html -->
-
-Get inverse mask (hole within sf obj)  
-```{r}
-require(raster)
-mask(sf1, sf2, inverse = T)
-```
 
 ### Spatial class
 Convert sf to spatiallines obj  
@@ -770,13 +780,6 @@ ggplot() +
  
 
 
-```
-
-Crop plot region to country border   
-```{r,aes2, eval = F}
-ggplot() +
-  borders(regions = "Germany") +
-  geom_tile()
 ```
 
 Add sequential colpal to flight paths/geometry/sf 

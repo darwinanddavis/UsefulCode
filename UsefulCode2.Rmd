@@ -1512,7 +1512,18 @@ pacman::p_load(varhandle)
 df$Value %>% check.numeric()
 ```
 
+Extract integers from alphanumeric string  
+<!-- (from costofliving/price_rank.R).  -->
+```{r,string7}
+# extracting numbers 
+string1 %>% str_split_fixed(".*?[0-9]",2)
+string1 %>% str_split_fixed('[[:digit:]]+',2)
+string1 %>% str_split_fixed('',3)
+gsub('[0-9]+', '', string1)
+string1 %>% str_extract_all('[[:digit:]]+',3)
+string1 %>% str_replace_all("[:digit:]", " ")
 
+```
 
 ### SVG
 
