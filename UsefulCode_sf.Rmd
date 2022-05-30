@@ -150,6 +150,12 @@ for(i in sf$name){
 }
 ```
 
+Read in json and convert to df  
+```{r, json5}
+require(jsonlite)
+read_json("test.json", simplifyVector = T)
+```
+
 ### sf simple features  
 Get bbox coords      
 ```{r, sf1, collapse=T}
@@ -270,7 +276,7 @@ ggmap(gg, extent = "device", darken = c(0.9,"white")) +
 ### Cropping 
 
 Crop plot region to country border   
-```{r,aes2, eval = F}
+```{r, cr1, eval = F}
 ggplot() +
   borders(regions = "Germany") +
   geom_tile()
@@ -281,7 +287,7 @@ Mask/crop raster data
 
 Crop raster/tiff to bbox
 <!-- https://gis.stackexchange.com/questions/229356/crop-a-raster-file-in-r -->
-```{r}
+```{r, cr2}
 obj <- pathm # sf object
 ras <- "raster.tiff" %>% raster # load raster
 e <- as(obj %>% extent(), 'SpatialPolygons') # get bbox/extent as Sp
@@ -292,25 +298,25 @@ colnames(r) <- c("x","y","z")
 ```
 
 Get inverse mask (hole within sf obj)  
-```{r}
+```{r, cr3}
 require(raster)
 mask(sf1, sf2, inverse = T)
 ```
 
 Crop multipolyon boundary to surround sf obj boundary and combine into one polygon    
-```{r, sf8}
+```{r, cr4}
 dd %>% st_intersection(boundary_osm %>% st_boundary()) %>% st_cast("POLYGON")
 ```
 
 Shrink sf obj (reverse buffer)
 <!-- geocompr.robinlovelace.net/geometric-operations -->  
-```{r, sf9}
+```{r, cr5}
 # subtract centroid from geometry, then halve and reposition centroid  
 (sf$geometry - sf$geometry %>% st_centroid) / 2 + sf$geometry %>% st_centroid()
 ```
 
 Displace sf obj
-```{r, sf10}
+```{r, cr6}
 # displace x by 0 and y by 500
 sf_disp <- sf %>% st_geometry() + c(0, 500)
 

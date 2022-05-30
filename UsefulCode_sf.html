@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-05-26<br />
+<p>Date: 2022-05-30<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -366,6 +366,9 @@ sfjson <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">g
     sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(name <span class="op">%in%</span><span class="st"> </span>i) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">geojson_list</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">geojson_write</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="kw">paste0</span>(<span class="st">&quot;newfile&quot;</span>, 
         i, <span class="st">&quot;.json&quot;</span>)))
 }</code></pre></div>
+<p>Read in json and convert to df</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(jsonlite)
+<span class="kw">read_json</span>(<span class="st">&quot;test.json&quot;</span>, <span class="dt">simplifyVector =</span> T)</code></pre></div>
 </div>
 <div id="sf-simple-features" class="section level3">
 <h3>sf simple features</h3>
@@ -460,6 +463,15 @@ r &lt;-<span class="st"> </span>r <span class="op">%&gt;%</span><span class="st"
 <span class="kw">mask</span>(sf1, sf2, <span class="dt">inverse =</span> T)</code></pre></div>
 <p>Crop multipolyon boundary to surround sf obj boundary and combine into one polygon</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_intersection</span>(boundary_osm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_boundary</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_cast</span>(<span class="st">&quot;POLYGON&quot;</span>)</code></pre></div>
+<p>Shrink sf obj (reverse buffer) <!-- geocompr.robinlovelace.net/geometric-operations --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subtract centroid from geometry, then halve and reposition centroid</span>
+(sf<span class="op">$</span>geometry <span class="op">-</span><span class="st"> </span>sf<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span>st_centroid)<span class="op">/</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>sf<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_centroid</span>()</code></pre></div>
+<p>Displace sf obj</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># displace x by 0 and y by 500</span>
+sf_disp &lt;-<span class="st"> </span>sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>() <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">500</span>)
+
+<span class="co"># plot using aes</span>
+<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry =</span> sf_disp))</code></pre></div>
 </div>
 <div id="north-arrow-and-scale-bars" class="section level3">
 <h3>North arrow and scale bars</h3>
