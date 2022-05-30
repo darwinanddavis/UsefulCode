@@ -1515,6 +1515,9 @@ df$Value %>% check.numeric()
 Extract integers from alphanumeric string  
 <!-- (from costofliving/price_rank.R).  -->
 ```{r,string7}
+require(stringr)
+string1 <- "3,160.72 A$"
+
 # extracting numbers 
 string1 %>% str_split_fixed(".*?[0-9]",2)
 string1 %>% str_split_fixed('[[:digit:]]+',2)
@@ -1522,6 +1525,17 @@ string1 %>% str_split_fixed('',3)
 gsub('[0-9]+', '', string1)
 string1 %>% str_extract_all('[[:digit:]]+',3)
 string1 %>% str_replace_all("[:digit:]", " ")
+
+gsub('[a-z]', '',string1)
+gsub(".*?([0-9]+).*", "\\1", string1)
+
+string1 %>% str_remove_all("[[:alpha:]]") # rm all letters
+
+# split by ',' and convert to numeric
+string1 %>% str_split_fixed("\\p{WHITE_SPACE}",Inf) %>% as.vector() %>% str_replace_all(",","") %>% as.numeric()
+
+# rm letters and special chars  
+string1 %>% str_remove_all("[a-zA-Z[^[:alnum:]]]+[$]") %>% str_replace_all(",","") %>% as.numeric()
 
 ```
 

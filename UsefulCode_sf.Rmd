@@ -302,6 +302,22 @@ Crop multipolyon boundary to surround sf obj boundary and combine into one polyg
 dd %>% st_intersection(boundary_osm %>% st_boundary()) %>% st_cast("POLYGON")
 ```
 
+Shrink sf obj (reverse buffer)
+<!-- geocompr.robinlovelace.net/geometric-operations -->  
+```{r, sf9}
+# subtract centroid from geometry, then halve and reposition centroid  
+(sf$geometry - sf$geometry %>% st_centroid) / 2 + sf$geometry %>% st_centroid()
+```
+
+Displace sf obj
+```{r, sf10}
+# displace x by 0 and y by 500
+sf_disp <- sf %>% st_geometry() + c(0, 500)
+
+# plot using aes
+ggplot() + geom_sf(aes(geometry = sf_disp))
+```
+
 ### North arrow and scale bars  
 <!-- https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html   -->
 ```{r, m2}
