@@ -138,6 +138,9 @@ Save R obj as geojson
 ```{r, json3}
 # save R obj as geojson 
 sfjson %>% geojson_write(file = here::here("data”,”new.json"))
+
+# opt 2
+sf %>% st_write("sf.geojson")
 ```
 
 Loop through sf and convert and save as geojson
