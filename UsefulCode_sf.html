@@ -361,7 +361,10 @@ sf <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="
 sfjson <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">geojson_write</span>(<span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data”,”new.json&quot;</span>))
 
 <span class="co"># opt 2</span>
-sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_write</span>(<span class="st">&quot;sf.geojson&quot;</span>)</code></pre></div>
+sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_write</span>(<span class="st">&quot;sf.geojson&quot;</span>)
+
+<span class="co"># opt 3 convert sf to json string and save to dir</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="op">::</span><span class="kw">geojson_list</span>() <span class="op">%&gt;%</span><span class="st"> </span>rjson<span class="op">::</span><span class="kw">toJSON</span>(<span class="dt">method =</span> <span class="st">&quot;C&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>readr<span class="op">::</span><span class="kw">write_lines</span>(<span class="st">&quot;sf.json&quot;</span>)</code></pre></div>
 <p>Loop through sf and convert and save as geojson</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(geojsonio)
 

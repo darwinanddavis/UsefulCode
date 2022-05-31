@@ -141,6 +141,11 @@ sfjson %>% geojson_write(file = here::here("data”,”new.json"))
 
 # opt 2
 sf %>% st_write("sf.geojson")
+
+# opt 3 convert sf to json string and save to dir
+sf %>% geojsonio::geojson_list() %>% 
+  rjson::toJSON(method = "C") %>% 
+  readr::write_lines("sf.json")
 ```
 
 Loop through sf and convert and save as geojson
