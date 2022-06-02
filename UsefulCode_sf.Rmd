@@ -443,6 +443,17 @@ path <- "/data.kml" %>% sf::st_layers() # multi layer kml
 # for kmz, change .kmz to .zip, then unzip and read as kml
 ```
 
+Save sf as kml/kmz
+<!-- from fracking.R -->
+```{r}
+require(rgdal)
+writeOGR(sf, dsn = "sf.kml",
+         layer = "polygonWGS",
+         driver = KML)
+
+```
+
+
 ### Conversions   
 Convert sp/sf/spdf data to data frame (fortify)   
 ```{r, c1}
