@@ -589,6 +589,21 @@ https://coolbutuseless.github.io/package/ggpattern/index.html
 
 ```
 
+Read in png, recolor, write as svg, and append to df 
+```{r, eval =F}
+
+here::here("img",paste0(ifh,".png")) %>% 
+  image_read(strip = T) %>% 
+  # image_scale(c(100,100)) %>% 
+  image_fill("transparent") %>%
+  image_colorize(color = colv_hi,opacity = 70) %>%  # recolor img
+  image_write(here::here("img",paste0(ifh,"2.png")) ,format = "png", depth=NULL)
+
+# append to df 
+df$img <- here::here("img",paste0(ifh,"2.png"))
+```
+
+
 ### Create custom geom
 
 ```{r, gg21, eval=F}
