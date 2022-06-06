@@ -225,6 +225,12 @@ Check number of characters in each column
 sapply(meso1, function(x) sum(nchar(x)))   
 ```
 
+Create empty df with N cols 
+```{r, eval=F}
+df <- matrix(ncol = 1:500, nrow = 0) %>% data.frame() 
+names(df) <- LETTERS[1:500]
+```
+
 ### Generic functions  
 Generic useful functions that I can't place under any other headings here  
 ```{r, gen1, results='hide',eval=F}

@@ -1206,6 +1206,28 @@ Reduce(intersect, list(l1$var1,l2$var1,l3$var1)) %>% unique
 
 ```
 
+### Microbenchmark  
+
+```{r, mb1}
+# benchmark
+
+# devtools::install_github("olafmersmann/microbenchmarkCore")
+# devtools::install_github("olafmersmann/microbenchmark")
+
+require(microbenchmark)
+mbm <- microbenchmark(list = list(
+  "b1" = {
+    # first operation 
+  },
+  "b2" = {
+    # second operation
+  })
+)
+mbm # print results
+autoplot(mbm) # plot results 
+
+```
+
 
 ### Plotting 
 
