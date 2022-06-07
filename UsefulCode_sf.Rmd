@@ -444,8 +444,11 @@ path <- "/data.kml" %>% sf::st_layers() # multi layer kml
 ```
 
 Save sf as kml/kmz
-<!-- from fracking.R -->
 ```{r}
+ # opt 1
+st_write(sf, "test.kml", driver = "kml", delete_dsn = T)
+
+# opt 2
 require(rgdal)
 writeOGR(sf, dsn = "sf.kml",
          layer = "polygonWGS",
@@ -674,7 +677,16 @@ for(pid in multipath){
   path <- kmldata %>% st_read(layer = multipath[pid])
   pathm <- rbind(pathm,path)
 }
-patht <- st_combine(pathm) # combine separated geometries into one geometry 
+# combine separated geometries into one geometry 
+patht <- st_combine(pathm) 
+
+# dissolve seperate geometries into one 
+sf %>% st_union()
+
+# join two different sf objs and combine into one geometry 
+dplyr::bind_rows(list(sf1, sf2)) %>% 
+  st_union()
+
 ```
 
 Join/merge df vars with sf obj (ideal for heatmap/chloropleth)   
