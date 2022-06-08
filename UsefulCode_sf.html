@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-06-07<br />
+<p>Date: 2022-06-08<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -759,7 +759,12 @@ patht &lt;-<span class="st"> </span><span class="kw">st_combine</span>(pathm)
 sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_union</span>()
 
 <span class="co"># join two different sf objs and combine into one geometry</span>
-dplyr<span class="op">::</span><span class="kw">bind_rows</span>(<span class="kw">list</span>(sf1, sf2)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_union</span>()</code></pre></div>
+
+<span class="co"># opt 1</span>
+dplyr<span class="op">::</span><span class="kw">bind_rows</span>(<span class="kw">list</span>(sf1, sf2)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_union</span>()
+
+<span class="co"># opt 2</span>
+<span class="kw">st_sfc</span>(sf1, sf2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_combine</span>()</code></pre></div>
 <p>Join/merge df vars with sf obj (ideal for heatmap/chloropleth)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">countries1 &lt;-<span class="st"> </span>df<span class="op">$</span>country_name <span class="op">%&gt;%</span><span class="st"> </span>unique <span class="co"># identify country names</span>
 mp &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">scale =</span> <span class="st">&quot;medium&quot;</span>, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>

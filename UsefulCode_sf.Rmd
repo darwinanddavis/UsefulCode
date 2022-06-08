@@ -683,9 +683,13 @@ patht <- st_combine(pathm)
 # dissolve seperate geometries into one 
 sf %>% st_union()
 
-# join two different sf objs and combine into one geometry 
-dplyr::bind_rows(list(sf1, sf2)) %>% 
-  st_union()
+# join two different sf objs and combine into one geometry  
+
+# opt 1
+dplyr::bind_rows(list(sf1, sf2)) %>% st_union()
+
+# opt 2
+st_sfc(sf1, sf2) %>% st_combine()
 
 ```
 
