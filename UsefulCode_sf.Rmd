@@ -555,6 +555,13 @@ require(raster)
 dem1 <- "srtm_20_05.tif" %>% raster()
 ```
 
+Decrease/increase raster resolution
+```{r}
+ras %>% aggregate(fact = 3) # lower res by factor of 3
+ras %>% disaggregate(fact = 3,
+                     method = 'bilinear') # increase res by factor of 3
+```
+
 
 ### Spatial class
 Convert sf to spatiallines obj  

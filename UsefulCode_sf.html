@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-06-08<br />
+<p>Date: 2022-06-09<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -642,6 +642,9 @@ elevpath &lt;-<span class="st"> </span><span class="kw">topoDist</span>(elevp,pt
 <p>Read .tiff</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
 dem1 &lt;-<span class="st"> &quot;srtm_20_05.tif&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster</span>()</code></pre></div>
+<p>Decrease/increase raster resolution</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">aggregate</span>(<span class="dt">fact =</span> <span class="dv">3</span>)  <span class="co"># lower res by factor of 3</span>
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">disaggregate</span>(<span class="dt">fact =</span> <span class="dv">3</span>, <span class="dt">method =</span> <span class="st">&quot;bilinear&quot;</span>)  <span class="co"># increase res by factor of 3</span></code></pre></div>
 </div>
 <div id="spatial-class" class="section level3">
 <h3>Spatial class</h3>
