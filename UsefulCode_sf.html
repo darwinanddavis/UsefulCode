@@ -600,9 +600,26 @@ pathm &lt;-<span class="st"> </span>city_df <span class="op">%&gt;%</span><span 
 </div>
 <div id="raster" class="section level3">
 <h3>Raster</h3>
+<p>Read in raster, change projection, and convert to matrix/df</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
+ras &lt;-<span class="st"> &quot;ras.tif&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster</span>()
+prj &lt;-<span class="st"> </span>ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">projection</span>()  <span class="co"># get proj</span>
+bb &lt;-<span class="st"> </span>ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">extent</span>()  <span class="co"># get bbox</span>
+
+<span class="kw">require</span>(raster)
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crop</span>(bb) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame
+
+<span class="kw">require</span>(rayshader)
+ras <span class="op">%&gt;%</span><span class="st"> </span>raster <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crop</span>(bb) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster_to_matrix</span>()
+
+<span class="kw">require</span>(terra)
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rast</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crop</span>(bb)</code></pre></div>
 <p>Convert raster to various data stuctures</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame  <span class="co"># raster to df </span>
-ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>)  <span class="co"># raster to sp</span></code></pre></div>
+
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rasterToPoints</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>)  <span class="co"># raster to sp</span>
+
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as</span>(<span class="st">&quot;SpatialPixelsDataFrame&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>data.frame  <span class="co"># ras to spdf to df </span></code></pre></div>
 <p>Elevation profiles <!-- https://rdrr.io/cran/topoDistance/man/topoProfile.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pacman<span class="op">::</span><span class="kw">p_load</span>(topoDistance,elevatr)
 
@@ -644,7 +661,26 @@ elevpath &lt;-<span class="st"> </span><span class="kw">topoDist</span>(elevp,pt
 dem1 &lt;-<span class="st"> &quot;srtm_20_05.tif&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster</span>()</code></pre></div>
 <p>Decrease/increase raster resolution</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">aggregate</span>(<span class="dt">fact =</span> <span class="dv">3</span>)  <span class="co"># lower res by factor of 3</span>
-ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">disaggregate</span>(<span class="dt">fact =</span> <span class="dv">3</span>, <span class="dt">method =</span> <span class="st">&quot;bilinear&quot;</span>)  <span class="co"># increase res by factor of 3</span></code></pre></div>
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">disaggregate</span>(<span class="dt">fact =</span> <span class="dv">3</span>, <span class="dt">method =</span> <span class="st">&quot;bilinear&quot;</span>)  <span class="co"># increase res by factor of 3</span>
+
+<span class="kw">require</span>(terra)
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">disagg</span>(<span class="dv">3</span>)
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">aggregate</span>(<span class="dv">3</span>)
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">aggregate</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">fun =</span> sum)  <span class="co"># aggregate by diff factor for rows and cols plus change method  </span></code></pre></div>
+<p>Match geometry/proj of raster from different sources</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(terra)
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">res</span>()  <span class="co"># get resolution of raster</span>
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">resample</span>(ras2)  <span class="co"># resample ras2 to ras1 resolution </span>
+
+<span class="co"># change projection</span>
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">project</span>(<span class="st">&quot;+proj=utm +zone=32&quot;</span>)</code></pre></div>
+<p>Change resolution of raster</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
+<span class="kw">res</span>(ras)
+<span class="kw">xres</span>(ras)
+<span class="kw">yres</span>(ras)
+<span class="kw">res</span>(ras) &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">120</span>
+<span class="kw">res</span>(ras) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">120</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">60</span>)  <span class="co"># change res of x and y</span></code></pre></div>
 </div>
 <div id="spatial-class" class="section level3">
 <h3>Spatial class</h3>

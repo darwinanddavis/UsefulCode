@@ -498,11 +498,35 @@ inter_df <- rbind(df1,df2,df3) %>%
 
 ### Raster
 
+Read in raster, change projection, and convert to matrix/df
+```{r}
+require(raster)
+ras <- 'ras.tif' %>% raster()
+prj <- ras %>% projection() # get proj
+bb <- ras %>% extent() # get bbox
+  
+require(raster)
+ras %>% raster() %>% crop(bb) %>%
+  rasterToPoints() %>% as.data.frame
+
+require(rayshader)
+ras %>% raster %>% crop(bb) %>% 
+  raster_to_matrix()
+
+require(terra)
+ras %>% rast() %>% crop(bb)
+  
+```
+
+
 Convert raster to various data stuctures  
 ```{r, r1}
 ras %>% rasterToPoints() %>% as.data.frame # raster to df 
+
 ras %>% rasterToPoints() %>% as.data.frame %>% 
   st_as_sf(coords = c("x","y"), crs = 4326) # raster to sp
+
+ras %>% as('SpatialPixelsDataFrame') %>% data.frame # ras to spdf to df 
 ```
 
 
@@ -556,12 +580,37 @@ dem1 <- "srtm_20_05.tif" %>% raster()
 ```
 
 Decrease/increase raster resolution
-```{r}
+```{r,r5}
 ras %>% aggregate(fact = 3) # lower res by factor of 3
 ras %>% disaggregate(fact = 3,
                      method = 'bilinear') # increase res by factor of 3
+
+require(terra)
+ras %>% disagg(3)
+ras %>% aggregate(3)
+ras %>% aggregate(c(2,3), fun = sum) # aggregate by diff factor for rows and cols plus change method  
+
 ```
 
+Match geometry/proj of raster from different sources
+```{r, r6}
+require(terra)
+ras %>% res() # get resolution of raster
+ras %>% resample(ras2) # resample ras2 to ras1 resolution 
+
+# change projection
+ras %>% project("+proj=utm +zone=32")
+```
+
+Change resolution of raster
+```{r}
+require(raster)
+res(ras)
+xres(ras)
+yres(ras)
+res(ras) <- 1/120
+res(ras) <- c(1/120, 1/60) # change res of x and y
+```
 
 ### Spatial class
 Convert sf to spatiallines obj  
