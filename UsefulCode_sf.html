@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-06-09<br />
+<p>Date: 2022-06-10<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -681,6 +681,9 @@ ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">proj
 <span class="kw">yres</span>(ras)
 <span class="kw">res</span>(ras) &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">120</span>
 <span class="kw">res</span>(ras) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">120</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">60</span>)  <span class="co"># change res of x and y</span></code></pre></div>
+<p>Get zscale/elevation of raster</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(geoviz)
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster_zscale</span>()</code></pre></div>
 </div>
 <div id="spatial-class" class="section level3">
 <h3>Spatial class</h3>
@@ -919,6 +922,21 @@ ddhex &lt;-<span class="st"> </span><span class="kw">HexPoints2SpatialPolygons</
 <span class="st">  </span><span class="kw">geom_hex</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(Longitude, Latitude), <span class="dt">bins =</span> <span class="dv">500</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(bbox[<span class="dv">1</span>],bbox[<span class="dv">3</span>]), <span class="dt">ylim =</span> <span class="kw">c</span>(bbox[<span class="dv">2</span>],bbox[<span class="dv">4</span>]))
  </code></pre></div>
+<p>Turn sf into hex for mapping<br />
+<!-- https://jaredlander.com/content/2022/06/GISinR.html#/section-28 --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(h3jsr)
+df_hex &lt;-<span class="st"> </span>sf <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">select</span>(var1) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">hex=</span><span class="kw">point_to_h3</span>(geometry, <span class="dt">res=</span><span class="dv">8</span>)) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">    </span><span class="kw">st_drop_geometry</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">count</span>(hex) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># get count for var1 hex</span>
+<span class="st">    </span><span class="kw">h3_to_polygon</span>(<span class="dt">simple=</span><span class="ot">FALSE</span>) <span class="co"># turn into geometry </span>
+
+<span class="co"># add hex to leaflet  </span>
+<span class="kw">require</span>(leaflet) 
+<span class="kw">leaflet</span>(<span class="dt">elementId=</span><span class="st">'HexCounts'</span>) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">    </span><span class="kw">addProviderTiles</span>(<span class="dt">dependencyLocation=</span>here<span class="op">::</span><span class="kw">here</span>()) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">    </span><span class="kw">addGlPolygons</span>(<span class="dt">data=</span>df_hex, <span class="dt">opacity=</span><span class="dv">1</span>, <span class="dt">fillColor=</span><span class="st">'n'</span>)</code></pre></div>
 <p>Add sequential colpal to flight paths/geometry/sf</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">colpal =</span> path_col <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rep</span>(<span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lighten</span>(<span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>)))</code></pre></div>
 </div>

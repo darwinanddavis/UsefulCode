@@ -612,6 +612,13 @@ res(ras) <- 1/120
 res(ras) <- c(1/120, 1/60) # change res of x and y
 ```
 
+Get zscale/elevation of raster
+```{r}
+require(geoviz)
+ras %>% raster_zscale()
+```
+
+
 ### Spatial class
 Convert sf to spatiallines obj  
 ```{r, sp1}
@@ -894,6 +901,25 @@ ggplot() +
 
 
 ```
+
+Turn sf into hex for mapping  
+<!-- https://jaredlander.com/content/2022/06/GISinR.html#/section-28 -->
+```{r, aes2}
+library(h3jsr)
+df_hex <- sf %>% 
+    select(var1) %>% 
+    mutate(hex=point_to_h3(geometry, res=8)) %>%  
+    st_drop_geometry() %>% 
+    count(hex) %>%  # get count for var1 hex
+    h3_to_polygon(simple=FALSE) # turn into geometry 
+
+# add hex to leaflet  
+require(leaflet) 
+leaflet(elementId='HexCounts') %>%  
+    addProviderTiles(dependencyLocation=here::here()) %>%  
+    addGlPolygons(data=df_hex, opacity=1, fillColor='n')
+```
+
 
 Add sequential colpal to flight paths/geometry/sf 
 ```{r, aes3}

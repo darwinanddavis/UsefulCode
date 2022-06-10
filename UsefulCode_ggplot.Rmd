@@ -645,7 +645,7 @@ ylim <- 40
 ggplot() +
   geom_histogram(data = d, 
                  aes(xx,id,fill = yy), size = 0, position = "stack", stat = "identity", show.legend = F) + 
-  scale_fill_manual(values = adjustcolor(colv,1),aesthetics = c("col","fill")) + 
+  scale_fill_manual(values = adjustcolor(colv,1),aesthetics = c("col","fill")) +  
   facet_wrap(~zz) +
   theme_classic() +
   coord_polar(start = 0.25) +
