@@ -107,7 +107,6 @@ This document can be found at `r params$doi`
 
 Same deal as Useful Code 1 and 2 except just `gglot` because it's too difficult sifting through the other docs.  
 
-## `ggplot` functions    
 ### Remove annoying stock gridlines from plot window    
 ```{r, ggplot1, results='hide',eval=F}
 # option 1
@@ -891,5 +890,13 @@ ggplot(mtcars, aes(wt, mpg, label = carb)) +
     segment.ncp = 3,
     segment.angle = 20
   )
+```
+
+### Save/saving plots  
+
+Save as any output
+```{r, save1, eval = F}
+require(rstudioapi)
+p %>% rstudioapi::savePlotAsImage("p.png", format = "png",width, height)
 ```
 
