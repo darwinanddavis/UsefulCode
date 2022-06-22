@@ -822,6 +822,7 @@ png %>% image_colorize(color = "#EFEFEF", opacity = 70)
 ```
 
 
+
 ### Interactive plots  
 Clickme, NVD3, Polychart, rCharts, Rickshaw, and xCharts in `R`.    
 [Link to collated Github page](https://github.com/darwinanddavis/rInteractive). 
@@ -1647,3 +1648,16 @@ tbl_summary(
 
 
 <!-- possible solution for creating curved text (for polar plots)  - ?circos.text() -->
+
+
+### Webscraping 
+
+Download data directly from web  
+```{r,wb1}
+url <- "https://www.data.com/test.xlsx"
+
+httr::GET(url, httr::write_disk("test.xlsx", overwrite=T)) 
+
+
+```
+
