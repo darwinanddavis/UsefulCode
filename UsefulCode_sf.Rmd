@@ -314,6 +314,9 @@ mask(sf1, sf2, inverse = T)
 Crop multipolyon boundary to surround sf obj boundary and combine into one polygon    
 ```{r, cr4}
 dd %>% st_intersection(boundary_osm %>% st_boundary()) %>% st_cast("POLYGON")
+
+# option 2
+sf %>% st_union %>% st_cast("POLYGON") %>% st_boundary() 
 ```
 
 Shrink sf obj (reverse buffer)
@@ -628,6 +631,12 @@ pts <- df[,c("lon","lat")] %>% as.matrix() %>% SpatialPoints() # df to points
 # sf to spatiallines 
 sl <- sf$geometry %>% .[1] %>% st_zm() %>% as_Spatial() # opt 1
 sl <- sf$geometry %>% .[1] %>% st_zm() %>% as("Spatial") # opt 2
+```
+
+Convert spatial class to sf
+```{r, sp2}
+sp %>% st_as_sf()
+
 ```
 
 
