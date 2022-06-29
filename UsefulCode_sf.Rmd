@@ -432,7 +432,7 @@ Get projection info
 # find proj
 crs_codes = rgdal::make_EPSG() # get all espg code and info
 crs_codes %>% filter(code == 27700) %>% pull # pull espg name and code 
-crs_codes[crs_codes$note %>% str_which("Austra"),"code"]
+crs_codes[crs_codes$note %>% str_which("Austra"),"code"] 
 
 ```
 
