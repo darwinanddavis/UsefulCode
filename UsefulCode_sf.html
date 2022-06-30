@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-06-29<br />
+<p>Date: 2022-07-01<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -874,6 +874,9 @@ sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_bu
 sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_snap</span>(polys, <span class="dt">tolerance =</span> <span class="fl">0.09</span>)  <span class="co"># snap to polygon edge </span>
 sf <span class="op">%&gt;%</span><span class="st"> </span>lwgeom<span class="op">::</span><span class="kw">st_snap_to_grid</span>(<span class="dv">10</span>)  <span class="co"># snap to grid </span>
 sf[<span class="dv">5</span><span class="op">:</span><span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_intersection</span>()  <span class="co"># try reversing order of obj </span></code></pre></div>
+<p>Get intersecting underlying polygons using point data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># pull underlying polygon data where point data intersects/overlays</span>
+sf_polygon <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_join</span>(sf_point, <span class="dt">join =</span> st_intersects)</code></pre></div>
 <p>Other predicate funcs for sf pairs</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>()
 <span class="kw">st_disjoint</span>()

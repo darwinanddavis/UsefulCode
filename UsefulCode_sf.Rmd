@@ -849,6 +849,13 @@ sf %>% lwgeom::st_snap_to_grid(10) # snap to grid
 sf[5:1] %>% st_intersection() # try reversing order of obj 
 ```
 
+Get intersecting underlying polygons using point data
+```{r, join8}
+# pull underlying polygon data where point data intersects/overlays 
+sf_polygon %>% st_join(sf_point, join = st_intersects)
+```
+
+
 Other predicate funcs for sf pairs
 ```{r, sf14, eval = F}
 st_intersects()
