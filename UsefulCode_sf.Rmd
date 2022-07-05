@@ -847,6 +847,7 @@ sf %>% st_buffer(0) %>% st_intersection(polys) # add 0 buffer
 sf %>% st_snap(polys, tolerance = 0.09) # snap to polygon edge 
 sf %>% lwgeom::st_snap_to_grid(10) # snap to grid 
 sf[5:1] %>% st_intersection() # try reversing order of obj 
+sf[sf %>% st_is_valid,] # index only valid objs 
 ```
 
 Get intersecting underlying polygons using point data
@@ -854,6 +855,7 @@ Get intersecting underlying polygons using point data
 # pull underlying polygon data where point data intersects/overlays 
 sf_polygon %>% st_join(sf_point, join = st_intersects)
 ```
+
 
 
 Other predicate funcs for sf pairs
