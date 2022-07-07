@@ -524,12 +524,34 @@ ras %>% rast() %>% crop(bb)
 
 Convert raster to various data stuctures  
 ```{r, r1}
-ras %>% rasterToPoints() %>% as.data.frame # raster to df 
 
-ras %>% rasterToPoints() %>% as.data.frame %>% 
-  st_as_sf(coords = c("x","y"), crs = 4326) # raster to sp
+require(raster)
+alt = getData('alt', country='CHE')
+slope = terrain(alt, opt='slope')
+aspect = terrain(alt, opt='aspect')
+hill = hillShade(slope, aspect, 40, 270)
 
-ras %>% as('SpatialPixelsDataFrame') %>% data.frame # ras to spdf to df 
+# raster to df
+df <- alt %>% rasterToPoints() %>% as.data.frame() # terrain
+df <- aspect %>% rasterToPoints() %>% as.data.frame() # aspect
+df <- hill %>%  rasterToPoints() %>% as.data.frame() # hillshade
+
+# raster to sf
+sf <- hill %>% rasterToPoints() %>% as.data.frame %>% st_as_sf(coords = c("x", "y"), crs = 4326)
+bb <- sf %>% .[sf %>% nrow/2,] %>% st_buffer(5*10^4) # circle crop based on middle centroid
+bb <- sf %>% .[sf %>% nrow/2,] %>% st_buffer(5*10^4) %>% st_bbox() # bbox crop
+sf <- sf %>% st_crop(bb)
+
+# raster to spdf
+spp <- hill %>% as('SpatialPixelsDataFrame') %>% data.frame # ras to spdf to df 
+
+# plot
+ggplot() +
+  geom_raster(data = df, aes(x,y, fill = layer))  # plot df
+  geom_sf(data = sf, aes(fill = layer, col =layer)) # plot sf
+  geom_sf(data = spp, aes(fill = layer, col =layer)) # plot spdf
+
+
 ```
 
 
