@@ -126,6 +126,10 @@ data <- fromJSON("data.json",simplifyDataFrame=T,flatten=T) %>%
 file <- "my_geo_data.json" %>% 
   readr::read_lines
 
+# opt 3
+file <- "my_geo_data.json" %>% 
+  read_sf
+
 ```
 
 Convert sf to geojson  
