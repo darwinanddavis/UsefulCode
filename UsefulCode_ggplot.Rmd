@@ -808,6 +808,15 @@ ggdraw() +
 ```
 
 
+Blank theme with legend 
+```{r, legend7}
+require(ggthemes)
+p1 + theme_map() +
+  theme(legend.background = element_rect(fill = "transparent"))
+
+```
+
+
 ### Axes    
 Add brackets to axes 
 ```{r}
