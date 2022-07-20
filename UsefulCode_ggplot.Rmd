@@ -808,11 +808,21 @@ ggdraw() +
 ```
 
 
-Blank theme with legend 
+Blank theme with full legend 
 ```{r, legend7}
 require(ggthemes)
 p1 + theme_map() +
   theme(legend.background = element_rect(fill = "transparent"))
+
+```
+
+Setting custom legend position for wrapped/stacked plots 
+```{r, legend8}
+require(patchwork)
+# can specify legend position using  theme(legend.position=...)  
+wrap_plots(p,p1,p2, ncol = 2, 
+           guides = "collect" #"keep" "auto"
+           )
 
 ```
 
