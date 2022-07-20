@@ -339,6 +339,19 @@ sf_disp <- sf %>% st_geometry() + c(0, 500)
 ggplot() + geom_sf(aes(geometry = sf_disp))
 ```
 
+### Databases
+Databases - maps, world data, natural earth, raster, DEM 
+```{r, d1, eval = F}
+# country polygons and natural earth data - rivers/lakes, urban areas, etc
+require(rnaturalearth)
+
+# hires country polygons
+devtools::install_github("ropensci/rnaturalearthhires")
+require(rnaturalearthhires)
+
+```
+
+
 ### North arrow and scale bars  
 <!-- https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html   -->
 ```{r, m2}
@@ -350,6 +363,18 @@ ggplot(data = world) +
         pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"),
         style = north_arrow_fancy_orienteering) +
     coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97))
+
+# scale bar
+p + ggspatial::annotation_scale(
+  location = "bl",
+  bar_cols = c(bg,fg),
+  line_width = 0.5,
+  pad_x = unit(1.5,"cm"),
+  pad_y = unit(1.5,"cm"),
+  text_col = fg, line_col = fg,
+  style = "ticks", # "bar"
+  width_hint = 0.1 # set scale to 10% of map
+)
   
 ## Scale on map varies by more than 10%, scale bar may be inaccurate
 ```
@@ -880,6 +905,15 @@ Get intersecting underlying polygons using point data
 ```{r, join8}
 # pull underlying polygon data where point data intersects/overlays 
 sf_polygon %>% st_join(sf_point, join = st_intersects)
+```
+
+Merge sequential/overlapping sf polygons
+```{r, join9}
+# merge first 20 polygons into one polygon 
+sf[1:20,] %>% st_union
+# merge first 20 polygons into one multilinestring
+sf[1:20,] %>% st_boundary %>% st_line_merge
+
 ```
 
 
