@@ -147,3 +147,17 @@ robservable(
 )
 ```
 
+### Mapbox
+
+Add bitmap image / set static title or custom markers  
+```{r}
+# use for static title or markers by saving title text/markers as png   
+mapdeck(location = c(-122.3, 37.8), zoom = 10) %>%
+  add_bitmap(
+    image = paste0(
+      'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/',
+      'website/sf-districts.png')
+    , bounds = c(-122.519, 37.7045, -122.355, 37.829)
+  )
+```
+

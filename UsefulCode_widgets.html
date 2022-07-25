@@ -332,22 +332,26 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2021-11-08<br />
+<p>Date: 2022-07-25<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
 
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>WIdgets, animations, RMarkdown/Shiny widgets, and anything website/app based from the R environment</p>
+<p>WIdgets, UI, animations, RMarkdown/Shiny widgets, and anything website/app/frontend from the R environment</p>
 </div>
 <div id="useful-links" class="section level2">
 <h2>Useful links</h2>
 <ul>
-<li><a href="https://juba.github.io/robservable/articles/gallery.html"><code>rObservable</code> notebooks</a></li>
+<li><a href="https://juba.github.io/robservable/articles/gallery.html"><code>rObservable</code> notebooks</a><br />
+</li>
+<li><a href="https://awesomeopensource.com/project/nanxstats/awesome-shiny-extensions">Awesome open source</a></li>
 </ul>
+<div id="robservable-notebook-widgets" class="section level3">
+<h3>rObservable notebook widgets</h3>
 <p>Bivariate cloropleth map legend<br />
-<a href="https://juba.github.io/robservable/articles/gallery.html" class="uri">https://juba.github.io/robservable/articles/gallery.html</a></p>
+<!-- https://juba.github.io/robservable/articles/gallery.html   --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;https://raw.githubusercontent.com/Deleetdk/USA.county.data/master/data/USA_county_data.RData&quot;</span>))
 
 d &lt;-<span class="st"> </span>USA_county_data
@@ -360,6 +364,14 @@ d &lt;-<span class="st"> </span>d[, <span class="kw">c</span>(<span class="st">&
     <span class="dt">data_id =</span> <span class="st">&quot;name_16&quot;</span>, <span class="dt">data_name =</span> <span class="st">&quot;name_16&quot;</span>, <span class="dt">data_var1 =</span> <span class="st">&quot;Graduate&quot;</span>, <span class="dt">data_var2 =</span> <span class="st">&quot;&lt;High.School&quot;</span>, <span class="dt">map =</span> <span class="st">&quot;https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/california-counties.geojson&quot;</span>, 
     <span class="dt">map_object =</span> <span class="st">&quot;geometry&quot;</span>, <span class="dt">map_id_property =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">legend_position =</span> <span class="st">&quot;bottomleft&quot;</span>), <span class="dt">width =</span> <span class="dv">800</span>, 
     <span class="dt">height =</span> <span class="dv">500</span>)</code></pre></div>
+</div>
+<div id="mapbox" class="section level3">
+<h3>Mapbox</h3>
+<p>Add bitmap image / set static title or custom markers</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use for static title or markers by saving title text/markers as png</span>
+<span class="kw">mapdeck</span>(<span class="dt">location =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">122.3</span>, <span class="fl">37.8</span>), <span class="dt">zoom =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_bitmap</span>(<span class="dt">image =</span> <span class="kw">paste0</span>(<span class="st">&quot;https://raw.githubusercontent.com/uber-common/deck.gl-data/master/&quot;</span>, 
+    <span class="st">&quot;website/sf-districts.png&quot;</span>), <span class="dt">bounds =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">122.519</span>, <span class="fl">37.7045</span>, <span class="op">-</span><span class="fl">122.355</span>, <span class="fl">37.829</span>))</code></pre></div>
+</div>
 </div>
 
 

@@ -339,6 +339,21 @@ sf_disp <- sf %>% st_geometry() + c(0, 500)
 ggplot() + geom_sf(aes(geometry = sf_disp))
 ```
 
+Crop sf based on area
+```{r,cr7}
+sf %>% filter(st_area %>% as.numeric %in% sf %>% st_area %>% as.numeric %>% max)
+```
+
+Make custom bbox
+```{r, cr8}
+require(ggmap)
+lon <- 144.93
+lat <- -37.79
+ggmap::make_bbox(lon,lat,f = 0.5) 
+
+```
+
+
 ### Databases
 Databases - maps, world data, natural earth, raster, DEM 
 ```{r, d1, eval = F}
