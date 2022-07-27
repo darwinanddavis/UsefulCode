@@ -543,6 +543,16 @@ inter_df <- rbind(df1,df2,df3) %>%
     st_cast("LINESTRING")
 ```
 
+Replace coordinates in sf obj
+```{r,c5}
+sf_df <- sf %>% st_coordinates %>% data_frame # convert to df
+sf_df[1:3,"Y"] <- c(10.1,10.2,10.3) # replace with new coords
+sf <- sf_df[,c("X","Y")] %>% as.matrix() %>% st_linestring(dim = c("X","Y"))   # convert back to sf
+
+
+```
+
+
 ### Raster
 
 Read in raster, change projection, and convert to matrix/df
@@ -810,9 +820,10 @@ gpx2 <- "data/full.gpx" %>%
 ### Combine, join, union sf objects     
 Combine multiple sf/sfc geometries into one  
 ```{r, join1}
+multipath <- "kml" %>% st_layers %>% .[[1]] # get layer ids
 pathm <- c()  
 for(pid in multipath){
-  path <- kmldata %>% st_read(layer = multipath[pid])
+  path <- kmldata %>% st_read(layer = multipath[pid], fid_column_name = "IDS")
   pathm <- rbind(pathm,path)
 }
 # combine separated geometries into one geometry 

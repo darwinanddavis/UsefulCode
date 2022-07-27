@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-07-21<br />
+<p>Date: 2022-07-27<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -486,6 +486,11 @@ sf_disp &lt;-<span class="st"> </span>sf <span class="op">%&gt;%</span><span cla
 <span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry =</span> sf_disp))</code></pre></div>
 <p>Crop sf based on area</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(st_area <span class="op">%&gt;%</span><span class="st"> </span>as.numeric <span class="op">%in%</span><span class="st"> </span>sf <span class="op">%&gt;%</span><span class="st"> </span>st_area <span class="op">%&gt;%</span><span class="st"> </span>as.numeric <span class="op">%&gt;%</span><span class="st"> </span>max)</code></pre></div>
+<p>Make custom bbox</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(ggmap)
+lon &lt;-<span class="st"> </span><span class="fl">144.93</span>
+lat &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">37.79</span>
+ggmap<span class="op">::</span><span class="kw">make_bbox</span>(lon, lat, <span class="dt">f =</span> <span class="fl">0.5</span>)</code></pre></div>
 </div>
 <div id="databases" class="section level3">
 <h3>Databases</h3>
@@ -631,6 +636,10 @@ pathm &lt;-<span class="st"> </span>city_df <span class="op">%&gt;%</span><span 
 <p>Convert each row in df to linestring</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(df1, df2, df3) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">st_cast</span>(<span class="st">&quot;LINESTRING&quot;</span>)</code></pre></div>
+<p>Replace coordinates in sf obj</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_df &lt;-<span class="st"> </span>sf <span class="op">%&gt;%</span><span class="st"> </span>st_coordinates <span class="op">%&gt;%</span><span class="st"> </span>data_frame  <span class="co"># convert to df</span>
+sf_df[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="st">&quot;Y&quot;</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">10.1</span>, <span class="fl">10.2</span>, <span class="fl">10.3</span>)  <span class="co"># replace with new coords</span>
+sf &lt;-<span class="st"> </span>sf_df[, <span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>))  <span class="co"># convert back to sf</span></code></pre></div>
 </div>
 <div id="raster" class="section level3">
 <h3>Raster</h3>
@@ -845,9 +854,10 @@ gpx2 &lt;-<span class="st"> &quot;data/full.gpx&quot;</span> <span class="op">%&
 <div id="combine-join-union-sf-objects" class="section level3">
 <h3>Combine, join, union sf objects</h3>
 <p>Combine multiple sf/sfc geometries into one</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pathm &lt;-<span class="st"> </span><span class="kw">c</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multipath &lt;-<span class="st"> &quot;kml&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>st_layers <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="dv">1</span>]]  <span class="co"># get layer ids</span>
+pathm &lt;-<span class="st"> </span><span class="kw">c</span>()
 <span class="cf">for</span> (pid <span class="cf">in</span> multipath) {
-    path &lt;-<span class="st"> </span>kmldata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_read</span>(<span class="dt">layer =</span> multipath[pid])
+    path &lt;-<span class="st"> </span>kmldata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_read</span>(<span class="dt">layer =</span> multipath[pid], <span class="dt">fid_column_name =</span> <span class="st">&quot;IDS&quot;</span>)
     pathm &lt;-<span class="st"> </span><span class="kw">rbind</span>(pathm, path)
 }
 <span class="co"># combine separated geometries into one geometry</span>
