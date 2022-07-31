@@ -191,6 +191,33 @@ ggplot() +
   scale_color_gradientn(colours = colpal, aesthetics = "col") 
 ```
 
+Alphanumeric hexcodes with opacity    
+<!-- https://stackoverflow.com/questions/23201134/transparent-argb-hex-value -->
+
+In `HTML/CSS` (browser code), the format is #RRGGBBAA with the alpha channel as last two hexadecimal digits eg. Mapbox fill colour for both manual colour and df variable. Otherwise, the alpha channel is the last two digits.     
+
+Example: For 85% white, you would use #D9FFFFFF. Here 85% = "D9" & White = "FFFFFF"  
+100% — FF
+95% — F2
+90% — E6
+85% — D9
+80% — CC
+75% — BF
+70% — B3
+65% — A6
+60% — 99
+55% — 8C
+50% — 80
+45% — 73
+40% — 66
+35% — 59
+30% — 4D
+25% — 40
+20% — 33
+15% — 26
+10% — 1A
+5% — 0D
+0% — 00  
 
 ### Chord diagrams
 <!-- from olympics.R data viz eg -->
@@ -305,7 +332,7 @@ Links
 
 
 D3 and leaflet  
-```{r, d31, eval=T}
+```{r, d31, eval=F}
 
 # devtools::install_github("jcheng5/d3scatter")
 require(pacman)
@@ -1280,7 +1307,7 @@ source("https://install-github.me/gadenbuie/regexplain")
 ### `plotly`     
 
 HTML widget with plotly and crosstalk
-```{r, plotly1, eval=T, echo=T}
+```{r, plotly1, eval=F, echo=T}
 
 require(pacman)
 p_load(plotly,tidyr,crosstalk)
@@ -1385,7 +1412,7 @@ h <- p %>%
 
 Crosstalk example 2
 
-```{r,eval=T,echo=T}
+```{r,eval=F,echo=T}
 # time series plotly
 pacman::p_load(dplyr,lubridate,ggplot2,plotly,gridExtra,plyr,ggthemes)
 # install.packages("crosstalk")
