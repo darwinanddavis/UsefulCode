@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-09-05<br />
+<p>Date: 2022-09-07<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -668,7 +668,11 @@ ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rast
 ras <span class="op">%&gt;%</span><span class="st"> </span>raster <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crop</span>(bb) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster_to_matrix</span>()
 
 <span class="kw">require</span>(terra)
-ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rast</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crop</span>(bb)</code></pre></div>
+ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rast</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">crop</span>(bb)
+
+<span class="co"># read in .adf files</span>
+<span class="kw">require</span>(rayshader)
+<span class="st">&quot;data.adf&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span>raster <span class="op">%&gt;%</span><span class="st"> </span>raster_to_matrix <span class="op">%&gt;%</span><span class="st"> </span>data.frame</code></pre></div>
 <p>Convert raster to various data stuctures</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">require</span>(raster)

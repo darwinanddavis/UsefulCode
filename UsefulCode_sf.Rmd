@@ -590,6 +590,10 @@ ras %>% raster %>% crop(bb) %>%
 
 require(terra)
 ras %>% rast() %>% crop(bb)
+
+# read in .adf files
+require(rayshader)
+"data.adf" %>% raster %>% raster_to_matrix %>% data.frame 
   
 ```
 
