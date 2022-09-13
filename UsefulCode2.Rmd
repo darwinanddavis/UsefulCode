@@ -1194,6 +1194,11 @@ ls %>% vec_depth # check how far list indexes
 
 Rename list/matrices with pipe/dplyr
 ```{r, l11}
+
+# without pipe
+names(ls) <- LETTERS[1:4]
+
+
 require(purrr)
 require(magrittr)
 # option 1

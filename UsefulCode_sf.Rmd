@@ -1053,6 +1053,12 @@ inter_df %>%
     mutate(colpal = path_col %>% rep(7) %>% lighten(seq(0.1,0.5,0.1)))
 ```
 
+Add labels to sf obj
+```{r,aes4}
+ggplot() +
+  geom_sf_label(data=state_names, aes(label=state),family=city_label_font,fill = NA, color="red", size = 5, label.size = 0, nudge_x = 0.5, nudge_y = 0.5) +
+```
+
 
 ### Hillshade  
 
