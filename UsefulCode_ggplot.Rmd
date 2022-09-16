@@ -929,3 +929,15 @@ require(rstudioapi)
 p %>% rstudioapi::savePlotAsImage("p.png", format = "png",width, height)
 ```
 
+### Plot types  
+
+Contour/heatmap
+```{rt1}
+bins = 50 
+ll <- 6 # match to 'levels' in plot (get from plotting first)
+lcol <- sequential_hcl(ll,"Reds")
+ggplot() +
+  geom_density2d_filled(data = df, aes(lon,lat, fill = ..level.., col = ..level.., bins = bins)) +
+  scale_fill_gradientn(colors = colpal, aesthetics = c("col", "fill")
+```
+
