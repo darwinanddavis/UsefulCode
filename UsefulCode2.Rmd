@@ -470,11 +470,19 @@ Convert df row values to columns and lengthen df (ideal for tables/matrix inputs
 # convert each distinct value in var2 into new column while maintaining var1
 require(reshape2)
 require(tidyr)
-d1 <- df %>% dcast(var1~var2, fill = 0) # fill NAs with 0
+df %>% dcast(var1~var2, fill = 0) # fill NAs with 0
+df %>% dcast(. ~ var1, fill = NA, drop = T) # convert rows to cols for one variable 
 
-d1 %>%
+df %>% dcast(. ~ factor(var1, levels = unique(var1)), fill = NA, drop = T) # retain row order when converting to cols 
+
+df %>%
   melt() %>%
   tidyr::uncount(value) # lengthen df by each row value
+
+# transpose 
+df %>% t %>% data.frame 
+
+
 ```
 
 Create custom df from existing data
