@@ -1701,3 +1701,29 @@ httr::GET(url, httr::write_disk("test.xlsx", overwrite=T))
 
 ```
 
+Get HTML elements by class
+```{r, wb2}
+require(rvest)
+url <- "https://au.movember.com/report-cards/index/report_category/testicular-cancer"
+
+# get element for ' class="class1" '
+url %>% read_html() %>% html_nodes(".class1") # opt 1
+url %>% read_html() %>% html_nodes("#class1") # opt 2
+
+
+```
+
+Get text associated with external url link
+```{r, wb3}
+url %>% read_html() %>% html_nodes("a") %>% html_text() %>% str_trim(side = "both") %>% str_split_fixed("\n",Inf) %>% data.frame
+```
+
+Check structure and layout of HTML page
+```{r, wb4}
+url %>% read_html() %>% 
+  html_nodes(".class1") %>% 
+  html_stucture() # show html structure 
+  html_attrs() # get available nodes
+  html_text() # or get all text
+```
+
