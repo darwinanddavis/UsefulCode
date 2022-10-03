@@ -698,6 +698,11 @@ Seperate/detect df into categories based on row name
 df %>% filter(Restaurants %>% str_detect("Market|Water"))
 ```
 
+Using `ifelse` with `mutate`
+```{r,dplyr13}
+df %>% mutate_at("var1", ~ifelse(. > 0.5, "this","that"))
+```
+
 
 ### Generic functions 
 
