@@ -565,6 +565,11 @@ df %>%
 # get distinct count per grouped var
 df %>% group_by(var1) %>% 
   summarise(n = n_distinct(var2))
+
+
+# count instances 
+df %>% group_by(var1) %>% count(var2)
+
 ```
 
 Execute unfriendly pipe functions inline in pipes   
@@ -774,6 +779,14 @@ Repeat vector n times (each)
 rep(c("A","B","C"), 10)
 rep(c("A","B","C"), each = 10) # repeat each instance 
 ```
+
+Split vector into equal chunks
+```{r}
+ids <- 1:100
+nn <- 20
+split(ids,ceiling(seq_along(ids)/nn))
+```
+
 
 
 ### Google drive  
