@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-09-08<br />
+<p>Date: 2022-10-10<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -1000,19 +1000,46 @@ dd &lt;-<span class="st"> </span>rnaturalearth<span class="op">::</span><span cl
 
 <span class="co"># opt 2</span>
 <span class="co"># change sf to sp </span>
-ddsp &lt;-<span class="st"> </span>day4t<span class="op">$</span>geometry <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="dv">1</span>] <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">st_buffer</span>(<span class="dv">5000</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># need to create buffer around obj</span>
-<span class="st">  </span><span class="kw">st_zm</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_Spatial</span>()  
+df_hex &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4163</span>) <span class="co"># need to keep regular prj</span>
+hex_points &lt;-<span class="st"> </span>df_hex <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_Spatial</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spsample</span>(<span class="dt">type =</span> <span class="st">&quot;hexagonal&quot;</span>, <span class="dt">cellsize =</span> <span class="fl">0.3</span>) <span class="co"># set cell size according to data density</span>
+hex_polygons &lt;-<span class="st"> </span><span class="kw">HexPoints2SpatialPolygons</span>(hex_points) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">st_as_sf</span>(<span class="dt">crs =</span> <span class="kw">st_crs</span>(df_hex)) <span class="co"># %&gt;% st_intersection(., df_hex)</span>
+hex_polygons<span class="op">$</span>fill &lt;-<span class="st"> </span><span class="kw">lengths</span>(<span class="kw">st_intersects</span>(hex_polygons, df_hex)) <span class="co"># create fill col based on data length</span>
 
-<span class="co"># if error, try not using pipe </span>
-ddhex &lt;-<span class="st"> </span><span class="kw">HexPoints2SpatialPolygons</span>(sp<span class="op">::</span><span class="kw">spsample</span>(<span class="dt">x =</span> ddsp, <span class="dt">type =</span> <span class="st">&quot;hexagonal&quot;</span>, <span class="dt">cellsize =</span> <span class="dv">30000000</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># create spatial sample of points around sp obj and  # convert to hexagons </span>
-<span class="st">  </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># revert back to sf to use in geom_sf() and to transform </span>
+<span class="co"># now project data</span>
+bb &lt;-<span class="st"> </span>maps<span class="op">::</span>world.cities <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(country.etc <span class="op">==</span><span class="st"> &quot;Australia&quot;</span>, name <span class="op">==</span><span class="st"> &quot;Brisbane&quot;</span>) <span class="co"># %&gt;% st_as_sf(coords = c(&quot;long&quot;,&quot;lat&quot;), crs = prj) %&gt;% st_buffer(1.2*10^6) %&gt;% st_bbox</span>
+crsn &lt;-<span class="st"> </span><span class="dv">2163</span>
+plat &lt;-<span class="st"> </span>bb[,<span class="st">&quot;lat&quot;</span>]
+plon &lt;-<span class="st"> </span>bb[,<span class="st">&quot;long&quot;</span>]
+prj &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;+lat_0=&quot;</span>,plat,<span class="st">&quot; +lon_0=&quot;</span>,plon,<span class="st">&quot; +init=epsg:&quot;</span>,crsn) <span class="co"># opt1</span>
+dd &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="st">&quot;large&quot;</span>,<span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(prj)
+hex_polygons &lt;-<span class="st"> </span>hex_polygons <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(prj) 
+bbox &lt;-<span class="st"> </span>bb <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">st_as_sf</span>(<span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;long&quot;</span>,<span class="st">&quot;lat&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_buffer</span>(<span class="dv">5</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st">  </span>st_bbox
 
-<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ddhex, <span class="dt">size =</span> <span class="fl">0.2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hex</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(Longitude, Latitude), <span class="dt">bins =</span> <span class="dv">500</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(bbox[<span class="dv">1</span>],bbox[<span class="dv">3</span>]), <span class="dt">ylim =</span> <span class="kw">c</span>(bbox[<span class="dv">2</span>],bbox[<span class="dv">4</span>]))
- </code></pre></div>
+<span class="co"># plot</span>
+hex_polygons &lt;-<span class="st"> </span>hex_polygons <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">filter</span>(fill <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>) <span class="co"># rm all 0's (optional)</span>
+colpal &lt;-<span class="st"> </span><span class="kw">sequential_hcl</span>(hex_polygons<span class="op">$</span>fill <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">n_distinct</span>()  <span class="op">%&gt;%</span><span class="st"> </span>log <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;Purples&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>rev <span class="co"># use log + 1 scale to improve col depth</span>
+<span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> hex_polygons, <span class="kw">aes</span>(<span class="dt">fill =</span> fill <span class="op">%&gt;%</span><span class="st"> </span>log <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">col =</span> fill <span class="op">%&gt;%</span><span class="st"> </span>log <span class="op">+</span><span class="st"> </span><span class="dv">1</span>),<span class="dt">size =</span> <span class="fl">0.05</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">name =</span> <span class="st">&quot;Activity&quot;</span>, <span class="dt">colours =</span> colpal, <span class="dt">aesthetics =</span> <span class="kw">c</span>(<span class="st">&quot;col&quot;</span>), <span class="dt">na.value =</span> <span class="st">&quot;transparent&quot;</span>
+                       <span class="co"># , guide = &quot;none&quot;</span>
+  )</code></pre></div>
+<p>Add buffer decay border around hexes</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using above hex_polygons sf data   </span>
+ddd &lt;-<span class="st"> </span>hex_polygons  <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">filter</span>(fill <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>)
+hex_buff &lt;-<span class="st"> </span><span class="dv">5</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">4</span> <span class="co"># create buffer decay</span>
+hexbuff_outer &lt;-<span class="st"> </span>ddd  <span class="op">%&gt;%</span><span class="st"> </span>st_combine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_boundary</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_buffer</span>(hex_buff,<span class="dt">endCapStyle =</span> <span class="st">&quot;SQUARE&quot;</span>,<span class="dt">joinStyle =</span> <span class="st">&quot;MITRE&quot;</span>)
+hexbuff_inner &lt;-<span class="st"> </span>ddd  <span class="op">%&gt;%</span><span class="st"> </span>st_combine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_boundary</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_buffer</span>(hex_buff<span class="op">/</span><span class="dv">2</span>,<span class="dt">endCapStyle =</span> <span class="st">&quot;SQUARE&quot;</span>,<span class="dt">joinStyle =</span> <span class="st">&quot;MITRE&quot;</span>)
+colpal &lt;-<span class="st"> </span><span class="kw">sequential_hcl</span>(ddd<span class="op">$</span>fill <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">n_distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span>log <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;Purples&quot;</span>)  <span class="op">%&gt;%</span><span class="st"> </span>rev <span class="co"># colpal for hex with fill = 0</span>
+
+<span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="co"># hex with buffer decay</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span>  hexbuff_outer, <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">fill =</span> <span class="kw">adjustcolor</span>(colpal[<span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">darken</span>(<span class="fl">0.1</span>),opac<span class="op">/</span><span class="dv">2</span>), <span class="dt">size =</span> <span class="fl">0.2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> hexbuff_inner, <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">fill =</span> <span class="kw">adjustcolor</span>(colpal[<span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">darken</span>(<span class="fl">0.2</span>),opac<span class="op">/</span><span class="dv">2</span>), <span class="dt">size =</span> <span class="fl">0.2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ddd , <span class="kw">aes</span>(<span class="dt">fill =</span> fill <span class="op">%&gt;%</span><span class="st"> </span>log <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">col =</span> fill <span class="op">%&gt;%</span><span class="st"> </span>log <span class="op">+</span><span class="st"> </span><span class="dv">1</span>),<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">name =</span> <span class="st">&quot;Activity&quot;</span>, <span class="dt">colours =</span> colpal, <span class="dt">aesthetics =</span> <span class="kw">c</span>(<span class="st">&quot;col&quot;</span>), <span class="dt">na.value =</span> <span class="st">&quot;transparent&quot;</span>
+                       <span class="co"># , guide = &quot;none&quot;</span>
+  )</code></pre></div>
 <p>Turn sf into hex for mapping<br />
 <!-- https://jaredlander.com/content/2022/06/GISinR.html#/section-28 --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(h3jsr)

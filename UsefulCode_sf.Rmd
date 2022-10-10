@@ -1011,21 +1011,56 @@ st_make_grid(st_as_sf(dd),
 
 # opt 2
 # change sf to sp 
-ddsp <- day4t$geometry %>% .[1] %>%
-  st_buffer(5000) %>% # need to create buffer around obj
-  st_zm() %>% as_Spatial()  
+df_hex <- df %>% st_as_sf(coords = c("lon","lat"), crs = 4163) # need to keep regular prj
+hex_points <- df_hex %>% as_Spatial() %>% spsample(type = "hexagonal", cellsize = 0.3) # set cell size according to data density
+hex_polygons <- HexPoints2SpatialPolygons(hex_points) %>%
+  st_as_sf(crs = st_crs(df_hex)) # %>% st_intersection(., df_hex)
+hex_polygons$fill <- lengths(st_intersects(hex_polygons, df_hex)) # create fill col based on data length
 
-# if error, try not using pipe 
-ddhex <- HexPoints2SpatialPolygons(sp::spsample(x = ddsp, type = "hexagonal", cellsize = 30000000)) %>% # create spatial sample of points around sp obj and  # convert to hexagons 
-  st_as_sf(coords = c("lon","lat"), crs = 4326) # revert back to sf to use in geom_sf() and to transform 
+# now project data
+bb <- maps::world.cities %>% filter(country.etc == "Australia", name == "Brisbane") # %>% st_as_sf(coords = c("long","lat"), crs = prj) %>% st_buffer(1.2*10^6) %>% st_bbox
+crsn <- 2163
+plat <- bb[,"lat"]
+plon <- bb[,"long"]
+prj <- paste0("+lat_0=",plat," +lon_0=",plon," +init=epsg:",crsn) # opt1
+dd <- ne_countries("large",returnclass = "sf") %>% st_transform(prj)
+hex_polygons <- hex_polygons %>% st_transform(prj) 
+bbox <- bb %>%  st_as_sf(coords = c("long","lat")) %>% st_buffer(5*10^6) %>%  st_bbox
 
-ggplot() + 
-  geom_sf(data = ddhex, size = 0.2) +
-  geom_hex(data = df, aes(Longitude, Latitude), bins = 500) +
-  coord_sf(xlim = c(bbox[1],bbox[3]), ylim = c(bbox[2],bbox[4]))
- 
+# plot
+hex_polygons <- hex_polygons %>%  filter(fill != 0) # rm all 0's (optional)
+colpal <- sequential_hcl(hex_polygons$fill %>% n_distinct()  %>% log + 1, "Purples") %>% rev # use log + 1 scale to improve col depth
+ggplot() +
+  geom_sf(data = hex_polygons, aes(fill = fill %>% log + 1, col = fill %>% log + 1),size = 0.05) +
+  scale_fill_gradientn(name = "Activity", colours = colpal, aesthetics = c("col"), na.value = "transparent"
+                       # , guide = "none"
+  )
 
 
+
+
+
+
+
+```
+
+Add buffer decay border around hexes  
+```{r}
+# using above hex_polygons sf data   
+ddd <- hex_polygons  %>%  filter(fill != 0)
+hex_buff <- 5*10^4 # create buffer decay
+hexbuff_outer <- ddd  %>% st_combine %>% st_boundary() %>% st_buffer(hex_buff,endCapStyle = "SQUARE",joinStyle = "MITRE")
+hexbuff_inner <- ddd  %>% st_combine %>% st_boundary() %>% st_buffer(hex_buff/2,endCapStyle = "SQUARE",joinStyle = "MITRE")
+colpal <- sequential_hcl(ddd$fill %>% n_distinct() %>% log + 1, "Purples")  %>% rev # colpal for hex with fill = 0
+
+ggplot() +
+  # hex with buffer decay
+  geom_sf(data =  hexbuff_outer, col = NA, fill = adjustcolor(colpal[1] %>% darken(0.1),opac/2), size = 0.2) +
+  geom_sf(data = hexbuff_inner, col = NA, fill = adjustcolor(colpal[1] %>% darken(0.2),opac/2), size = 0.2) +
+  geom_sf(data = ddd , aes(fill = fill %>% log + 1, col = fill %>% log + 1),size = 0.1) +
+  scale_fill_gradientn(name = "Activity", colours = colpal, aesthetics = c("col"), na.value = "transparent"
+                       # , guide = "none"
+  )
 ```
 
 Turn sf into hex for mapping  
