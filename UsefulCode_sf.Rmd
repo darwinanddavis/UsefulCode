@@ -366,6 +366,13 @@ ggplot() +
   
 ```
 
+Create concave polygon hull of multipoints  
+```{r, cr10}
+require(concaveman)
+sf %>% summarise() %>% 
+  concaveman::concaveman(concavity = 1)
+```
+
 
 ### Databases
 Databases - maps, world data, natural earth, raster, DEM 
