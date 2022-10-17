@@ -485,7 +485,11 @@ sf_disp &lt;-<span class="st"> </span>sf <span class="op">%&gt;%</span><span cla
 <span class="co"># plot using aes</span>
 <span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry =</span> sf_disp))</code></pre></div>
 <p>Crop sf based on area</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(st_area <span class="op">%&gt;%</span><span class="st"> </span>as.numeric <span class="op">%in%</span><span class="st"> </span>sf <span class="op">%&gt;%</span><span class="st"> </span>st_area <span class="op">%&gt;%</span><span class="st"> </span>as.numeric <span class="op">%&gt;%</span><span class="st"> </span>max)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(st_area <span class="op">%&gt;%</span><span class="st"> </span>as.numeric <span class="op">%in%</span><span class="st"> </span>sf <span class="op">%&gt;%</span><span class="st"> </span>st_area <span class="op">%&gt;%</span><span class="st"> </span>as.numeric <span class="op">%&gt;%</span><span class="st"> </span>max)
+
+<span class="co"># filter out polygons based on area</span>
+quant &lt;-<span class="st"> </span><span class="fl">0.3</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">st_area</span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="kw">st_area</span>(.) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">quantile</span>(quant))  <span class="co"># get polygons &gt; 30% of all polygon areas </span></code></pre></div>
 <p>Make custom bbox</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(ggmap)
 lon &lt;-<span class="st"> </span><span class="fl">144.93</span>

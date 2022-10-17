@@ -342,6 +342,10 @@ ggplot() + geom_sf(aes(geometry = sf_disp))
 Crop sf based on area
 ```{r,cr7}
 sf %>% filter(st_area %>% as.numeric %in% sf %>% st_area %>% as.numeric %>% max)
+
+# filter out polygons based on area
+quant <- 0.3 
+sf %>% filter(st_area(.) > st_area(.) %>% quantile(quant)) # get polygons > 30% of all polygon areas 
 ```
 
 Make custom bbox
