@@ -371,6 +371,7 @@ Create concave polygon hull of multipoints
 require(concaveman)
 sf %>% summarise() %>% 
   concaveman::concaveman(concavity = 1)
+
 ```
 
 

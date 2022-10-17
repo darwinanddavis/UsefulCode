@@ -571,6 +571,22 @@ graphics.off()
 
 ```
 
+### Colour palettes 
+
+Match df column/variable to custom colour scale  
+```{r, col1, eval = F}
+require(colorspace)
+mycolors <- sequential_hcl(df %>% pull(var1) %>% n_distinct(), "Tofino")
+names(mycolors) <- df$var1 %>% unique %>% factor %>% levels
+custom_colors <- scale_colour_manual(name = "Title",
+                                     values = mycolors)
+
+ggplot() +
+  geom_sf(data = df) +
+  custom_colors # add scale 
+```
+
+
 ### Images  
 Fill plot view with image   
 ```{r, gg19, eval=F}
