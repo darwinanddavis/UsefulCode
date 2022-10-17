@@ -490,6 +490,9 @@ prj <- projection(pathm) # get proj in string format
 #   rasterToPoints() %>% # convert to df
 #   as.data.frame    
 
+# coerce projection 
+sf %>% st_set_crs(prj) %>% st_transform(prj2) # or use prj again to coerce uncooperative projections 
+
 ```
 
 Get projection info 

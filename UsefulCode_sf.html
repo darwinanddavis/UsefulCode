@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-10-15<br />
+<p>Date: 2022-10-18<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -602,7 +602,10 @@ prj &lt;-<span class="st"> </span><span class="kw">projection</span>(pathm) <spa
 <span class="co">#                                   prj = prj,</span>
 <span class="co">#                                   expand = 3) %&gt;%  # get elev raster</span>
 <span class="co">#   rasterToPoints() %&gt;% # convert to df</span>
-<span class="co">#   as.data.frame    </span></code></pre></div>
+<span class="co">#   as.data.frame    </span>
+
+<span class="co"># coerce projection </span>
+sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_set_crs</span>(prj) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(prj2) <span class="co"># or use prj again to coerce uncooperative projections </span></code></pre></div>
 <p>Get projection info</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># find proj</span>
 crs_codes =<span class="st"> </span>rgdal<span class="op">::</span><span class="kw">make_EPSG</span>()  <span class="co"># get all espg code and info</span>
