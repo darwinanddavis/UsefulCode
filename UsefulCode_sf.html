@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-10-18<br />
+<p>Date: 2022-10-21<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -378,6 +378,24 @@ sf <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="
 <p>Read in json and convert to df</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(jsonlite)
 <span class="kw">read_json</span>(<span class="st">&quot;test.json&quot;</span>, <span class="dt">simplifyVector =</span> T)</code></pre></div>
+<p>Write json/geojson to dir</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write json methods working but only points</span>
+pacman<span class="op">::</span><span class="kw">p_load</span>(jsonlite, geojsonio)
+sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_write</span>(<span class="st">&quot;data.shp&quot;</span>)  <span class="co"># write shp</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_write</span>(<span class="st">&quot;data.json&quot;</span>)  <span class="co"># write json</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_write</span>(<span class="st">&quot;data.geojson&quot;</span>, <span class="dt">driver =</span> <span class="st">&quot;geojson&quot;</span>)  <span class="co"># write geojson</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_write</span>(<span class="st">&quot;data.json&quot;</span>, <span class="dt">driver =</span> <span class="st">&quot;geojson&quot;</span>, <span class="dt">delete_dsn =</span> T)  <span class="co"># overwrite file</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="op">::</span><span class="kw">geojson_write</span>(<span class="dt">file =</span> <span class="st">&quot;data.json&quot;</span>)
+sf <span class="op">%&gt;%</span><span class="st"> </span>rjson<span class="op">::</span><span class="kw">toJSON</span>(<span class="dt">indent =</span> <span class="st">&quot;2&quot;</span>)
+sf <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="op">::</span><span class="kw">geojson_list</span>() <span class="op">%&gt;%</span><span class="st"> </span>rjson<span class="op">::</span><span class="kw">toJSON</span>(<span class="dt">method =</span> <span class="st">&quot;C&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>readr<span class="op">::</span><span class="kw">write_lines</span>(<span class="st">&quot;sf.json&quot;</span>)
+sf <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="op">::</span><span class="kw">file_to_geojson</span>(<span class="dt">output =</span> <span class="st">&quot;data.geojson&quot;</span>)
+
+<span class="co"># convert sf to json</span>
+sf <span class="op">%&gt;%</span><span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">toJSON</span>() <span class="op">%&gt;%</span><span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">prettify</span>()
+
+<span class="co"># convert list to geojson</span>
+ls <span class="op">%&gt;%</span><span class="st"> </span>rjson<span class="op">::</span><span class="kw">toJSON</span>()
+ls <span class="op">%&gt;%</span><span class="st"> </span>jsonify<span class="op">::</span><span class="kw">to_json</span>(<span class="dt">unbox =</span> T) <span class="op">%&gt;%</span><span class="st"> </span>jsonify<span class="op">::</span><span class="kw">pretty_json</span>()</code></pre></div>
 </div>
 <div id="sf-simple-features" class="section level3">
 <h3>sf simple features</h3>

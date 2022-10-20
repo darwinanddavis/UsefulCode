@@ -168,6 +168,29 @@ require(jsonlite)
 read_json("test.json", simplifyVector = T)
 ```
 
+
+Write json/geojson to dir
+```{r, json6, eval = F}
+# write json methods
+# working but only points
+pacman::p_load(jsonlite,geojsonio)
+sf %>% st_write("data.shp") # write shp
+sf %>% st_write("data.json") # write json
+sf %>% st_write("data.geojson",driver = "geojson") # write geojson
+sf %>% st_write("data.json", driver = "geojson", delete_dsn = T) # overwrite file
+sf %>% geojsonio::geojson_write(file = "data.json")
+sf %>% rjson::toJSON(indent = "2")
+sf %>% geojsonio::geojson_list() %>% rjson::toJSON(method = "C") %>% readr::write_lines("sf.json")
+sf %>% geojsonio::file_to_geojson(output = "data.geojson")
+
+# convert sf to json
+sf %>% jsonlite::toJSON() %>% jsonlite::prettify()
+
+# convert list to geojson
+ls %>% rjson::toJSON()
+ls %>% jsonify::to_json(unbox = T) %>% jsonify::pretty_json()
+```
+
 ### sf simple features  
 Get bbox coords      
 ```{r, sf1, collapse=T}
@@ -1152,6 +1175,7 @@ osmextract::oe_download(provider = 'openstreetmap_fr',
                         download_directory = here::here("data"), force_download = T)
 
 ```
+
 
 ### sf structure    
 

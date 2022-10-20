@@ -219,6 +219,8 @@ Example: For 85% white, you would use #D9FFFFFF. Here 85% = "D9" & White = "FFFF
 5% — 0D
 0% — 00  
 
+Change colour palette
+
 ### Chord diagrams
 <!-- from olympics.R data viz eg -->
 ```{r, chord1}
@@ -706,6 +708,14 @@ df %>% filter(Restaurants %>% str_detect("Market|Water"))
 Using `ifelse` with `mutate`
 ```{r,dplyr13}
 df %>% mutate_at("var1", ~ifelse(. > 0.5, "this","that"))
+```
+
+
+Gather/melt data into groups/stacks
+```{r}
+df %>% gather(key = "Country", value = "value")
+
+# reorder factors to df  
 ```
 
 
