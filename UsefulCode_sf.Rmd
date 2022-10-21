@@ -191,6 +191,13 @@ ls %>% rjson::toJSON()
 ls %>% jsonify::to_json(unbox = T) %>% jsonify::pretty_json()
 ```
 
+Check available drivers for writing shp, json, geojson, kml 
+```{r}
+require(rgdal)
+ogrDrivers() %>% View
+```
+
+
 ### sf simple features  
 Get bbox coords      
 ```{r, sf1, collapse=T}
@@ -1182,5 +1189,60 @@ osmextract::oe_download(provider = 'openstreetmap_fr',
 Access levels within sf variable (e.g. Name) using attributes   
 ```{r, str1}
 sf$Name %>% attr(which = "levels")
+```
+
+
+### Simplify objs 
+
+```{r, simp1}
+require(maps,sf,rmapshaper)
+
+bind_rows(list(
+  "a" = sf1,
+  "b" = sf2
+)) %>% st_as_sf  %>% st_combine()
+
+# filter out dust
+quant <- 0.1
+bind_rows(list(
+  sf1,
+  sf2
+)) %>%
+  filter(st_area(.) > st_area(.) %>% quantile(quant))
+osm_list_quant %>% nrow
+
+bind_rows(list(
+  sf1,
+  sf2
+)) %>% st_simplify()
+
+# set smoothness of polygons [0,1] (lower = less smooth)
+keep <- 0.2
+bind_rows(list(
+  sf1,
+  sf2
+)) %>%
+  ms_simplify(keep = keep)
+
+# set smoothness of polygons [0,1] (lower = less smooth)
+keep <- 0.2
+bind_rows(list(
+  sf1,
+  sf2
+)) %>%
+  as('Spatial') %>% # convert to spoly then reconvert to sp
+  rmapshaper::ms_simplify(keep = keep) %>%
+  st_as_sf()
+
+# combine tolerance and area quantile
+keep <- 0.2
+quant <- 0.1
+osm_list_ms_simp3 <- bind_rows(list(
+  sf1,
+  sf2
+)) %>%
+  as('Spatial') %>%
+  rmapshaper::ms_simplify(keep = keep) %>%
+  st_as_sf() %>% filter(st_area(.) > st_area(.) %>% quantile(quant))
 ```
 

@@ -396,6 +396,9 @@ sf <span class="op">%&gt;%</span><span class="st"> </span>jsonlite<span class="o
 <span class="co"># convert list to geojson</span>
 ls <span class="op">%&gt;%</span><span class="st"> </span>rjson<span class="op">::</span><span class="kw">toJSON</span>()
 ls <span class="op">%&gt;%</span><span class="st"> </span>jsonify<span class="op">::</span><span class="kw">to_json</span>(<span class="dt">unbox =</span> T) <span class="op">%&gt;%</span><span class="st"> </span>jsonify<span class="op">::</span><span class="kw">pretty_json</span>()</code></pre></div>
+<p>Check available drivers for writing shp, json, geojson, kml</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(rgdal)
+<span class="kw">ogrDrivers</span>() <span class="op">%&gt;%</span><span class="st"> </span>View</code></pre></div>
 </div>
 <div id="sf-simple-features" class="section level3">
 <h3>sf simple features</h3>
@@ -1126,6 +1129,58 @@ osmextract<span class="op">::</span><span class="kw">oe_download</span>(<span cl
 <h3>sf structure</h3>
 <p>Access levels within sf variable (e.g. Name) using attributes</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf<span class="op">$</span>Name <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">attr</span>(<span class="dt">which =</span> <span class="st">&quot;levels&quot;</span>)</code></pre></div>
+</div>
+<div id="simplify-objs" class="section level3">
+<h3>Simplify objs</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(maps,sf,rmapshaper)
+
+<span class="kw">bind_rows</span>(<span class="kw">list</span>(
+  <span class="st">&quot;a&quot;</span> =<span class="st"> </span>sf1,
+  <span class="st">&quot;b&quot;</span> =<span class="st"> </span>sf2
+)) <span class="op">%&gt;%</span><span class="st"> </span>st_as_sf  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_combine</span>()
+
+<span class="co"># filter out dust</span>
+quant &lt;-<span class="st"> </span><span class="fl">0.1</span>
+<span class="kw">bind_rows</span>(<span class="kw">list</span>(
+  sf1,
+  sf2
+)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">st_area</span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="kw">st_area</span>(.) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">quantile</span>(quant))
+osm_list_quant <span class="op">%&gt;%</span><span class="st"> </span>nrow
+
+<span class="kw">bind_rows</span>(<span class="kw">list</span>(
+  sf1,
+  sf2
+)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_simplify</span>()
+
+<span class="co"># set smoothness of polygons [0,1] (lower = less smooth)</span>
+keep &lt;-<span class="st"> </span><span class="fl">0.2</span>
+<span class="kw">bind_rows</span>(<span class="kw">list</span>(
+  sf1,
+  sf2
+)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ms_simplify</span>(<span class="dt">keep =</span> keep)
+
+<span class="co"># set smoothness of polygons [0,1] (lower = less smooth)</span>
+keep &lt;-<span class="st"> </span><span class="fl">0.2</span>
+<span class="kw">bind_rows</span>(<span class="kw">list</span>(
+  sf1,
+  sf2
+)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">as</span>(<span class="st">'Spatial'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert to spoly then reconvert to sp</span>
+<span class="st">  </span>rmapshaper<span class="op">::</span><span class="kw">ms_simplify</span>(<span class="dt">keep =</span> keep) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">st_as_sf</span>()
+
+<span class="co"># combine tolerance and area quantile</span>
+keep &lt;-<span class="st"> </span><span class="fl">0.2</span>
+quant &lt;-<span class="st"> </span><span class="fl">0.1</span>
+osm_list_ms_simp3 &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(<span class="kw">list</span>(
+  sf1,
+  sf2
+)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">as</span>(<span class="st">'Spatial'</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>rmapshaper<span class="op">::</span><span class="kw">ms_simplify</span>(<span class="dt">keep =</span> keep) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">st_area</span>(.) <span class="op">&gt;</span><span class="st"> </span><span class="kw">st_area</span>(.) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">quantile</span>(quant))</code></pre></div>
 </div>
 </div>
 
