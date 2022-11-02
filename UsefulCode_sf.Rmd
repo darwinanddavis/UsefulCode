@@ -1246,3 +1246,33 @@ osm_list_ms_simp3 <- bind_rows(list(
   st_as_sf() %>% filter(st_area(.) > st_area(.) %>% quantile(quant))
 ```
 
+### Nearest neighbour
+<!-- https://github.com/AbdoulMa/30DayMapChallenge/blob/main/Day2/day2_2022.R -->
+```{r, nn, eval = F}
+library(tidyverse)
+library(sf)
+library(nngeo)
+
+airports <- read_csv("https://gist.githubusercontent.com/fletchjeff/b60f46ca3c1aa51e9aea9fd86d0ab433/raw/81ee446939110daf8b5c3a79425ccf1100070578/airports.csv") %>% 
+  mutate(row_num= row_number()) %>% 
+  st_as_sf(coords =c("Longitude", "Latitude"))
+
+# African airports
+airports_africa <- airports %>%  
+  filter(str_detect(`Tz database time zone`,'Africa|Indian/Antananarivo'))
+
+# Nearest neighbours
+nn <- st_nn(airports_africa, airports_africa, k = 10, progress = F)
+airports_connexions <- st_connect(airports_africa, airports_africa, ids = nn, progress = F)
+
+# plot
+airports_connexions %>% 
+  ggplot() + 
+  geom_sf(size = .75) + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(family = "Gotham Black", size = rel(4))
+  )
+
+```
+

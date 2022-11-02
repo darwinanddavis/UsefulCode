@@ -1321,6 +1321,12 @@ url <- 'https://raw.githubusercontent.com/plotly/datasets/master/2011_february_a
 flights <- read_csv(url)  
 ```
 
+Read in tab-delim .txt files  
+```{r}
+"data.txt" %>% read_delim(delim = "\t") 
+```
+
+
 ### Regex  
 
 ```{r,reg1}
