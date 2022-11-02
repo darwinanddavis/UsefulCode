@@ -408,6 +408,20 @@ sf %>% summarise() %>%
 
 ```
 
+Crop raster
+```{r, cr11}
+require(raster)
+r = raster(vals = rnorm(400), nrows=20, ncols=20, ext= extent(c(0, 20, 0, 20)))
+
+p = Polygon(matrix(5, 5, 15, 12, 7, 16, 3, 10), ncol=2, byrow = T)
+
+p = SpatialPolygons(list(Polygons(list(p), "p")))
+
+r2 = mask(r,p)
+plot(r2)
+
+```
+
 
 ### Databases
 Databases - maps, world data, natural earth, raster, DEM 

@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-11-02<br />
+<p>Date: 2022-11-03<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -529,6 +529,16 @@ cropy &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-
 <p>Create concave polygon hull of multipoints</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(concaveman)
 sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>() <span class="op">%&gt;%</span><span class="st"> </span>concaveman<span class="op">::</span><span class="kw">concaveman</span>(<span class="dt">concavity =</span> <span class="dv">1</span>)</code></pre></div>
+<p>Crop raster</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(raster)
+r =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">vals =</span> <span class="kw">rnorm</span>(<span class="dv">400</span>), <span class="dt">nrows =</span> <span class="dv">20</span>, <span class="dt">ncols =</span> <span class="dv">20</span>, <span class="dt">ext =</span> <span class="kw">extent</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">20</span>)))
+
+p =<span class="st"> </span><span class="kw">Polygon</span>(<span class="kw">matrix</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">7</span>, <span class="dv">16</span>, <span class="dv">3</span>, <span class="dv">10</span>), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> T)
+
+p =<span class="st"> </span><span class="kw">SpatialPolygons</span>(<span class="kw">list</span>(<span class="kw">Polygons</span>(<span class="kw">list</span>(p), <span class="st">&quot;p&quot;</span>)))
+
+r2 =<span class="st"> </span><span class="kw">mask</span>(r, p)
+<span class="kw">plot</span>(r2)</code></pre></div>
 </div>
 <div id="databases" class="section level3">
 <h3>Databases</h3>
