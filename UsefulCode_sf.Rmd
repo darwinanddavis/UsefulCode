@@ -1023,6 +1023,18 @@ sf[1:20,] %>% st_boundary %>% st_line_merge
 
 ```
 
+Read in multiple files and combine into one sfc
+```{r, join10}
+fhs <- dir %>% list.files(full.names = T)
+prj <- 4326
+slist <-  st_sfc(crs = prj) # create empty sfc
+for(f in fhs){
+  s <- f %>% read_sf()
+  slist <- rbind(s,slist)
+}
+slist <- slist %>% mutate("id" = LETTERS[1:length(fhs)])
+
+```
 
 
 Other predicate funcs for sf pairs

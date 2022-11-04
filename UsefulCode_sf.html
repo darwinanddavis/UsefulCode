@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-11-03<br />
+<p>Date: 2022-11-04<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -1001,6 +1001,15 @@ sf_polygon <span class="op">%&gt;%</span><span class="st"> </span><span class="k
 sf[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, ] <span class="op">%&gt;%</span><span class="st"> </span>st_union
 <span class="co"># merge first 20 polygons into one multilinestring</span>
 sf[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, ] <span class="op">%&gt;%</span><span class="st"> </span>st_boundary <span class="op">%&gt;%</span><span class="st"> </span>st_line_merge</code></pre></div>
+<p>Read in multiple files and combine into one sfc</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fhs &lt;-<span class="st"> </span>dir <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">list.files</span>(<span class="dt">full.names =</span> T)
+prj &lt;-<span class="st"> </span><span class="dv">4326</span>
+slist &lt;-<span class="st"> </span><span class="kw">st_sfc</span>(<span class="dt">crs =</span> prj)  <span class="co"># create empty sfc</span>
+<span class="cf">for</span> (f <span class="cf">in</span> fhs) {
+    s &lt;-<span class="st"> </span>f <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">read_sf</span>()
+    slist &lt;-<span class="st"> </span><span class="kw">rbind</span>(s, slist)
+}
+slist &lt;-<span class="st"> </span>slist <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">id =</span> LETTERS[<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(fhs)])</code></pre></div>
 <p>Other predicate funcs for sf pairs</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>()
 <span class="kw">st_disjoint</span>()

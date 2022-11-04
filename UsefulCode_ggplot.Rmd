@@ -699,6 +699,16 @@ ggplot(data = d, aes(x = xx, y = yy,
   theme_classic()
 ```
 
+Maintain order of variables in df when plotting
+```{r, gg25, eval = F}
+limits <- df$var1 %>% pull
+df %>% ggplot() +
+  geom_col(aes(x,y)) +
+  scale_x_discrete(limits = limits) 
+
+```
+
+
 ### Insert plot inset within main plot    
 ```{r, inset1, eval = F}
 
