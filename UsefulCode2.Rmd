@@ -629,6 +629,13 @@ df %>%
 df %>% 
   mutate("var1" = factor(var1, levels = var_levels)) %>% 
   arrange(var1) 
+
+# get top n value based on wt variable
+# also works for sfc
+df %>%
+  group_by(country) %>% # optional
+  top_n(n = 5, wt = area) # get top 5 geometries bassed on area
+
 ```
 
 Remove unwanted df row using string arg  
