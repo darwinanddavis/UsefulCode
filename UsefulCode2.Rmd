@@ -805,6 +805,11 @@ split(ids,ceiling(seq_along(ids)/nn))
 ```
 
 
+Find difference between vectors 
+```{r}
+LETTERS[1:10] %>% setdiff(LETTERS[1:5])
+```
+
 
 ### Google drive  
 
