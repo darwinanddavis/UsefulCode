@@ -1287,6 +1287,18 @@ Reduce(intersect, list(l1$var1,l2$var1,l3$var1)) %>% unique
 
 ```
 
+
+Step through list indices/depths using `map(c())`  
+```{r, l15}
+require(purrr)
+ls %>% 
+  purrr::map("results") %>% # access data index
+  purrr::flatten() %>% # remove inner list if necessary
+  purrr::map(c("geometry","location","lat")) %>% # use c() to step through each index consecutively  
+  unlist 
+```
+
+
 ### Microbenchmark  
 
 ```{r, mb1}
