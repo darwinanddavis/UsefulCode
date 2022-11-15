@@ -1785,3 +1785,16 @@ url %>% read_html() %>%
   html_text() # or get all text
 ```
 
+Search for string contained in html
+```{r, wb5}
+url %>% read_html %>% read_html() %>% 
+  html_nodes(":contains('string1')")
+```
+
+Get child divs
+```{r, wb6}
+url %>% read_html %>% read_html() %>% 
+  html_nodes("a") %>% 
+  html_children() 
+```
+
