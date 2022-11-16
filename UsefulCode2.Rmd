@@ -1660,6 +1660,12 @@ string1 %>% str_remove_all("[a-zA-Z[^[:alnum:]]]+[$]") %>% str_replace_all(",","
 
 ```
 
+Easily parse numbers from character to numeric 
+```{r}
+c("$32,930",  "$32,990",  "$33,749",  "$33,965") %>% readr::parse_number()
+```
+
+
 ### SVG
 
 Read in svg  
@@ -1797,4 +1803,3 @@ url %>% read_html %>% read_html() %>%
   html_nodes("a") %>% 
   html_children() 
 ```
-
