@@ -1661,8 +1661,14 @@ string1 %>% str_remove_all("[a-zA-Z[^[:alnum:]]]+[$]") %>% str_replace_all(",","
 ```
 
 Easily parse numbers from character to numeric 
-```{r}
+```{r, str8}
 c("$32,930",  "$32,990",  "$33,749",  "$33,965") %>% readr::parse_number()
+```
+
+Remove empty string entries 
+```{r, str9}
+require(stringi)
+c(LETTERS[1:3],rep("",4)) %>% stri_remove_empty(na_empty = F)
 ```
 
 
@@ -1774,6 +1780,7 @@ url <- "https://au.movember.com/report-cards/index/report_category/testicular-ca
 url %>% read_html() %>% html_nodes(".class1") # opt 1
 url %>% read_html() %>% html_nodes("#class1") # opt 2
 
+url %>% read_html() %>% xml2::xml_find_all("//a")  # opt 3
 
 ```
 
@@ -1803,3 +1810,20 @@ url %>% read_html %>% read_html() %>%
   html_nodes("a") %>% 
   html_children() 
 ```
+
+Using CCS selector tool 
+- Open CCS selector tool  
+- Click on element  
+- Use class selector that appears in box e.g. 'YYrds'
+_OR_      
+- Click on 'xpath' and use xpath string with `xml_final_all()`
+```{r, wb7}
+# class selector
+url %>% read_html() %>%
+  html_nodes(".YYrds")
+
+# xpath option using copied string 
+url %>% read_html() %>% xml2::xml_find_all("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'YYrds', ' ' ))]") 
+
+```
+
