@@ -1012,6 +1012,13 @@ Get intersecting underlying polygons using point data
 ```{r, join8}
 # pull underlying polygon data where point data intersects/overlays 
 sf_polygon %>% st_join(sf_point, join = st_intersects)
+
+# option 2 
+sf_polygon %>%
+  st_filter(sf_dataframe,
+            .predicate = st_intersects
+            # join = st_overlaps
+            )
 ```
 
 Merge sequential/overlapping sf polygons

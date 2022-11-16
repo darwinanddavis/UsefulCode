@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-11-04<br />
+<p>Date: 2022-11-16<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -994,8 +994,15 @@ sf <span class="op">%&gt;%</span><span class="st"> </span>lwgeom<span class="op"
 sf[<span class="dv">5</span><span class="op">:</span><span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_intersection</span>()  <span class="co"># try reversing order of obj </span>
 sf[sf <span class="op">%&gt;%</span><span class="st"> </span>st_is_valid, ]  <span class="co"># index only valid objs </span></code></pre></div>
 <p>Get intersecting underlying polygons using point data</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># pull underlying polygon data where point data intersects/overlays</span>
-sf_polygon <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_join</span>(sf_point, <span class="dt">join =</span> st_intersects)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># pull underlying polygon data where point data intersects/overlays </span>
+sf_polygon <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_join</span>(sf_point, <span class="dt">join =</span> st_intersects)
+
+<span class="co"># option 2 </span>
+sf_polygon <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">st_filter</span>(sf_dataframe,
+            <span class="dt">.predicate =</span> st_intersects
+            <span class="co"># join = st_overlaps</span>
+            )</code></pre></div>
 <p>Merge sequential/overlapping sf polygons</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># merge first 20 polygons into one polygon</span>
 sf[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, ] <span class="op">%&gt;%</span><span class="st"> </span>st_union
