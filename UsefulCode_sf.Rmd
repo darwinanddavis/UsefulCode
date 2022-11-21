@@ -779,6 +779,17 @@ ras %>% raster_zscale()
 ```
 
 
+Shaded contour maps (Tanaka maps)  
+```{r}
+# https://github.com/riatelab/tanaka/
+library(tanaka)
+library(terra)
+ras <- rast(system.file("tif/elev.tif", package = "tanaka"))
+tanaka(ras, breaks = seq(80,400,20), 
+       legend.pos = "topright", legend.title = "Elevation\n(meters)")
+```
+
+
 ### Spatial class
 Convert sf to spatiallines obj  
 ```{r, sp1}

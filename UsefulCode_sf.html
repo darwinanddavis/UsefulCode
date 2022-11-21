@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-11-16<br />
+<p>Date: 2022-11-21<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -804,6 +804,12 @@ ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">proj
 <p>Get zscale/elevation of raster</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(geoviz)
 ras <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">raster_zscale</span>()</code></pre></div>
+<p>Shaded contour maps (Tanaka maps)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># https://github.com/riatelab/tanaka/</span>
+<span class="kw">library</span>(tanaka)
+<span class="kw">library</span>(terra)
+ras &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="kw">system.file</span>(<span class="st">&quot;tif/elev.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tanaka&quot;</span>))
+<span class="kw">tanaka</span>(ras, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">80</span>, <span class="dv">400</span>, <span class="dv">20</span>), <span class="dt">legend.pos =</span> <span class="st">&quot;topright&quot;</span>, <span class="dt">legend.title =</span> <span class="st">&quot;Elevation</span><span class="ch">\n</span><span class="st">(meters)&quot;</span>)</code></pre></div>
 </div>
 <div id="spatial-class" class="section level3">
 <h3>Spatial class</h3>
