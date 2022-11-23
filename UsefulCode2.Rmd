@@ -1343,7 +1343,7 @@ require(roughviz)
 
 
 
-### Read in data    
+### Read and write data    
 Read in csv data sources directly from web  
 ``` {r, read1, results='hide',eval=F}
 # link to raw csv link on e.g. github
@@ -1355,6 +1355,14 @@ flights <- read_csv(url)
 Read in tab-delim .txt files  
 ```{r}
 "data.txt" %>% read_delim(delim = "\t") 
+```
+
+Rename files in dir    
+```{r}
+# useful for removing string sections or modifying file extension  
+file.rename(from = here::here() %>% list.files(full.names = T),
+            to = paste0(here::here(),"img/",new_names)
+            )  
 ```
 
 
