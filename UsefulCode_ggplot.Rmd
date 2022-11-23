@@ -586,6 +586,25 @@ ggplot() +
   custom_colors # add scale 
 ```
 
+Loop through different colpals and save plots to dir
+```{r}
+vars <- df$var1 %>% unique
+colv <- c("Peach", "PinkYl", "Burg")
+for(i in seq_along(vars)){
+df <- df %>% filter(var1 == vars[i]) 
+xlab <- "Month"
+ylab <- "Day"
+nn <- df %>% pull(var2) %>% n_distinct()
+colpal <- c(sequential_hcl(nn,colv[i]) %>% .[nn],sequential_hcl(nn,colv[i]) %>% .[1]) # set col gradient
+ggplot() +
+  geom_tile(data = df, aes(v1,v2,fill = ar2)) +
+  scale_fill_gradient(low = colpal[1], high = colpal[2], guide = "colourbar",na.value = "transparent")  # create custom gradient
+  
+ggsave(here::here("plot",var1[i],"_activity.png"),device = "png")
+}
+  
+```
+
 
 ### Images  
 Fill plot view with image   
@@ -700,7 +719,7 @@ ggplot(data = d, aes(x = xx, y = yy,
 ```
 
 Maintain order of variables in df when plotting
-```{r, gg25, eval = F}
+```{r, c1, eval = F}
 limits <- df$var1 %>% pull
 df %>% ggplot() +
   geom_col(aes(x,y)) +

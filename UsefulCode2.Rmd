@@ -725,6 +725,13 @@ df %>% gather(key = "Country", value = "value")
 # reorder factors to df  
 ```
 
+Count instances of grouped data  
+```{r}
+df %>% 
+  group_by(date) %>% 
+  tally(var1 * var2, name = "new_var1")
+```
+
 
 ### Generic functions 
 
