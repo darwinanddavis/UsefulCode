@@ -630,6 +630,17 @@ sf %>% st_coordinates() %>% .[,c(2,1)]
 ```
 
 
+Convert list of sf obj to sfc
+```{r}
+do.call(rbind, my_list)
+```
+
+Convert coordinates to text (for simple copy paste)  
+```{r}
+bbc <- dd %>% filter(name %in% 'Netherlands')
+bbc %>% st_centroid() %>% st_geometry() %>%  st_as_text()
+```
+
 ### Raster
 
 Read in raster, change projection, and convert to matrix/df

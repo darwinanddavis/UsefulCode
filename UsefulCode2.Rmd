@@ -817,6 +817,11 @@ Find difference between vectors
 LETTERS[1:10] %>% setdiff(LETTERS[1:5])
 ```
 
+Get order of vector 
+```{r}
+df$id %>% order
+```
+
 
 ### Google drive  
 
@@ -1303,6 +1308,15 @@ ls %>%
   purrr::flatten() %>% # remove inner list if necessary
   purrr::map(c("geometry","location","lat")) %>% # use c() to step through each index consecutively  
   unlist 
+```
+
+Reorder list 
+```{r}
+# use other vector/df to index list 
+ls[df$id]
+
+# alphabetise names if not already  
+ls[order(names(ls))]
 ```
 
 

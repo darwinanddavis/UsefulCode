@@ -332,7 +332,7 @@ div.tocify {
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2022-11-21<br />
+<p>Date: 2022-12-03<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -693,6 +693,11 @@ sf_df[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span
 sf &lt;-<span class="st"> </span>sf_df[, <span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.matrix</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>))  <span class="co"># convert back to sf</span></code></pre></div>
 <p>Flip XY coordinates</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_coordinates</span>() <span class="op">%&gt;%</span><span class="st"> </span>.[, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)]</code></pre></div>
+<p>Convert list of sf obj to sfc</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">do.call</span>(rbind, my_list)</code></pre></div>
+<p>Convert coordinates to text (for simple copy paste)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bbc &lt;-<span class="st"> </span>dd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(name <span class="op">%in%</span><span class="st"> &quot;Netherlands&quot;</span>)
+bbc <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_centroid</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_text</span>()</code></pre></div>
 </div>
 <div id="raster" class="section level3">
 <h3>Raster</h3>

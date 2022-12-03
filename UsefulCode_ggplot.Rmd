@@ -977,12 +977,39 @@ p %>% rstudioapi::savePlotAsImage("p.png", format = "png",width, height)
 ### Plot types  
 
 Contour/heatmap
-```{rt1}
+```{r, t1}
 bins = 50 
 ll <- 6 # match to 'levels' in plot (get from plotting first)
 lcol <- sequential_hcl(ll,"Reds")
 ggplot() +
   geom_density2d_filled(data = df, aes(lon,lat, fill = ..level.., col = ..level.., bins = bins)) +
-  scale_fill_gradientn(colors = colpal, aesthetics = c("col", "fill")
+  scale_fill_gradientn(colors = colpal, aesthetics = c("col", "fill"))
+```
+
+Freescale grid layout
+```{r, t2}
+require(tmap)
+
+# opt 1 - convert to spdf
+spp <- sf %>% as("Spatial")
+ggplot() +
+  geom_spatial_tile(data = spp) + 
+  facet_wrap(~id, scales = "free")
+
+# opt 2 - tmap
+require(tmap)
+sf %>% 
+  tm_shape() +
+  tm_borders(group = "id") + # set plot area
+  tm_polygons("area",palette = "BuPu",legend.show = F) +
+  tm_facets(by = "id") + # facet by var
+  tm_layout(frame = F, 
+            frame.lwd = NA, 
+            panel.label.bg.color = NA,
+            panel.label.size = 2,
+            main.title = ttl, 
+            main.title.position = "center",
+            main.title.size = 3,
+            main.title.fontface = "bold") 
 ```
 
