@@ -1311,13 +1311,37 @@ ls %>%
 ```
 
 Reorder list 
-```{r}
+```{r, l16}
 # use other vector/df to index list 
 ls[df$id]
 
 # alphabetise names if not already  
 ls[order(names(ls))]
 ```
+
+Convert list to df
+```{r, l17}
+ls <- list("A" = list(sample(10),list(sample(20))),
+           "B"= list(sample(10)),
+           "C" = list(sample(10)))
+
+# convert list w mutiple indices to wide df
+
+ls %>%
+  purrr::map(unlist) %>%  
+  rlist::list.rbind() %>%
+  tibble %>%
+  map_df(data.frame)
+
+# convert list w mutiple indices to long df
+ls %>%
+  purrr::map(unlist) %>%  
+  tibble %>%
+  map_df(data.frame)
+
+```
+
+
 
 
 ### Microbenchmark  
