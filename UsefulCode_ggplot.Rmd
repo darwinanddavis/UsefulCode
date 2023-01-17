@@ -576,13 +576,38 @@ graphics.off()
 Match df column/variable to custom colour scale  
 ```{r, col1, eval = F}
 require(colorspace)
-mycolors <- sequential_hcl(df %>% pull(var1) %>% n_distinct(), "Tofino")
-names(mycolors) <- df$var1 %>% unique %>% factor %>% levels
+mycolors <- sequential_hcl(d %>% pull(var1) %>% n_distinct(), "Tofino")
+names(mycolors) <- d$var1 %>% unique %>% factor %>% levels
 custom_colors <- scale_colour_manual(name = "Title",
                                      values = mycolors)
 
+require(colorspace)
+require(scales)
+
+# match sequential colpal as sequential values in df
+colv <- colorRampPalette(colors = c(col_low ,col_high))
+colpal <- colv(d$value %>% length)
+d$colpal <- colpal
+
+# match sequential colpal to unique values in df var
+colpal <- sequential_hcl(d$value %>% length, "Sunset")
+pal <- col_numeric(palette = colpal, domain = d$value)
+d <- d %>% mutate("colpal" = pal(value))
+
+# match custom palette colpal to unique values in df var
+colv <- colorRampPalette(colors = c(col_low ,col_high))
+colpal <- colv(d$value %>% length)
+pal <- col_numeric(palette = colpal, domain = d$value)
+d <- d %>% mutate("colpal" = pal(value))
+
+# add optional highlight colours
+d <- d %>% mutate_at("colpal", funs(case_when(
+  id_name == "name1" ~ "red",
+  TRUE ~ colpal
+)))
+
 ggplot() +
-  geom_sf(data = df) +
+  geom_sf(data = d) +
   custom_colors # add scale 
 ```
 
@@ -977,7 +1002,7 @@ p %>% rstudioapi::savePlotAsImage("p.png", format = "png",width, height)
 ### Plot types  
 
 Contour/heatmap
-```{r, t1}
+```{r, tp1, eval = F}
 bins = 50 
 ll <- 6 # match to 'levels' in plot (get from plotting first)
 lcol <- sequential_hcl(ll,"Reds")
@@ -987,7 +1012,7 @@ ggplot() +
 ```
 
 Freescale grid layout
-```{r, t2}
+```{r, tp2, eval = F}
 require(tmap)
 
 # opt 1 - convert to spdf
