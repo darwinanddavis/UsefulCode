@@ -422,6 +422,32 @@ plot(r2)
 
 ```
 
+Get any city centroid, add buffer, then crop
+```{r, cr12}
+require(raster)
+require(maps)
+data(world.cities)
+
+buff <-  2
+country <- "Australia"
+city <- "Melbourne"
+
+# get centroid
+bb <- world.cities %>% 
+  filter(country.etc == country & name == city) %>% 
+  select(long,lat) %>% 
+  unlist %>% 
+  st_point() %>% 
+  st_buffer(buff)
+
+# crop with polygon 
+sf %>% st_crop(bb) 
+
+# crop with bbox
+sf %>% st_crop(bb %>% st_bbox() %>% st_as_sfc()) 
+
+```
+
 
 ### Databases
 Databases - maps, world data, natural earth, raster, DEM 

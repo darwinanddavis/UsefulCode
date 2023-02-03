@@ -1038,3 +1038,11 @@ sf %>%
             main.title.fontface = "bold") 
 ```
 
+Mosaic/tile plot
+<!-- https://twitter.com/thomasp85/status/1445357060758151175 -->
+```{r, tp3, eval = T, echo = T }
+require(ragg)
+# tile, pattern and mosaic plots {ragg}
+
+```
+
