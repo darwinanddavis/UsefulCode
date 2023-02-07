@@ -601,6 +601,16 @@ writeOGR(sf, dsn = "sf.kml",
 
 ```
 
+### LIDAR 
+https://medium.com/@tobias.stalder.geo/visually-approach-lidar-surface-point-clouds-during-analysis-in-r-d2b0ffe21777  
+```{r}
+library(rlas)
+
+# 3d plotting of lidar data  
+devtools::install_github("AckerDWM/gg3D")
+library(gg3D)
+```
+
 
 ### Conversions   
 Convert sp/sf/spdf data to data frame (fortify)   
