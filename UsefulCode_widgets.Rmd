@@ -161,3 +161,75 @@ mapdeck(location = c(-122.3, 37.8), zoom = 10) %>%
   )
 ```
 
+
+Custom colour palettes in `mapdeck`
+```{r, map2, eval = F}
+nn = 25
+
+# grid
+colv <- colorspace::sequential_hcl(nn,"Reds")
+colv <- paste0(c("#004616",sequential_hcl(5,"YlOrBr")),"B3") # custom w opacity
+map %>%
+ add_grid(data = df, lat = "Y", lon = "X",
+           colour_range = colv,
+           legend = T, legend_options = list(title="Your title"),
+           layer_id = "df1", update_view = T, focus_layer = T,
+  colour_function = "max" # use with second colv
+)
+
+# raster layer
+colv <- sequential_hcl(nn,"Red-Blue")
+map %>%
+add_screengrid(data = df,lon = "x",lat = "y",
+               weight = "var1",
+               aggregation = "sum",
+               cell_size = 10,
+               colour_range = colv,
+      layer_id = "df1", update_view = T, focus_layer = T
+)
+
+# hexagon
+colv <- colorspace::sequential_hcl(6,"OrYel")
+map %>%
+add_hexagon(data = dd, lat = "lat", lon = "lon",
+              radius = 100,
+              digits = 3,
+              elevation = "lat",
+              elevation_scale = 15,
+              elevation_function = "sum",
+     layer_id = "df1", update_view = T, focus_layer = T
+              colour_range = colv)
+
+# match custom colpal to df values
+v1 = "var1"
+v2 = "var2"
+colv <- sequential_hcl(df[,v1] %>% n_distinct,"Burg")
+stroke <- seq_along(df[,v2] %>% unique %>% unlist)
+cc <- data.frame(colv,df[,v1] %>% unique) # create unique dfs
+ss <- data.frame(stroke,df[,v2] %>% unique)
+colnames(cc) <- c("Colour",v1)
+colnames(ss) <- c("Stroke",v2)
+df <- merge(df,cc,by=v1) # match colours to cc
+df <- merge(df,ss,by=v2) # match stroke to ss
+
+map %>%
+  add_animated_arc(data = df,
+                   layer_id = "var3",
+                   origin = c("oLon","oLat"),
+                   destination = c("Lon","Lat"),
+                   stroke_from = "Colour",
+                   stroke_to = "Colour",
+                   stroke_width = "Stroke",
+                   frequency = "Freq",
+                   height = "Height",
+                   animation_speed = 25,
+                   trail_length = 200,
+                   tilt = -40,
+                   update_view = F, focus_layer = T,
+                   auto_highlight = T,
+                   highlight_colour = "#000000E6",
+                   tooltip = "Label",
+                   legend = F
+)
+```
+

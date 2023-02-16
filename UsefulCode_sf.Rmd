@@ -606,7 +606,7 @@ https://medium.com/@tobias.stalder.geo/visually-approach-lidar-surface-point-clo
 ```{r}
 library(rlas)
 
-# 3d plotting of lidar data  
+# 3d plotting of lidar data
 devtools::install_github("AckerDWM/gg3D")
 library(gg3D)
 ```
