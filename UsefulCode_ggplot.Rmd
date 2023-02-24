@@ -630,6 +630,66 @@ ggsave(here::here("plot",var1[i],"_activity.png"),device = "png")
   
 ```
 
+Create gradient colour for area plot (AUC)
+<!-- https://datacornering.com/how-to-create-gradient-shade-under-the-line-chart-in-r/ -->
+```{r, col4, eval = F}
+library(minisvg)
+library(devout)
+library(devoutsvg)  
+library(poissoned)
+library(svgpatternsimple)
+require(ggplot2)
+require(ggdark)
+
+# create gradient 
+gradient_pattern  <- create_pattern_gradient(
+  id = "p1",
+  angle = 90,
+  colour1 = "#1A1A1A",
+  colour2 = "#63CB99",
+  alpha = 0.8
+)
+
+gradient_pattern$show()
+
+# save gradient as svg
+my_pattern_list <- list(`#000001` = list(fill = gradient_pattern))
+
+svgout(
+  filename = "line-chart-with-gradient-shade.svg",
+  pattern_list = my_pattern_list,
+  width = 10,
+  height = 5
+)
+
+# plot
+ggplot(btc, aes(x = Date, y = Price)) +
+  geom_line(color = "#63CB99",
+            size = 0.4,
+            alpha = 0.9) +
+  geom_area(alpha = 0.3,
+            fill = "#000001",
+            color = alpha(0.1)) +
+  ggtitle("BTC price, USD") +
+  scale_y_continuous(labels = scales::comma) 
+  
+
+```
+
+Glow effect for line plot
+<!-- https://datacornering.com/how-to-add-glow-effect-in-r-plot/ -->
+```{r, col5, eval = F}
+require(ggshadow)
+require(ggplot2)
+require(ggthemes)
+
+ggplot(btc, aes(x = Date, y = Price)) +
+  geom_glowline(color = "gold", shadowcolour = "orange") +
+  theme_solarized_2(light = FALSE) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) 
+```
+
 
 ### Images  
 Fill plot view with image   
