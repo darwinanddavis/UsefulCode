@@ -461,6 +461,15 @@ require(rnaturalearthhires)
 
 ```
 
+### Elevation  
+
+```{r}
+require(elevatr)
+pts <- c(-140.5, 35.6)
+pts_buff <- pts %>% st_buffer(1*10^4) # create buffer around centroid  
+get_elev_raster(pts_buff, z = 12)
+```
+
 
 ### North arrow and scale bars  
 <!-- https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html   -->
