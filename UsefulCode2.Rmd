@@ -508,6 +508,12 @@ df %>% select(contains("Lat"))
 df %>% select(starts_with("Lat"))  
 ```
 
+Rename df with pipe
+```{r,d7}
+df %>% # df of two cols 
+  `colnames<-`(c("A","B"))
+```
+
 
 ### `dplyr` basics 
 ```{r,dplyr1}
