@@ -1063,6 +1063,10 @@ ggplot() +
 Fixing intersecting sf objs (self/non-coding intersection error)
 <!-- https://gis.stackexchange.com/questions/307423/st-intersection-failing-for-overlapping-multipolygons-in-sf -->
 ```{r, join7}
+
+# 2023
+sf_use_s2(FALSE) # run at start of session to avoid 'Error in overlapping polygons' error   
+
 require(sf)
 require(lwgeom)
 

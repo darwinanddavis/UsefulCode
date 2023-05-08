@@ -581,6 +581,10 @@ names(mycolors) <- d$var1 %>% unique %>% factor %>% levels
 custom_colors <- scale_colour_manual(name = "Title",
                                      values = mycolors)
 
+ggplot() +
+  geom_sf(data = d) +
+  custom_colors # add scale 
+
 require(colorspace)
 require(scales)
 
@@ -606,9 +610,18 @@ d <- d %>% mutate_at("colpal", funs(case_when(
   TRUE ~ colpal
 )))
 
+# match colours based on df variable values  
+d <- d %>% 
+  mutate("colpal" = case_when(
+  id_name == "name1" ~ "red",
+  TRUE ~ colpal # or e.g. "blue"
+))
 ggplot() +
-  geom_sf(data = d) +
-  custom_colors # add scale 
+  geom_sf(data = d, aes(col = colpal)) +
+  scale_color_manual(values = d$colpal) # then add manual colpal from df 
+  
+
+
 ```
 
 Loop through different colpals and save plots to dir
