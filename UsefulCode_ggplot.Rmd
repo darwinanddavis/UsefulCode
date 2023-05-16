@@ -613,12 +613,12 @@ d <- d %>% mutate_at("colpal", funs(case_when(
 # match colours based on df variable values  
 d <- d %>% 
   mutate("colpal" = case_when(
-  id_name == "name1" ~ "red",
+  id_name %in% "name1" ~ "red",
   TRUE ~ colpal # or e.g. "blue"
 ))
 ggplot() +
   geom_sf(data = d, aes(col = colpal)) +
-  scale_color_manual(values = d$colpal) # then add manual colpal from df 
+  scale_color_manual(values = d$colpal %>% unique) # then add manual colpal from df 
   
 
 
@@ -1063,6 +1063,20 @@ ggplot(mtcars, aes(wt, mpg, label = carb)) +
     segment.angle = 20
   )
 ```
+
+Use sf geometry coords when adding text
+```{r, text4, eval = F}
+var1 <- df$size
+ggplot() +
+  geom_sf(data = sf) +
+  geom_text(data = df, aes(
+    df$geometry %>% st_coordinates %>% .[,1],
+    df$geometry %>% st_coordinates %>% .[,2],
+    label = .data[[var1]]
+    )
+            )
+```
+
 
 ### Save/saving plots  
 
