@@ -1078,6 +1078,26 @@ ggplot() +
 ```
 
 
+Repel labels (df and sf)  
+```{r, text5, eval = F}
+city_df_labels <- city_df %>% 
+  mutate_at("city",str_to_upper) %>% 
+  mutate_at("city",~str_replace_all(., " ","\n"))#  %>% 
+# slice(-c(6,8,10,18,28)) 
+
+# repel labels for sf and projected sf 
+ggplot() +
+  geom_text_repel(data = city_df_labels, aes(label = city, geometry = geometry),
+                  stat = "sf_coordinates", col = path_col, size = city_label_size, min.segment.length = Inf, max.overlaps = Inf) 
+  
+# repel labels for df 
+  ggplot() +
+  geom_text_repel(data = city_df_labels, aes(lon, lat, label = city), col = path_col, size = city_label_size, min.segment.length = Inf, max.overlaps = Inf) 
+  
+
+```
+
+
 ### Save/saving plots  
 
 Save as any output
