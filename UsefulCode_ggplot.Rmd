@@ -823,6 +823,15 @@ df %>% ggplot() +
   geom_col(aes(x,y)) +
   scale_x_discrete(limits = limits) 
 
+# option 2 (works for factor variables with barplot)
+require(forcats)
+df %>% ggplot() +
+  geom_bar(aes(fct_infreq(y))) 
+
+# reverse variable order 
+df %>% ggplot() +
+  geom_bar(aes(fct_rev(y))) 
+
 ```
 
 
@@ -969,6 +978,22 @@ wrap_plots(p,p1,p2, ncol = 2,
 
 ```
 
+Combine df aes elements (e.g. colour and size) into one legend
+```{r, legend9}
+require(dplyr)
+require(ggplot2)
+require(colorspace)
+df <- tibble("x" = 1:10,
+             "y" = 11:20,
+             "size" = 1:10)
+colpal <- sequential_hcl(df$size %>% n_distinct(),"Burg")
+ggplot() + 
+  geom_point(data = df, aes(x,y,size = size, colour = size)) +
+  scale_colour_gradientn(colours = colpal, 
+                         aesthetics = "colour",
+                         guide = "legend")
+  
+```
 
 ### Axes    
 Add brackets to axes 
@@ -1105,6 +1130,16 @@ Save as any output
 require(rstudioapi)
 p %>% rstudioapi::savePlotAsImage("p.png", format = "png",width, height)
 ```
+
+### Size
+
+Scale size of points manually
+```{r, size1, eval = F}
+ggplot() +
+  geom_point(data = df, aes(x,y, size = var1)) +
+  scale_size("size_area", range = c(-20,20))
+```
+
 
 ### Plot types  
 

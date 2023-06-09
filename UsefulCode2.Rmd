@@ -1757,6 +1757,17 @@ txt %>% bracketX(bracket = c("square","angle"))
 
 ```
 
+Get exact string/word 
+```{r}
+require(stringr)
+require(dplyr)
+txt <- "Get only this word not these words"
+
+# get only 'word' and not 'words'
+txt %>% 
+  str_extract_all("\\bword\\b" %>% regex(ignore.case = T))
+```
+
 
 ### SVG
 
