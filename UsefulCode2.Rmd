@@ -514,6 +514,22 @@ df %>% # df of two cols
   `colnames<-`(c("A","B"))
 ```
 
+Split df into multiple dfs based on row value 
+```{r, d8}
+# create new col with rownames to split by (can also below use for splitting by single row) 
+ss <- c(
+  rep("A",7),
+  rep("B",6),
+  rep("C",5)
+)
+
+df1 <- df %>% 
+  mutate("Split" = ss)
+
+df1 %>% split(df$Split) # split by each unique element in df$Split
+  
+```
+
 
 ### `dplyr` basics 
 ```{r,dplyr1}
