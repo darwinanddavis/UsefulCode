@@ -1295,6 +1295,11 @@ Access levels within sf variable (e.g. Name) using attributes
 sf$Name %>% attr(which = "levels")
 ```
 
+Fix intersecting layers and wrapping error (spherical geometry error)
+```{r, str2}
+sf_use_s2(FALSE)
+```
+
 
 ### Simplify objs 
 

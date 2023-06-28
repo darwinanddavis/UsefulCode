@@ -1662,7 +1662,7 @@ border-radius: 0px;
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2023-04-24<br />
+<p>Date: 2023-06-28<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -2367,16 +2367,20 @@ make weird shapes)</p>
 <span id="cb72-30"><a href="#cb72-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p>Fixing intersecting sf objs (self/non-coding intersection error)
 <!-- https://gis.stackexchange.com/questions/307423/st-intersection-failing-for-overlapping-multipolygons-in-sf --></p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(sf)</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(lwgeom)</span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="co"># various options</span></span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>sf <span class="sc">%&gt;%</span> st_make_valid  <span class="co"># validate obj</span></span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>sf <span class="sc">%&gt;%</span> <span class="fu">st_buffer</span>(<span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">st_intersection</span>(polys)  <span class="co"># add 0 buffer</span></span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>sf <span class="sc">%&gt;%</span> <span class="fu">st_snap</span>(polys, <span class="at">tolerance =</span> <span class="fl">0.09</span>)  <span class="co"># snap to polygon edge </span></span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>sf <span class="sc">%&gt;%</span> lwgeom<span class="sc">::</span><span class="fu">st_snap_to_grid</span>(<span class="dv">10</span>)  <span class="co"># snap to grid </span></span>
-<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>sf[<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">st_intersection</span>()  <span class="co"># try reversing order of obj </span></span>
-<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>sf[sf <span class="sc">%&gt;%</span> st_is_valid, ]  <span class="co"># index only valid objs </span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2023</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)  <span class="co"># run at start of session to avoid &#39;Error in overlapping polygons&#39; error   </span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(sf)</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(lwgeom)</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a><span class="co"># various options</span></span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>sf <span class="sc">%&gt;%</span> st_make_valid  <span class="co"># validate obj</span></span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>sf <span class="sc">%&gt;%</span> <span class="fu">st_buffer</span>(<span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">st_intersection</span>(polys)  <span class="co"># add 0 buffer</span></span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>sf <span class="sc">%&gt;%</span> <span class="fu">st_snap</span>(polys, <span class="at">tolerance =</span> <span class="fl">0.09</span>)  <span class="co"># snap to polygon edge </span></span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>sf <span class="sc">%&gt;%</span> lwgeom<span class="sc">::</span><span class="fu">st_snap_to_grid</span>(<span class="dv">10</span>)  <span class="co"># snap to grid </span></span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>sf[<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">st_intersection</span>()  <span class="co"># try reversing order of obj </span></span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>sf[sf <span class="sc">%&gt;%</span> st_is_valid, ]  <span class="co"># index only valid objs </span></span></code></pre></div>
 <p>Get intersecting underlying polygons using point data</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pull underlying polygon data where point data intersects/overlays </span></span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>sf_polygon <span class="sc">%&gt;%</span> <span class="fu">st_join</span>(sf_point, <span class="at">join =</span> st_intersects)</span>
@@ -2540,79 +2544,82 @@ make weird shapes)</p>
 <h3>sf structure</h3>
 <p>Access levels within sf variable (e.g. Name) using attributes</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">$</span>Name <span class="sc">%&gt;%</span> <span class="fu">attr</span>(<span class="at">which =</span> <span class="st">&quot;levels&quot;</span>)</span></code></pre></div>
+<p>Fix intersecting layers and wrapping error (spherical geometry
+error)</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
 <div id="simplify-objs" class="section level3">
 <h3>Simplify objs</h3>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(maps,sf,rmapshaper)</span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
-<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;a&quot;</span> <span class="ot">=</span> sf1,</span>
-<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;b&quot;</span> <span class="ot">=</span> sf2</span>
-<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span> st_as_sf  <span class="sc">%&gt;%</span> <span class="fu">st_combine</span>()</span>
-<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a><span class="co"># filter out dust</span></span>
-<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a>quant <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
-<span id="cb86-11"><a href="#cb86-11" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
-<span id="cb86-12"><a href="#cb86-12" aria-hidden="true" tabindex="-1"></a>  sf2</span>
-<span id="cb86-13"><a href="#cb86-13" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span></span>
-<span id="cb86-14"><a href="#cb86-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">st_area</span>(.) <span class="sc">&gt;</span> <span class="fu">st_area</span>(.) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(quant))</span>
-<span id="cb86-15"><a href="#cb86-15" aria-hidden="true" tabindex="-1"></a>osm_list_quant <span class="sc">%&gt;%</span> nrow</span>
-<span id="cb86-16"><a href="#cb86-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-17"><a href="#cb86-17" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
-<span id="cb86-18"><a href="#cb86-18" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
-<span id="cb86-19"><a href="#cb86-19" aria-hidden="true" tabindex="-1"></a>  sf2</span>
-<span id="cb86-20"><a href="#cb86-20" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span> <span class="fu">st_simplify</span>()</span>
-<span id="cb86-21"><a href="#cb86-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-22"><a href="#cb86-22" aria-hidden="true" tabindex="-1"></a><span class="co"># set smoothness of polygons [0,1] (lower = less smooth)</span></span>
-<span id="cb86-23"><a href="#cb86-23" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
-<span id="cb86-24"><a href="#cb86-24" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
-<span id="cb86-25"><a href="#cb86-25" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
-<span id="cb86-26"><a href="#cb86-26" aria-hidden="true" tabindex="-1"></a>  sf2</span>
-<span id="cb86-27"><a href="#cb86-27" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span></span>
-<span id="cb86-28"><a href="#cb86-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ms_simplify</span>(<span class="at">keep =</span> keep)</span>
-<span id="cb86-29"><a href="#cb86-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-30"><a href="#cb86-30" aria-hidden="true" tabindex="-1"></a><span class="co"># set smoothness of polygons [0,1] (lower = less smooth)</span></span>
-<span id="cb86-31"><a href="#cb86-31" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
-<span id="cb86-32"><a href="#cb86-32" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
-<span id="cb86-33"><a href="#cb86-33" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
-<span id="cb86-34"><a href="#cb86-34" aria-hidden="true" tabindex="-1"></a>  sf2</span>
-<span id="cb86-35"><a href="#cb86-35" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span></span>
-<span id="cb86-36"><a href="#cb86-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as</span>(<span class="st">&#39;Spatial&#39;</span>) <span class="sc">%&gt;%</span> <span class="co"># convert to spoly then reconvert to sp</span></span>
-<span id="cb86-37"><a href="#cb86-37" aria-hidden="true" tabindex="-1"></a>  rmapshaper<span class="sc">::</span><span class="fu">ms_simplify</span>(<span class="at">keep =</span> keep) <span class="sc">%&gt;%</span></span>
-<span id="cb86-38"><a href="#cb86-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span>
-<span id="cb86-39"><a href="#cb86-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-40"><a href="#cb86-40" aria-hidden="true" tabindex="-1"></a><span class="co"># combine tolerance and area quantile</span></span>
-<span id="cb86-41"><a href="#cb86-41" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
-<span id="cb86-42"><a href="#cb86-42" aria-hidden="true" tabindex="-1"></a>quant <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb86-43"><a href="#cb86-43" aria-hidden="true" tabindex="-1"></a>osm_list_ms_simp3 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
-<span id="cb86-44"><a href="#cb86-44" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
-<span id="cb86-45"><a href="#cb86-45" aria-hidden="true" tabindex="-1"></a>  sf2</span>
-<span id="cb86-46"><a href="#cb86-46" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span></span>
-<span id="cb86-47"><a href="#cb86-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as</span>(<span class="st">&#39;Spatial&#39;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb86-48"><a href="#cb86-48" aria-hidden="true" tabindex="-1"></a>  rmapshaper<span class="sc">::</span><span class="fu">ms_simplify</span>(<span class="at">keep =</span> keep) <span class="sc">%&gt;%</span></span>
-<span id="cb86-49"><a href="#cb86-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">st_area</span>(.) <span class="sc">&gt;</span> <span class="fu">st_area</span>(.) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(quant))</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(maps,sf,rmapshaper)</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;a&quot;</span> <span class="ot">=</span> sf1,</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;b&quot;</span> <span class="ot">=</span> sf2</span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span> st_as_sf  <span class="sc">%&gt;%</span> <span class="fu">st_combine</span>()</span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a><span class="co"># filter out dust</span></span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>quant <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
+<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a>  sf2</span>
+<span id="cb87-13"><a href="#cb87-13" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span></span>
+<span id="cb87-14"><a href="#cb87-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">st_area</span>(.) <span class="sc">&gt;</span> <span class="fu">st_area</span>(.) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(quant))</span>
+<span id="cb87-15"><a href="#cb87-15" aria-hidden="true" tabindex="-1"></a>osm_list_quant <span class="sc">%&gt;%</span> nrow</span>
+<span id="cb87-16"><a href="#cb87-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-17"><a href="#cb87-17" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
+<span id="cb87-18"><a href="#cb87-18" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
+<span id="cb87-19"><a href="#cb87-19" aria-hidden="true" tabindex="-1"></a>  sf2</span>
+<span id="cb87-20"><a href="#cb87-20" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span> <span class="fu">st_simplify</span>()</span>
+<span id="cb87-21"><a href="#cb87-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-22"><a href="#cb87-22" aria-hidden="true" tabindex="-1"></a><span class="co"># set smoothness of polygons [0,1] (lower = less smooth)</span></span>
+<span id="cb87-23"><a href="#cb87-23" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb87-24"><a href="#cb87-24" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
+<span id="cb87-25"><a href="#cb87-25" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
+<span id="cb87-26"><a href="#cb87-26" aria-hidden="true" tabindex="-1"></a>  sf2</span>
+<span id="cb87-27"><a href="#cb87-27" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span></span>
+<span id="cb87-28"><a href="#cb87-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ms_simplify</span>(<span class="at">keep =</span> keep)</span>
+<span id="cb87-29"><a href="#cb87-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-30"><a href="#cb87-30" aria-hidden="true" tabindex="-1"></a><span class="co"># set smoothness of polygons [0,1] (lower = less smooth)</span></span>
+<span id="cb87-31"><a href="#cb87-31" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb87-32"><a href="#cb87-32" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
+<span id="cb87-33"><a href="#cb87-33" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
+<span id="cb87-34"><a href="#cb87-34" aria-hidden="true" tabindex="-1"></a>  sf2</span>
+<span id="cb87-35"><a href="#cb87-35" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span></span>
+<span id="cb87-36"><a href="#cb87-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as</span>(<span class="st">&#39;Spatial&#39;</span>) <span class="sc">%&gt;%</span> <span class="co"># convert to spoly then reconvert to sp</span></span>
+<span id="cb87-37"><a href="#cb87-37" aria-hidden="true" tabindex="-1"></a>  rmapshaper<span class="sc">::</span><span class="fu">ms_simplify</span>(<span class="at">keep =</span> keep) <span class="sc">%&gt;%</span></span>
+<span id="cb87-38"><a href="#cb87-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span>
+<span id="cb87-39"><a href="#cb87-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-40"><a href="#cb87-40" aria-hidden="true" tabindex="-1"></a><span class="co"># combine tolerance and area quantile</span></span>
+<span id="cb87-41"><a href="#cb87-41" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb87-42"><a href="#cb87-42" aria-hidden="true" tabindex="-1"></a>quant <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb87-43"><a href="#cb87-43" aria-hidden="true" tabindex="-1"></a>osm_list_ms_simp3 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">list</span>(</span>
+<span id="cb87-44"><a href="#cb87-44" aria-hidden="true" tabindex="-1"></a>  sf1,</span>
+<span id="cb87-45"><a href="#cb87-45" aria-hidden="true" tabindex="-1"></a>  sf2</span>
+<span id="cb87-46"><a href="#cb87-46" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span></span>
+<span id="cb87-47"><a href="#cb87-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as</span>(<span class="st">&#39;Spatial&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb87-48"><a href="#cb87-48" aria-hidden="true" tabindex="-1"></a>  rmapshaper<span class="sc">::</span><span class="fu">ms_simplify</span>(<span class="at">keep =</span> keep) <span class="sc">%&gt;%</span></span>
+<span id="cb87-49"><a href="#cb87-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">st_area</span>(.) <span class="sc">&gt;</span> <span class="fu">st_area</span>(.) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(quant))</span></code></pre></div>
 </div>
 <div id="nearest-neighbour" class="section level3">
 <h3>Nearest neighbour</h3>
 <!-- https://github.com/AbdoulMa/30DayMapChallenge/blob/main/Day2/day2_2022.R -->
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nngeo)</span>
-<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>airports <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://gist.githubusercontent.com/fletchjeff/b60f46ca3c1aa51e9aea9fd86d0ab433/raw/81ee446939110daf8b5c3a79425ccf1100070578/airports.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">row_num =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;Longitude&quot;</span>, <span class="st">&quot;Latitude&quot;</span>))</span>
-<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a><span class="co"># African airports</span></span>
-<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>airports_africa <span class="ot">&lt;-</span> airports <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(<span class="st">`</span><span class="at">Tz database time zone</span><span class="st">`</span>, <span class="st">&quot;Africa|Indian/Antananarivo&quot;</span>))</span>
-<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Nearest neighbours</span></span>
-<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a>nn <span class="ot">&lt;-</span> <span class="fu">st_nn</span>(airports_africa, airports_africa, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">progress =</span> F)</span>
-<span id="cb87-13"><a href="#cb87-13" aria-hidden="true" tabindex="-1"></a>airports_connexions <span class="ot">&lt;-</span> <span class="fu">st_connect</span>(airports_africa, airports_africa, <span class="at">ids =</span> nn, <span class="at">progress =</span> F)</span>
-<span id="cb87-14"><a href="#cb87-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-15"><a href="#cb87-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
-<span id="cb87-16"><a href="#cb87-16" aria-hidden="true" tabindex="-1"></a>airports_connexions <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">&quot;Gotham Black&quot;</span>, </span>
-<span id="cb87-17"><a href="#cb87-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">4</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nngeo)</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>airports <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://gist.githubusercontent.com/fletchjeff/b60f46ca3c1aa51e9aea9fd86d0ab433/raw/81ee446939110daf8b5c3a79425ccf1100070578/airports.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">row_num =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;Longitude&quot;</span>, <span class="st">&quot;Latitude&quot;</span>))</span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="co"># African airports</span></span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>airports_africa <span class="ot">&lt;-</span> airports <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(<span class="st">`</span><span class="at">Tz database time zone</span><span class="st">`</span>, <span class="st">&quot;Africa|Indian/Antananarivo&quot;</span>))</span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Nearest neighbours</span></span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a>nn <span class="ot">&lt;-</span> <span class="fu">st_nn</span>(airports_africa, airports_africa, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">progress =</span> F)</span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>airports_connexions <span class="ot">&lt;-</span> <span class="fu">st_connect</span>(airports_africa, airports_africa, <span class="at">ids =</span> nn, <span class="at">progress =</span> F)</span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb88-16"><a href="#cb88-16" aria-hidden="true" tabindex="-1"></a>airports_connexions <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">&quot;Gotham Black&quot;</span>, </span>
+<span id="cb88-17"><a href="#cb88-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">4</span>)))</span></code></pre></div>
 </div>
 </div>
 
