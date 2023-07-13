@@ -107,6 +107,7 @@ This document can be found at `r params$doi`
 
 Same deal as Useful Code 1 and 2 except just `gglot` because it's too difficult sifting through the other docs.  
 
+
 ### Remove annoying stock gridlines from plot window    
 ```{r, ggplot1, results='hide',eval=F}
 # option 1
@@ -1185,6 +1186,13 @@ Mosaic/tile plot
 ```{r, tp3, eval = T, echo = T }
 require(ragg)
 # tile, pattern and mosaic plots {ragg}
+
+```
+
+Animated plots  (see commented out examples below)  
+<!-- https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/ -->
+
+```{r}
 
 ```
 

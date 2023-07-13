@@ -620,6 +620,17 @@ devtools::install_github("AckerDWM/gg3D")
 library(gg3D)
 ```
 
+Convert raster to sf
+```{r}
+library(stars)
+library(sf)
+
+tifpath <- system.file("tif/L7_ETMs.tif", package = "stars")
+tif <- read_stars(tifpath)
+sf <- st_as_sf(tif)
+
+```
+
 
 ### Conversions   
 Convert sp/sf/spdf data to data frame (fortify)   
@@ -844,7 +855,6 @@ ras <- rast(system.file("tif/elev.tif", package = "tanaka"))
 tanaka(ras, breaks = seq(80,400,20), 
        legend.pos = "topright", legend.title = "Elevation\n(meters)")
 ```
-
 
 ### Spatial class
 Convert sf to spatiallines obj  
