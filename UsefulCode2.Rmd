@@ -1377,6 +1377,57 @@ ls %>%
 ```
 
 
+Split list by nth element 
+```{r, l18}
+
+# option 1
+main_list <- list("splithere", "TEXT 1 TEXT 1", "TEXT 1", "splithere", "TEXT 2 TEXT 2", "splithere", "TEXT 3")
+
+# Define the separate vector of defined integers called 'years_vector'
+years_vector <- c(2010, 2011, 2012, 2013)
+split_by <- "splithere"
+
+# Function to split the list based on the key string phrase every nth element
+split_list_by_key_phrase <- function(main_list, key_phrase, years_vector) {
+  # Identify the indices of the key_phrase in the main_list
+  key_indices <- which(main_list == key_phrase)
+  
+  # Initialize an empty list to store the separate smaller lists
+  result_lists <- list()
+  
+  # Split the main_list based on the key_phrase and nth element defined by years_vector
+  for (i in seq_along(key_indices)) {
+    start_idx <- key_indices[i]
+    end_idx <- ifelse(i < length(key_indices), key_indices[i + 1] - 1, length(main_list))
+    
+    # Determine the corresponding year from years_vector
+    year <- years_vector[i]
+    
+    # Extract the sublist and remove the 'splithere' string
+    sublist <- main_list[start_idx:end_idx]
+    sublist <- sublist[sublist != key_phrase]
+    
+    # Name the sublist with the corresponding year
+    names(sublist) <- year
+    
+    result_lists[[length(result_lists) + 1]] <- sublist
+  }
+  
+  return(result_lists)
+}
+
+# Call the function with the main list, key phrase 'splithere', and the separate vector of defined integers (years_vector)
+result_lists <- split_list_by_key_phrase(main_list, split_by, years_vector)
+
+# Print the separate smaller lists with named elements and 'splithere' string removed
+print(result_lists)
+
+
+# option 2 (basic)
+require(stringr)
+main_list %>% strsplit(split_by)
+  
+```
 
 
 ### Microbenchmark  
