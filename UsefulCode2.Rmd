@@ -844,7 +844,6 @@ Get order of vector
 df$id %>% order
 ```
 
-
 ### Google drive  
 
 Access files on Google Drive   

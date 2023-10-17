@@ -470,6 +470,17 @@ pts_buff <- pts %>% st_buffer(1*10^4) # create buffer around centroid
 get_elev_raster(pts_buff, z = 12)
 ```
 
+### GDB (`.gdb`/`.gdbtable`)
+
+Read in `gdb` data
+```{r}
+fh <- "polygons.gdbtable" # "polygons.gdb"  
+fhl <- fh %>% st_layers() %>% .[[1]] # get layer name
+sf <- fh %>% st_read(layer = fhl) # read in data using layer
+
+
+```
+
 
 ### North arrow and scale bars  
 <!-- https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html   -->

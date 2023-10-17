@@ -237,6 +237,7 @@ Generic useful functions that I can't place under any other headings here
 # dput() for converting outputs such as copied text or data tables into vectors
 xx <- "Some copied text or table from the internet"
 dput(xx)
+
 ```
 
 Round up integers to optimal rounded value
