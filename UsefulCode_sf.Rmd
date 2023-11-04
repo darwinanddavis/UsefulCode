@@ -317,6 +317,13 @@ ggmap(gg, extent = "device", darken = c(0.9,"white")) +
 
 ### Cropping 
 
+Crop out sf objects
+```{r}
+sf %>% st_crop(dd %>% filter(name == "Victoria"))
+sf %>% st_intersection(dd %>% filter(name == "Victoria"))
+```
+
+
 Crop plot region to country border   
 ```{r, cr1, eval = F}
 ggplot() +
@@ -449,6 +456,15 @@ sf %>% st_crop(bb %>% st_bbox() %>% st_as_sfc())
 ```
 
 
+Crop one side of sf object 
+```{r}
+# https://spencerschien.info/post/spatial_buffer/
+sf_use_s2(FALSE) # set first to enable geos
+sf %>% st_buffer(100, singleSide = T)
+
+```
+
+
 ### Databases
 Databases - maps, world data, natural earth, raster, DEM 
 ```{r, d1, eval = F}
@@ -479,6 +495,75 @@ fhl <- fh %>% st_layers() %>% .[[1]] # get layer name
 sf <- fh %>% st_read(layer = fhl) # read in data using layer
 
 
+```
+
+### GPX  
+
+Read .gpx files (GPS track software/apps)  
+```{r, gpx1}
+
+# option 1
+gpx <- st_read("user.gpx", "track_points")
+pathm <- gpx %>% 
+  group_by(user_ID) %>%  # get grouping variable
+  dplyr::summarize(do_union = F) %>% 
+  st_cast("LINESTRING")
+
+
+# option 2
+pacman::p_load(XML,lubridate)
+fd <- "/Volumes/Matt_timemachine/maptracks/2021/sep/sam/gpx/"
+fh <- "day182.gpx"
+gpx1 <- paste0(fd,fh) %>%  # parse gpx file
+  htmlTreeParse(error = function(...) {}, useInternalNodes = T)
+elev <- as.numeric(xpathSApply(gpx1, path = "//trkpt/ele", xmlValue))
+times <- xpathSApply(gpx1, path = "//trkpt/time", xmlValue)
+coord <- xpathSApply(gpx1, path = "//trkpt", xmlAttrs)
+
+city_df <- tibble(lat = coord["lat",] %>% as.numeric(), 
+                  lon = coord["lon",] %>% as.numeric(),
+                  elev = elev, 
+                  time = times %>% ymd_hms()  
+                  )
+
+# elev profile 
+ggplot(data = city_df) +
+  geom_line(aes(time,elev)) +
+  scale_x_datetime(date_breaks = "6 hours"
+                   # date_minor_breaks = "1 hour", # optional
+                   # date_labels = "%M%D" # full month and year
+  )
+
+
+# convert gpx coords to linestring
+pathgpx <- city_df %>% 
+  dplyr::select(lat,lon) %>% 
+  as.matrix() %>% # convert points to linestring
+  st_linestring(dim = "XY") %>% 
+  st_sfc(crs = 4326) %>% # convert sfg object to geometry 
+  st_transform(crs = 4326) # then convert projection
+  
+
+```
+
+Parse gpx data within kml    
+First manually convert file from '.kml' to '.gpx'
+```{r, gpx2}
+require(XML)
+require(dplyr)
+require(tidyr)
+coord_id <- "//coord" # tag where lat/lon/elev data are located in file 
+gpx2 <- "data/full.gpx" %>%  
+  htmlTreeParse(error = function(...) {}, useInternalNodes = T)
+pathgpx <- xpathSApply(gpx2, path = coord_id, xmlValue) %>% # read coords (lon,lat,elev)
+  as.data.frame() %>% 
+  tidyr::separate(col = ".",into = c("lon", "lat", "elev"), sep = " ", remove = T) %>% # separate char into individual values
+  mutate_all(as.numeric) 
+
+# timestamp  
+time_id <- "//when" # may vary with data  
+gpx2 <- "data/full.gpx" %>%
+  xpathSApply(gpx2, path = time_id, xmlValue) # get timestamp  
 ```
 
 
@@ -928,63 +1013,6 @@ get_inter_func <- function(sc1,sc2){
     st_sfc(crs = 4326) # convert sfg object to geometry 
 ```
 
-
-### Read .gpx files (GPS track software/apps)  
-```{r, gpx1}
-pacman::p_load(XML,lubridate)
-fd <- "/Volumes/Matt_timemachine/maptracks/2021/sep/sam/gpx/"
-fh <- "day182.gpx"
-gpx1 <- paste0(fd,fh) %>%  # parse gpx file
-  htmlTreeParse(error = function(...) {}, useInternalNodes = T)
-elev <- as.numeric(xpathSApply(gpx1, path = "//trkpt/ele", xmlValue))
-times <- xpathSApply(gpx1, path = "//trkpt/time", xmlValue)
-coord <- xpathSApply(gpx1, path = "//trkpt", xmlAttrs)
-
-city_df <- tibble(lat = coord["lat",] %>% as.numeric(), 
-                  lon = coord["lon",] %>% as.numeric(),
-                  elev = elev, 
-                  time = times %>% ymd_hms()  
-                  )
-
-# elev profile 
-ggplot(data = city_df) +
-  geom_line(aes(time,elev)) +
-  scale_x_datetime(date_breaks = "6 hours"
-                   # date_minor_breaks = "1 hour", # optional
-                   # date_labels = "%M%D" # full month and year
-  )
-
-
-# convert gpx coords to linestring
-pathgpx <- city_df %>% 
-  dplyr::select(lat,lon) %>% 
-  as.matrix() %>% # convert points to linestring
-  st_linestring(dim = "XY") %>% 
-  st_sfc(crs = 4326) %>% # convert sfg object to geometry 
-  st_transform(crs = 4326) # then convert projection
-  
-
-```
-
-Parse gpx data within kml    
-First manually convert file from '.kml' to '.gpx'    
-```{r, gpx2}
-require(XML)
-require(dplyr)
-require(tidyr)
-coord_id <- "//coord" # tag where lat/lon/elev data are located in file 
-gpx2 <- "data/full.gpx" %>%  
-  htmlTreeParse(error = function(...) {}, useInternalNodes = T)
-pathgpx <- xpathSApply(gpx2, path = coord_id, xmlValue) %>% # read coords (lon,lat,elev)
-  as.data.frame() %>% 
-  tidyr::separate(col = ".",into = c("lon", "lat", "elev"), sep = " ", remove = T) %>% # separate char into individual values
-  mutate_all(as.numeric) 
-
-# timestamp  
-time_id <- "//when" # may vary with data  
-gpx2 <- "data/full.gpx" %>%
-  xpathSApply(gpx2, path = time_id, xmlValue) # get timestamp  
-```
 
 ### Combine, join, union sf objects     
 Combine multiple sf/sfc geometries into one  
