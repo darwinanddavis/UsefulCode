@@ -754,6 +754,29 @@ df %>%
   tally(var1 * var2, name = "new_var1")
 ```
 
+Lengthen df by column variables
+```{r}
+# select vars you want and lengthen by 'var_n'
+# e.g. var_n = year
+df %>% 
+  tidyr::pivot_longer(cols = c(
+    var1, var2, var3
+  )) %>% 
+  select(var_n, name, value)
+
+# year  name  value
+# <chr> <chr> <int>
+# A     var1      7
+# A     var2      4
+# A     var3      8
+# B     var1      3
+# B     var2     10
+# B     var3      2
+# C     var1      6
+# C     var2      1
+# C     var3      9
+```
+
 
 ### Generic functions 
 

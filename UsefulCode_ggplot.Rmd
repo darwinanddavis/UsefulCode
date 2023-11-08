@@ -562,13 +562,25 @@ ggplot2::autoplot(res)
 ```
 
 
-### Flip and rotate plots
-```{r, gg18, eval=F}
+### Flip, rotate, and reorder
+
+Flip axis directions
+```{r, f1, eval=F}
 # rotate 
 print(p, vp=viewport(angle=-30))
 p + coord_flip()
 p + scale_y_reverse()
 graphics.off()
+
+```
+
+
+Reorder data within variables to have custom plot order
+```{r, f2, eval = F}
+ggplot() +
+  geom_bar(data = df, aes(year, value, 
+                          fill = factor(var1, level = unique(var1)) # reorder to match order data is listed within variable
+                          ))
 
 ```
 
