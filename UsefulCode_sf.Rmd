@@ -486,6 +486,17 @@ pts_buff <- pts %>% st_buffer(1*10^4) # create buffer around centroid
 get_elev_raster(pts_buff, z = 12)
 ```
 
+### Error fixing 
+
+Remove empty geometries
+```{r}
+# rm empty geos
+# for "'spsample': error in evaluating the argument 'x' in selecting a method for function 'addAttrToGeom': empty geometries are not supported by sp classes: conversion failed"
+sf %>% filter(!st_is_empty(.))
+sf %>% filter(is.na(st_dimension(.)) == F) # opt 2 to rm empty geos 
+```
+
+
 ### GDB (`.gdb`/`.gdbtable`)
 
 Read in `gdb` data

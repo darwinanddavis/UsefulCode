@@ -1511,6 +1511,14 @@ file.rename(from = here::here() %>% list.files(full.names = T),
             )  
 ```
 
+Read multiple dir files at once and combine 
+```{r}
+dir %>% list.files(full.names = T) %>% 
+  lapply(st_read) %>% # read in as list
+  rlist::list.rbind() # rbind lists into df
+  
+```
+
 
 ### Regex  
 
