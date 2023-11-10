@@ -489,12 +489,59 @@ get_elev_raster(pts_buff, z = 12)
 ### Error fixing 
 
 Remove empty geometries
-```{r}
+```{r, er1, eval = F}
 # rm empty geos
 # for "'spsample': error in evaluating the argument 'x' in selecting a method for function 'addAttrToGeom': empty geometries are not supported by sp classes: conversion failed"
-sf %>% filter(!st_is_empty(.))
+sf %>% filter(!st_is_empty(.), drop = F)
 sf %>% filter(is.na(st_dimension(.)) == F) # opt 2 to rm empty geos 
 ```
+
+Align sf objects with Google map satellite base map
+```{r, er2, eval = F}
+
+addy <- "Alice Springs, Northern Territory"
+extent <- geocode(addy, output = "more") %>% pull(address)
+maptype <- "satellite"
+zoom <- 4
+color <- "bw"
+darken <- 0.3
+
+# get google map
+prj <- 3857 # set proj to match google map prj
+base_map <-  get_map(extent, maptype = maptype,color = color, zoom = zoom)
+
+# function to fix the bbox to be in EPSG:3857
+ggmap_bbox <- function(map) {
+  if (!inherits(map, "ggmap")) stop("map must be a ggmap object")
+  # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector,
+  # and set the names to what sf::st_bbox expects:
+  map_bbox <- setNames(unlist(attr(map, "bb")),
+                       c("ymin", "xmin", "ymax", "xmax"))
+  # Coonvert the bbox to an sf polygon, transform it to 3857,
+  # and convert back to a bbox (convoluted, but it works)
+  bbox_3857 <- st_bbox(st_transform(st_as_sfc(st_bbox(map_bbox, crs = 4326)), prj))
+  # Overwrite the bbox of the ggmap object with the transformed coordinates
+  attr(map, "bb")$ll.lat <- bbox_3857["ymin"]
+  attr(map, "bb")$ll.lon <- bbox_3857["xmin"]
+  attr(map, "bb")$ur.lat <- bbox_3857["ymax"]
+  attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
+  map
+}
+map <- ggmap_bbox(base_map) # transform proj of sat map
+
+# plot
+map %>% ggmap(extent = "device", legend = "bottom", darken = c(0.5,"#FFFFFF"))
+```
+
+
+Plot sf data on Google maps basemap 
+```{r, er3, eval = F}
+prj <- 3857 # set proj to match google map prj
+
+map %>% ggmap(extent = "device", legend = "bottom", darken = c(0.5,"#FFFFFF")) +
+geom_sf(data = sf %>% st_transform(prj), size = 0.05, inherit.aes = F)  # include inherit.aes = F to show data 
+```
+
 
 
 ### GDB (`.gdb`/`.gdbtable`)
