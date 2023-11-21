@@ -754,7 +754,8 @@ df %>%
   tally(var1 * var2, name = "new_var1")
 ```
 
-Lengthen df by column variables
+Lengthen df by column variables  
+(see https://haswal.github.io/pivot/ for good visual example)  
 ```{r}
 # select vars you want and lengthen by 'var_n'
 # e.g. var_n = year
