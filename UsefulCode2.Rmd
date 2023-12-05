@@ -1856,7 +1856,7 @@ txt %>% bracketX(bracket = c("square","angle"))
 ```
 
 Get exact string/word 
-```{r}
+```{r, str11}
 require(stringr)
 require(dplyr)
 txt <- "Get only this word not these words"
@@ -1864,6 +1864,26 @@ txt <- "Get only this word not these words"
 # get only 'word' and not 'words'
 txt %>% 
   str_extract_all("\\bword\\b" %>% regex(ignore.case = T))
+```
+
+
+Check spelling in string and suggest options 
+```{r, str12}
+require(qdap)
+"text1" %>% qdap::check_spelling()
+```
+
+Replace multiple strings with single or multiple strings  
+```{r, str13}
+require(stringr)
+require(purrr)
+ln <- "text1 text2 text3 text4" # string to read  
+wds <- c("text2","text3") # string to modify
+purrr::reduce2(wds,
+               paste0("<em>",wds,"</em>"),
+               .init = ln,
+               str_replace # func to apply
+               )
 ```
 
 

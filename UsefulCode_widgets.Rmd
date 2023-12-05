@@ -233,3 +233,9 @@ map %>%
 )
 ```
 
+Show user input in live viewer
+```{r, map3, eval = F}
+# shows latlon, zoom, pitch, bearing, etc
+mapdeck::mapdeck(show_view_state = T)
+```
+
