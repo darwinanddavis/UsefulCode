@@ -1887,6 +1887,20 @@ purrr::reduce2(wds,
 ```
 
 
+Extract latlons as string from between special chars and convert into sf 
+```{r}
+city_df <- "Corte (42.3052,9.1520)
+Bocca del Oro (41.54754,9.28543)
+Bastia (42.6992,9.4515)" %>% 
+  qdapRegex::ex_between("(", ")",trim = T, fixed = T,clean = T,extract = T) %>% 
+  unlist %>% 
+  as.data.frame() %>% 
+  tidyr::separate(col = ".",into = c("lat", "lon"), sep = ",", remove = T) %>% # separate char into individual values
+  mutate_all(as.numeric) %>% 
+  st_as_sf(coords = c("lon","lat"), crs = 4326) 
+```
+
+
 ### SVG
 
 Read in svg  
