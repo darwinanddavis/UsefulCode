@@ -1136,6 +1136,26 @@ ggplot() +
 ```
 
 
+Add text grob as plot area
+```{r, text6, eval = F}
+require(patchwork)
+require(gridExtra)
+require(grid)
+
+# opt 1
+fh_grob <- "Some text"
+(p1 + p2) + grid::textGrob(fh_grob) 
+
+# opt 2 - display df in plot window 
+fh_grob <- data.frame(1:10)
+pft <- gridExtra::tableGrob(fh_grob)
+gridExtra::grid.arrange(p1, pft)
+
+
+
+```
+
+
 ### Save/saving plots  
 
 Save as any output
