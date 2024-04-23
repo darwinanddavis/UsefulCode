@@ -467,6 +467,13 @@ global_output <- rapply(global_output, f=function(x) ifelse(is.na(x),0,x), how="
 
 ```
 
+Remove NA's based on column value 
+```{r, NA11, eval = F}
+require(tidyr)
+
+df %>% 
+  drop_na(c("var1","var2")) 
+```
 
 
 ### Packages  
