@@ -512,6 +512,10 @@ Rename df with pipe
 ```{r,d7}
 df %>% # df of two cols 
   `colnames<-`(c("A","B"))
+
+# rename directly with 'select'
+df %>% 
+  select(Lat, Lon, "Site" = `Site name`)
 ```
 
 Split df into multiple dfs based on row value 
@@ -741,14 +745,14 @@ df %>% mutate_at("var1", ~ifelse(. > 0.5, "this","that"))
 
 
 Gather/melt data into groups/stacks
-```{r}
+```{r,dplyr14}
 df %>% gather(key = "Country", value = "value")
 
 # reorder factors to df  
 ```
 
 Count instances of grouped data  
-```{r}
+```{r,dplyr15}
 df %>% 
   group_by(date) %>% 
   tally(var1 * var2, name = "new_var1")
@@ -756,7 +760,7 @@ df %>%
 
 Lengthen df by column variables  
 (see https://haswal.github.io/pivot/ for good visual example)  
-```{r}
+```{r,dplyr16}
 # select vars you want and lengthen by 'var_n'
 # e.g. var_n = year
 df %>% 
