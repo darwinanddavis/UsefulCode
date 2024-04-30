@@ -1008,6 +1008,16 @@ ggplot() +
   
 ```
 
+Update legend title  
+```{r, legend10, eval = F}
+
+ggplot() + labs(fill = "title") # opt 1
+ggplot() + guides(fill = guide_legend(title = "title")) # opt 2
+ggplot() + scale_fill_discrete(name = "title") # opt 3
+
+```
+
+
 ### Axes    
 Add brackets to axes 
 ```{r}
