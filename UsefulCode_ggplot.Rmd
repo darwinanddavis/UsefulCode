@@ -1297,4 +1297,21 @@ girafe(ggobj = wrap_plots(gg, gg_bar, widths = c(8, 8), heights = c(6, 2),
 ```
 
 
+Word clouds    
+```{r, eval = F}
+devtools::install_github("lchiffon/wordcloud2") # need to use dev ver
+figpath <- here::here("face.png") # needs to be black and white
+wcld <- data.frame("keyword" = LETTERS[1:20],
+                   "freq" = sample(100,20))
+
+# run twice if first time doesn't run  
+wordcloud2(wcld, figPath = figpath,
+           color = c("skyblue","red"),
+           backgroundColor = "pink")
+
+# other options  
+# https://spencerschien.info/post/data_viz_how_to/dense_word_clouds/
+# https://lepennec.github.io/ggwordcloud/
+# https://stackoverflow.com/questions/42028462/wordcloud-with-a-specific-shape
+```
 
