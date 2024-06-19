@@ -957,6 +957,22 @@ png %>% image_colorize(color = "#EFEFEF", opacity = 70)
   
 ```
 
+Read text from image  
+```{r, img2}
+require(magick)
+require(tesseract)
+
+"test.png" %>% 
+  image_read() %>% 
+  image_ocr()
+
+# return df with new word per col and associated bbox  
+"test.png" %>% 
+  image_read() %>% 
+  image_ocr_data()
+
+```
+
 
 
 ### Interactive plots  

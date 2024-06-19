@@ -1662,7 +1662,7 @@ border-radius: 0px;
   MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });
 </script>
 <p> </p>
-<p>Date: 2023-11-10<br />
+<p>Date: 2024-06-19<br />
 <code>R</code> version: 3.5.0<br />
 *Corresponding author: matthew.malishev [at] gmail.com<br />
 This document can be found at <a href="https://github.com/darwinanddavis/UsefulCode" class="uri">https://github.com/darwinanddavis/UsefulCode</a></p>
@@ -2312,7 +2312,7 @@ First manually convert file from ‘.kml’ to ‘.gpx’</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(geoviz)</span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>ras <span class="sc">%&gt;%</span> <span class="fu">raster_zscale</span>()</span></code></pre></div>
 <p>Shaded contour maps (Tanaka maps)</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://github.com/riatelab/tanaka/</span></span>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://github.com/riatelab/tanaka/ https://rgeomatic.hypotheses.org/1536</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tanaka)</span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
 <span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>ras <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">system.file</span>(<span class="st">&quot;tif/elev.tif&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tanaka&quot;</span>))</span>
@@ -2469,7 +2469,11 @@ make weird shapes)</p>
 <span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_filter</span>(sf_dataframe,</span>
 <span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">.predicate =</span> st_intersects</span>
 <span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>            <span class="co"># join = st_overlaps</span></span>
-<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>            )</span></code></pre></div>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a><span class="co"># option 3 - check other predicate options and switch point/poly order</span></span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a>sf_polygon[<span class="fu">st_intersects</span>(sf_point,sf_polygon,<span class="at">sparse =</span> T, <span class="at">prepared =</span> T) <span class="sc">%&gt;%</span> unlist,] <span class="sc">%&gt;%</span> </span>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(sf_point, <span class="at">join =</span> st_intersects, <span class="at">largest =</span> T)</span></code></pre></div>
 <p>Merge sequential/overlapping sf polygons</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge first 20 polygons into one polygon</span></span>
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>sf[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, ] <span class="sc">%&gt;%</span> st_union</span>

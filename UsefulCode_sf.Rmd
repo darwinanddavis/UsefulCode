@@ -1198,6 +1198,11 @@ sf_polygon %>%
             .predicate = st_intersects
             # join = st_overlaps
             )
+
+# option 3 - check other predicate options and switch point/poly order
+sf_polygon[st_intersects(sf_point,sf_polygon,sparse = T, prepared = T) %>% unlist,] %>% 
+  st_join(sf_point, join = st_intersects, largest = T)
+
 ```
 
 Merge sequential/overlapping sf polygons
