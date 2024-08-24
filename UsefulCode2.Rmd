@@ -558,6 +558,15 @@ gapminder %>%
   summarise(median(lifeExp))
 
 # group by 
+
+# vari = response var
+# var1-var3 = conditional vars that will be considered in grouping  
+df %>%
+  group_by(var1,var2,var3) %>%
+  summarise("total" = vari %>% sum)
+# plot will be var1 (x) vari (y), fill/group (var2), facet (var3)
+
+
 gapminder %>%  
   group_by(continent) %>% 
   summarise(median(lifeExp))  
