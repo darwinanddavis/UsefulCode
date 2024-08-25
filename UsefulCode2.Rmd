@@ -791,6 +791,25 @@ df %>%
 # C     var3      9
 ```
 
+Separate/split df into individual dfs based on repeating value in a column 
+```{r,dplyr17}
+
+ # Name    Description   IDS                       geometry
+ #   <fct>   <fct>       <fct>               <GEOMETRY [°]>
+ # 1 2023    ""          0     LINESTRING Z (12.4822 41.89…
+ # 2 Rome    ""          1      POINT Z (12.4822 41.8967 0)
+ # 3 Grosse… ""          2     POINT Z (11.11239 42.76355 …
+ # 4 San Gi… ""          3     POINT Z (11.04341 43.4672 0)
+ # 5 Floren… ""          0     POINT Z (11.25767 43.76997 …
+ # 6 Interl… ""          1     POINT Z (11.25767 43.76997 …
+                                      
+                                      
+df %>% 
+  mutate(trips = cumsum(IDS == 0)) %>% # create new helper col between every instance of 0 in IDS
+  group_by(trips) %>% # group by this helper col 
+  group_split() # spit into individual dfs 
+```
+
 
 ### Generic functions 
 
