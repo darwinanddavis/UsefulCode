@@ -807,7 +807,9 @@ Separate/split df into individual dfs based on repeating value in a column
 df %>% 
   mutate(trips = cumsum(IDS == 0)) %>% # create new helper col between every instance of 0 in IDS
   group_by(trips) %>% # group by this helper col 
-  group_split() # spit into individual dfs 
+  group_split() %>% # spit into individual dfs 
+  set_names(LETTERS[1:length(.)]) %>%  # create new names for each df
+  imap(~write_csv(.x, paste0(.y, ".csv"))) # save each object '.x' as '.y' to dir as csv based on their list names   
 ```
 
 
